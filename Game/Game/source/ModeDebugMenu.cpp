@@ -7,6 +7,7 @@
 #include"AICheckPoint.h"
 #include"AIPatrol.h"
 #include"Player.h"
+#include"Siren.h"
 #include"ObjectServer.h"
 #include"CapsuleComponent.h"
 
@@ -19,6 +20,7 @@ bool ModeDebugMenu::_visionCollision = false;
 bool ModeDebugMenu::_AIName = false;
 bool ModeDebugMenu::_cameraChange = false;
 bool ModeDebugMenu::_navigationPolygon = false;
+bool ModeDebugMenu::_sirenInfo = false;
 
 constexpr int FONT_SIZE = 20;
 constexpr int MENU_HEIGHT = 500;
@@ -124,6 +126,16 @@ public:
 	}
 };
 
+class SirenInfo :public ModeDebugMenu::DebugMenuItem {
+public:
+	SirenInfo(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
+	~SirenInfo(){}
+	const char* GetText()override { return "サイレンの情報を描画します"; }
+	void Select()override {
+		ModeDebugMenu::_sirenInfo = !ModeDebugMenu::_sirenInfo;
+	}
+};
+
 //ModeDebugMenu::ModeDebugMenu(ModeGame* game)
 //	:_game(game) {
 //
@@ -147,6 +159,7 @@ bool ModeDebugMenu::Initialize() {
 	_debugMenus.emplace_back(new NavigationPolygons(this));
 	_debugMenus.emplace_back(new GameEnd(this));
 	_debugMenus.emplace_back(new StageReset(this));
+	_debugMenus.emplace_back(new SirenInfo(this));
 	//_UIs.emplace_back(new PlayEffect(this,"Laser"));
 
 	//for (int a = 0; a < FITS_MENU_UI_NUM; a++) {
@@ -217,6 +230,7 @@ bool ModeDebugMenu::Render() {
 	if (_visionCollision) { RenderVisionCollision(); }
 	if (_AIName) { RenderEnemyAIName(); }
 	if (_navigationPolygon) { RenderNavigationPolygons(); }
+	if (_sirenInfo) { RenerSirenInfo(); }
 
 	if (_isProcess) {
 		SetFontSize(FONT_SIZE);
@@ -312,86 +326,6 @@ void ModeDebugMenu::RenderEnemyRoot() {
 		}
 
 	}
-	/*	auto _pos = (*iter)->GetPos();
-		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx(_pos + Vector3D(0, 180, 0)));
-
-		if (_AI->GetCurrentState()->GetName() == "Patrol") {
-
-			AIPatrol* state = static_cast<AIPatrol*>(_AI->GetCurrentState());
-			if (state->GetPatrolPoints().size() > state->GetPatrolPointsNum()) {
-				DrawLine3D(
-					DxConverter::VecToDx(state->GetPatrolPoints()[state->GetPatrolPointsNum()] + Vector3D(0, 100, 0)),
-					DxConverter::VecToDx(_pos + Vector3D(0, 100, 0)),
-					GetColor(0, 255, 0)
-				);
-
-				for (int a = 0; a < state->GetPatrolPoints().size(); a++) {
-					DrawSphere3D(
-						DxConverter::VecToDx(state->GetPatrolPoints()[a] + Vector3D(0, 30, 0)),
-						30,
-						10,
-						GetColor(0, 255, 0),
-						GetColor(255, 255, 255),
-						FALSE
-					);
-					DrawFormatString(
-						ConvWorldPosToScreenPos(DxConverter::VecToDx(state->GetPatrolPoints()[a])).x,
-						ConvWorldPosToScreenPos(DxConverter::VecToDx(state->GetPatrolPoints()[a])).y,
-						GetColor(255, 255, 255), 
-						"%d番目 x = %3f y = %3f z = %3f", 
-						a, state->GetPatrolPoints()[a].x, state->GetPatrolPoints()[a].y, state->GetPatrolPoints()[a].z
-					);
-				}
-			}
-			DrawFormatString(pos.x, pos.y, GetColor(255, 255, 255), "最大サイズ%d %d番目", state->GetPatrolPoints().size(), state->GetPatrolPointsNum());
-		}
-		else if (_AI->GetCurrentState()->GetName() == "CheckPlayer") {
-			AIChasePlayer* state = dynamic_cast<AIChasePlayer*>(_AI->GetCurrentState());
-			if (state->GetPoints().size() > state->GetPointsNum()) {
-				DrawLine3D(
-					DxConverter::VecToDx(state->GetPoints()[state->GetPointsNum()] + Vector3D(0, 100, 0)),
-					DxConverter::VecToDx(_pos + Vector3D(0, 100, 0)),
-					GetColor(0, 255, 0)
-				);
-
-				for (int a = 0; a < state->GetPoints().size(); a++) {
-					DrawSphere3D(
-						DxConverter::VecToDx(state->GetPoints()[a] + Vector3D(0, 30, 0)),
-						30,
-						10,
-						GetColor(0, 255, 0),
-						GetColor(255, 255, 255),
-						FALSE
-					);
-
-				}
-			}
-			DrawFormatString(pos.x, pos.y, GetColor(255, 255, 255), "最大サイズ%d %d番目", state->GetPoints().size(), state->GetPointsNum());
-		}
-		else if (_AI->GetCurrentState()->GetName() == "BackPatrol") {
-			AIBackPatrol* state = dynamic_cast<AIBackPatrol*>(_AI->GetCurrentState());
-			if (state->GetPoints().size() > state->GetPointsNum()) {
-				DrawLine3D(
-					DxConverter::VecToDx(state->GetPoints()[state->GetPointsNum()] + Vector3D(0, 100, 0)),
-					DxConverter::VecToDx(_pos + Vector3D(0, 100, 0)),
-					GetColor(0, 255, 0)
-				);
-
-				for (int a = 0; a < state->GetPoints().size(); a++) {
-					DrawSphere3D(
-						DxConverter::VecToDx(state->GetPoints()[a] + Vector3D(0, 30, 0)),
-						30,
-						10,
-						GetColor(0, 255, 0),
-						GetColor(255, 255, 255),
-						FALSE
-					);
-
-				}
-			}
-			DrawFormatString(pos.x, pos.y, GetColor(255, 255, 255), "最大サイズ%d %d番目", state->GetPoints().size(), state->GetPointsNum());
-		}
-	}*/
 }
 
 void ModeDebugMenu::RenderVisionCollision() {
@@ -497,5 +431,17 @@ void ModeDebugMenu::RenderNavigationPolygons() {
 			GetColor(255, 255, 0),
 			FALSE
 		);
+	}
+}
+
+void ModeDebugMenu::RenerSirenInfo() {
+	auto sound = GetGame()->GetObjectServer()->GetSirens();
+
+	for (int a = 0; a < sound.size(); a++) {
+	
+		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx(sound[a]->GetPos()));
+
+		DrawFormatString((int)pos.x,(int)pos.y,GetColor(255,0,0),"残りインターバル %d",sound[a]->GetInterval());
+
 	}
 }

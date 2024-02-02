@@ -267,6 +267,9 @@
     <ClCompile Include="source\AICheckPoint.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
+    <ClCompile Include="source\Siren.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -442,6 +445,9 @@
     </ClInclude>
     <ClInclude Include="source\AICheckPoint.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Siren.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

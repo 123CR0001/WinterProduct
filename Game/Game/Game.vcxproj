@@ -195,6 +195,7 @@
     <ClCompile Include="source\OrbitCamera.cpp" />
     <ClCompile Include="source\PhysWorld.cpp" />
     <ClCompile Include="source\Player.cpp" />
+    <ClCompile Include="source\Siren.cpp" />
     <ClCompile Include="source\SoundComponent.cpp" />
     <ClCompile Include="source\SoundItem.cpp" />
     <ClCompile Include="source\SoundServer.cpp" />
@@ -257,6 +258,7 @@
     <ClInclude Include="source\OrbitCamera.h" />
     <ClInclude Include="source\PhysWorld.h" />
     <ClInclude Include="source\Player.h" />
+    <ClInclude Include="source\Siren.h" />
     <ClInclude Include="source\SoundComponent.h" />
     <ClInclude Include="source\SoundItem.h" />
     <ClInclude Include="source\SoundServer.h" />

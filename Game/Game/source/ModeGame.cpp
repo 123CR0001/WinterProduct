@@ -16,6 +16,7 @@
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
 #include"Player.h"
+#include"Siren.h"
 
 #include"SoundComponent.h"
 #include"PhysWorld.h"
@@ -60,13 +61,9 @@ bool ModeGame::Process() {
 		ModeColorOut* mode = new ModeColorOut(colorIn,nullptr, 10, new ModeLightsOut(), 100, "LightsOut");
 		ModeServer::GetInstance()->Add(mode, 100, "Out");
 	}
-	//if (GetPad()->GetTrgButton() & INPUT_X && !ModeServer::GetInstance()->IsAdd("Pause")) {
-	//	ModeServer::GetInstance()->Add(new ModePause(), 100, "Pause");
-	//}
-	if (GetPad()->GetTrgButton() & INPUT_X) {
-		 new SoundComponent(_objServer->GetPlayer(), Vector3D(1175.38f, 0.624f, 332.939f), 500.f);
+	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
+		ModeServer::GetInstance()->Add(new ModePause(), 100, "Pause");
 	}
-
 
 	return true;
 }
@@ -88,10 +85,6 @@ bool ModeGame::Render() {
 #endif
 
 	if (!_objServer->Renderer()) { return false; }
-
-	for (auto&& s : _objServer->GetPhysWorld()->GetSoundComponent()) {
-		DrawSphere3D(DxConverter::VecToDx(s->GetPos()), s->GetVolumeSize(), 10, GetColor(255, 0, 0), 0, FALSE);
-	}
 
 	return true;
 }
@@ -175,8 +168,10 @@ bool ModeGame::LoadData() {
 				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
 				MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());
 		}
-
 	}
+
+	ObjectBase* l = new Siren(GetObjectServer());
+	l->SetPos(Vector3D(1200, 0, 350));
 
 	return true;
 }

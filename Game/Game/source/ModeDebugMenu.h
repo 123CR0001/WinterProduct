@@ -15,6 +15,7 @@ public:
 	void RenderVisionCollision();
 	void RenderEnemyAIName();
 	void RenderNavigationPolygons();
+	void RenerSirenInfo();
 
 	class ModeGame* GetGame()const { return _game; }
 
@@ -24,6 +25,8 @@ public:
 	static bool _AIName;
 	static bool _cameraChange;
 	static bool _navigationPolygon;
+	static bool _sirenInfo;
+
 protected:
 	class ModeGame* _game;
 

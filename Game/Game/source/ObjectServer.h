@@ -27,6 +27,7 @@ public:
 	//この関数を利用して、各クラスで追加されたアドレスを登録する
 	std::vector<class CharaBase*>& GetCharas() { return _charas; }
 	std::vector<class CommonSoldier*>& GetCommonSoldiers() { return _commonSoldiers; }
+	std::vector<class Siren*>& GetSirens() { return _sirens; }
 
 	bool SetNavigationModel(const char* fileName,const char* attacFrameIndex) {
 		_navigationModel = MV1LoadModel(fileName); 
@@ -49,7 +50,8 @@ private:
 	//特定のクラスだけ欲しいので、アドレス登録用の配列
 	//用途は当たり判定やObjectBase*型のポインタから特定のクラスしかできない処理をダウンキャストせずにするため
 	std::vector<class CharaBase*> _charas;		
-	std::vector<class CommonSoldier*> _commonSoldiers;		
+	std::vector<class CommonSoldier*> _commonSoldiers;
+	std::vector<class Siren*>_sirens;
 
 	class PhysWorld* _physWorld;
 
