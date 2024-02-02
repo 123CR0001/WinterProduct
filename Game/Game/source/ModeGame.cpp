@@ -170,9 +170,6 @@ bool ModeGame::LoadData() {
 		}
 	}
 
-	ObjectBase* l = new Siren(GetObjectServer());
-	l->SetPos(Vector3D(1200, 0, 350));
-
 	return true;
 }
 

@@ -13,6 +13,7 @@
 #include"OrbitCamera.h"
 #include"MoveComponent.h"
 #include"PhysWorld.h"
+#include"SoundComponent.h"
 
 Player::Player(ObjectServer* server)
 	:CharaBase(server) 
@@ -68,6 +69,11 @@ bool Player::Process() {
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
 
+	//‘«‰¹
+	if (Vector3D::LengthSquare(_pos, _oldPos) >= 5.f * 5.f) {
+		new SoundComponent(this, 500.f);
+	}
+
 	// ˆÚ“®‘O‚ÌˆÊ’u‚ð•Û‘¶
 	_oldPos = _pos;
 
@@ -89,7 +95,7 @@ bool Player::Process() {
 			_actionState = ACTION_STATE::kWalk;
 
 		}
-		//else { _actionState = ACTION_STATE::kIdle; }
+
 
 		if (pad->GetTrgButton() & INPUT_A) {
 			_actionState = ACTION_STATE::kAttack;
