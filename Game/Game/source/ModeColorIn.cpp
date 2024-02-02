@@ -37,7 +37,7 @@ bool ModeColorIn::Process() {
 		_frameCnt = -1;
 	}
 	else {
-		_alpha = EasingLinear(_frameCnt, 255, 0, _frameMaxCnt);
+		_alpha = EasingLinear((float)_frameCnt, 255, 0, (float)_frameMaxCnt);
 		_frameCnt++;
 	}
 

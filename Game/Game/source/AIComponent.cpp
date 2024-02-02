@@ -45,6 +45,10 @@ void AIComponent::AddPoint(const std::string& name, const Vector3D& point) {
 	_points[name].emplace_back(point);
 }
 
+void AIComponent::InsertPoint(const std::string& name, const Vector3D& point,const int num) {
+	_points[name].insert(_points[name].begin() + num, point);
+}
+
 void AIComponent::DeletePoint(const std::string& name, int num) {
 	//numに0以上の値が入れられた場合は、その番号のコンテナを削除
 	if (num > 0) {

@@ -15,8 +15,6 @@ public:
 
 	const char* GetName()override { return "Patrol"; }
 
-	void SetData(void* data)override;
-
 	std::vector<Vector3D> GetPatrolPoints()const{ return _patrolPoints; }
 	int GetPatrolPointsNum()const { return _patrolPointsNum; }
 

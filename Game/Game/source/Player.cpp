@@ -33,16 +33,15 @@ bool Player::Initialize() {
 
 	_cameraCom->Initialize();
 
-	LoadModel("res/cg_player_girl/cg_player_girl.mv1");
+	LoadModel("res/Chara/mannequin.mv1");
 
 	//アニメーションの登録
-	_anim->LoadAnimation("Idle", "cg_player_clear", 0);
-	_anim->LoadAnimation("run", "cg_player_run", 0);
-	_anim->LoadAnimation("attack", "cg_player_shoot_right", 1);
-	_anim->LoadAnimation("attack2", "cg_player_shoot_left", 1);
+	_anim->LoadAnimation("Idle", "mo_standby_01", 0);
+	_anim->LoadAnimation("run", "mo_move_01", 0);
+	_anim->LoadAnimation("attack", "mo_lightsout_01", 1);
+	_anim->LoadAnimation("attack2", "mo_lightsout_01", 1);
 
 	// 3Dモデルの1番目のアニメーションをアタッチする
-	_attachIndex = MV1SearchFrame(_handle,"cg_player_clear");
 
 	_colSubY = 40.f;
 	_radian = 30;
@@ -51,8 +50,6 @@ bool Player::Initialize() {
 
 	_actionState = ACTION_STATE::kIdle;
 	_anim->ChangeAnimation("Idle");
-
-
 
 	ModelMatrixSetUp();
 	return true;

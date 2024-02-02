@@ -10,7 +10,7 @@
 AIPatrol::AIPatrol(AIComponent* owner, AIBackPatrol* AI)
 	:AIState(owner)
 	,_AIBackPatrol(AI)
-	,_patrolPointsNum(0)
+	,_patrolPointsNum(1)
 {}
 
 AIPatrol::~AIPatrol(){}
@@ -39,7 +39,7 @@ bool AIPatrol::Process() {
 
 	//されていたら、処理をする
 	if (iter != _owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end()) {
-		(*iter)->MoveRoute(_patrolPoints, _patrolPointsNum);
+		(*iter)->MoveRoute(_owner->GetPoints(GetName()), _patrolPointsNum);
 		if ((*iter)->IsPlayerFound()) {
 			_owner->ChangeState("ChasePlayer");
 		}
@@ -53,36 +53,4 @@ bool AIPatrol::Process() {
 	}
 	
 	return true;
-}
-
-void AIPatrol::SetData(void* data) {
-
-	//一歩間違ったらエラーが出る
-	//正直怖い
-
-	nlohmann::json* castData = (nlohmann::json*)data;
-
-	char num[10];
-	int count = 1;
-
-	for (auto& marker : *castData) {
-
-		std::string name = "marker";
-
-		snprintf(num, 8, "%d", count);
-		name += num;
-		count++;
-
-		if (marker.at("objectName") == name) {
-			Vector3D pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
-			_patrolPoints.emplace_back(pos);
-
-			/*_scale = Vector3D(marker.at("scale").at("x"), marker.at("scale").at("z"), marker.at("scale").at("y"));*/
-		}
-
-	}
-	if (_patrolPoints.size() > 0) {
-		_owner->GetOwner()->SetPos(_patrolPoints.front());
-		_patrolPointsNum = 1;
-	}
 }

@@ -15,7 +15,6 @@ public:
 	//ŒÅ—L‚Ì–¼‘O‚ð•Ô‚·
 	virtual const char* GetName() = 0;
 
-	virtual void SetData(void* data){}
 protected:
 	class AIComponent* _owner;
 };

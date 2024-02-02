@@ -22,7 +22,7 @@ bool Knife::Initialize() {
 	MV1SetFrameVisible(_handle, _attachIndex, FALSE);
 
 	_scale = Vector3D(1.5f, 2.5f, 1.5f);
-	_eulerAngle = Vector3D(0.f,0.f, -PI / 2.f);
+	_eulerAngle = Vector3D(0.f,0.f, PI);
 
 	return true;
 }
@@ -31,16 +31,16 @@ bool Knife::Process() {
 	int FrameIndex;
 	_matrix = MGetIdent();
 	// フレーム名からフレーム番号を取得する
-	FrameIndex = MV1SearchFrame(_equippedChara->GetHandle(), "Character1_LeftHand");
+	FrameIndex = MV1SearchFrame(_equippedChara->GetHandle(), "Character1_LeftHandThumb6");
 	_matrix = MGetScale(DxConverter::VecToDx(_scale));
 	_matrix = MMult(_matrix, MGetRotX(_eulerAngle.x));
 	_matrix = MMult(_matrix, MGetRotZ(_eulerAngle.z));
 	_matrix = MMult(_matrix, MV1GetFrameLocalWorldMatrix(_equippedChara->GetHandle(), FrameIndex));
 	MV1SetMatrix(_handle, _matrix);
 
-	for (int a = 0; a <= _attachIndex; a++) {
-		MV1RefreshCollInfo(_handle, a);
-	}
+	//for (int a = 0; a <= _attachIndex; a++) {
+		MV1RefreshCollInfo(_handle, _attachIndex);
+	//}
 	if (_isAttack) {
 		PhysWorld::CollisionDetectionResult result = _frame->GetOverlapResult();
 		if (result.isHit && result.item._object != _equippedChara) {

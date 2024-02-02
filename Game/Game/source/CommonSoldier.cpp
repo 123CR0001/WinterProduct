@@ -35,7 +35,6 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 
 CommonSoldier::~CommonSoldier(){
 	Terminate();
-	delete _AI;
 }
 
 bool CommonSoldier::Initialize() {
@@ -104,9 +103,27 @@ void CommonSoldier::SetJsonDataUE(nlohmann::json data) {
 
 	AIState* state = _AI->GetStateMap("Patrol");
 
-	//”ñí‚ÉŠëŒ¯@‚¢‚Â‚©C³‚µ‚Ü‚·
-	if (!state) { }
-	state->SetData(&data);
+	if (!state) { return; }
+
+	char num[10];
+	int count = 1;
+
+	//AIPatrol‚Ì„‰ñŒo˜H‚ð“o˜^
+	for (auto&& marker : data) {
+
+		std::string name = "marker";
+		snprintf(num, 8, "%d", count);
+		name += num;
+		count++;
+
+		if (marker.at("objectName") == name) {
+			Vector3D pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
+			_AI->AddPoint(state->GetName(), pos);
+		}
+	}
+	if (_AI->GetPoints(state->GetName()).size() > 0) {
+		SetPos(_AI->GetPoints(state->GetName()).front());
+	}
 
 	ModelMatrixSetUp();
 }

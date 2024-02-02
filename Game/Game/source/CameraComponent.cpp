@@ -16,8 +16,8 @@ bool CameraComponent::Process() {
 		if (rand() % 2 == 0) { h *= -1; }
 
 		SetCameraScreenCenter(
-			ApplicationBase::GetInstance()->DispSizeW() / 2 + w,
-			ApplicationBase::GetInstance()->DispSizeH() / 2 + h
+			(float)ApplicationBase::GetInstance()->DispSizeW() / 2 + w,
+			(float)ApplicationBase::GetInstance()->DispSizeH() / 2 + h
 		);
 
 		if (_swapWidth > 0) { _swapWidth -= rand() % 5; }

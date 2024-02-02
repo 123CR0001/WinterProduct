@@ -42,7 +42,7 @@ bool SoundComponent::Process() {
 
 bool SoundComponent::IsHear(const Vector3D& pos) {
 	//_volumeSize‚æ‚è‹——£‚ª’Z‚¯‚ê‚ÎAtrue‚ð•Ô‚·
-	if (Vector3D::LengthSquare(pos, _pos) > _volumeSize * _volumeSize) {
+	if (Vector3D::LengthSquare(pos, _pos) < _volumeSize * _volumeSize) {
 		return true;
 	}
 	

@@ -154,7 +154,7 @@ bool ModeDebugMenu::Initialize() {
 	//	_UIs.emplace_back(new CommonSolidierVisionCollision());
 	//}
 
-	_drawNum = _debugMenus.size();
+	_drawNum = (int)_debugMenus.size();
 	if (_drawNum > FITS_MENU_UI_NUM) { _drawNum = FITS_MENU_UI_NUM; }
 	return true;
 }
@@ -188,7 +188,7 @@ bool ModeDebugMenu::Process() {
 		if (_key & INPUT_DPAD_DOWN) {
 			if (_inputFrameCnt > 10 || _inputFrameCnt == 0) {
 				_selectNum += 1;
-				if (_selectNum >= _debugMenus.size()) { _selectNum = _debugMenus.size() - 1; }
+				if (_selectNum >= (int)_debugMenus.size()) { _selectNum = (int)_debugMenus.size() - 1; }
 			}
 			_inputFrameCnt++;
 
@@ -230,7 +230,7 @@ bool ModeDebugMenu::Render() {
 
 		for (int a = _start; a < _start + _drawNum; a++) {
 			auto pos = Vector3D(50.f, (float)FONT_SIZE * (a - _start), 0.f);
-			DrawFormatString(pos.x, pos.y, GetColor(0, 0, 255), "%s", _debugMenus[a]->GetText());
+			DrawFormatString((int)pos.x, (int)pos.y, GetColor(0, 0, 255), "%s", _debugMenus[a]->GetText());
 		}
 		SetFontSize(GetFontSize());
 	}
@@ -302,13 +302,13 @@ void ModeDebugMenu::RenderEnemyRoot() {
 				FALSE
 			);
 			DrawFormatString(
-				ConvWorldPosToScreenPos(DxConverter::VecToDx(route)).x,
-				ConvWorldPosToScreenPos(DxConverter::VecToDx(route)).y,
+				(int)ConvWorldPosToScreenPos(DxConverter::VecToDx(route)).x,
+				(int)ConvWorldPosToScreenPos(DxConverter::VecToDx(route)).y,
 				GetColor(255, 255, 255),
 				"%d番目 x = %3f y = %3f z = %3f",
 				num, route.x, route.y, route.z
 			);
-			DrawFormatString(pos.x, pos.y, GetColor(255, 255, 255), "最大サイズ%d", AI->GetPoints(AI->GetCurrentState()->GetName()));
+			DrawFormatString((int)pos.x, (int)pos.y, GetColor(255, 255, 255), "最大サイズ%d", AI->GetPoints(AI->GetCurrentState()->GetName()));
 		}
 
 	}
@@ -434,16 +434,16 @@ void ModeDebugMenu::RenderVisionCollision() {
 		Vector3D forward(_pos + vDir);
 
 		DrawTriangle3D(
-			DxConverter::VecToDx(_pos + Vector3D(0, 0.1, 0)),
-			DxConverter::VecToDx(forward + Vector3D(0, 0.1, 0)),
-			DxConverter::VecToDx(right + Vector3D(0, 0.1, 0)),
+			DxConverter::VecToDx(_pos + Vector3D(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(forward + Vector3D(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(right + Vector3D(0.f, 0.1f, 0.f)),
 			color,
 			TRUE
 		);
 		DrawTriangle3D(
-			DxConverter::VecToDx(_pos + Vector3D(0, 0.1, 0)),
-			DxConverter::VecToDx(left + Vector3D(0, 0.1, 0)),
-			DxConverter::VecToDx(forward + Vector3D(0, 0.1, 0)),
+			DxConverter::VecToDx(_pos + Vector3D(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(left + Vector3D(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(forward + Vector3D(0.f, 0.1f, 0.f)),
 			color,
 			TRUE
 		);
@@ -474,7 +474,7 @@ void ModeDebugMenu::RenderEnemyAIName() {
 		auto _AI = (*iter)->GetAIComponent();
 		if (_AI) {
 			VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetPos() + Vector3D(0, 180, 0)));
-			DrawFormatString(pos.x, pos.y, GetColor(0, 255, 0), "%s ", _AI->GetCurrentState()->GetName());
+			DrawFormatString((int)pos.x, (int)pos.y, GetColor(0, 255, 0), "%s ", _AI->GetCurrentState()->GetName());
 		}
 	}
 }

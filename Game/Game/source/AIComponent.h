@@ -26,6 +26,7 @@ public:
 
 	std::vector<Vector3D>&GetPoints(const std::string& name) { return _points[name]; }
 	void AddPoint(const std::string& name, const Vector3D& point);
+	void InsertPoint(const std::string& name, const Vector3D& point, const int num);
 	void DeletePoint(const std::string& name, int num = -1);
 
 protected:

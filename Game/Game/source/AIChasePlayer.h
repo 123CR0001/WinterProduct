@@ -19,12 +19,10 @@ public:
 
 	const char* GetName()override { return "ChasePlayer"; }
 
-	std::vector<Vector3D> GetPoints()const { return _points; }
 	int GetPointsNum()const { return _pointsNum; }
 
 private:
 
-	std::vector<Vector3D>_points;
 	int _pointsNum;
 
 	//
