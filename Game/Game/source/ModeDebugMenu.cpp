@@ -9,7 +9,9 @@
 #include"Player.h"
 #include"Siren.h"
 #include"ObjectServer.h"
+
 #include"CapsuleComponent.h"
+#include"SoundComponent.h"
 
 #include"ModeEffekseer.h"
 #include"ModeGame.h"
@@ -21,11 +23,11 @@ bool ModeDebugMenu::_AIName = false;
 bool ModeDebugMenu::_cameraChange = false;
 bool ModeDebugMenu::_navigationPolygon = false;
 bool ModeDebugMenu::_sirenInfo = false;
+bool ModeDebugMenu::_soundInfo = false;
 
 constexpr int FONT_SIZE = 20;
 constexpr int MENU_HEIGHT = 500;
 constexpr int FITS_MENU_UI_NUM = MENU_HEIGHT / FONT_SIZE;
-
 
 class CharaCollision :public ModeDebugMenu::DebugMenuItem {
 public:
@@ -136,6 +138,16 @@ public:
 	}
 };
 
+class SoundInfo :public ModeDebugMenu::DebugMenuItem {
+public:
+	SoundInfo(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
+	~SoundInfo() {}
+	const char* GetText()override { return "サウンドコンポーネントの情報を描画します"; }
+	void Select()override {
+		ModeDebugMenu::_soundInfo = !ModeDebugMenu::_soundInfo;
+	}
+};
+
 //ModeDebugMenu::ModeDebugMenu(ModeGame* game)
 //	:_game(game) {
 //
@@ -160,6 +172,7 @@ bool ModeDebugMenu::Initialize() {
 	_debugMenus.emplace_back(new GameEnd(this));
 	_debugMenus.emplace_back(new StageReset(this));
 	_debugMenus.emplace_back(new SirenInfo(this));
+	_debugMenus.emplace_back(new SoundInfo(this));
 	//_UIs.emplace_back(new PlayEffect(this,"Laser"));
 
 	//for (int a = 0; a < FITS_MENU_UI_NUM; a++) {
@@ -231,6 +244,7 @@ bool ModeDebugMenu::Render() {
 	if (_AIName) { RenderEnemyAIName(); }
 	if (_navigationPolygon) { RenderNavigationPolygons(); }
 	if (_sirenInfo) { RenerSirenInfo(); }
+	if (_soundInfo) { RenderSoundInfo(); }
 
 	if (_isProcess) {
 		SetFontSize(FONT_SIZE);
@@ -442,6 +456,20 @@ void ModeDebugMenu::RenerSirenInfo() {
 		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx(sound[a]->GetPos()));
 
 		DrawFormatString((int)pos.x,(int)pos.y,GetColor(255,0,0),"残りインターバル %d",sound[a]->GetInterval());
+	}
+}
 
+void ModeDebugMenu::RenderSoundInfo() {
+	auto sound = GetGame()->GetObjectServer()->GetPhysWorld()->GetSoundComponent();
+
+	for (int a = 0; a < sound.size(); a++) {
+		DrawSphere3D(
+		DxConverter::VecToDx(sound[a]->GetPos()),
+			sound[a]->GetVolumeSize(),
+			10,
+			0,
+			0,
+			FALSE
+		);
 	}
 }

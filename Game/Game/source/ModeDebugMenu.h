@@ -16,6 +16,7 @@ public:
 	void RenderEnemyAIName();
 	void RenderNavigationPolygons();
 	void RenerSirenInfo();
+	void RenderSoundInfo();
 
 	class ModeGame* GetGame()const { return _game; }
 
@@ -26,6 +27,7 @@ public:
 	static bool _cameraChange;
 	static bool _navigationPolygon;
 	static bool _sirenInfo;
+	static bool _soundInfo;
 
 protected:
 	class ModeGame* _game;

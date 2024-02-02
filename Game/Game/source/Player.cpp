@@ -154,15 +154,15 @@ bool Player::Render() {
 	if (CharaBase::Render()) {
 
 	}
-	int y = 0;
-	DrawFormatString(
-		0, y, GetColor(255, 0, 0),
-		"x %f y %f z %f",
-		_pos.x,
-		_pos.y,
-		_pos.z,
-		TRUE
-	); y += 25;
+	//int y = 0;
+	//DrawFormatString(
+	//	0, y, GetColor(255, 0, 0),
+	//	"x %f y %f z %f",
+	//	_pos.x,
+	//	_pos.y,
+	//	_pos.z,
+	//	TRUE
+	//); y += 25;
 	//DrawFormatString(
 	//	0, y, GetColor(255, 0, 0),
 	//	"y　マトリックス %f",
