@@ -13,11 +13,13 @@ WeaponBase::WeaponBase(CharaBase* chara)
 	:ObjectBase(chara->GetObjectServer())
 	,_equippedChara(chara)
 	,_isAttack(false)
+	,_frame(NEW FrameComponent(this))
 { 
 	//•Ší‚ÍƒtƒŒ[ƒ€‚Å“–‚½‚è”»’è‚ð‚µ‚È‚¢‚Ì‚ÅœŠO
 	_frame->DeletePhysWorldThis();
 }
-WeaponBase::~WeaponBase(){}
+
+WeaponBase::~WeaponBase() { }
 
 bool WeaponBase::Initialize() {
 

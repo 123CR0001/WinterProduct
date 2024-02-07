@@ -17,16 +17,21 @@ public:
 	//モーションでの処理の際に、再生時間を参照したい。
 	//
 	//参照するのは新しいAnimationなので、_vAnimの末尾の_playTimeを参照する。
-	float GetPlayTime() { 
+	float GetPlayTime() const{ 
 		if (_vAnim.size() > 0) {
 			return (*_vAnim.back())._playTime;
 		}
 		return 0.f;
 	}
 
-protected:
+	int GetAnimationAttachIndex() const{
+		if (_vAnim.size() > 0) {
+			return (*_vAnim.back())._attachIndex;
+		}
+		return 0;
+	}
 
-	
+protected:
 
 	class Animation {
 		friend class AnimationComponent;

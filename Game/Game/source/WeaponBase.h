@@ -22,6 +22,10 @@ protected:
 	//自分を装備しているキャラ
 	class CharaBase* _equippedChara;
 
+	//フレームの当たり判定を行うコンポーネント
+	class FrameComponent* _frame;
+
 	//デバッグ系
 	static bool _isAttackCollisionView;
+
 };

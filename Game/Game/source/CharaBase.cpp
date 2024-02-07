@@ -15,10 +15,6 @@ CharaBase::CharaBase(ObjectServer* server)
 	server->GetCharas().emplace_back(this);
 	_capsule->SetMember(170.f, 40.f);
 
-	//キャラはフレームで当たり判定をしないので除外
-	DeleteComponent(_frame);
-	_frame->DeletePhysWorldThis();
-
 }
 
 CharaBase::~CharaBase() {

@@ -4,7 +4,7 @@
 #include"../../../include/nlohmann/json.hpp"
 class ObjectBase {
 public:
-	ObjectBase(class ObjectServer* _server);
+	ObjectBase(class ObjectServer* _server, bool isFrane = false);
 	virtual ~ObjectBase();
 
 	virtual bool Initialize();
@@ -17,7 +17,6 @@ public:
 	void AddPos(Vector3D vector) { _pos += vector; }
 	VECTOR GetDxPos(){ return DxConverter::VecToDx(_pos); }
 	Vector3D GetPos() { return _pos; }
-	Vector3D GetOldPos() { return _oldPos; }
 	Vector3D GetEulerAngle() { return _eulerAngle; }
 
 	//
@@ -52,7 +51,6 @@ protected:
 
 	//位置情報
 	Vector3D _pos;
-	Vector3D _oldPos;
 
 	//角度
 	Vector3D _eulerAngle;
@@ -63,8 +61,6 @@ protected:
 	//
 	MATRIX _matrix;
 
-	//当たり判定のコンポーネント
-	class FrameComponent* _frame;
 private:
 	class ObjectServer* _server;
 

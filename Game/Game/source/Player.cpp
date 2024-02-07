@@ -67,9 +67,6 @@ bool Player::Process() {
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
 
-	// ˆÚ“®‘O‚ÌˆÊ’u‚ð•Û‘¶
-	_oldPos = _pos;
-
 	const float moveSpeed = 5.f;
 
 	switch (_actionState) {
@@ -152,7 +149,7 @@ bool Player::Process() {
 	ObjectBase::Process();
 
 	//‘«‰¹
-	if (Vector3D::LengthSquare(_pos, _oldPos) >= moveSpeed * moveSpeed) {
+	if (_moveCom->GetSpeed() >= moveSpeed) {
 		new SoundComponent(this, 500.f);
 	}
 
@@ -164,8 +161,6 @@ bool Player::Process() {
 
 bool Player::Render() {
 
-	//MV1SetAttachAnimTime(_handle, _attachIndex, _playTime);
-	//MV1DrawModel(_handle);
 	CharaBase::Render();
 
 	Vector3D vec(_pos - _cameraCom->GetPos());

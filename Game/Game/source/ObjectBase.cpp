@@ -10,13 +10,13 @@
 #include"FrameComponent.h"
 #include"CapsuleComponent.h"
 
-ObjectBase::ObjectBase(ObjectServer* server) 
+ObjectBase::ObjectBase(ObjectServer* server,bool isFrame) 
 	:_server(server)
 {
 	//自分を管理するサーバーを記録する
 	_server->AddObject(this);
 
-	_frame = NEW FrameComponent(this);
+	if (isFrame) { NEW FrameComponent(this); }
 }
 
 ObjectBase::~ObjectBase() {

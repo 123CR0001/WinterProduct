@@ -162,7 +162,7 @@ bool ModeGame::LoadData() {
 		std::string name = object.at("objectName");
 	
 		if (map.find(name) != map.end()) {
-				ObjectBase* p = NEW ObjectBase(GetObjectServer());
+				ObjectBase* p = NEW ObjectBase(GetObjectServer(),true);
 				p->LoadModel(map[name].filePath, map[name].attachFrameName);
 				p->SetJsonDataUE(object);
 				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
