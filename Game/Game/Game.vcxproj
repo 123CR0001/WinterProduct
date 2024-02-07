@@ -204,6 +204,7 @@
     <ClCompile Include="source\UIBase.cpp" />
     <ClCompile Include="source\UIBlink.cpp" />
     <ClCompile Include="source\UIContorl.cpp" />
+    <ClCompile Include="source\UIDetection.cpp" />
     <ClCompile Include="source\UIDisplay.cpp" />
     <ClCompile Include="source\UIGameEnd.cpp" />
     <ClCompile Include="source\UIGameStart.cpp" />
@@ -267,6 +268,7 @@
     <ClInclude Include="source\UIBase.h" />
     <ClInclude Include="source\UIBlink.h" />
     <ClInclude Include="source\UIContorl.h" />
+    <ClInclude Include="source\UIDetection.h" />
     <ClInclude Include="source\UIDisplay.h" />
     <ClInclude Include="source\UIGameEnd.h" />
     <ClInclude Include="source\UIGameStart.h" />
