@@ -13,8 +13,8 @@ ObjectServer::ObjectServer(ModeGame* game)
 }
 
 ObjectServer::~ObjectServer() {
-
 	Terminate();
+	delete _physWorld;
 }
 
 bool ObjectServer::Initialize() {
@@ -25,7 +25,6 @@ bool ObjectServer::Initialize() {
 bool ObjectServer::Terminate() {
 	//管理しているオブジェクトをすべて削除
 	ClearObject();
-	delete _physWorld;
 	return true;
 }
 
