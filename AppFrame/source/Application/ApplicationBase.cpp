@@ -52,7 +52,7 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 	srand((unsigned int)time(NULL));
 
 	// モードサーバの初期化
-	_serverMode = new ModeServer();
+	_serverMode = NEW ModeServer();
 
 	_isGameEnd = false;
 
@@ -63,6 +63,8 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 
 bool ApplicationBase::Terminate() {
 	delete _pad;
+
+	delete _serverMode;
 
 	ResourceServer::Release();
 

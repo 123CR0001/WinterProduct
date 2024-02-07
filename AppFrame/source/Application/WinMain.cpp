@@ -8,8 +8,6 @@
 
 #include "../appframe.h"
 
-
-
 //
 // WinMain(). ƒvƒƒOƒ‰ƒ€‹N“®ŠÖ”
 //
@@ -42,6 +40,9 @@ int WINAPI WinMain(
 	}
 
 	appBase->Terminate();
+
+
+	//_CrtDumpMemoryLeaks();
 
 	return 0;
 }

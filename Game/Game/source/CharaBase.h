@@ -10,10 +10,6 @@ public :
 	bool Terminate()override;
 	bool Render()override;
 
-	//
-	bool IsHitMap();
-	bool IsPushedObject(class ObjectBase* obj);
-	bool IsPushedChara(class CharaBase* chara);
 	float GetRadian()const { return _radian; }
 	float GetCollSubY()const { return _colSubY; }
 

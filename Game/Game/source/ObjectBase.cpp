@@ -16,11 +16,23 @@ ObjectBase::ObjectBase(ObjectServer* server)
 	//自分を管理するサーバーを記録する
 	_server->AddObject(this);
 
-	_frame = new FrameComponent(this);
+	_frame = NEW FrameComponent(this);
 }
 
 ObjectBase::~ObjectBase() {
 	Terminate();
+
+	for (auto iter = _components.begin(); iter != _components.end(); ++iter) {
+		delete (*iter);
+	}
+
+	for (int a = 0; a < _addComponents.size(); a++) {
+		delete _addComponents[a];
+	}
+
+	_addComponents.clear();
+	_deleteComponents.clear();
+	_components.clear();
 }
 
 bool ObjectBase::Initialize() {
@@ -34,15 +46,8 @@ bool ObjectBase::Initialize() {
 bool ObjectBase::Terminate() {
 	ResourceServer::MV1DeleteModel(_handle);
 
-	for (auto iter = _components.begin(); iter != _components.end(); ++iter) {
-		delete (*iter);
-	}
-
-	_addComponents.clear();
-	_deleteComponents.clear();
-	_components.clear();
-
 	MV1TerminateCollInfo(_handle, _attachIndex);
+
 	return true;
 }
 

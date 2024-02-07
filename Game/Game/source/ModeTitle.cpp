@@ -62,8 +62,8 @@ bool ModeTitle::Process() {
 	int trg = ApplicationMain::GetInstance()->GetTrg();
 
 	if (trg & PAD_INPUT_A && !ModeServer::GetInstance()->IsAdd("Out")) {
-		ModeColorIn* colorIn = new ModeColorIn(30, true);
-		ModeBase* mode = new ModeColorOut(colorIn,this ,30, new ModeGame(),10, "game");
+		ModeColorIn* colorIn = NEW ModeColorIn(30, true);
+		ModeBase* mode = NEW ModeColorOut(colorIn,this ,30, NEW ModeGame(),10, "game");
 		ModeServer::GetInstance()->Add(mode, 11, "Out");
 	}
 

@@ -2,11 +2,17 @@
 #include"ObjectBase.h"
 
 
-AnimationComponent::AnimationComponent(ObjectBase* owner ,int order):Component(owner,order) {
+AnimationComponent::AnimationComponent(ObjectBase* owner ,int order)
+	:Component(owner,order) 
+{
 
 }
 
-AnimationComponent::~AnimationComponent(){}
+AnimationComponent::~AnimationComponent(){
+	for (int a = 0; a < _vAnim.size(); a++) {
+		delete _vAnim[a];
+	}
+}
 
 bool AnimationComponent::Process() {
 
@@ -24,7 +30,7 @@ bool AnimationComponent::Process() {
 				}
 			}
 			// 新しいアニメーションを追加
-			Animation* anim = new Animation();
+			Animation* anim = NEW Animation();
 			anim->_attachIndex = MV1AttachAnim(handle,_animation[_changeAnimationName], -1, FALSE);
 
 			// アタッチしたアニメーションの総再生時間を取得する

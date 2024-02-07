@@ -17,9 +17,9 @@
 
 Player::Player(ObjectServer* server)
 	:CharaBase(server) 
-	,_cameraCom(new FollowCamera(this,999))
-	,_moveCom(new MoveComponent(this,1))
-	,_weapon ( new Knife(this))
+	,_cameraCom(NEW FollowCamera(this,999))
+	,_moveCom(NEW MoveComponent(this,1))
+	,_weapon (NEW Knife(this))
 {
 	server->SetPlayer(this);
 }

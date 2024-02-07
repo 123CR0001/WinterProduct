@@ -15,20 +15,20 @@
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server)
-	, _AI(new AIComponent(this, 1))
-	,_moveCom(new MoveComponent(this,2))
+	, _AI(NEW AIComponent(this, 1))
+	,_moveCom(NEW MoveComponent(this,2))
 {
 
 	//AState‚Ì“o˜^
-	AIBackPatrol* back = new AIBackPatrol(_AI);
-	AIChasePlayer* check = new AIChasePlayer(_AI,back);
-	AIPatrol* patrol = new AIPatrol(_AI,back);
+	AIBackPatrol* back = NEW AIBackPatrol(_AI);
+	AIChasePlayer* check = NEW AIChasePlayer(_AI,back);
+	AIPatrol* patrol = NEW AIPatrol(_AI,back);
 
 	_AI->RegisterState(patrol);
 	_AI->RegisterState(check);
 	_AI->RegisterState(back);
-	_AI->RegisterState(new AIBlindWalk(_AI));
-	_AI->RegisterState(new AICheckPoint(_AI));
+	_AI->RegisterState(NEW AIBlindWalk(_AI));
+	_AI->RegisterState(NEW AICheckPoint(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 }

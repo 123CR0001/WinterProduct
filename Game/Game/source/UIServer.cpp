@@ -27,7 +27,7 @@ bool UIServer::Initialize() {
 bool UIServer::Terminate() {
 
 	for (auto& ui : _vUI) {
-		ui->Terminate();
+		delete ui;
 	}
 	Clear();
 

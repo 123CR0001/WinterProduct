@@ -30,14 +30,14 @@ bool ModeGame::Initialize() {
 	// アプリケーショングローバルの初期化
 	gGlobal.Init();
 
-	_objServer = new ObjectServer(this);
+	_objServer = NEW ObjectServer(this);
 
 	LoadData();
 
-	_modeEffekseer = new ModeEffekseer();
+	_modeEffekseer = NEW ModeEffekseer();
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
-	ModeServer::GetInstance()->Add(new ModeDebugMenu(this), 300, "Debug");
+	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
 
 	return true;
 }
@@ -57,12 +57,12 @@ bool ModeGame::Process() {
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
 	if (GetPad()->GetTrgButton() & INPUT_Y  && !ModeServer::GetInstance()->IsAdd("Out")) {
-		ModeColorIn* colorIn = new ModeColorIn(10);
-		ModeColorOut* mode = new ModeColorOut(colorIn,nullptr, 10, new ModeLightsOut(), 100, "LightsOut");
+		ModeColorIn* colorIn = NEW ModeColorIn(10);
+		ModeColorOut* mode = NEW ModeColorOut(colorIn,nullptr, 10, NEW ModeLightsOut(), 100, "LightsOut");
 		ModeServer::GetInstance()->Add(mode, 100, "Out");
 	}
 	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
-		ModeServer::GetInstance()->Add(new ModePause(), 100, "Pause");
+		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
 	}
 
 	return true;
@@ -100,7 +100,7 @@ bool ModeGame::LoadData() {
 	for (auto&& object : j.at("player")) {
 		std::string name = object.at("objectName");
 		if (name == "marker1") {
-			Player* p = new Player(GetObjectServer());
+			Player* p = NEW Player(GetObjectServer());
 			p->SetJsonDataUE(object);
 		}
 	}
@@ -118,7 +118,7 @@ bool ModeGame::LoadData() {
 
 		if (j.find(enemyName.c_str()) != j.end()) {
 
-			ObjectBase* p = new CommonSoldier(GetObjectServer());
+			ObjectBase* p = NEW CommonSoldier(GetObjectServer());
 			p->SetJsonDataUE(j.at(enemyName.c_str()));
 
 			enemyName = "enemy_file/commonsoldier";
@@ -145,7 +145,7 @@ bool ModeGame::LoadData() {
 	{
 		//ナビゲーション
 		if (j.find("mapcollision") != j.end()) {
-			for (auto mapcollision : j.at("mapcollision")) {
+			for (auto&& mapcollision : j.at("mapcollision")) {
 				std::string name = mapcollision.at("objectName");
 				if (map.find(name) != map.end()) {
 					_objServer->SetNavigationModel(map[name].filePath, map[name].attachFrameName);
@@ -162,7 +162,7 @@ bool ModeGame::LoadData() {
 		std::string name = object.at("objectName");
 	
 		if (map.find(name) != map.end()) {
-				ObjectBase* p = new ObjectBase(GetObjectServer());
+				ObjectBase* p = NEW ObjectBase(GetObjectServer());
 				p->LoadModel(map[name].filePath, map[name].attachFrameName);
 				p->SetJsonDataUE(object);
 				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));

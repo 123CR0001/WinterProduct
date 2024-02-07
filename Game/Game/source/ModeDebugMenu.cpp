@@ -66,7 +66,7 @@ public:
 		if (ModeDebugMenu::_cameraChange) {
 			auto player = _menu->GetGame()->GetObjectServer()->GetPlayer();
 			playerCamera = player->GetCamera();
-			camera = new OrbitCamera(player, 998);
+			camera = NEW OrbitCamera(player, 998);
 			player->SetCamera(camera);
 		}
 		else {
@@ -154,7 +154,7 @@ public:
 //}
 
 ModeDebugMenu::~ModeDebugMenu(){
-
+	
 }
 
 bool ModeDebugMenu::Initialize() {
@@ -163,16 +163,16 @@ bool ModeDebugMenu::Initialize() {
 	_inputFrameCnt = 0;
 	_start = 0;
 
-	_debugMenus.emplace_back(new CharaCollision(this));
-	_debugMenus.emplace_back(new CommonSoldierRoot(this));
-	_debugMenus.emplace_back(new CommonSolidierVisionCollision(this));
-	_debugMenus.emplace_back(new CommonSoldierAIName(this));
-	_debugMenus.emplace_back(new PlayerCameraChange(this));
-	_debugMenus.emplace_back(new NavigationPolygons(this));
-	_debugMenus.emplace_back(new GameEnd(this));
-	_debugMenus.emplace_back(new StageReset(this));
-	_debugMenus.emplace_back(new SirenInfo(this));
-	_debugMenus.emplace_back(new SoundInfo(this));
+	_debugMenus.emplace_back(NEW CharaCollision(this));
+	_debugMenus.emplace_back(NEW CommonSoldierRoot(this));
+	_debugMenus.emplace_back(NEW CommonSolidierVisionCollision(this));
+	_debugMenus.emplace_back(NEW CommonSoldierAIName(this));
+	_debugMenus.emplace_back(NEW PlayerCameraChange(this));
+	_debugMenus.emplace_back(NEW NavigationPolygons(this));
+	_debugMenus.emplace_back(NEW GameEnd(this));
+	_debugMenus.emplace_back(NEW StageReset(this));
+	_debugMenus.emplace_back(NEW SirenInfo(this));
+	_debugMenus.emplace_back(NEW SoundInfo(this));
 	//_UIs.emplace_back(new PlayEffect(this,"Laser"));
 
 	//for (int a = 0; a < FITS_MENU_UI_NUM; a++) {

@@ -3,10 +3,12 @@
 
 AIComponent::AIComponent(ObjectBase* owner,int order)
 	:Component(owner,order)
-,_currentState(nullptr)
-{}
+	,_currentState(nullptr)
+{
+}
+
 AIComponent::~AIComponent(){
-	for (auto& state : _stateMap) {
+	for (auto&& state : _stateMap) {
 		delete state.second;
 	}
 
