@@ -7,8 +7,8 @@
 OrbitCamera::OrbitCamera(ObjectBase* owner, int order)
 	:CameraComponent(owner, order)
 {
-	_yaw = 0.f;
-	_pitch = PI / 2.f;
+	_angle.y = 0.f;
+	_angle.x = PI / 2.f;
 	_dist = 400.f;
 }
 
@@ -16,8 +16,8 @@ OrbitCamera::~OrbitCamera(){}
 
 bool OrbitCamera::Process() {
 
-	if (_yaw >= 2.f * PI) { _yaw = 0; }
-	if (_yaw < 0.f) { _yaw = 2.f * PI; }
+	if (_angle.y >= 2.f * PI) { _angle.y = 0; }
+	if (_angle.y < 0.f) { _angle.y = 2.f * PI; }
 
 	auto key = _owner->GetObjectServer()->GetGame()->GetPad()->GetKeyButton();
 
@@ -25,26 +25,26 @@ bool OrbitCamera::Process() {
 	if (key & INPUT_DPAD_UP) { _dist -= 1.f; }
 	if (_dist <= 0.f) { _dist = 0.f; }
 
-	_pitch = Clamp(0.1f,PI-0.1f, _pitch);
+	_angle.x = Clamp(0.1f,PI-0.1f, _angle.x);
 
 	auto Rstick = _owner->GetObjectServer()->GetGame()->GetPad()->GetRightStick();
 	if (Rstick.x > 30000) {
-		_yaw -= DegToRad(1);
+		_angle.y -= DegToRad(1);
 	}
 	if (Rstick.x < -30000) {
-		_yaw += DegToRad(1);
+		_angle.y += DegToRad(1);
 	}
 	if (Rstick.y > 30000) {
-		_pitch -= DegToRad(1);
+		_angle.x -= DegToRad(1);
 	}
 	if (Rstick.y < -30000) {
-		_pitch += DegToRad(1);
+		_angle.x += DegToRad(1);
 	}
 
 	Vector3D pos(
-		_dist * sinf(_pitch) * cosf(_yaw),
-		_dist * cosf(_pitch),
-		_dist * sinf(_pitch) * sinf(_yaw)
+		_dist * sinf(_angle.x) * cosf(_angle.y),
+		_dist * cosf(_angle.x),
+		_dist * sinf(_angle.y) * sinf(_angle.x)
 	);
 
 	_pos = _owner->GetPos() + pos;

@@ -15,6 +15,8 @@ bool MoveComponent::Process() {
 	if (fabsf(_rotateSpeed) > 0.01f) {
 		Vector3D angle = _owner->GetEulerAngle();
 		angle.y += _rotateSpeed;
+		//if (angle.y > 2.f * PI) { angle.y -= 2 * PI; }
+		//if (angle.y < 0.f) { angle.y *= -1; }
 		_owner->SetEulerAngle(angle);
 	}
 

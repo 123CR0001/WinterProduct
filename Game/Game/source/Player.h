@@ -19,7 +19,9 @@ public:
 		kIdle,
 		kWalk,
 		kAttack,
-		kAttack2
+		kAttack2,
+		kSilent,
+		kSilentWalk
 	};
 
 	class CameraComponent* GetCamera()const { return _cameraCom; }

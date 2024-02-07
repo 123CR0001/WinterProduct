@@ -63,19 +63,14 @@ bool Player::Terminate() {
 
 bool Player::Process() {
 
-	ObjectBase::Process();
-
 	ACTION_STATE old_state = _actionState;
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
 
-	//足音
-	if (Vector3D::LengthSquare(_pos, _oldPos) >= 5.f * 5.f) {
-		new SoundComponent(this, 500.f);
-	}
-
 	// 移動前の位置を保存
 	_oldPos = _pos;
+
+	const float moveSpeed = 5.f;
 
 	switch (_actionState) {
 	case ACTION_STATE::kIdle:
@@ -83,30 +78,51 @@ bool Player::Process() {
 		_actionState = ACTION_STATE::kIdle;
 
 		if (pad->IsInputLeftStick()) {
+			Vector3D vec(_pos - _cameraCom->GetPos());
+			vec.Normalized();
+			_eulerAngle.y = atan2f(vec.x, vec.z);
 
-			_eulerAngle.y = atan2((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
-			Vector3D cameraForwardVec = _pos - _cameraCom->GetPos();
-			cameraForwardVec.Normalized();
-			float cameraForward = atan2f(cameraForwardVec.x, cameraForwardVec.z);
-			_eulerAngle.y += cameraForward;
+			float angle = atan2f((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
 
-			_moveCom->SetMoveSpeed(5.f);
+			_moveCom->SetRotateSpeed(angle);
+			_moveCom->SetMoveSpeed(moveSpeed);
 
 			_actionState = ACTION_STATE::kWalk;
 
 		}
 
-
 		if (pad->GetTrgButton() & INPUT_A) {
 			_actionState = ACTION_STATE::kAttack;
 		}
 		if (pad->GetTrgButton() & INPUT_B) {
-			_actionState = ACTION_STATE::kAttack2;
+			_actionState = ACTION_STATE::kSilent;
 		}
 		break;
 	case ACTION_STATE::kAttack:
 		break;
 	case ACTION_STATE::kAttack2:
+		break;
+	case ACTION_STATE::kSilent:
+	case ACTION_STATE::kSilentWalk:
+		_actionState = ACTION_STATE::kSilent;
+
+		if (pad->IsInputLeftStick()) {
+			Vector3D vec(_pos - _cameraCom->GetPos());
+			vec.Normalized();
+			_eulerAngle.y = atan2f(vec.x, vec.z);
+
+			float angle = atan2f((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
+
+			_moveCom->SetRotateSpeed(angle);
+			_moveCom->SetMoveSpeed(moveSpeed/2.f);
+
+			_actionState = ACTION_STATE::kSilentWalk;
+
+		}
+
+		if (pad->GetTrgButton() & INPUT_B) {
+			_actionState = ACTION_STATE::kIdle;
+		}
 		break;
 	}
 
@@ -132,23 +148,16 @@ bool Player::Process() {
 		_motCnt = 0;
 	}
 
-	//オブジェクトとの押出処理
-	int i = 0;
-	while (1) {
-		PhysWorld::CollisionDetectionResult result = _capsule->GetOverlapResult();
 
-		if (result.isHit) {
-			_pos += result.item.pushVec;
-		}
-		else { break; }
-		i++;
-		//20回以上判定をして、当たり続ける場合は移動前の位置に戻す
-		if (i > 20) {
-			break;
-		}
+	ObjectBase::Process();
+
+	//足音
+	if (Vector3D::LengthSquare(_pos, _oldPos) >= moveSpeed * moveSpeed) {
+		new SoundComponent(this, 500.f);
 	}
 
-	ModelMatrixSetUp();
+	//オブジェクトとの押出処理
+	FixPos();
 
 	return true;
 }
@@ -157,10 +166,13 @@ bool Player::Render() {
 
 	//MV1SetAttachAnimTime(_handle, _attachIndex, _playTime);
 	//MV1DrawModel(_handle);
-	if (CharaBase::Render()) {
+	CharaBase::Render();
 
-	}
-	//int y = 0;
+	Vector3D vec(_pos - _cameraCom->GetPos());
+
+	vec.Normalized();
+
+	int y = 0;
 	//DrawFormatString(
 	//	0, y, GetColor(255, 0, 0),
 	//	"x %f y %f z %f",
@@ -202,21 +214,27 @@ bool Player::Render() {
 	//MMult(inverse, _matrix);
 
 
-	//switch (_actionState) {
-	//case ACTION_STATE::kIdle:
-	//	DrawFormatString(0, y, GetColor(255, 0, 0), "Idle"); y += 25;
-	//	break;
-	//case ACTION_STATE::kWalk:
-	//	DrawFormatString(0, y, GetColor(255, 0, 0), "Walk"); y += 25;
-	//	break;
-	//case ACTION_STATE::kAttack:
-	//	DrawFormatString(0, y, GetColor(255, 0, 0), "Attack"); y += 25;
-	//	break;
-	//case ACTION_STATE::kAttack2:
-	//	DrawFormatString(0, y, GetColor(255, 0, 0), "Attack2"); y += 25;
-	//	break;
+	switch (_actionState) {
+	case ACTION_STATE::kIdle:
+		DrawFormatString(0, y, GetColor(255, 0, 0), "Idle"); y += 25;
+		break;
+	case ACTION_STATE::kWalk:
+		DrawFormatString(0, y, GetColor(255, 0, 0), "Walk"); y += 25;
+		break;
+	case ACTION_STATE::kAttack:
+		DrawFormatString(0, y, GetColor(255, 0, 0), "Attack"); y += 25;
+		break;
+	case ACTION_STATE::kAttack2:
+		DrawFormatString(0, y, GetColor(255, 0, 0), "Attack2"); y += 25;
+		break;
+	case ACTION_STATE::kSilent:
+		DrawFormatString(0, y, GetColor(255, 0, 0), "Silent"); y += 25;
+		break;
+	case ACTION_STATE::kSilentWalk:
+		DrawFormatString(0, y, GetColor(255, 0, 0), "SilentWalk"); y += 25;
+		break;
 
-	//}
+	}
 
 	return true;
 }

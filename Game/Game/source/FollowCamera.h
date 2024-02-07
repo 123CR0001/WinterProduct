@@ -13,5 +13,4 @@ protected:
 	float _springConst;
 	float _vDist;
 	float _heightDist;
-	float _forwardAngle;
 };

@@ -6,9 +6,8 @@ FollowCamera::FollowCamera(ObjectBase* owner, int order)
 	,_springConst(0.7f)
 	,_vDist(250.f)
 	,_heightDist(800.f)
-	,_forwardAngle(DegToRad(270.f))
 {
-
+	_angle = Vector3D(0.f, DegToRad(-90.f), 0.f);
 }
 
 FollowCamera::~FollowCamera(){}
@@ -28,7 +27,7 @@ bool FollowCamera::Process() {
 
 	CameraComponent::Process();
 
-	Vector3D idealPos = Vector3D(sin(_forwardAngle), 0.f, cos(_forwardAngle)) * _vDist;
+	Vector3D idealPos = Vector3D(sinf(_angle.y), 0.f, cosf(_angle.y)) * _vDist;
 	idealPos.y = _heightDist;
 	idealPos += _owner->GetPos();
 
