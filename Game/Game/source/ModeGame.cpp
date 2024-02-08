@@ -12,6 +12,7 @@
 #include"ModeColorIn.h"
 #include"ModeLightsOut.h"
 #include"ModePause.h"
+#include"ModeGameOver.h"
 
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
@@ -54,15 +55,26 @@ bool ModeGame::Terminate() {
 bool ModeGame::Process() {
 	base::Process();
 
+	//オブジェクトサーバーの処理
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
+
+	//LightsOutモードを追加
 	if (GetPad()->GetTrgButton() & INPUT_Y  && !ModeServer::GetInstance()->IsAdd("Out")) {
 		ModeColorIn* colorIn = NEW ModeColorIn(10);
 		ModeColorOut* mode = NEW ModeColorOut(colorIn,nullptr, 10, NEW ModeLightsOut(), 100, "LightsOut");
 		ModeServer::GetInstance()->Add(mode, 100, "Out");
 	}
+
+	//Pauseモードを追加
 	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
 		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
+	}
+
+	for (auto iter = _objServer->GetCommonSoldiers().begin(); iter != _objServer->GetCommonSoldiers().end(); ++iter) {
+		if ((*iter)->GetDetectionLevel() >= 1.f) {
+			ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
+		}
 	}
 
 	return true;

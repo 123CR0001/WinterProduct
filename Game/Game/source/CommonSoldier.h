@@ -24,6 +24,8 @@ public:
 	float GetVisionDist()const { return _visionDist; }
 	float GetVisionAngle()const { return _visionAngle; }
 
+	float GetDetectionLevel()const { return _detectionLevel; }
+
 	class AIComponent* GetAIComponent()const { return _AI; }
 	class MoveComponent* GetMoveComponent()const { return _moveCom; }
 
@@ -31,7 +33,7 @@ protected:
 	float _visionDist;		//視野の範囲(距離)
 	float _visionAngle;		//視野の範囲(角度)
 
-	float _detectionDegree;	//検知度
+	float _detectionLevel;	//検知度
 
 	class AIComponent* _AI;
 	class MoveComponent* _moveCom;

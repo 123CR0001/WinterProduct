@@ -17,6 +17,7 @@ public:
 	void RenderNavigationPolygons();
 	void RenerSirenInfo();
 	void RenderSoundInfo();
+	void RenderDetectionInfo();
 
 	class ModeGame* GetGame()const { return _game; }
 
@@ -28,6 +29,8 @@ public:
 	static bool _navigationPolygon;
 	static bool _sirenInfo;
 	static bool _soundInfo;
+	//ŒŸ’m“x‚Ì•`‰æ‚ð‚·‚é‚©
+	static bool _detectionInfo;
 
 protected:
 	class ModeGame* _game;

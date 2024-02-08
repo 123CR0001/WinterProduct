@@ -24,6 +24,7 @@ bool ModeDebugMenu::_cameraChange = false;
 bool ModeDebugMenu::_navigationPolygon = false;
 bool ModeDebugMenu::_sirenInfo = false;
 bool ModeDebugMenu::_soundInfo = false;
+bool ModeDebugMenu::_detectionInfo = false;
 
 constexpr int FONT_SIZE = 20;
 constexpr int MENU_HEIGHT = 500;
@@ -148,6 +149,16 @@ public:
 	}
 };
 
+class DetectionInfo :public ModeDebugMenu::DebugMenuItem {
+public:
+	DetectionInfo(ModeDebugMenu* menu) : DebugMenuItem(menu) {}
+	~DetectionInfo(){}
+	const char* GetText()override { return "検知度を描画します"; }
+	void Select()override {
+		ModeDebugMenu::_detectionInfo = !ModeDebugMenu::_detectionInfo;
+	}
+};
+
 //ModeDebugMenu::ModeDebugMenu(ModeGame* game)
 //	:_game(game) {
 //
@@ -173,6 +184,7 @@ bool ModeDebugMenu::Initialize() {
 	_debugMenus.emplace_back(NEW StageReset(this));
 	_debugMenus.emplace_back(NEW SirenInfo(this));
 	_debugMenus.emplace_back(NEW SoundInfo(this));
+	_debugMenus.emplace_back(NEW DetectionInfo(this));
 	//_UIs.emplace_back(new PlayEffect(this,"Laser"));
 
 	//for (int a = 0; a < FITS_MENU_UI_NUM; a++) {
@@ -245,6 +257,7 @@ bool ModeDebugMenu::Render() {
 	if (_navigationPolygon) { RenderNavigationPolygons(); }
 	if (_sirenInfo) { RenerSirenInfo(); }
 	if (_soundInfo) { RenderSoundInfo(); }
+	if (_detectionInfo) { RenderDetectionInfo(); }
 
 	if (_isProcess) {
 		SetFontSize(FONT_SIZE);
@@ -471,5 +484,15 @@ void ModeDebugMenu::RenderSoundInfo() {
 			0,
 			FALSE
 		);
+	}
+}
+
+void ModeDebugMenu::RenderDetectionInfo() {
+	auto objServer = _game->GetObjectServer();
+
+	for (auto iter = objServer->GetCommonSoldiers().begin(); iter != objServer->GetCommonSoldiers().end(); ++iter) {
+		VECTOR pos = ConvWorldPosToScreenPos((*iter)->GetDxPos());
+
+		DrawFormatString(pos.x, pos.y + 20, GetColor(255, 0, 0), "検知度 %f%", (*iter)->GetDetectionLevel());
 	}
 }

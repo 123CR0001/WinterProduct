@@ -58,7 +58,7 @@ bool CommonSoldier::Initialize() {
 
 	_scale = Vector3D(1.f, 1.f, 1.f);
 
-	_detectionDegree = 0.f;
+	_detectionLevel = 0.f;
 
 	//最初のAI状態
 	_AI->ChangeState("Patrol");
@@ -85,6 +85,21 @@ bool CommonSoldier::Process() {
 	if (_eulerAngle.y <  0) {
 		_eulerAngle.y = 2 * PI;
 	}
+
+	//検知度の増減(百分率)
+	if (IsPlayerFound()) {
+		//AIごとに上昇するかしないかを分けるかもしれない
+		//ここに書いているのは走り書き
+		float per = Vector3D::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(),_pos) / (_visionDist * _visionDist);
+		per = -(per - 1);
+
+		//検知度の上昇
+		_detectionLevel += per * 0.01;
+	}
+	else {
+		_detectionLevel -= 0.01f;
+	}
+	_detectionLevel = Clamp(0.f, 1.f, _detectionLevel);
 
 	//重なり修正
 	FixPos();
@@ -164,14 +179,6 @@ bool CommonSoldier::IsPlayerFound() {
 				if (hit.HitFlag) { return false; }
 				
 			}
-
-			//AIごとに上昇するかしないかを分けるかもしれない
-			//ここに書いているのは走り書き
-			float per = playerToMe.LengthSquare() / (_visionDist * _visionDist);
-			per = -(per - 1);
-
-			//見地度の上昇
-			_detectionDegree += per;
 
 			return true;
 		}
