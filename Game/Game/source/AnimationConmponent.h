@@ -14,6 +14,22 @@ public:
 
 	void ChangeAnimation(const char* animName);
 
+	class Animation {
+		friend class AnimationComponent;
+	public:
+		Animation() {}
+		virtual ~Animation() {}
+	protected:
+		int _attachIndex;
+		float _totalTime;
+		float _playTime;
+		// モーションブレンド用
+		float _closeTotalTime;
+		float _closeTime;
+		// ループカウント用
+		int _loopCnt;
+	};
+
 	//モーションでの処理の際に、再生時間を参照したい。
 	//
 	//参照するのは新しいAnimationなので、_vAnimの末尾の_playTimeを参照する。
@@ -31,23 +47,9 @@ public:
 		return 0;
 	}
 
-protected:
+	std::vector<Animation*>& GetAnimations() { return _vAnim; }
 
-	class Animation {
-		friend class AnimationComponent;
-	public:
-		Animation() {}
-		virtual ~Animation() {}
-	protected:
-		int _attachIndex;
-		float _totalTime;
-		float _playTime;
-		// モーションブレンド用
-		float _closeTotalTime;
-		float _closeTime;
-		// ループカウント用
-		int _loopCnt;
-	};
+protected:
 	std::vector<Animation*> _vAnim;
 
 	//アニメーションを統一していいなら、staticにする

@@ -58,7 +58,7 @@ bool ObjectBase::Process() {
 			//末尾に追加
 			_components.emplace_back(add);
 			for (int a = 0; a < _components.size(); a++) {
-				if (_components[a]->GetOrder() < add->GetOrder() && _components[a] != add) {
+				if (_components[a]->GetOrder() > add->GetOrder() && _components[a] != add) {
 					//末尾に追加されたコンポーネントをorder順に入れ替え
 					std::swap(_components[a], _components[_components.size()-1]);
 					break;
@@ -92,9 +92,10 @@ bool ObjectBase::Render() {
 
 	//ポリゴンの裏面を描画しない
 	MV1SetMeshBackCulling(_handle, 0, FALSE);
-	ModelMatrixSetUp();
-	// モデルを描画する
 
+	ModelMatrixSetUp();
+
+	// モデルを描画する
 	MV1DrawModel(_handle);
 
 	return true;

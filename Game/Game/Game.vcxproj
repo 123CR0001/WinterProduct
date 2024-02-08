@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\AfterImage.cpp" />
     <ClCompile Include="source\AIBackPatrol.cpp" />
     <ClCompile Include="source\AIChasePlayer.cpp" />
     <ClCompile Include="source\AICheckPoint.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="source\CharaBase.cpp" />
     <ClCompile Include="source\Component.cpp" />
     <ClCompile Include="source\CommonSoldier.cpp" />
+    <ClCompile Include="source\CreateAfterImageComponent.cpp" />
     <ClCompile Include="source\FollowCamera.cpp" />
     <ClCompile Include="source\FrameComponent.cpp" />
     <ClCompile Include="source\Knife.cpp" />
@@ -219,6 +221,7 @@
     <ClCompile Include="source\WeaponBase.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\AfterImage.h" />
     <ClInclude Include="source\AIBackPatrol.h" />
     <ClInclude Include="source\AIChasePlayer.h" />
     <ClInclude Include="source\AIComponent.h" />
@@ -232,6 +235,7 @@
     <ClInclude Include="source\CameraComponent.h" />
     <ClInclude Include="source\CapsuleComponent.h" />
     <ClInclude Include="source\Component.h" />
+    <ClInclude Include="source\CreateAfterImageComponent.h" />
     <ClInclude Include="source\FollowCamera.h" />
     <ClInclude Include="source\FrameComponent.h" />
     <ClInclude Include="source\Knife.h" />

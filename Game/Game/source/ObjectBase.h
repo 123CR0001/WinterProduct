@@ -14,10 +14,10 @@ public:
 
 	virtual bool LoadModel(std::string fileName, std::string attachFrameName = "");
 
-	void AddPos(Vector3D vector) { _pos += vector; }
-	VECTOR GetDxPos(){ return DxConverter::VecToDx(_pos); }
-	Vector3D GetPos() { return _pos; }
-	Vector3D GetEulerAngle() { return _eulerAngle; }
+	VECTOR GetDxPos()const{ return DxConverter::VecToDx(_pos); }
+	Vector3D GetPos() const{ return _pos; }
+	Vector3D GetEulerAngle() const{ return _eulerAngle; }
+	Vector3D GetScale()const { return _scale; }
 
 	//
 	void SetPos(Vector3D pos) { _pos = pos; }
@@ -25,6 +25,7 @@ public:
 	void SetEulerAngleDeg(Vector3D set) { _eulerAngle = Vector3D(DegToRad(set.x), DegToRad(set.y),DegToRad(set.z)); }
 	void SetScale(Vector3D set) { _scale = set; }
 
+	void AddPos(Vector3D vector) { _pos += vector; }
 	void AddEulerAngle(Vector3D add) { _eulerAngle += add; }
 
 	int GetHandle()& { return _handle; }

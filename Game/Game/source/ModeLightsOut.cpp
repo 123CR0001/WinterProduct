@@ -23,6 +23,7 @@ bool ModeLightsOut::Initialize() {
 	_cg = ResourceServer::LoadGraph("res/Effect/nightscope_01.png");
 
 
+
 	_alpha = 170;
 	return true;
 }

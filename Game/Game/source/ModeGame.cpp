@@ -22,6 +22,8 @@
 #include"SoundComponent.h"
 #include"PhysWorld.h"
 
+#include"CreateAfterImageComponent.h"
+
 SoundComponent* m = nullptr;
 
 bool ModeGame::Initialize() {
@@ -64,6 +66,9 @@ bool ModeGame::Process() {
 		ModeColorIn* colorIn = NEW ModeColorIn(10);
 		ModeColorOut* mode = NEW ModeColorOut(colorIn,nullptr, 10, NEW ModeLightsOut(), 100, "LightsOut");
 		ModeServer::GetInstance()->Add(mode, 100, "Out");
+
+		//プレイヤーから残像を出力するようにする
+		NEW CreateAfterImageComponent(_objServer->GetPlayer());
 	}
 
 	//Pauseモードを追加

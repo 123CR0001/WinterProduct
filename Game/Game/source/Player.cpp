@@ -14,6 +14,7 @@
 #include"MoveComponent.h"
 #include"PhysWorld.h"
 #include"SoundComponent.h"
+#include"AfterImage.h"
 
 Player::Player(ObjectServer* server)
 	:CharaBase(server) 
@@ -52,6 +53,11 @@ bool Player::Initialize() {
 	_actionState = ACTION_STATE::kIdle;
 	_anim->ChangeAnimation("Idle");
 
+	//カメラと同じ方向を向く
+	Vector3D vec(_pos - _cameraCom->GetPos());
+	vec.Normalized();
+	_eulerAngle.y = atan2f(vec.x, vec.z);
+
 	ModelMatrixSetUp();
 	return true;
 }
@@ -69,6 +75,7 @@ bool Player::Process() {
 
 	const float moveSpeed = 5.f;
 
+	//入力処理
 	switch (_actionState) {
 	case ACTION_STATE::kIdle:
 	case ACTION_STATE::kWalk:
@@ -123,6 +130,9 @@ bool Player::Process() {
 		break;
 	}
 
+
+	ObjectBase::Process();
+
 	MotionProcess();
 
 	// ステータスが変わっていないか？
@@ -145,13 +155,11 @@ bool Player::Process() {
 		_motCnt = 0;
 	}
 
-
-	ObjectBase::Process();
-
 	//足音
 	if (_moveCom->GetSpeed() >= moveSpeed) {
 		new SoundComponent(this, 500.f);
 	}
+
 
 	//オブジェクトとの押出処理
 	FixPos();
@@ -162,10 +170,6 @@ bool Player::Process() {
 bool Player::Render() {
 
 	CharaBase::Render();
-
-	Vector3D vec(_pos - _cameraCom->GetPos());
-
-	vec.Normalized();
 
 	int y = 0;
 	//DrawFormatString(
