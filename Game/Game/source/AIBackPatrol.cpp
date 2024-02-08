@@ -49,5 +49,10 @@ bool AIBackPatrol::Process() {
 		_owner->ChangeState("ChasePlayer");
 	}
 
+	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
+	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		_owner->ChangeState("BlindWalk");
+	}
+
 	return true;
 }

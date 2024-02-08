@@ -6,7 +6,7 @@
 //プレイヤーを見かけたポイントに移動する
 class AIChasePlayer:public AIState{
 public:
-	AIChasePlayer(class AIComponent* owner,class AIBackPatrol* AI);
+	AIChasePlayer(class AIComponent* owner);
 	~AIChasePlayer();
 
 	bool Process()override;
@@ -28,5 +28,4 @@ private:
 	//
 	int _frameCnt;
 
-	class AIBackPatrol* _AIBackPatrol;
 };

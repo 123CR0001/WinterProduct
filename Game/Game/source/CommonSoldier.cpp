@@ -12,6 +12,7 @@
 #include"FrameComponent.h"
 #include"PhysWorld.h"
 #include"AICheckPoint.h"
+#include"AIBlindWalk.h"
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server)
@@ -20,15 +21,12 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 {
 
 	//AState‚Ì“o˜^
-	AIBackPatrol* back = NEW AIBackPatrol(_AI);
-	AIChasePlayer* check = NEW AIChasePlayer(_AI,back);
-	AIPatrol* patrol = NEW AIPatrol(_AI,back);
-
-	_AI->RegisterState(patrol);
-	_AI->RegisterState(check);
-	_AI->RegisterState(back);
+	_AI->RegisterState(NEW AIBackPatrol(_AI));
+	_AI->RegisterState(NEW AIChasePlayer(_AI));
+	_AI->RegisterState(NEW AIPatrol(_AI));
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
 	_AI->RegisterState(NEW AICheckPoint(_AI));
+	_AI->RegisterState(NEW AIBlindWalk(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 }

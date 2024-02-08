@@ -7,9 +7,8 @@
 #include"AIBackPatrol.h"
 #include"PhysWorld.h"
 
-AIPatrol::AIPatrol(AIComponent* owner, AIBackPatrol* AI)
+AIPatrol::AIPatrol(AIComponent* owner)
 	:AIState(owner)
-	,_AIBackPatrol(AI)
 	,_patrolPointsNum(1)
 {}
 
@@ -17,7 +16,6 @@ AIPatrol::~AIPatrol(){}
 
 
 void AIPatrol::OnEnter() {
-	_AIBackPatrol->ClearBackPatrol();
 }
 
 void AIPatrol::OnExist() {
@@ -50,6 +48,11 @@ bool AIPatrol::Process() {
 	if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), p)) {
 		_owner->AddPoint("CheckPoint", p);
 		_owner->ChangeState("CheckPoint");
+	}
+
+	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
+	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		_owner->ChangeState("BlindWalk");
 	}
 	
 	return true;

@@ -5,7 +5,7 @@
 
 class AIPatrol :public AIState {
 public:
-	AIPatrol(class AIComponent* owner,class AIBackPatrol* AI);
+	AIPatrol(class AIComponent* owner);
 	~AIPatrol();
 
 	bool Process()override;
@@ -21,6 +21,4 @@ public:
 private:
 	std::vector<Vector3D>_patrolPoints;
 	int _patrolPointsNum;
-
-	class AIBackPatrol* _AIBackPatrol;
 };

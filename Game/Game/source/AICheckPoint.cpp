@@ -110,5 +110,11 @@ bool AICheckPoint::Process() {
 		}
 		_frameCnt = 0;
 	}
+
+	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
+	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		_owner->ChangeState("BlindWalk");
+	}
+
 	return true;
 }

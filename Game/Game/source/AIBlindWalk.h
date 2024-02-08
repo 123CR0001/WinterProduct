@@ -10,10 +10,11 @@ public:
 	void OnExist()override;
 	bool Process()override;
 
-	const char* GetName() { return "RandomWalk"; }
+	const char* GetName() { return "BlindWalk"; }
 
 protected:
-	float _rotateSpeed;
-	float _rotateAngle;
+	int _rotateSpeed;
+	int _rotateAngle;
 	float _moveDist;
+	int _waitCnt;
 };

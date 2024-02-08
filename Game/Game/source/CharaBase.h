@@ -24,6 +24,7 @@ public :
 		return Segment(under_pos, over_pos);
 	}
 
+	class CapsuleComponent* GetCapsuleComponent() { return _capsule; }
 
 	//あらかじめ決めておいたstring型で派生先のキャラクタークラスの状態を変更する
 	//モーションデータによるアニメーションの切り替えに使用するので、必ず各派生先で定義する 

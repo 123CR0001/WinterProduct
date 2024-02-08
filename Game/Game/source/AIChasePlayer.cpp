@@ -8,9 +8,8 @@
 #include"ModeGame.h"
 #include"AIBackPatrol.h"
 
-AIChasePlayer::AIChasePlayer(AIComponent* owner,AIBackPatrol* AI)
+AIChasePlayer::AIChasePlayer(AIComponent* owner)
 	:AIState(owner)
-	,_AIBackPatrol(AI)
 	, _pointsNum(0)
 	,_frameCnt(0)
 {
@@ -71,6 +70,12 @@ bool AIChasePlayer::Process() {
 		}
 		_frameCnt = 0;
 	}
+
+	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
+	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		_owner->ChangeState("BlindWalk");
+	}
+
 	return true;
 }
 
