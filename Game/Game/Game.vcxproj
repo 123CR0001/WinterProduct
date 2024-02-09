@@ -172,6 +172,7 @@
     <ClCompile Include="source\Component.cpp" />
     <ClCompile Include="source\CommonSoldier.cpp" />
     <ClCompile Include="source\FollowCamera.cpp" />
+    <ClCompile Include="source\FPS.cpp" />
     <ClCompile Include="source\FrameComponent.cpp" />
     <ClCompile Include="source\Knife.cpp" />
     <ClCompile Include="source\ModeColorOut.cpp" />
@@ -233,6 +234,7 @@
     <ClInclude Include="source\CapsuleComponent.h" />
     <ClInclude Include="source\Component.h" />
     <ClInclude Include="source\FollowCamera.h" />
+    <ClInclude Include="source\FPS.h" />
     <ClInclude Include="source\FrameComponent.h" />
     <ClInclude Include="source\Knife.h" />
     <ClInclude Include="source\ModeDebugMenu.h" />

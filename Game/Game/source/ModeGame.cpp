@@ -21,6 +21,8 @@
 #include"SoundComponent.h"
 #include"PhysWorld.h"
 
+#include"FPS.h"
+
 SoundComponent* m = nullptr;
 
 bool ModeGame::Initialize() {
@@ -36,9 +38,11 @@ bool ModeGame::Initialize() {
 
 	_modeEffekseer = NEW ModeEffekseer();
 
+	_fps = NEW FPS();
+
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
-
+	
 	return true;
 }
 
@@ -53,6 +57,8 @@ bool ModeGame::Terminate() {
 
 bool ModeGame::Process() {
 	base::Process();
+	// fps‚ÌXV
+	_fps->Update();	
 
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
@@ -64,6 +70,11 @@ bool ModeGame::Process() {
 	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
 		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
 	}
+
+	// fps‚Ì‘Ò‹@
+	_fps->WaitFPS();
+	auto CommonSoldiers = GetObjectServer()->GetCommonSoldiers();
+	if (CommonSoldiers.size() == 0) { _fps->SetFPS(20); }
 
 	return true;
 }

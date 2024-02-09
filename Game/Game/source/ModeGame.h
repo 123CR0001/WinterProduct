@@ -16,9 +16,10 @@ public:
 
 	class ObjectServer* GetObjectServer()const { return _objServer; }
 	class ModeEffekseer* GetModeEffekseer()const { return _modeEffekseer; }
+	class FPS* GetFps()const { return _fps; }
 protected:
 
 	class ObjectServer* _objServer;
 	class ModeEffekseer* _modeEffekseer;
-
+	class FPS* _fps;
 }; 
