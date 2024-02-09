@@ -15,6 +15,8 @@ public:
 
 	bool MotionProcess();		//アニメーションに付随するモーションデータの処理
 
+	void AddMoveSpeedMag(float up) { _moveSpeedMag += up; _moveSpeedMag = Clamp(1.f, 2.f, _moveSpeedMag); }
+
 	enum class ACTION_STATE :unsigned int{
 		kIdle,
 		kWalk,
@@ -36,5 +38,6 @@ protected:
 	class CameraComponent* _cameraCom;
 	class MoveComponent* _moveCom;
 
+	float _moveSpeedMag;
 };
 

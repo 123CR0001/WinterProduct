@@ -3,12 +3,15 @@
 
 class ModeLightsOut :public ModeBase {
 public:
+	ModeLightsOut(class ModeGame* game);
 	bool Initialize()override;
 	bool Terminate()override;
 	bool Process()override;
 	bool Render()override;
 protected:
+	//画面に貼るエフェクト
 	int _cg;
+	//上記のエフェクトの透明度
 	int _alpha;
 
 	class Animation2D {
@@ -50,6 +53,13 @@ protected:
 		int _x, _y, _w, _h;
 	};
 
+	//画面に貼るエフェクトの上にかけるノイズのアニメーション
 	Animation2D* _noiseAnim;
 
+	//処理時間
+	int _frameCnt;
+
+	int _oldEnemyNum;
+
+	class ModeGame* _game;
 };

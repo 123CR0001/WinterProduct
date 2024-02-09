@@ -1,13 +1,10 @@
 #include"ModeColorOut.h"
 #include"ModeColorIn.h"
 
-ModeColorOut::ModeColorOut(ModeColorIn* modeColorIn,ModeBase* nowMode, int maxCnt, ModeBase* nextMode, int layer, const char* name )
+ModeColorOut::ModeColorOut(ModeColorIn* modeColorIn, std::function<void()>func,int maxCnt)
 	:_modeColorIn(modeColorIn)
-	,_nextMode(nextMode)
-	,_nextModeLayer(layer)
-	,_nextModeName(name)
-	,_nowMode(nowMode)
 	,_frameMaxCnt(maxCnt)
+	,_func(func)
 {
 
 }
@@ -34,8 +31,9 @@ bool ModeColorOut::Process() {
 	else if (_frameCnt > _frameMaxCnt) {
 		ModeServer::GetInstance()->Del(this);
 		ModeServer::GetInstance()->Add(_modeColorIn, 100, "ColorIn");
-		if (_nowMode) { ModeServer::GetInstance()->Del(_nowMode); }
-		if (_nextMode && ModeServer::GetInstance()->GetName(_nextMode) == NULL) { ModeServer::GetInstance()->Add(_nextMode, _nextModeLayer, _nextModeName); }
+		
+		_func();
+
 		_frameCnt = -1;
 	}
 	else {

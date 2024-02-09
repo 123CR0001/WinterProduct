@@ -13,6 +13,7 @@
 #include"ModeLightsOut.h"
 #include"ModePause.h"
 #include"ModeGameOver.h"
+#include"ModeClear.h"
 
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
@@ -42,6 +43,7 @@ bool ModeGame::Initialize() {
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
 
+	_isCouldLightsOut = false;
 	return true;
 }
 
@@ -62,23 +64,44 @@ bool ModeGame::Process() {
 	if (!_objServer->Process()) { return false; }
 
 	//LightsOutモードを追加
-	if (GetPad()->GetTrgButton() & INPUT_Y  && !ModeServer::GetInstance()->IsAdd("Out")) {
+	if (GetPad()->GetTrgButton() & INPUT_Y  && !ModeServer::GetInstance()->IsAdd("Out") && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
+
+		auto func = [this]() {
+			ModeServer::GetInstance()->Add(NEW ModeLightsOut(this), 100, "LightsOut"); 
+			//プレイヤーから残像を出力するようにする
+			NEW CreateAfterImageComponent(_objServer->GetPlayer());
+
+			_isCouldLightsOut = true;
+		};
+
+		//フェードイン
 		ModeColorIn* colorIn = NEW ModeColorIn(10);
-		ModeColorOut* mode = NEW ModeColorOut(colorIn,nullptr, 10, NEW ModeLightsOut(), 100, "LightsOut");
+		ModeColorOut* mode = NEW ModeColorOut(colorIn, func, 10);
 		ModeServer::GetInstance()->Add(mode, 100, "Out");
 
-		//プレイヤーから残像を出力するようにする
-		NEW CreateAfterImageComponent(_objServer->GetPlayer());
 	}
 
 	//Pauseモードを追加
 	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
 		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
+
 	}
 
+	//勝敗判定
 	for (auto iter = _objServer->GetCommonSoldiers().begin(); iter != _objServer->GetCommonSoldiers().end(); ++iter) {
 		if ((*iter)->GetDetectionLevel() >= 1.f) {
+
 			ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
+
+		}
+	}
+
+	if (_isCouldLightsOut && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		if (_objServer->GetCommonSoldiers().size() > 0) {
+			ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
+		}
+		else {
+			ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");
 		}
 	}
 

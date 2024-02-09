@@ -18,7 +18,6 @@ ObjectServer::~ObjectServer() {
 }
 
 bool ObjectServer::Initialize() {
-
 	return true;
 }
 
@@ -39,6 +38,9 @@ bool ObjectServer::Process() {
 			return false;
 		}
 	}
+
+
+
 	return true;
 }
 

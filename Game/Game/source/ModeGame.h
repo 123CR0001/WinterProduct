@@ -21,4 +21,6 @@ protected:
 	class ObjectServer* _objServer;
 	class ModeEffekseer* _modeEffekseer;
 
+	//ライツアウトを一度でも使用したかの、判別に使用
+	bool _isCouldLightsOut;
 }; 

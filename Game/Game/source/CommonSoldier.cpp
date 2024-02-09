@@ -29,6 +29,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
+	server->GetEnemys().emplace_back(this);
 }
 
 CommonSoldier::~CommonSoldier(){
@@ -70,6 +71,9 @@ bool CommonSoldier::Terminate() {
 	CharaBase::Terminate();
 	auto iter = std::find(GetObjectServer()->GetCommonSoldiers().begin(), GetObjectServer()->GetCommonSoldiers().end(), this);
 	GetObjectServer()->GetCommonSoldiers().erase(iter);
+
+	auto iter2 = std::find(GetObjectServer()->GetEnemys().begin(), GetObjectServer()->GetEnemys().end(), this);
+	GetObjectServer()->GetEnemys().erase(iter2);
 
 	return true;
 }

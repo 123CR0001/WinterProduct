@@ -21,6 +21,7 @@ Player::Player(ObjectServer* server)
 	,_cameraCom(NEW FollowCamera(this,999))
 	,_moveCom(NEW MoveComponent(this,1))
 	,_weapon (NEW Knife(this))
+	,_moveSpeedMag(1.f)
 {
 	server->SetPlayer(this);
 }
@@ -73,7 +74,7 @@ bool Player::Process() {
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
 
-	const float moveSpeed = 5.f;
+	const float moveSpeed = 5.f * _moveSpeedMag;
 
 	//“ü—Íˆ—
 	switch (_actionState) {
@@ -95,7 +96,7 @@ bool Player::Process() {
 
 		}
 
-		if (pad->GetTrgButton() & INPUT_A) {
+		if (pad->GetTrgButton() & INPUT_A && ModeServer::GetInstance()->IsAdd("LightsOut")) {
 			_actionState = ACTION_STATE::kAttack;
 		}
 		if (pad->GetTrgButton() & INPUT_B) {
