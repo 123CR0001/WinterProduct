@@ -26,7 +26,7 @@
 SoundComponent* m = nullptr;
 
 ModeGame::ModeGame(std::string stageNum) {
-	_stageNum = stageNum;
+	_stage = stageNum;
 }
 
 bool ModeGame::Initialize() {
@@ -101,14 +101,17 @@ bool ModeGame::Render() {
 
 	if (!_objServer->Renderer()) { return false; }
 
-	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stageNum);
+	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stage);
 
 	return true;
 }
 
 bool ModeGame::LoadData() {
+	std::string stage = _stage.substr(0, 1);
+	std::string area = _stage.substr(2, 1);
 	nlohmann::json j;
-	std::ifstream file("res/map/stage" + _stageNum + ".json");
+	std::string str = "res/map/stage" + stage + "/" + area + "/stage" + area + ".json";
+	std::ifstream file(str);
 
 	if (!file) { return false; }
 	file >> j;
@@ -153,15 +156,15 @@ bool ModeGame::LoadData() {
 	};
 
 	std::unordered_map<std::string, ModelData>map;
-	std::string filePath = "res/Stage/stage" + _stageNum + "/stage" + _stageNum + ".mv1";
-	std::string attachFrameName = "UCX_stage" + _stageNum;
-	map["stage" + _stageNum].filePath = filePath.c_str();
-	map["stage" + _stageNum].attachFrameName = attachFrameName.c_str();
+	std::string filePath = "res/Stage/stage" + stage + "/stage" + stage + ".mv1";
+	std::string attachFrameName = "UCX_stage" + stage;
+	map["stage" + stage].filePath = filePath.c_str();
+	map["stage" + stage].attachFrameName = attachFrameName.c_str();
 
-	std::string filePathColl = "res/Map/mapcollisionstage" + _stageNum + ".mv1";
-	std::string attachFrameNameColl = "mapcollisionstage" + _stageNum;
-	map["mapcollisionstage" + _stageNum].filePath = filePathColl.c_str();
-	map["mapcollisionstage" + _stageNum].attachFrameName = attachFrameNameColl.c_str();
+	std::string filePathColl = "res/Map/stage" +  stage + "/" + area +"/mapcollisionstage" + stage + ".mv1";
+	std::string attachFrameNameColl = "mapcollisionstage" + stage;
+	map["mapcollisionstage" + stage].filePath = filePathColl.c_str();
+	map["mapcollisionstage" + stage].attachFrameName = attachFrameNameColl.c_str();
 
 	{
 		//ナビゲーション
@@ -178,7 +181,7 @@ bool ModeGame::LoadData() {
 			}
 		}
 	}
-
+	
 	for (auto&& object : j.at("object")) {
 		std::string name = object.at("objectName");
 	

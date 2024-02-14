@@ -24,5 +24,5 @@ protected:
 	class ObjectServer* _objServer;
 	class ModeEffekseer* _modeEffekseer;
 	class FPS* _fps;
-	std::string _stageNum;
+	std::string _stage;
 }; 
