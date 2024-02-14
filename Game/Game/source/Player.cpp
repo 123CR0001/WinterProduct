@@ -16,6 +16,7 @@
 #include"SoundComponent.h"
 #include"AfterImage.h"
 #include"MotionComponent.h"
+#include"Decoy.h"
 
 #include<functional>
 
@@ -112,7 +113,7 @@ bool Player::Process() {
 			_actionState = ACTION_STATE::kAttack;
 		}
 		if (pad->GetTrgButton() & INPUT_B) {
-			_actionState = ACTION_STATE::kSilent;
+			NEW Decoy(this);
 		}
 		break;
 	case ACTION_STATE::kAttack:

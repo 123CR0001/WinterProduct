@@ -3,7 +3,7 @@
 #include"ObjectServer.h"
 #include"AIComponent.h"
 #include"AIPatrol.h"
-#include"AIChasePlayer.h"
+#include"AIChase.h"
 #include"AIBackPatrol.h"
 #include<algorithm>
 #include"MoveComponent.h"
@@ -27,7 +27,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 
 	//AState‚Ì“o˜^
 	_AI->RegisterState(NEW AIBackPatrol(_AI));
-	_AI->RegisterState(NEW AIChasePlayer(_AI));
+	_AI->RegisterState(NEW AIChase(_AI));
 	_AI->RegisterState(NEW AIPatrol(_AI));
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
 	_AI->RegisterState(NEW AICheckPoint(_AI));

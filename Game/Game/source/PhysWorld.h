@@ -15,6 +15,7 @@ public:
 		float pushDistanceSqaure = 0.f;			//押し出す長さ
 		class ObjectBase* _object = nullptr;	//重なったオブジェクトのアドレス
 		Vector3D hitPosition;
+		Vector3D normal;
 	};
 	
 	struct CollisionDetectionResult {

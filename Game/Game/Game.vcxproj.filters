@@ -153,7 +153,7 @@
     <ClCompile Include="source\AIPatrol.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\AIChasePlayer.cpp">
+    <ClCompile Include="source\AIChase.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
     <ClCompile Include="source\AIBackPatrol.cpp">
@@ -285,6 +285,9 @@
     <ClCompile Include="source\MotionComponent.cpp">
       <Filter>ソース ファイル\Component</Filter>
     </ClCompile>
+    <ClCompile Include="source\Decoy.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -353,7 +356,7 @@
     <ClInclude Include="source\AIPatrol.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
-    <ClInclude Include="source\AIChasePlayer.h">
+    <ClInclude Include="source\AIChase.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
     <ClInclude Include="source\AIBackPatrol.h">
@@ -478,6 +481,9 @@
     </ClInclude>
     <ClInclude Include="source\MotionComponent.h">
       <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Decoy.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

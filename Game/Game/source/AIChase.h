@@ -4,10 +4,10 @@
 #include"../../../AppFrame/source/Collision/Vector3D.h"
 
 //プレイヤーを見かけたポイントに移動する
-class AIChasePlayer:public AIState{
+class AIChase:public AIState{
 public:
-	AIChasePlayer(class AIComponent* owner);
-	~AIChasePlayer();
+	AIChase(class AIComponent* owner);
+	~AIChase();
 
 	bool Process()override;
 
@@ -17,7 +17,7 @@ public:
 
 	void GetShortestRoots();
 
-	const char* GetName()override { return "ChasePlayer"; }
+	const char* GetName()override { return "Chase"; }
 
 	int GetPointsNum()const { return _pointsNum; }
 

@@ -14,9 +14,12 @@ public:
 	bool Process()override;
 
 	PhysWorld::CollisionDetectionResult GetOverlapResult();
+	PhysWorld::CollisionDetectionResult GetEventOverlapResult()const { return _result; };
 
 protected:
 	float _length;	//カプセルの長さ
 	float _radius;	//カプセルの半径
 	Vector3D _diff;	//オブジェクトの位置からどれだけ離れているか
+
+	PhysWorld::CollisionDetectionResult _result;
 };

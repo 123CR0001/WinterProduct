@@ -9,8 +9,8 @@ public:
 		this->y = y;
 		this->z = z;
 	}
-	Vector3D(const Vector3D& other) {
-		*this = other;
+	Vector3D(const Vector3D& right) {
+		*this = right;
 	}
 	virtual ~Vector3D() {}
 
@@ -42,7 +42,7 @@ public:
 	}
 
 	//ベクトルの乗算代入
-	const Vector3D& operator *= (const float& right) {
+	Vector3D& operator *= (const float right) {
 		x *= right;
 		y *= right;
 		z *= right;
@@ -50,7 +50,7 @@ public:
 	}
 
 	//ベクトルの除算代入
-	const Vector3D& operator /= (const float& right) {
+	const Vector3D& operator /= (const float right) {
 		x /= right;
 		y /= right;
 		z /= right;
@@ -64,10 +64,10 @@ public:
 	const Vector3D operator - (const Vector3D& right);
 
 	//ベクトルの乗算
-	const Vector3D operator * (const float& right);
+	const Vector3D operator * (const float right);
 
 	//ベクトルの除算代入
-	const Vector3D operator / (const float& right);
+	const Vector3D operator / (const float right);
 
 	//二つの座標が等しいか
 	bool operator == (const Vector3D& right);
@@ -109,5 +109,8 @@ public:
 	static Vector3D Emphasis(Vector3D ver1, Vector3D ver2, Vector3D ver3);
 
 	//線形補完
-	static Vector3D LineInter( Vector3D start,Vector3D end, const float& t);
+	static Vector3D LineInter( Vector3D start,Vector3D end, const float t);
+
+	//法線ベクトルによるベクトルの反射
+	static Vector3D Reflect(Vector3D vec,Vector3D normal);
 };

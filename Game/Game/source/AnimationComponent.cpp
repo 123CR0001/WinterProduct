@@ -63,6 +63,8 @@ bool AnimationComponent::Process() {
 	return true;
 }
 
+//loop = 0　ループ 
+//loop < n　n回再生 
 void AnimationComponent::LoadAnimation(const char* animName,const char* fileName,int loop) {
 	_animation.emplace(animName, MV1GetAnimIndex(_owner->GetHandle(),fileName));
 	_animLoop.emplace(animName,loop);

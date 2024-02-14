@@ -8,11 +8,11 @@ const Vector3D Vector3D::operator - (const Vector3D& right) {
 	return Vector3D(*this) -= right;
 }
 
-const Vector3D Vector3D::operator * (const float& right) {
+const Vector3D Vector3D::operator * (const float right) {
 	return Vector3D(*this) *= right;
 }
 
-const Vector3D Vector3D::operator / (const float& right) {
+const Vector3D Vector3D::operator / (const float right) {
 	return Vector3D(*this) /= right;
 }
 
@@ -121,6 +121,10 @@ Vector3D Vector3D::Emphasis(Vector3D ver1, Vector3D ver2, Vector3D ver3) {
 	return Vector3D(ver1 + (ver2 + ver3)) / 3;
 }
 
-Vector3D Vector3D::LineInter(Vector3D start, Vector3D end, const float& t) {
+Vector3D Vector3D::LineInter(Vector3D start, Vector3D end, const float t) {
 	return start + (Vector3D(end - start) * t);
+}
+
+Vector3D Vector3D::Reflect(Vector3D vec, Vector3D normal) {
+	return vec - normal * (2.0f * Vector3D::Dot(vec, normal));
 }

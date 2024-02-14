@@ -84,7 +84,7 @@ bool MotionComponent::Process() {
 	AnimationComponent* anim = _chara->GetAnimationComponent();
 	std::string animName = anim->GetAnimationName();
 
-	//CharaBaseが再生しているアニメーションの再生時間を取得
+	//CharaBaseが再生しているアニメーションの再生時間を取得		切り上げ
 	int playTime = static_cast<int>(anim->GetPlayTime() + 0.999f);
 
 	if (motionData.find(name) == motionData.end()) { return false; }

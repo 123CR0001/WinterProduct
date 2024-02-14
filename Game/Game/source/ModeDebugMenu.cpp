@@ -2,7 +2,7 @@
 #include "ApplicationMain.h"
 #include"CommonSoldier.h"
 #include"AIBackPatrol.h"
-#include"AIChasePlayer.h"
+#include"AIChase.h"
 #include"AIComponent.h"
 #include"AICheckPoint.h"
 #include"AIPatrol.h"

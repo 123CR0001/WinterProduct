@@ -37,7 +37,10 @@ public:
 	float GetViewDist()const { return _viewDist; }
 	Vector3D GetView()const { return _view; }
 
-	bool IsFound(ObjectBase* target);
+	bool IsFound(class ObjectBase* target);
+	void SetChaseObject(class ObjectBase* target) { _chaseObj = target; }
+	class ObjectBase* GetChaseObject()const { return _chaseObj; }
+
 	bool MoveTo(std::vector<Vector3D>& points, int& num);
 
 protected:
@@ -47,6 +50,8 @@ protected:
 	//処理をするAIクラス
 	class AIState* _currentState;
 
+
+	//AIStateに必要な情報
 	//経路の座標を登録
 	std::unordered_map<std::string, std::vector<Vector3D>>_points;
 
@@ -55,4 +60,6 @@ protected:
 	float _viewDist;
 	Vector3D _view;
 
+	//視認したキャラ
+	class ObjectBase* _chaseObj;
 };

@@ -8,6 +8,7 @@
 AIComponent::AIComponent(ObjectBase* owner,int order)
 	:Component(owner,order)
 	,_currentState(nullptr)
+	,_chaseObj(nullptr)
 {
 }
 

@@ -1,4 +1,4 @@
-#include"AIChasePlayer.h"
+#include"AIChase.h"
 #include"AIComponent.h"
 #include"Player.h"
 #include"CommonSoldier.h"
@@ -8,16 +8,16 @@
 #include"ModeGame.h"
 #include"AIBackPatrol.h"
 
-AIChasePlayer::AIChasePlayer(AIComponent* owner)
+AIChase::AIChase(AIComponent* owner)
 	:AIState(owner)
 	, _pointsNum(0)
 	,_frameCnt(0)
 {
 }
 
-AIChasePlayer::~AIChasePlayer() {}
+AIChase::~AIChase() {}
 
-void AIChasePlayer::OnEnter() {
+void AIChase::OnEnter() {
 
 	_frameCnt = 0;
 
@@ -26,11 +26,10 @@ void AIChasePlayer::OnEnter() {
 	if(_owner->GetPoints(GetName()).size() == 0)_owner->ChangeState("BackPatrol");
 }
 
-void AIChasePlayer::OnExist() {
-
+void AIChase::OnExist() {
 }
 
-bool AIChasePlayer::Process() {
+bool AIChase::Process() {
 
 
 	//プレイヤーを見つけずに目標地点についたら巡回ルートに戻るAIStateにする
@@ -39,7 +38,7 @@ bool AIChasePlayer::Process() {
 	}
 
 	//プレイヤーを見つけたら、随時更新
-	if (_owner->IsFound(_owner->GetOwner()->GetObjectServer()->GetPlayer())) {
+	if (_owner->IsFound(_owner->GetChaseObject())) {
 		auto player = _owner->GetOwner()->GetObjectServer()->GetPlayer();
 		//
 		if (_owner->GetPoints(GetName()).size() > 0) {
@@ -69,7 +68,7 @@ bool AIChasePlayer::Process() {
 	return true;
 }
 
-void AIChasePlayer::GetShortestRoots() {
+void AIChase::GetShortestRoots() {
 	//昔のルートは捨てる
 	_pointsNum = 0;
 	_owner->GetPoints(GetName()).clear();
@@ -107,12 +106,12 @@ void AIChasePlayer::GetShortestRoots() {
 	Navi::GetConectPolygonMap(hitPolygons, conectPolygonMap);
 
 	auto ownerOnPolygon = Navi::GetHitPoygon(_owner->GetOwner()->GetPos(), hitPolygons);
-	auto playerOnPolygon = Navi::GetHitPoygon(_owner->GetOwner()->GetObjectServer()->GetPlayer()->GetPos(), hitPolygons);
+	auto objectOnPolygon = Navi::GetHitPoygon(_owner->GetChaseObject()->GetPos(), hitPolygons);
 
-	if (ownerOnPolygon && playerOnPolygon) {
+	if (ownerOnPolygon && objectOnPolygon) {
 		Navi::BFS(conectPolygonMap,
 			ownerOnPolygon,
-			playerOnPolygon,
+			objectOnPolygon,
 			_owner->GetPoints(GetName()
 			));
 	}
