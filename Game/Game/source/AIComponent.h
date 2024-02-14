@@ -29,6 +29,17 @@ public:
 	void InsertPoint(const std::string& name, const Vector3D& point, const int num);
 	void DeletePoint(const std::string& name, int num = -1);
 
+	void SetViewAngle(const float angle) { _viewAngle = angle; }
+	void SetViewDist(const float dist) { _viewDist = dist; }
+	void SetView(const Vector3D& view) { _view = view; }
+
+	float GetViewAngle()const { return _viewAngle; }
+	float GetViewDist()const { return _viewDist; }
+	Vector3D GetView()const { return _view; }
+
+	bool IsFound(ObjectBase* target);
+	bool MoveTo(std::vector<Vector3D>& points, int& num);
+
 protected:
 	//AI‚ÌƒNƒ‰ƒX‚ğ“o˜^
 	std::unordered_map<std::string, class AIState*>_stateMap;
@@ -38,4 +49,9 @@ protected:
 
 	//Œo˜H‚ÌÀ•W‚ğ“o˜^
 	std::unordered_map<std::string, std::vector<Vector3D>>_points;
+
+	//‹ŠE”ÍˆÍ
+	float _viewAngle;
+	float _viewDist;
+	Vector3D _view;
 };

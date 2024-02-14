@@ -4,6 +4,8 @@
 #include "ModeGame.h"
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
+#include"AIComponent.h"
+#include"Player.h"
 
 UIDetection::UIDetection(class ModeGame* game):_game(game) {
 	// 画像読み込み
@@ -25,10 +27,10 @@ void UIDetection::Process() {
 	auto CommonSoldiers = _game->GetObjectServer()->GetCommonSoldiers();
 	int i = 0;
 	for (auto iter = CommonSoldiers.begin(); iter != CommonSoldiers.end(); ++iter) {
-		if ((*iter)->IsPlayerFound()) { 
+		if ((*iter)->GetAIComponent()->IsFound((*iter)->GetObjectServer()->GetPlayer())) {
 			_vEneInfo[i].bFind = true;
 		}
-		else if(!(*iter)->IsPlayerFound()){
+		else{
 			_vEneInfo[i].bFind = false;
 		}
 		i++;
@@ -50,7 +52,7 @@ void UIDetection::Render() {
 	auto CommonSoldiers = _game->GetObjectServer()->GetCommonSoldiers();
 	int i = 0;
 	for (auto iter = CommonSoldiers.begin(); iter != CommonSoldiers.end(); ++iter) {
-		if ((*iter)->IsPlayerFound() || _vEneInfo[i].val < 100) {										// 敵に発見されている、或いは検知度が残っていたら描画する
+		if ((*iter)->GetAIComponent()->IsFound((*iter)->GetObjectServer()->GetPlayer()) || _vEneInfo[i].val < 100) {										// 敵に発見されている、或いは検知度が残っていたら描画する
 			VECTOR vPos = (*iter)->GetDxPos();													// 敵の位置座標を取り出す
 			VECTOR highVec = { 0,230,0 };														// 
 			VECTOR eneOverhead = VAdd(vPos, highVec);											// 敵の頭上に表示するためにベクトルを加算する

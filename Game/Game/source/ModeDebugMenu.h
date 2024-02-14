@@ -12,7 +12,7 @@ public:
 
 	void RenderCharaCollision();
 	void RenderEnemyRoot();
-	void RenderVisionCollision();
+	void RenderViewCollision();
 	void RenderEnemyAIName();
 	void RenderNavigationPolygons();
 	void RenerSirenInfo();

@@ -15,7 +15,7 @@ public:
 
 	void OnExist()override;
 
-	bool GetShortestRoots();
+	void GetShortestRoots();
 
 	const char* GetName()override { return "ChasePlayer"; }
 

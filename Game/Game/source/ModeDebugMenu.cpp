@@ -254,7 +254,7 @@ bool ModeDebugMenu::Render() {
 
 	if (_charaCollision) { RenderCharaCollision(); }
 	if (_root) { RenderEnemyRoot(); }
-	if (_visionCollision) { RenderVisionCollision(); }
+	if (_visionCollision) { RenderViewCollision(); }
 	if (_AIName) { RenderEnemyAIName(); }
 	if (_navigationPolygon) { RenderNavigationPolygons(); }
 	if (_sirenInfo) { RenerSirenInfo(); }
@@ -357,7 +357,7 @@ void ModeDebugMenu::RenderEnemyRoot() {
 	}
 }
 
-void ModeDebugMenu::RenderVisionCollision() {
+void ModeDebugMenu::RenderViewCollision() {
 	auto CommonSoldiers = _game->GetObjectServer()->GetCommonSoldiers();
 
 	if (CommonSoldiers.size() == 0) { return; }
@@ -365,13 +365,13 @@ void ModeDebugMenu::RenderVisionCollision() {
 	for (auto iter = CommonSoldiers.begin(); iter != CommonSoldiers.end(); ++iter) {
 		auto _pos = (*iter)->GetPos();
 		auto _eulerAngle = (*iter)->GetEulerAngle();
-		auto _visionAngle = (*iter)->GetVisionAngle();
-		auto _visionDist = (*iter)->GetVisionDist();
+		auto _visionAngle = (*iter)->GetAIComponent()->GetViewAngle();
+		auto _visionDist = (*iter)->GetAIComponent()->GetViewDist();
 
 		int color = GetColor(255, 0, 0);
 
 
-		if ((*iter)->IsPlayerFound()) {
+		if ((*iter)->GetAIComponent()->IsFound((*iter)->GetObjectServer()->GetPlayer())) {
 			color = GetColor(0, 0, 255);
 		}
 
@@ -421,8 +421,8 @@ void ModeDebugMenu::RenderVisionCollision() {
 		);
 
 		DrawLine3D(
-			DxConverter::VecToDx(Collision::SegPointLatestPoint(Vector3D(_pos + Vector3D(0, 100, 0)), _game->GetObjectServer()->GetPlayer()->GetCapsuleComponent()->GetCapsule().seg)),
-			DxConverter::VecToDx(_pos + Vector3D(0, 100, 0)),
+			DxConverter::VecToDx(_game->GetObjectServer()->GetPlayer()->GetPos()),
+			DxConverter::VecToDx(_pos + (*iter)->GetAIComponent()->GetView()),
 			GetColor(255, 0, 0)
 		);
 	}

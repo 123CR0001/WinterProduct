@@ -6,6 +6,7 @@
 #include<algorithm>
 #include"AIBackPatrol.h"
 #include"PhysWorld.h"
+#include"Player.h"
 
 AIPatrol::AIPatrol(AIComponent* owner)
 	:AIState(owner)
@@ -24,30 +25,22 @@ void AIPatrol::OnExist() {
 
 bool AIPatrol::Process() {
 
-	if (_patrolPoints.size() == 0) {
-		//状態を遷移する
-		//owner->ChangeState("GateKeeper");
-	}
+	auto owner = _owner->GetOwner();
+	auto objectServer = _owner->GetOwner()->GetObjectServer();
 
-	//Serverの_enemysに登録されているか
-	auto iter = std::find(_owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().begin(),
-		_owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end(),
-		_owner->GetOwner()
-	);
-
-	//されていたら、処理をする
-	if (iter != _owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end()) {
-		(*iter)->MoveRoute(_owner->GetPoints(GetName()), _patrolPointsNum);
-		if ((*iter)->IsPlayerFound()) {
-			_owner->ChangeState("ChasePlayer");
-		}
-	}
+	//経路を巡回
+	_owner->MoveTo(_owner->GetPoints(GetName()), _patrolPointsNum);
 
 	//音が聞こえたか？
 	Vector3D p;
 	if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), p)) {
 		_owner->AddPoint("CheckPoint", p);
 		_owner->ChangeState("CheckPoint");
+	}
+
+	//プレイヤーを見つけたか
+	if (_owner->IsFound(objectServer->GetPlayer())) {
+		_owner->ChangeState("ChasePlayer");
 	}
 
 	//LightsOutになったら,AIBlindWalkに変更

@@ -2,6 +2,7 @@
 #include"AIComponent.h"
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
+#include"Player.h"
 
 AICheckPoint::AICheckPoint(AIComponent* owner)
 	:AIState(owner)
@@ -22,60 +23,50 @@ void AICheckPoint::OnEnter() {
 
 	//‚±‚ÌAIState‚ðŠŽ‚·‚éAIComponent‚ðŠŽ‚·‚éObjectBase‚ªŠ‘®‚·‚éServer
 	auto server = _owner->GetOwner()->GetObjectServer();
+	auto owner = _owner->GetOwner();
 
-	auto iter = std::find(
-		server->GetCommonSoldiers().begin(),
-		server->GetCommonSoldiers().end(),
-		_owner->GetOwner()
+	VECTOR center = MV1CollCheck_Line(
+		server->GetNavigationHandle(),
+		server->GetNavigationAttachIndex(),
+		DxConverter::VecToDx(owner->GetPos() - Vector3D(0.f, 100.f, 0.f)),
+		DxConverter::VecToDx(owner->GetPos() + Vector3D(0.f, 100.f, 0.f))
+	).HitPosition;
+
+	std::vector<Polygon3D>hitPolygons;
+
+	MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(
+		server->GetNavigationHandle(),
+		server->GetNavigationAttachIndex(),
+		center,
+		_owner->GetViewDist()
 	);
 
-	//‚³‚ê‚Ä‚¢‚½‚çAˆ—‚ð‚·‚é
-	if (iter != _owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end()) {
+	for (int a = 0; a < result.HitNum; a++) {
+		Polygon3D add(
+			DxConverter::DxToVec(result.Dim[a].Position[0]),
+			DxConverter::DxToVec(result.Dim[a].Position[1]),
+			DxConverter::DxToVec(result.Dim[a].Position[2])
+		);
+		hitPolygons.emplace_back(add);
+	}
+	MV1CollResultPolyDimTerminate(result);
 
-		VECTOR center = MV1CollCheck_Line(
-			server->GetNavigationHandle(),
-			server->GetNavigationAttachIndex(),
-			DxConverter::VecToDx((*iter)->GetPos() - Vector3D(0.f, 100.f, 0.f)),
-			DxConverter::VecToDx((*iter)->GetPos() + Vector3D(0.f, 100.f, 0.f))
-		).HitPosition;
+	ConectPolygonMap conectPolygonMap;
+	Navi::GetConectPolygonMap(hitPolygons, conectPolygonMap);
 
-		std::vector<Polygon3D>hitPolygons;
+	auto ownerOnPolygon = Navi::GetHitPoygon(_owner->GetOwner()->GetPos(), hitPolygons);
+	auto checkPointOnPolygon = Navi::GetHitPoygon(checkPoint, hitPolygons);
 
-		MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(
-			server->GetNavigationHandle(),
-			server->GetNavigationAttachIndex(),
-			center,
-			(*iter)->GetVisionDist()
+	if (ownerOnPolygon && checkPointOnPolygon) {
+
+		Navi::BFS(conectPolygonMap,
+			ownerOnPolygon,
+			checkPointOnPolygon,
+			_owner->GetPoints(GetName())
 		);
 
-		for (int a = 0; a < result.HitNum; a++) {
-			Polygon3D add(
-				DxConverter::DxToVec(result.Dim[a].Position[0]),
-				DxConverter::DxToVec(result.Dim[a].Position[1]),
-				DxConverter::DxToVec(result.Dim[a].Position[2])
-			);
-			hitPolygons.emplace_back(add);
-		}
-		MV1CollResultPolyDimTerminate(result);
-
-		ConectPolygonMap conectPolygonMap;
-		Navi::GetConectPolygonMap(hitPolygons, conectPolygonMap);
-
-		auto ownerOnPolygon = Navi::GetHitPoygon(_owner->GetOwner()->GetPos(), hitPolygons);
-		auto checkPointOnPolygon = Navi::GetHitPoygon(checkPoint, hitPolygons);
-
-		if (ownerOnPolygon && checkPointOnPolygon) {
-			if (!Navi::BFS(conectPolygonMap,
-				ownerOnPolygon,
-				checkPointOnPolygon,
-				_owner->GetPoints(GetName())
-			)) {
-				//Œo˜H’TõŽ¸”s@state •ÏX
-
-			}
-		}
 	}
-	
+
 }
 
 void AICheckPoint::OnExist() {
@@ -84,20 +75,15 @@ void AICheckPoint::OnExist() {
 }
 
 bool AICheckPoint::Process() {
-	//Server‚Ì_enemys‚É“o˜^‚³‚ê‚Ä‚¢‚é‚©
-	auto iter = std::find(_owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().begin(),
-		_owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end(),
-		_owner->GetOwner()
-	);
 
-	//‚³‚ê‚Ä‚¢‚½‚çAˆ—‚ð‚·‚é
-	if (iter != _owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end()) {
-		if ((*iter)->MoveRoute(_owner->GetPoints(GetName()), _pointsNum)) {
-			_owner->ChangeState("BackPatrol");
-		}
-		if ((*iter)->IsPlayerFound()) {
-			_owner->ChangeState("ChasePlayer");
-		}
+	//ˆÚ“®@ÅŒã‚ÌÀ•W‚Ü‚Å“ž’B‚µ‚½‚çA„‰ñŒo˜H‚É–ß‚é
+	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
+		_owner->ChangeState("BackPatrol");
+	}
+
+	//ƒvƒŒƒCƒ„[‚ðŒ©‚Â‚¯‚½‚©
+	if (_owner->IsFound(_owner->GetOwner()->GetObjectServer()->GetPlayer())) {
+		_owner->ChangeState("ChasePlayer");
 	}
 
 	_frameCnt++;

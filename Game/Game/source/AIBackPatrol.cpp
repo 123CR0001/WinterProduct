@@ -31,21 +31,13 @@ void AIBackPatrol::OnExist() {
 }
 
 bool AIBackPatrol::Process() {
-	//Serverの_enemysに登録されているか
-	auto iter = std::find(_owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().begin(),
-		_owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end(),
-		_owner->GetOwner()
-	);
-
-	//されていたら、処理をする
-	if (iter == _owner->GetOwner()->GetObjectServer()->GetCommonSoldiers().end()) { return false; }
 
 	//プレイヤーを見つけずに目標地点についたら巡回ルートに戻るPatrolに切り替え
-	if ((*iter)->MoveRoute(_owner->GetPoints(GetName()), _pointsNum)) {
+	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
 		_owner->ChangeState("Patrol");
 	}
 	//プレイヤーを見つけたら、CheckPlayerに切り替え
-	if ((*iter)->IsPlayerFound()) {
+	if (_owner->GetOwner()->GetObjectServer()->GetPlayer()) {
 		_owner->ChangeState("ChasePlayer");
 	}
 
