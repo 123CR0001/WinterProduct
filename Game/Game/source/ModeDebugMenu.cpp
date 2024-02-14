@@ -9,6 +9,7 @@
 #include"Player.h"
 #include"Siren.h"
 #include"ObjectServer.h"
+#include"FollowCamera.h"
 
 #include"CapsuleComponent.h"
 #include"SoundComponent.h"
@@ -66,14 +67,15 @@ public:
 		ModeDebugMenu::_cameraChange = !ModeDebugMenu::_cameraChange;
 		if (ModeDebugMenu::_cameraChange) {
 			auto player = _menu->GetGame()->GetObjectServer()->GetPlayer();
-			playerCamera = player->GetCamera();
-			camera = NEW OrbitCamera(player, 998);
+
+			player->DeleteComponent(player->GetCamera());
+
+			camera = NEW OrbitCamera(player, 10000);
 			player->SetCamera(camera);
 		}
 		else {
 			auto player = _menu->GetGame()->GetObjectServer()->GetPlayer();
-			player->GetCamera()->Initialize();
-			player->SetCamera(playerCamera);
+			player->SetCamera(NEW FollowCamera(player,1000));
 			player->DeleteComponent(camera);
 			camera = nullptr;
 		}

@@ -119,7 +119,7 @@ bool Player::Process() {
 			float angle = atan2f((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
 
 			_moveCom->SetRotateSpeed(angle);
-			_moveCom->SetMoveSpeed(moveSpeed/2.f);
+			_moveCom->SetMoveSpeed(moveSpeed / 2.f);
 
 			_actionState = ACTION_STATE::kSilentWalk;
 
@@ -152,13 +152,19 @@ bool Player::Process() {
 		case ACTION_STATE::kAttack2:
 			_anim->ChangeAnimation("attack2");
 			break;
+		case ACTION_STATE::kSilent:
+			_anim->ChangeAnimation("Idle");
+			break;
+		case ACTION_STATE::kSilentWalk:
+			_anim->ChangeAnimation("run");
+			break;
 		}
 		_motCnt = 0;
 	}
 
 	//‘«‰¹
 	if (_moveCom->GetSpeed() >= moveSpeed) {
-		new SoundComponent(this, 500.f);
+		new SoundComponent(this, 200.f);
 	}
 
 

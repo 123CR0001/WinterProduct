@@ -23,4 +23,6 @@ protected:
 
 	//ライツアウトを一度でも使用したかの、判別に使用
 	bool _isCouldLightsOut;
+
+	int number;
 }; 

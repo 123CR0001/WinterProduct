@@ -91,7 +91,7 @@ bool ModeGame::Process() {
 	for (auto iter = _objServer->GetCommonSoldiers().begin(); iter != _objServer->GetCommonSoldiers().end(); ++iter) {
 		if ((*iter)->GetDetectionLevel() >= 1.f) {
 
-			ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
+			//ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
 
 		}
 	}
@@ -173,14 +173,49 @@ bool ModeGame::LoadData() {
 	struct ModelData {
 		const char* filePath;
 		const char* attachFrameName;
+		std::function < ObjectBase* (const char*,const char*) > func;
+	};
+
+	std::function < ObjectBase* ( const char*, const char*) > func =
+		[this]( const char* path, const char* frameName) {
+		ObjectBase* p = NEW ObjectBase(GetObjectServer(), true);
+		p->LoadModel(path, frameName);
+		MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());
+		return p;
 	};
 
 	std::unordered_map<std::string, ModelData>map;
+
 	map["stage1"].filePath = "res/Stage/stage1/stage1.mv1";
 	map["stage1"].attachFrameName = "UCX_stage1";
+	map["stage1"].func = func;
+
+	map["siren"].filePath = "res/Object/siren/siren.mv1";
+	map["siren"].attachFrameName = "UCX_siren1";
+	map["siren"].func = [this](const char* path,const char* frameName) {return NEW Siren(GetObjectServer()); };
 
 	map["mapcollisionstage1"].filePath = "res/Map/mapcollisionstage1.mv1";
 	map["mapcollisionstage1"].attachFrameName = "mapcollisionstage1";
+
+	for (auto&& object : j.at("object")) {
+		std::string name = object.at("objectName");
+
+		auto iter = map.begin();
+
+		//“o˜^‚µ‚Ä‚¢‚é–¼‘O‚ª“ª‚É‚ ‚Á‚½‚çAŽÀ‘Ì‰»‚·‚é
+		for (iter; iter != map.end(); ++iter) {
+
+			number = iter->first.find(name);
+
+			if (number == 0) {
+				ObjectBase* p = iter->second.func(iter->second.filePath, iter->second.attachFrameName);
+				p->SetJsonDataUE(object);
+				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
+				break;
+			}
+		}
+	}
+
 
 	{
 		//ƒiƒrƒQ[ƒVƒ‡ƒ“
@@ -189,26 +224,14 @@ bool ModeGame::LoadData() {
 				std::string name = mapcollision.at("objectName");
 				if (map.find(name) != map.end()) {
 					_objServer->SetNavigationModel(map[name].filePath, map[name].attachFrameName);
-					MV1SetPosition(_objServer->GetNavigationHandle(),VGet(mapcollision.at("translate").at("x"),mapcollision.at("translate").at("z"),-1* mapcollision.at("translate").at("y")));
-					MV1SetRotationXYZ(_objServer->GetNavigationHandle(),VGet(DegToRad(90.f), 0.f, 0.f));
+					MV1SetPosition(_objServer->GetNavigationHandle(), VGet(mapcollision.at("translate").at("x"), mapcollision.at("translate").at("z"), -1 * mapcollision.at("translate").at("y")));
+					MV1SetRotationXYZ(_objServer->GetNavigationHandle(), VGet(DegToRad(90.f), 0.f, 0.f));
 					MV1RefreshCollInfo(_objServer->GetNavigationHandle(), _objServer->GetNavigationAttachIndex());
-					
 				}
 			}
 		}
 	}
 
-	for (auto&& object : j.at("object")) {
-		std::string name = object.at("objectName");
-	
-		if (map.find(name) != map.end()) {
-				ObjectBase* p = NEW ObjectBase(GetObjectServer(),true);
-				p->LoadModel(map[name].filePath, map[name].attachFrameName);
-				p->SetJsonDataUE(object);
-				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
-				MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());
-		}
-	}
 
 	return true;
 }
