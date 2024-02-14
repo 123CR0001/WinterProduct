@@ -101,7 +101,7 @@ bool ModeGame::Render() {
 
 	if (!_objServer->Renderer()) { return false; }
 
-	DrawFormatString(0, 0, GetColor(255, 0, 0), "stage%s", _stageNum);
+	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stageNum);
 
 	return true;
 }

@@ -10,9 +10,7 @@ UISelectMap::UISelectMap(float initPosX, float initPosY, float endPosX, float en
 	_stageNum = stage;
 }
 
-int UISelectMap::Selected()
-{
-	//ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("select"));
+int UISelectMap::Selected() {
 	// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
 	ModeColorIn* colorIn = new ModeColorIn(30, true);
 	ModeBase* mode = new ModeColorOut(colorIn, ModeServer::GetInstance()->Get("select"), 30, new ModeGame(_stageNum), 10, "game");

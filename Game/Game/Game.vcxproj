@@ -220,7 +220,7 @@
     <ClCompile Include="source\UIServer.cpp" />
     <ClCompile Include="source\UISlide.cpp" />
     <ClCompile Include="source\UITitle.cpp" />
-    <ClCompile Include="source\UIToTitle.cpp" />
+    <ClCompile Include="source\UIToConfirm.cpp" />
     <ClCompile Include="source\WeaponBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -288,7 +288,7 @@
     <ClInclude Include="source\UIServer.h" />
     <ClInclude Include="source\UISlide.h" />
     <ClInclude Include="source\UITitle.h" />
-    <ClInclude Include="source\UIToTitle.h" />
+    <ClInclude Include="source\UIToConfirm.h" />
     <ClInclude Include="source\WeaponBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

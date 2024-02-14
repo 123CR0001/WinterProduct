@@ -246,7 +246,7 @@
     <ClCompile Include="source\UISlide.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIToTitle.cpp">
+    <ClCompile Include="source\UIToConfirm.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeEndConfirm.cpp">
@@ -443,7 +443,7 @@
     <ClInclude Include="source\UIServer.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="source\UIToTitle.h">
+    <ClInclude Include="source\UIToConfirm.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeEndConfirm.h">

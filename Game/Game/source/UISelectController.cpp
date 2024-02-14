@@ -11,7 +11,6 @@ UISelectController::UISelectController(float initPosX, float initPosY, float end
 int UISelectController::Selected() {
     std::string stage = _uiName;
     int stageNum = std::stoi(_uiName.substr(5));
-    //auto server = GetUIServer();
   
     if (typeid(UIServer*) != typeid(static_cast<UIServer*>(_param))) { return -1; }
     UIServer* server = static_cast<UIServer*>(_param);

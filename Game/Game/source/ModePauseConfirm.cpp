@@ -18,18 +18,17 @@ bool ModePauseConfirm::Initialize()
 	cgQuit	= res::LoadGraph("res/UI/Menu/ui_totitlescreen_01.png");
 
 	// ModeTitle/ModePauseのポインタ
-	void* mdTitle = ModeServer::GetInstance()->Get("title");
 	void* mdPause = ModeServer::GetInstance()->Get("pause");
 
 	// server
 	_ui = new UIServer();
 
-	/*						UIBase					param		 Hundle	x			y		w			h			layer									name */
-	_ui->Add(new UIBackToTitle(),	mdPause, cgYes,		640,		768, 255,		63,		HIGH_LAYER_VALUE,	"yes");
-	_ui->Add(new UINo(),					nullptr,		 cgNo,		1024,	768, 255,		63,		HIGH_LAYER_VALUE,	"no");
-	_ui->Add(new UIBlink(),				nullptr,		 cgGet,		640,		768, 255,		63,		BASIC_LAYER_VALUE, "get_confirm");
-	_ui->Add(new UIDisplay(),			nullptr,		 cgBg,		0,			0,		1920,	1080,	LOW_LAYER_VALUE,	"bg_confirm");
-	_ui->Add(new UIDisplay(),			nullptr,		 cgQuit,	0,			256, 1920,	640,		LOW_LAYER_VALUE,	"quit_confirm");
+	/*			 UIBase				param	 Hundle	 x	   y	w	  h		layer			   name */
+	_ui->Add(new UIBackToTitle(),	this, cgYes,	 640,  768, 255,  63,	HIGH_LAYER_VALUE,  "yes");
+	_ui->Add(new UINo(),			nullptr, cgNo,	 1024, 768, 255,  63,	HIGH_LAYER_VALUE,  "no");
+	_ui->Add(new UIBlink(),			nullptr, cgGet,	 640,  768, 255,  63,	BASIC_LAYER_VALUE, "get_confirm");
+	_ui->Add(new UIDisplay(),		nullptr, cgBg,	 0,	   0,	1920, 1080,	LOW_LAYER_VALUE,   "bg_confirm");
+	_ui->Add(new UIDisplay(),		nullptr, cgQuit, 0,	   256, 1920, 640,	LOW_LAYER_VALUE,   "quit_confirm");
 
 	// 選択肢として扱うものに、番号を割り振る
 	_ui->Search("yes")->_selectNum = 0;
