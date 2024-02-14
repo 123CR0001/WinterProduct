@@ -11,6 +11,8 @@ public:
 
 	Capsule GetCapsule()const;
 
+	bool Process()override;
+
 	PhysWorld::CollisionDetectionResult GetOverlapResult();
 
 protected:

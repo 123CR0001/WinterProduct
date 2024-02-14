@@ -13,7 +13,9 @@ public:
 
 	bool ChangeState(std::string)override;
 
-	void AddMoveSpeedMag(float up) { _moveSpeedMag += up; _moveSpeedMag = Clamp(1.f, 2.f, _moveSpeedMag); }
+	void AddMoveSpeedMag(const float up) { _moveSpeedMag += up; _moveSpeedMag = Clamp(1.f, 2.f, _moveSpeedMag); }
+
+	class CapsuleComponent* GetCapsuleComponent() { return _capsule; }
 
 	enum class ACTION_STATE :unsigned int{
 		kIdle,
@@ -35,6 +37,7 @@ protected:
 
 	class CameraComponent* _cameraCom;
 	class MotionComponent* _motCom;
+	class CapsuleComponent* _capsule;
 
 	float _moveSpeedMag;
 };

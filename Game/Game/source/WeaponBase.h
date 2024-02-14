@@ -13,7 +13,6 @@ public:
 	void OnAttack() { _isAttack = true; }
 	void OffAttack() { _isAttack = false; }
 
-	bool IsHit(class CharaBase* chara);
 protected:
 
 	//UŒ‚ˆ—‚ğ‚·‚é‚©

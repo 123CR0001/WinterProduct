@@ -21,6 +21,7 @@
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server,"CommonSoldier")
 	, _AI(NEW AIComponent(this, 1))
+	,_capsule(NEW CapsuleComponent(this,1000))
 	,_detectionLevel(0.f)
 {
 
@@ -131,9 +132,6 @@ bool CommonSoldier::Process() {
 		//データを空にする
 		_damageData = DamageData{};
 	}
-
-	//重なり修正
-	FixPos();
 
 	return true;
 }

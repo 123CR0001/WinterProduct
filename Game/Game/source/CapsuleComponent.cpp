@@ -21,6 +21,25 @@ CapsuleComponent::~CapsuleComponent() {
 	}
 }
 
+bool CapsuleComponent::Process() {
+	//オブジェクトとの押出処理
+	int i = 0;
+	while (1) {
+		PhysWorld::CollisionDetectionResult result = GetOverlapResult();
+
+		if (result.isHit) {
+			_owner->AddPos(result.item.pushVec);
+		}
+		else { break; }
+		i++;
+		//20回以上判定をしたら、break
+		if (i > 20) {
+			break;
+		}
+	}
+	return true;
+}
+
 PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 	auto physWorld = _owner->GetObjectServer()->GetPhysWorld();
 	auto capComs = physWorld->GetCapsuleComponent();

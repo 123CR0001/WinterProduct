@@ -282,38 +282,23 @@ bool ModeDebugMenu::Render() {
 }
 
 void ModeDebugMenu::RenderCharaCollision() {
-	auto charas = _game->GetObjectServer()->GetCharas();
+	auto capsules = _game->GetObjectServer()->GetPhysWorld()->GetCapsuleComponent();
 
-	if (charas.size() == 0) { return; }
+	if (capsules.size() == 0) { return; }
 
-	for (auto iter = charas.begin(); iter != charas.end(); ++iter) {
-		auto _pos = (*iter)->GetPos();
-		auto _colSubY = (*iter)->GetCapsuleComponent()->GetCapsule().seg.Length();
-		auto _radian = (*iter)->GetCapsuleComponent()->GetCapsule().radius;
+	//カプセルの表示
+	for (auto iter = capsules.begin(); iter != capsules.end(); ++iter) {
+		Capsule capsule = (*iter)->GetCapsule();
 
 		DrawCapsule3D(
-			VAdd(DxConverter::VecToDx(_pos), VGet(0, _colSubY + _radian, 0)),
-			VAdd(DxConverter::VecToDx(_pos), VGet(0, _radian, 0)),
-			_radian, 10,
-			GetColor(255, 0, 0),
-			GetColor(255, 255, 255),
-			FALSE
-		);
-
-		DrawLine3D(
-			DxConverter::VecToDx(_pos + Vector3D(0, _colSubY + _radian * 2, 0)),
-			DxConverter::VecToDx(_pos + Vector3D(0, -1, 0)),
-			GetColor(0, 0, 255)
-		);
-		DrawSphere3D(
-			DxConverter::VecToDx(_pos),
-			_radian,
+			DxConverter::VecToDx(capsule.seg.start),
+			DxConverter::VecToDx(capsule.seg.end),
+			capsule.radius,
 			10,
-			GetColor(0, 255, 0),
 			GetColor(255, 255, 255),
+			GetColor(0, 0, 255),
 			FALSE
 		);
-
 	}
 }
 

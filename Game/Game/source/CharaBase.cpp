@@ -10,13 +10,10 @@
 
 CharaBase::CharaBase(ObjectServer* server, std::string name)
 	:ObjectBase(server, false, name)
-	, _anim(NEW AnimationComponent(this,100))
-	,_capsule(NEW CapsuleComponent(this))
 	, _moveCom(NEW MoveComponent(this, 10))
+	, _anim(NEW AnimationComponent(this))
 {
 	server->GetCharas().emplace_back(this);
-	_capsule->SetMember(170.f, 40.f);
-
 }
 
 CharaBase::~CharaBase() {
@@ -54,22 +51,4 @@ bool CharaBase::Render() {
 	MV1DrawModel(_handle);
 
 	return true;
-}
-
-void CharaBase::FixPos() {
-	//オブジェクトとの押出処理
-	int i = 0;
-	while (1) {
-		PhysWorld::CollisionDetectionResult result = _capsule->GetOverlapResult();
-
-		if (result.isHit) {
-			_pos += result.item.pushVec;
-		}
-		else { break; }
-		i++;
-		//20回以上判定をしたら、break
-		if (i > 20) {
-			break;
-		}
-	}
 }

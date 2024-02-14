@@ -59,19 +59,3 @@ bool WeaponBase::Render() {
 	}
 	return true;
 }
-
-bool WeaponBase::IsHit(CharaBase* chara) {
-	
-	Capsule cap = chara->GetCapsuleComponent()->GetCapsule();
-
-	MV1_COLL_RESULT_POLY_DIM hit = MV1CollCheck_Capsule(
-		_handle,
-		MV1SearchFrame(_handle,"AttackCollision"),
-		DxConverter::VecToDx(cap.seg.start),
-		DxConverter::VecToDx(cap.seg.end),
-		cap.radius
-	);
-
-	if (hit.HitNum > 0) { return true; }
-	return false;
-}

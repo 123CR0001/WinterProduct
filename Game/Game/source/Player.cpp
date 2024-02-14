@@ -25,6 +25,7 @@ Player::Player(ObjectServer* server)
 	,_motCom(NEW MotionComponent(this,200))
 	,_weapon (NEW Knife(this))
 	,_actionState(ACTION_STATE::kIdle)
+	,_capsule(NEW CapsuleComponent(this,1000))
 	,_moveSpeedMag(1.f)
 {
 	server->SetPlayer(this);
@@ -173,10 +174,6 @@ bool Player::Process() {
 	if (_moveCom->GetSpeed() >= moveSpeed && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		new SoundComponent(this, 200.f);
 	}
-
-
-	//オブジェクトとの押出処理
-	FixPos();
 
 	return true;
 }
