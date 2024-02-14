@@ -187,6 +187,7 @@
     <ClCompile Include="source\ModeMiniMap.cpp" />
     <ClCompile Include="source\ModePause.cpp" />
     <ClCompile Include="source\ModePauseConfirm.cpp" />
+    <ClCompile Include="source\ModeSelect.cpp" />
     <ClCompile Include="source\ModeSoundLayer.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
     <ClCompile Include="source\MotionData.cpp" />
@@ -214,8 +215,11 @@
     <ClCompile Include="source\UIQuit.cpp" />
     <ClCompile Include="source\UIResume.cpp" />
     <ClCompile Include="source\UIRetry.cpp" />
+    <ClCompile Include="source\UISelectController.cpp" />
+    <ClCompile Include="source\UISelectMap.cpp" />
     <ClCompile Include="source\UIServer.cpp" />
     <ClCompile Include="source\UISlide.cpp" />
+    <ClCompile Include="source\UITitle.cpp" />
     <ClCompile Include="source\UIToTitle.cpp" />
     <ClCompile Include="source\WeaponBase.cpp" />
   </ItemGroup>
@@ -251,6 +255,7 @@
     <ClInclude Include="source\ModeGameOver.h" />
     <ClInclude Include="source\ModePause.h" />
     <ClInclude Include="source\ModePauseConfirm.h" />
+    <ClInclude Include="source\ModeSelect.h" />
     <ClInclude Include="source\ModeSoundLayer.h" />
     <ClInclude Include="source\ModeTitle.h" />
     <ClInclude Include="source\ModeColorIn.h" />
@@ -278,7 +283,11 @@
     <ClInclude Include="source\UIQuit.h" />
     <ClInclude Include="source\UIResume.h" />
     <ClInclude Include="source\UIRetry.h" />
+    <ClInclude Include="source\UISelectController.h" />
+    <ClInclude Include="source\UISelectMap.h" />
     <ClInclude Include="source\UIServer.h" />
+    <ClInclude Include="source\UISlide.h" />
+    <ClInclude Include="source\UITitle.h" />
     <ClInclude Include="source\UIToTitle.h" />
     <ClInclude Include="source\WeaponBase.h" />
   </ItemGroup>

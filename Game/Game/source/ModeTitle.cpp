@@ -5,6 +5,7 @@
 #include "ModeGame.h"
 #include"ModeColorOut.h"
 #include"ModeColorIn.h"
+#include "ModeSelect.h"
 
 #include "UIServer.h"
 #include "UIGameStart.h"
@@ -59,11 +60,11 @@ bool ModeTitle::Terminate() {
 bool ModeTitle::Process() {
 	base::Process();
 	int key = ApplicationMain::GetInstance()->GetKey();
-	int trg = ApplicationMain::GetInstance()->GetTrg();
+	int trg = ApplicationMain::GetInstance()->GetPad()->GetTrgButton();
 
-	if (trg & PAD_INPUT_A && !ModeServer::GetInstance()->IsAdd("Out")) {
+	if (trg & INPUT_A && !ModeServer::GetInstance()->IsAdd("Out")) {
 		ModeColorIn* colorIn = NEW ModeColorIn(30, true);
-		ModeBase* mode = NEW ModeColorOut(colorIn,this ,30, NEW ModeGame(),10, "game");
+		ModeBase* mode = NEW ModeColorOut(colorIn,this ,30, NEW ModeSelect(), 1, "select");
 		ModeServer::GetInstance()->Add(mode, 11, "Out");
 	}
 
@@ -85,7 +86,7 @@ bool ModeTitle::Process() {
 			std::string name = ui->_uiName;	// ‘I‘ð‚µ‚Ä‚¢‚é€–Ú‚Ì–¼‘O
 			_ui->SelectPosAdjustment(name, "get", 0, 0);
 			if (trg & INPUT_A) {	// Œˆ’è‚Å‘I‘ð€–Ú‚ÌSelected()‚ðŒÄ‚Ô
-				close = _ui->Search(name)->Selected();
+				//close = _ui->Search(name)->Selected();
 			}
 			break;
 		}

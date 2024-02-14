@@ -8,7 +8,7 @@ UIBackToTitle::UIBackToTitle() {
 }
 
 int UIBackToTitle::Selected() {
-	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("pause"));
+	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("Pause"));
 	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("game"));
 	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("effectsample"));
 	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("Debug"));

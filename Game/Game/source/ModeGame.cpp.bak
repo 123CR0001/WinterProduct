@@ -25,10 +25,6 @@
 
 SoundComponent* m = nullptr;
 
-ModeGame::ModeGame(std::string stageNum) {
-	_stageNum = stageNum;
-}
-
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 
@@ -78,7 +74,7 @@ bool ModeGame::Process() {
 	// fpsの待機
 	_fps->WaitFPS();
 	auto CommonSoldiers = GetObjectServer()->GetCommonSoldiers();
-	if (CommonSoldiers.size() == 0) { _fps->SetFPS(50); }
+	if (CommonSoldiers.size() == 0) { _fps->SetFPS(20); }
 
 	return true;
 }
@@ -101,14 +97,12 @@ bool ModeGame::Render() {
 
 	if (!_objServer->Renderer()) { return false; }
 
-	DrawFormatString(0, 0, GetColor(255, 0, 0), "stage%s", _stageNum);
-
 	return true;
 }
 
 bool ModeGame::LoadData() {
 	nlohmann::json j;
-	std::ifstream file("res/map/stage" + _stageNum + ".json");
+	std::ifstream file("res/map/stage1.json");
 
 	if (!file) { return false; }
 	file >> j;
@@ -153,15 +147,11 @@ bool ModeGame::LoadData() {
 	};
 
 	std::unordered_map<std::string, ModelData>map;
-	std::string filePath = "res/Stage/stage" + _stageNum + "/stage" + _stageNum + ".mv1";
-	std::string attachFrameName = "UCX_stage" + _stageNum;
-	map["stage" + _stageNum].filePath = filePath.c_str();
-	map["stage" + _stageNum].attachFrameName = attachFrameName.c_str();
+	map["stage1"].filePath = "res/Stage/stage1/stage1.mv1";
+	map["stage1"].attachFrameName = "UCX_stage1";
 
-	std::string filePathColl = "res/Map/mapcollisionstage" + _stageNum + ".mv1";
-	std::string attachFrameNameColl = "mapcollisionstage" + _stageNum;
-	map["mapcollisionstage" + _stageNum].filePath = filePathColl.c_str();
-	map["mapcollisionstage" + _stageNum].attachFrameName = attachFrameNameColl.c_str();
+	map["mapcollisionstage1"].filePath = "res/Map/mapcollisionstage1.mv1";
+	map["mapcollisionstage1"].attachFrameName = "mapcollisionstage1";
 
 	{
 		//ナビゲーション

@@ -8,7 +8,7 @@ public:
 	UISlide(float initPosX, float initPosY, float endPosX, float endPosY, int frame);
 
 public:
-	void Process()override;
+	virtual void Process();
 
 public:
 	int Selected()override;

@@ -9,6 +9,6 @@ UIRetry::UIRetry() {
 int UIRetry::Selected() {
 	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("gameover"));
 	// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
-	ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
+	ModeServer::GetInstance()->Add(new ModeGame("1"), 1, "game");
 	return 0;
 }
