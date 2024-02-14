@@ -49,10 +49,6 @@ bool CommonSoldier::Initialize() {
 
 	_isStand = true;
 
-	//“–‚½‚è”»’è
-	_colSubY = 100.f;
-	_radian = 30;
-
 	//Ž‹Šo
 	_visionDist = 500.f;
 	_visionAngle = 120.f;
@@ -168,7 +164,7 @@ bool CommonSoldier::IsPlayerFound() {
 
 			//_isFound = true;
 			//–Ú‚Ì‚‚³
-			Vector3D latest(Collision::SegPointLatestPoint(Vector3D(_pos + Vector3D(0, 100, 0)), player->GetCapsuleSegment()));
+			Vector3D latest(Collision::SegPointLatestPoint(Vector3D(_pos + Vector3D(0, 100, 0)), player->GetCapsuleComponent()->GetCapsule().seg));
 
 			Segment seg(latest, Vector3D(_pos + Vector3D(0, 100, 0)));
 

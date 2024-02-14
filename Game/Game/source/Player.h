@@ -13,8 +13,6 @@ public:
 
 	bool ChangeState(std::string)override;
 
-	bool MotionProcess();		//アニメーションに付随するモーションデータの処理
-
 	void AddMoveSpeedMag(float up) { _moveSpeedMag += up; _moveSpeedMag = Clamp(1.f, 2.f, _moveSpeedMag); }
 
 	enum class ACTION_STATE :unsigned int{

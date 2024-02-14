@@ -17,7 +17,7 @@ public:
 	void IncrementMotionCount() { _motCnt++; }
 
 
-	void AddCustomCommand(std::string name, std::function<void(const MOTION_DATA_ITEM&)> func) { _customCommandFuncMap[name] = func; }
+	void RegisterCustomCommand(std::string name, std::function<void(const MOTION_DATA_ITEM&)> func) { _customCommandFuncMap[name] = func; }
 
 
 private:

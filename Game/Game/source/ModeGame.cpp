@@ -44,6 +44,11 @@ bool ModeGame::Initialize() {
 	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
 
 	_isCouldLightsOut = false;
+
+
+	// シャドウマップの生成
+	_handleShadowMap = MakeShadowMap(2048, 2048);
+
 	return true;
 }
 
@@ -115,16 +120,45 @@ bool ModeGame::Render() {
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
+
+
 #if 0	// 平行ライト
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(VGet(-1, -1, 0));
 #endif
+
 #if 1	// ポイントライト
+	VECTOR vLightDir = VGet(-1, -1, 0.5f);
+	// 平行ライト
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
+	ChangeLightTypeDir(vLightDir);
 	
 #endif
 
-	if (!_objServer->Renderer()) { return false; }
+	// シャドウマップが想定するライトの方向もセット
+	SetShadowMapLightDirection(_handleShadowMap, vLightDir);
+
+	// シャドウマップに描画する範囲を設定
+	SetShadowMapDrawArea(_handleShadowMap, VGet(-500.0f, -1.0f, -500.0f), VGet(500.0f, 500.0f, 500.0f));
+
+	// 2回まわして、path=0:シャドウマップへの描画, path=1:モデルの描画
+	for (int path = 0; path < 2; path++) {
+		if (path == 0) {
+			// シャドウマップへの描画の準備
+			ShadowMap_DrawSetup(_handleShadowMap);
+		}
+		else if (path == 1) {
+			// シャドウマップへの描画を終了
+			ShadowMap_DrawEnd();
+			// 描画に使用するシャドウマップを設定
+			SetUseShadowMap(0, _handleShadowMap);
+		}
+
+		if (!_objServer->Renderer()) { return false; }
+	}
+
+	// 描画に使用するシャドウマップの設定を解除
+	SetUseShadowMap(0, -1);
 
 	return true;
 }
@@ -205,9 +239,7 @@ bool ModeGame::LoadData() {
 		//登録している名前が頭にあったら、実体化する
 		for (iter; iter != map.end(); ++iter) {
 
-			number = iter->first.find(name);
-
-			if (number == 0) {
+			if (iter->first.find(name) == 0) {
 				ObjectBase* p = iter->second.func(iter->second.filePath, iter->second.attachFrameName);
 				p->SetJsonDataUE(object);
 				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));

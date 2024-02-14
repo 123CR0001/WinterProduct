@@ -288,8 +288,8 @@ void ModeDebugMenu::RenderCharaCollision() {
 
 	for (auto iter = charas.begin(); iter != charas.end(); ++iter) {
 		auto _pos = (*iter)->GetPos();
-		auto _colSubY = (*iter)->GetCollSubY();
-		auto _radian = (*iter)->GetRadian();
+		auto _colSubY = (*iter)->GetCapsuleComponent()->GetCapsule().seg.Length();
+		auto _radian = (*iter)->GetCapsuleComponent()->GetCapsule().radius;
 
 		DrawCapsule3D(
 			VAdd(DxConverter::VecToDx(_pos), VGet(0, _colSubY + _radian, 0)),
@@ -421,7 +421,7 @@ void ModeDebugMenu::RenderVisionCollision() {
 		);
 
 		DrawLine3D(
-			DxConverter::VecToDx(Collision::SegPointLatestPoint(Vector3D(_pos + Vector3D(0, 100, 0)), _game->GetObjectServer()->GetPlayer()->GetCapsuleSegment())),
+			DxConverter::VecToDx(Collision::SegPointLatestPoint(Vector3D(_pos + Vector3D(0, 100, 0)), _game->GetObjectServer()->GetPlayer()->GetCapsuleComponent()->GetCapsule().seg)),
 			DxConverter::VecToDx(_pos + Vector3D(0, 100, 0)),
 			GetColor(255, 0, 0)
 		);

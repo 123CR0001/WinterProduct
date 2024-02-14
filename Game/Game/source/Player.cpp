@@ -25,17 +25,21 @@ Player::Player(ObjectServer* server)
 	,_moveCom(NEW MoveComponent(this,1))
 	,_motCom(NEW MotionComponent(this,200))
 	,_weapon (NEW Knife(this))
+	,_actionState(ACTION_STATE::kIdle)
 	,_moveSpeedMag(1.f)
 {
 	server->SetPlayer(this);
 
+
+	//このクラス特有のモーションデータのコマンド処理
 	auto func = [this](const MOTION_DATA_ITEM& item) {_weapon->OnAttack(); _motCom->IncrementMotionCount(); };
 	auto func2 = [this](const MOTION_DATA_ITEM& item) {_weapon->OffAttack(); _motCom->IncrementMotionCount();  };
 	auto func3 = [this](const MOTION_DATA_ITEM& item) {ChangeState(item.ChangeMotion); _motCom->ResetMotionCount(); };
 
-	_motCom->AddCustomCommand("ATTACK_ON",func);
-	_motCom->AddCustomCommand("ATTACK_OFF", func2);
-	_motCom->AddCustomCommand("CHANGE_MOTION", func3);
+	//上記の処理をMotionComponentに追加
+	_motCom->RegisterCustomCommand("ATTACK_ON",func);
+	_motCom->RegisterCustomCommand("ATTACK_OFF", func2);
+	_motCom->RegisterCustomCommand("CHANGE_MOTION", func3);
 
 }
 
@@ -56,11 +60,6 @@ bool Player::Initialize() {
 	_anim->LoadAnimation("run", "mo_move_01", 0);
 	_anim->LoadAnimation("Attack", "mo_lightsout_01", 1);
 	_anim->LoadAnimation("Attack2", "mo_lightsout_01", 1);
-
-	// 3Dモデルの1番目のアニメーションをアタッチする
-
-	_colSubY = 40.f;
-	_radian = 30;
 
 	_capsule->SetMember(40.f, 30.f);
 
@@ -83,7 +82,7 @@ bool Player::Terminate() {
 
 bool Player::Process() {
 
-	ACTION_STATE old_state = _actionState;
+	ACTION_STATE oldState = _actionState;
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
 
@@ -147,7 +146,7 @@ bool Player::Process() {
 	ObjectBase::Process();
 
 	// ステータスが変わっていないか？
-	if(old_state != _actionState) {
+	if(oldState != _actionState) {
 		// ステータスに合わせてアニメーションのアタッチ
 		switch(_actionState) {
 		case ACTION_STATE::kIdle:
@@ -169,7 +168,6 @@ bool Player::Process() {
 			_anim->ChangeAnimation("run");
 			break;
 		}
-		_motCnt = 0;
 	}
 
 	//足音
@@ -251,106 +249,6 @@ bool Player::Render() {
 		break;
 
 	}
-
-	return true;
-}
-
-bool Player::MotionProcess() {
-	//auto motionData = gGlobal._charaMotionData;
-
-	////モーションの再生時間とJsonデータで指定されているフレームが同じだっと時に処理を実行
-	//
-	//if (motionData[MotionType::PLAYER].find((unsigned int)_actionState)!= motionData[MotionType::PLAYER].end()){
-	//	auto charaMotionData = motionData[MotionType::PLAYER][(unsigned int)_actionState][_motCnt];
-
-	//	if ((int)(_anim->GetPlayTime() + 0.999) == charaMotionData.playTime) {
-
-	//		//次のモーションデータを参照したいなら、_motCnt++をする
-
-	//		switch (charaMotionData.Command) {
-	//		case MotionCommand::ATTACK_ON:
-	//		{
-	//			_weapon->OnAttack();
-	//			_motCnt++;
-	//			break;
-	//		}
-	//		case MotionCommand::ATTACK_OFF:
-	//		{
-	//			_weapon->OffAttack();
-	//			_motCnt++;
-	//			break;
-	//		}
-	//		case MotionCommand::PLAY_EFFECT:
-	//		{
-	//			_motCnt++;
-	//			break;
-	//		}
-	//		case MotionCommand::PLAY_EFFECT_3DFRAME:
-	//		{
-
-	//			//エフェクトの再生
-	//			void* mode = ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME);
-	//			if (mode) {
-
-	//				// フレーム名からフレーム番号を取得する
-	//				int FrameIndex = MV1SearchFrame(_handle, charaMotionData.effectPlay3DFrame.c_str());
-
-	//				// フレームの現在のワールドでの状態を示す行列を取得する
-	//				MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(_handle, FrameIndex);
-
-	//				ModeEffekseer* effect = GetObjectServer()->GetGame()->GetModeEffekseer();
-	//				effect->Play(
-	//					charaMotionData.effectPlayName,
-	//					Vector3D(FrameMatrix.m[3][0], FrameMatrix.m[3][1], FrameMatrix.m[3][2]),
-	//					Vector3D(_eulerAngle.x, _eulerAngle.y + PI, _eulerAngle.z)
-	//				);
-	//			}
-
-	//			_motCnt++;
-	//			break;
-	//		}
-	//		case MotionCommand::PLAY_SOUND:
-	//		{
-	//			//SEの再生
-	//			gGlobal._sndServer.Get(charaMotionData.soundPlayName)->Play();
-	//			_motCnt++;
-	//			break;
-	//		}
-	//		case MotionCommand::LOOP:
-	//		{
-	//			_motCnt = 0;
-	//			break;
-	//		}
-	//		case MotionCommand::CHANGE_MOTION:
-	//		{
-	//			ChangeState(charaMotionData.ChangeMotion);
-	//			_motCnt = 0;
-	//			break;
-	//		}
-	//		case MotionCommand::MOVE:
-	//		{
-	//			float rad = DegToRad(charaMotionData.vector) + _eulerAngle.y;
-
-	//			Vector3D v(sin(rad), 0, cos(rad));
-	//			v.Normalized();
-
-	//			_pos += v * charaMotionData.vectorScale;
-	//	
-	//			_motCnt++;
-	//			break;
-	//		}
-	//		//default:
-	//		//	//エラー
-	//		//	break;
-	//		//}
-	//		}
-
-	//		//モーションデータのサイズより_motCnt変数が大きくならないなように
-	//		if (_motCnt >= motionData[MotionType::PLAYER][(int)_actionState].size()) {
-	//			_motCnt = 0;
-	//		}
-	//	}
-	//}
 
 	return true;
 }

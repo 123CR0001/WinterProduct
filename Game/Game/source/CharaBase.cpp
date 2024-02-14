@@ -29,10 +29,6 @@ bool CharaBase::Initialize() {
 	ObjectBase::Initialize();
 
 	_isStand = false;
-	_motCnt = 0;
-
-	_radian = 0;
-	_colSubY = 0;	// コリジョン判定時のY補正(腰位置）
 
 	return true;
 }

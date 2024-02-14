@@ -2,7 +2,7 @@
 #include"CharaBase.h"
 #include"ObjectServer.h"
 #include"ModeGame.h"
-#include"../../../AppFrame/source/Collision/Segment.h"
+#include"appframe.h"
 #include"PhysWorld.h"
 #include"CapsuleComponent.h"
 #include"FrameComponent.h"
@@ -61,13 +61,15 @@ bool WeaponBase::Render() {
 }
 
 bool WeaponBase::IsHit(CharaBase* chara) {
-	Segment seg = chara->GetCapsuleSegment();
+	
+	Capsule cap = chara->GetCapsuleComponent()->GetCapsule();
+
 	MV1_COLL_RESULT_POLY_DIM hit = MV1CollCheck_Capsule(
 		_handle,
 		MV1SearchFrame(_handle,"AttackCollision"),
-		DxConverter::VecToDx(seg.start),
-		DxConverter::VecToDx(seg.end),
-		chara->GetRadian()
+		DxConverter::VecToDx(cap.seg.start),
+		DxConverter::VecToDx(cap.seg.end),
+		cap.radius
 	);
 
 	if (hit.HitNum > 0) { return true; }
