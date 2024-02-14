@@ -156,7 +156,7 @@ bool ModeGame::LoadData() {
 	};
 
 	std::unordered_map<std::string, ModelData>map;
-	std::string filePath = "res/Stage/stage" + stage + "/stage" + stage + ".mv1";
+	std::string filePath = "res/Stage/stage" + stage + "/stage" + area + ".mv1";
 	std::string attachFrameName = "UCX_stage" + stage;
 	map["stage" + stage].filePath = filePath.c_str();
 	map["stage" + stage].attachFrameName = attachFrameName.c_str();
