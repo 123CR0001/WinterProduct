@@ -34,7 +34,6 @@ protected:
 	class WeaponBase* _weapon;
 
 	class CameraComponent* _cameraCom;
-	class MoveComponent* _moveCom;
 	class MotionComponent* _motCom;
 
 	float _moveSpeedMag;

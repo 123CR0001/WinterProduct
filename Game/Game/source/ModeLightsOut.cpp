@@ -58,7 +58,7 @@ bool ModeLightsOut::Process() {
 		ModeServer::GetInstance()->Add(new ModeColorOut(colorIn,func, 10), 10, "Out");
 	}
 	if(_frameCnt > 0) {
-		_frameCnt--;
+		//_frameCnt--;
 	}
 
 	if (_oldEnemyNum > (int)_game->GetObjectServer()->GetEnemys().size()) {

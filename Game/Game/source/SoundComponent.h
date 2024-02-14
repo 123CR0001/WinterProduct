@@ -5,7 +5,7 @@
 class SoundComponent:public Component {
 public:
 	SoundComponent(class ObjectBase* owner, float volumeSize = 10.f);
-	SoundComponent(class ObjectBase* owner, Vector3D pos,float volumeSize = 10.f);
+	SoundComponent(class ObjectBase* owner,const Vector3D& pos,float volumeSize = 10.f);
 	~SoundComponent();
 
 	bool Process()override;

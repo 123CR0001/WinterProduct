@@ -27,6 +27,8 @@ public:
 
 	void AddPos(Vector3D vector) { _pos += vector; }
 	void AddEulerAngle(Vector3D add) { _eulerAngle += add; }
+	//XZ平面での前方ベクトル
+	Vector3D GetForward()const { return Vector3D(sinf(_eulerAngle.y), 0.f, cosf(_eulerAngle.y)); }
 
 	int GetHandle()& { return _handle; }
 	int GetAttachIndex()const { return _attachIndex;}
@@ -42,9 +44,20 @@ public:
 	//
 	class ObjectServer* GetObjectServer()const { return _server; }
 
-	//
+	//コンポーネントの追加/削除
 	void AddComponent(class Component* component);
 	void DeleteComponent(class Component* component);
+
+
+	//applyDamage
+	struct DamageData {
+		//ダメージが与えられたか
+		bool isDamage = false;
+		//誰がダメージを与えたか
+		ObjectBase* object = nullptr;
+
+	};
+	void ApplyDamage(const DamageData& data);
 
 protected:
 	//モデルのハンドル
@@ -66,10 +79,13 @@ protected:
 
 	const std::string _name;
 
+	DamageData _damageData;
+
 private:
 	class ObjectServer* _server;
 
 	std::vector<class Component*>_components;
 	std::vector<class Component*>_addComponents;
 	std::vector<class Component*>_deleteComponents;
+
 };

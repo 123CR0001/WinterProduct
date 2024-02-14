@@ -54,4 +54,5 @@ protected:
 	float _viewAngle;
 	float _viewDist;
 	Vector3D _view;
+
 };

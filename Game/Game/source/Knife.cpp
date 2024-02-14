@@ -10,6 +10,8 @@
 #include"ModeEffekseer.h"
 #include"Player.h"
 #include"CameraComponent.h"
+#include"CharaBase.h"
+#include"SoundComponent.h"
 
 bool Knife::Initialize() {
 
@@ -38,26 +40,21 @@ bool Knife::Process() {
 	_matrix = MMult(_matrix, MV1GetFrameLocalWorldMatrix(_equippedChara->GetHandle(), FrameIndex));
 	MV1SetMatrix(_handle, _matrix);
 
-	//for (int a = 0; a <= _attachIndex; a++) {
-		MV1RefreshCollInfo(_handle, _attachIndex);
-	//}
+	MV1RefreshCollInfo(_handle, _attachIndex);
+
 	if (_isAttack) {
 		PhysWorld::CollisionDetectionResult result = _frame->GetOverlapResult();
+
+		//カプセルコンポーネントとぶつかったか、自分を装備しているキャラじゃないか
 		if (result.isHit && result.item._object != _equippedChara) {
-			GetObjectServer()->DeleteObject(result.item._object);
-			//エフェクト再生
-			GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
-				"Blood01", 
-				result.item.hitPosition,
-				Vector3D(0.f, atan2f(result.item.pushVec.x, result.item.pushVec.z), 0.f)
-			);
-			GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
-				"Blood02",
-				result.item._object->GetPos()+Vector3D(0.f,10.f,0.f),
-				result.item._object->GetEulerAngle()
-			);
-			//カメラの揺れ
-			GetObjectServer()->GetPlayer()->GetCamera()->Swap();
+
+			CharaBase::DamageData damageData = {true,this};
+
+			result.item._object->ApplyDamage(damageData);
+
+			//音を生成
+			NEW SoundComponent(result.item._object, 300.f);
+
 		}
 	}
 

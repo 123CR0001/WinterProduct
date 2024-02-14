@@ -170,6 +170,7 @@
     <ClCompile Include="source\CameraComponent.cpp" />
     <ClCompile Include="source\CapsuleComponent.cpp" />
     <ClCompile Include="source\CharaBase.cpp" />
+    <ClCompile Include="source\CommonSoldierAnimaitonComponent.cpp" />
     <ClCompile Include="source\Component.cpp" />
     <ClCompile Include="source\CommonSoldier.cpp" />
     <ClCompile Include="source\CreateAfterImageComponent.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="source\ModePauseConfirm.cpp" />
     <ClCompile Include="source\ModeSoundLayer.cpp" />
     <ClCompile Include="source\ModeTitle.cpp" />
+    <ClCompile Include="source\MotionComponent.cpp" />
     <ClCompile Include="source\MotionData.cpp" />
     <ClCompile Include="source\MoveComponent.cpp" />
     <ClCompile Include="source\ObjectBase.cpp" />
@@ -234,6 +236,7 @@
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\CameraComponent.h" />
     <ClInclude Include="source\CapsuleComponent.h" />
+    <ClInclude Include="source\CommonSoldierAnimaitonComponent.h" />
     <ClInclude Include="source\Component.h" />
     <ClInclude Include="source\CreateAfterImageComponent.h" />
     <ClInclude Include="source\FollowCamera.h" />
@@ -256,6 +259,7 @@
     <ClInclude Include="source\ModeSoundLayer.h" />
     <ClInclude Include="source\ModeTitle.h" />
     <ClInclude Include="source\ModeColorIn.h" />
+    <ClInclude Include="source\MotionComponent.h" />
     <ClInclude Include="source\MotionData.h" />
     <ClInclude Include="source\MoveComponent.h" />
     <ClInclude Include="source\ObjectBase.h" />

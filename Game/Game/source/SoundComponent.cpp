@@ -12,7 +12,7 @@ SoundComponent::SoundComponent(ObjectBase* owner, float volumeSize)
 	_owner->GetObjectServer()->GetPhysWorld()->GetSoundComponent().emplace_back(this);
 }
 
-SoundComponent::SoundComponent(ObjectBase* owner,Vector3D pos, float volumeSize)
+SoundComponent::SoundComponent(ObjectBase* owner,const Vector3D& pos, float volumeSize)
 	:Component(owner)
 	, _volumeSize(volumeSize)
 	, _pos(pos)

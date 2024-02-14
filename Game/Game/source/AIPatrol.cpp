@@ -33,7 +33,7 @@ bool AIPatrol::Process() {
 
 	//‰¹‚ª•·‚±‚¦‚½‚©H
 	Vector3D p;
-	if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), p)) {
+	if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 		_owner->AddPoint("CheckPoint", p);
 		_owner->ChangeState("CheckPoint");
 	}

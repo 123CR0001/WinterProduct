@@ -18,7 +18,6 @@ public:
 	float GetDetectionLevel()const { return _detectionLevel; }
 
 	class AIComponent* GetAIComponent()const { return _AI; }
-	class MoveComponent* GetMoveComponent()const { return _moveCom; }
 
 protected:
 

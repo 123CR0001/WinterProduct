@@ -1,4 +1,4 @@
-#include"AnimationConmponent.h"
+#include"AnimationComponent.h"
 #include"ObjectBase.h"
 
 
@@ -60,8 +60,6 @@ bool AnimationComponent::Process() {
 		MV1SetAttachAnimTime(handle, (*iteAnim)->_attachIndex, (*iteAnim)->_playTime);
 	}
 
-	_owner->ModelMatrixSetUp();
-
 	return true;
 }
 
@@ -71,8 +69,10 @@ void AnimationComponent::LoadAnimation(const char* animName,const char* fileName
 }
 
 void AnimationComponent::ChangeAnimation(const char* animName) {
+
 	//変更したいアニメーションが登録されているか
 	if (_animation.find(animName) != _animation.end()) {
+
 		// アタッチされているアニメーションに、close時間を設ける
 		for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ++iteAnim) {
 			if ((*iteAnim)->_closeTime == 0.f) {

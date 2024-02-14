@@ -16,7 +16,8 @@ AICheckPoint::~AICheckPoint(){}
 
 void AICheckPoint::OnEnter() {
 
-	const Vector3D checkPoint = _owner->GetPoints(GetName()).front();
+	//ˆê”ÔÅŒã‚É’Ç‰Á‚³‚ê‚½À•W‚ÖŒü‚©‚¤
+	const Vector3D checkPoint = _owner->GetPoints(GetName()).back();
 	//Ì‚Ìƒ‹[ƒg‚ÍŽÌ‚Ä‚é
 	_pointsNum = 0;
 	_owner->GetPoints(GetName()).clear();

@@ -279,6 +279,12 @@
     <ClCompile Include="source\CreateAfterImageComponent.cpp">
       <Filter>ソース ファイル\Component</Filter>
     </ClCompile>
+    <ClCompile Include="source\CommonSoldierAnimaitonComponent.cpp">
+      <Filter>ソース ファイル\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MotionComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -465,6 +471,12 @@
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="source\CreateAfterImageComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonSoldierAnimaitonComponent.h">
+      <Filter>ヘッダー ファイル\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MotionComponent.h">
       <Filter>ヘッダー ファイル\Component</Filter>
     </ClInclude>
   </ItemGroup>

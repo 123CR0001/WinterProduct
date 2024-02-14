@@ -1,5 +1,5 @@
 #include"AfterImage.h"
-#include"AnimationConmponent.h"
+#include"AnimationComponent.h"
 #include"ObjectServer.h"
 
 AfterImage::AfterImage(AnimationComponent* anim)

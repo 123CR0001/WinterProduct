@@ -22,7 +22,7 @@ public:
 		CollisionDetectionItem item;
 	};
 
-	bool IsHear(class ObjectBase* object,Vector3D& pos);
+	bool IsHear(class ObjectBase* object,Vector3D* pos = nullptr);
 
 	std::vector<class CapsuleComponent*>& GetCapsuleComponent() { return _capsules; }
 	std::vector<class FrameComponent*>& GetFrameComponent() { return _frames; }

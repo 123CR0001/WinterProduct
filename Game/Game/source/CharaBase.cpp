@@ -6,11 +6,13 @@
 #include<algorithm>
 #include"appframe.h"
 #include"FrameComponent.h"
+#include"MoveComponent.h"
 
 CharaBase::CharaBase(ObjectServer* server, std::string name)
 	:ObjectBase(server, false, name)
 	, _anim(NEW AnimationComponent(this,100))
 	,_capsule(NEW CapsuleComponent(this))
+	, _moveCom(NEW MoveComponent(this, 10))
 {
 	server->GetCharas().emplace_back(this);
 	_capsule->SetMember(170.f, 40.f);

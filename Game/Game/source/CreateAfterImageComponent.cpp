@@ -2,7 +2,7 @@
 #include"ObjectBase.h"
 #include"CharaBase.h"
 #include"AfterImage.h"
-#include"AnimationConmponent.h"
+#include"AnimationComponent.h"
 
 CreateAfterImageComponent::CreateAfterImageComponent(CharaBase* owner)
 	:Component(owner,10000)

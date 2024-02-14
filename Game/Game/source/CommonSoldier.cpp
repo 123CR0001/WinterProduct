@@ -13,11 +13,14 @@
 #include"PhysWorld.h"
 #include"AICheckPoint.h"
 #include"AIBlindWalk.h"
+#include"CameraComponent.h"
+#include"ModeGame.h"
+#include"ModeEffekseer.h"
+#include"AIPanic.h"
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server,"CommonSoldier")
 	, _AI(NEW AIComponent(this, 1))
-	, _moveCom(NEW MoveComponent(this, 2))
 	,_detectionLevel(0.f)
 {
 
@@ -28,6 +31,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
 	_AI->RegisterState(NEW AICheckPoint(_AI));
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
+	_AI->RegisterState(NEW AIPanic(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);
@@ -102,6 +106,31 @@ bool CommonSoldier::Process() {
 		_detectionLevel -= 0.01f;
 	}
 	_detectionLevel = Clamp(0.f, 1.f, _detectionLevel);
+
+
+	//ダメージを受けたか
+	if (_damageData.isDamage) {
+
+		//自分を削除登録
+		GetObjectServer()->DeleteObject(this);
+
+		//エフェクト再生
+		//GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
+		//	"Blood01",
+		//	_damageData.item.hitPosition,
+		//	Vector3D(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
+		//);
+		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
+			"Blood02",
+			_pos + Vector3D(0.f, 10.f, 0.f),
+			_eulerAngle
+		);
+		//カメラの揺れ
+		GetObjectServer()->GetPlayer()->GetCamera()->Swap();
+
+		//データを空にする
+		_damageData = DamageData{};
+	}
 
 	//重なり修正
 	FixPos();

@@ -8,7 +8,7 @@
 #include"ApplicationGlobal.h"
 #include"ModeEffekseer.h"
 #include"CapsuleComponent.h"
-#include"AnimationConmponent.h"
+#include"AnimationComponent.h"
 #include"FollowCamera.h"
 #include"OrbitCamera.h"
 #include"MoveComponent.h"
@@ -22,7 +22,6 @@
 Player::Player(ObjectServer* server)
 	:CharaBase(server,"player")
 	,_cameraCom(NEW FollowCamera(this,999))
-	,_moveCom(NEW MoveComponent(this,1))
 	,_motCom(NEW MotionComponent(this,200))
 	,_weapon (NEW Knife(this))
 	,_actionState(ACTION_STATE::kIdle)
@@ -171,7 +170,7 @@ bool Player::Process() {
 	}
 
 	//‘«‰¹
-	if (_moveCom->GetSpeed() >= moveSpeed) {
+	if (_moveCom->GetSpeed() >= moveSpeed && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		new SoundComponent(this, 200.f);
 	}
 

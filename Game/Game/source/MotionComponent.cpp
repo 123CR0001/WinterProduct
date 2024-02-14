@@ -1,6 +1,6 @@
 #include"MotionComponent.h"
 #include"CharaBase.h"
-#include"AnimationConmponent.h"
+#include"AnimationComponent.h"
 #include"ObjectServer.h"
 #include"ModeGame.h"
 #include"ModeEffekseer.h"

@@ -164,3 +164,7 @@ void ObjectBase::DeleteComponent(Component* component) {
 		_deleteComponents.emplace_back(component);
 	}
 }
+
+void ObjectBase::ApplyDamage(const DamageData& data) {
+	_damageData = data;
+}

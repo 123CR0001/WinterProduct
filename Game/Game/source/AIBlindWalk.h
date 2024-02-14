@@ -16,5 +16,6 @@ protected:
 	int _rotateSpeed;
 	int _rotateAngle;
 	float _moveDist;
+	float _moveSpeed;
 	int _waitCnt;
 };
