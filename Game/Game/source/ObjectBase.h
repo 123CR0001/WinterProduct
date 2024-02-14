@@ -4,7 +4,7 @@
 #include"../../../include/nlohmann/json.hpp"
 class ObjectBase {
 public:
-	ObjectBase(class ObjectServer* _server, bool isFrane = false);
+	ObjectBase(class ObjectServer* _server, bool isFrane = false, std::string name = "");
 	virtual ~ObjectBase();
 
 	virtual bool Initialize();
@@ -30,6 +30,8 @@ public:
 
 	int GetHandle()& { return _handle; }
 	int GetAttachIndex()const { return _attachIndex;}
+
+	std::string GetName()const { return _name; }
 
 	//jsonÉfÅ[É^ÇÃäiî[
 	virtual void SetJsonDataUE(nlohmann::json j);
@@ -61,6 +63,8 @@ protected:
 
 	//
 	MATRIX _matrix;
+
+	const std::string _name;
 
 private:
 	class ObjectServer* _server;

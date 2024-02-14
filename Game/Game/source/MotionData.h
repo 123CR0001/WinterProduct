@@ -7,7 +7,7 @@
 
 struct MOTION_DATA_ITEM {
 	int playTime = 0;
-	int Command = 0;
+	std::string command;
 	float vector = 0.f;
 	float vectorScale = 0.f;
 	int attackPoint = 0;
@@ -21,7 +21,7 @@ struct MOTION_DATA_ITEM {
 typedef std::vector<MOTION_DATA_ITEM> MOTION_DATA_ITEMS;
 
 //全てのモーションデータ
-typedef std::unordered_map<unsigned int/*モーション名*/, MOTION_DATA_ITEMS> MOTION_DATA;
+typedef std::unordered_map<std::string/*モーション名*/, MOTION_DATA_ITEMS> MOTION_DATA;
 
 //モーションデータ用キャラクターの種類
 namespace MotionType {
@@ -60,7 +60,7 @@ public:
 		for (auto& data : _jsonData) {
 			MOTION_DATA_ITEM item = {
 				data.at("PlayTime"),
-				ConvertCommand[data.at("Command")],
+				data.at("Command"),
 				data.at("Vector"),
 				data.at("VectorScale"),
 				data.at("AttackPoint"),

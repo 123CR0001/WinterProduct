@@ -18,35 +18,6 @@ bool AnimationComponent::Process() {
 
 	int handle = _owner->GetHandle();
 
-	/*アニメーション遷移時*/
-	if (_isChangeAnimation) {
-		//変更したいアニメーションが登録されているか
-		if (_animation.find(_changeAnimationName) != _animation.end()) {
-			// アタッチされているアニメーションに、close時間を設ける
-			for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ++iteAnim) {
-				if ((*iteAnim)->_closeTime == 0.f) {
-					(*iteAnim)->_closeTime = 6.f;		// ブレンドするフレーム数
-					(*iteAnim)->_closeTotalTime = (*iteAnim)->_closeTime;
-				}
-			}
-			// 新しいアニメーションを追加
-			Animation* anim = NEW Animation();
-			anim->_attachIndex = MV1AttachAnim(handle,_animation[_changeAnimationName], -1, FALSE);
-
-			// アタッチしたアニメーションの総再生時間を取得する
-			anim->_totalTime = MV1GetAttachAnimTotalTime(handle, anim->_attachIndex);
-			// 再生時間を初期化
-			anim->_playTime = 0.0f;
-			anim->_closeTime = 0.0f;
-			// ループ回数設定
-			anim->_loopCnt = _animLoop[_changeAnimationName];
-			// アニメーション追加
-			_vAnim.push_back(anim);
-		}
-		//
-		_isChangeAnimation = false;
-	}
-
 	// アニメーション時間処理
 	for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ) {
 		if ((*iteAnim)->_closeTime == 0.f) {
@@ -100,6 +71,29 @@ void AnimationComponent::LoadAnimation(const char* animName,const char* fileName
 }
 
 void AnimationComponent::ChangeAnimation(const char* animName) {
-	_isChangeAnimation = true;
-	_changeAnimationName = animName;
+	//変更したいアニメーションが登録されているか
+	if (_animation.find(animName) != _animation.end()) {
+		// アタッチされているアニメーションに、close時間を設ける
+		for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ++iteAnim) {
+			if ((*iteAnim)->_closeTime == 0.f) {
+				(*iteAnim)->_closeTime = 6.f;		// ブレンドするフレーム数
+				(*iteAnim)->_closeTotalTime = (*iteAnim)->_closeTime;
+			}
+		}
+		// 新しいアニメーションを追加
+		Animation* anim = NEW Animation();
+		anim->_attachIndex = MV1AttachAnim(_owner->GetHandle(), _animation[animName], -1, FALSE);
+
+		// アタッチしたアニメーションの総再生時間を取得する
+		anim->_totalTime = MV1GetAttachAnimTotalTime(_owner->GetHandle(), anim->_attachIndex);
+		// 再生時間を初期化
+		anim->_playTime = 0.0f;
+		anim->_closeTime = 0.0f;
+		// ループ回数設定
+		anim->_loopCnt = _animLoop[animName];
+		// アニメーション追加
+		_vAnim.push_back(anim);
+	}
+
+	_playAnimationName = animName;
 }

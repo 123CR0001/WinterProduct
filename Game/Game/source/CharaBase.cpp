@@ -7,9 +7,9 @@
 #include"appframe.h"
 #include"FrameComponent.h"
 
-CharaBase::CharaBase(ObjectServer* server) 
-	:ObjectBase(server)
-	, _anim(NEW AnimationComponent(this))
+CharaBase::CharaBase(ObjectServer* server, std::string name)
+	:ObjectBase(server, false, name)
+	, _anim(NEW AnimationComponent(this,100))
 	,_capsule(NEW CapsuleComponent(this))
 {
 	server->GetCharas().emplace_back(this);

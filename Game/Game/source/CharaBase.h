@@ -3,7 +3,7 @@
 
 class CharaBase :public ObjectBase{
 public :
-	CharaBase(class ObjectServer* server);
+	CharaBase(class ObjectServer* server,std::string name);
 	virtual ~CharaBase();
 
 	bool Initialize()override;

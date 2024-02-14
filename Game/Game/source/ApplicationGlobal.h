@@ -2,8 +2,6 @@
 #include"MotionData.h"
 #include "SoundServer.h"
 
-
-
 class ApplicationGlobal
 {
 public:

@@ -47,16 +47,19 @@ public:
 		return 0;
 	}
 
+	const char* GetAnimationName() {
+		return _playAnimationName;
+	}
+
 	std::vector<Animation*>& GetAnimations() { return _vAnim; }
 
 protected:
 	std::vector<Animation*> _vAnim;
 
-	//アニメーションを統一していいなら、staticにする
-	//登録用関数の内容も変更
+	//アニメーション用のハンドルを登録
 	std::unordered_map<const char*, int>_animation;
 	std::unordered_map<const char*, int>_animLoop;
 
-	bool _isChangeAnimation;
-	const char* _changeAnimationName;
+	//再生中のアニメーションの名前
+	const char* _playAnimationName;
 };

@@ -25,8 +25,8 @@ bool ApplicationGlobal::Init() {
 
 void ApplicationGlobal::LoadMotionData() {
 	MotionDataJson data("res/MotionData/test.json");
-	_charaMotionData[MotionType::PLAYER][(unsigned int)Player::ACTION_STATE::kAttack] = data.GetMotionData();
+	_charaMotionData[MotionType::PLAYER]["Attack"] = data.GetMotionData();
 
 	data = MotionDataJson("res/MotionData/test2.json");
-	_charaMotionData[MotionType::PLAYER][(unsigned int)Player::ACTION_STATE::kAttack2] = data.GetMotionData();
+	_charaMotionData[MotionType::PLAYER]["Attack2"] = data.GetMotionData();
 }

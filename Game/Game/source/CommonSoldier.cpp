@@ -15,8 +15,11 @@
 #include"AIBlindWalk.h"
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
-	:CharaBase(server)
+	:CharaBase(server,"CommonSoldier")
 	, _AI(NEW AIComponent(this, 1))
+	,_detectionLevel(0.f)
+	,_visionAngle(0.f)
+	,_visionDist(0.f)
 	,_moveCom(NEW MoveComponent(this,2))
 {
 
