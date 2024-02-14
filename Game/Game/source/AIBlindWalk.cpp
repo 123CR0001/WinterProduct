@@ -44,7 +44,7 @@ bool AIBlindWalk::Process() {
 	//‰¹‚ª•·‚±‚¦‚½‚©H
 	if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner())) {
 		if (rand() % 2) { _owner->ChangeState("Panic"); }
-		else { _moveSpeed *= 2.f; }
+		else { _moveSpeed = 2.f * 2.f; }
 	}
 
 	//ˆê’èŽžŠÔŽ~‚Ü‚é
