@@ -4,11 +4,14 @@
 #include"CapsuleComponent.h"
 #include"AnimationComponent.h"
 
+#include"ModeGame.h"
+#include"ModeEffekseer.h"
+
 Decoy::Decoy(Player* player)
 	:ObjectBase(player->GetObjectServer(),false,"Decoy")
 	,_capsule(NEW CapsuleComponent(this,1000))
-	,_anim(NEW AnimationComponent(this))
 	,_hitCnt(1)
+	,_frameCnt(0)
 {
 	//プレイヤーの前方に配置
 	_pos = player->GetPos() + player->GetForward() * 70.f;
@@ -24,11 +27,7 @@ Decoy::~Decoy() {
 bool Decoy::Initialize() {
 	ObjectBase::Initialize();
 
-	LoadModel("res/cg_player_girl/cg_player_girl.mv1");
-
-	_anim->LoadAnimation("Run", "cg_player_run", 0);
-
-	_anim->ChangeAnimation("Run");
+	_handle = GetObjectServer()->GetGame()->GetModeEffekseer()->Play("Decoy", _pos, _eulerAngle);
 
 	return true;
 }
@@ -59,5 +58,21 @@ bool Decoy::Process() {
 
 	AddPos(GetForward() * 2.0f);
 
+	SetPosPlayingEffekseer3DEffect(_handle, _pos.x, _pos.y, _pos.z);
+
+	SetRotationPlayingEffekseer3DEffect(_handle, _eulerAngle.x, _eulerAngle.y, _eulerAngle.z);
+
+	//再生が終了した
+	if (_frameCnt == 30) {
+		_handle = GetObjectServer()->GetGame()->GetModeEffekseer()->Play("Decoy", _pos, _eulerAngle);
+		_frameCnt = 0;
+	}
+
+	_frameCnt++;
+
+	return true;
+}
+
+bool Decoy::Render() {
 	return true;
 }

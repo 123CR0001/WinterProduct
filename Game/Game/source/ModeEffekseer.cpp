@@ -12,6 +12,7 @@ bool ModeEffekseer::Initialize() {
 	_effectHandle["Laser"] = LoadEffekseerEffect("res/effekseer/Laser01.efkefc", 10.0f);
 	_effectHandle["Blood01"] = LoadEffekseerEffect("res/effekseer/ef_blood_01/ef_blood_01.efkefc", 70.f);
 	_effectHandle["Blood02"] = LoadEffekseerEffect("res/effekseer/ef_blood_02/ef_blood_02.efkefc", 70.f);
+	_effectHandle["Decoy"] = LoadEffekseerEffect("res/effekseer/ef_decoy_2/ef_decoy_2/ef_decoy.efkefc",1.f);
 	return true;
 }
 
@@ -51,13 +52,17 @@ bool ModeEffekseer::Render() {
 	return true;
 }
 
-void ModeEffekseer::Play(std::string name, const Vector3D& pos, const Vector3D& angle) {
+int ModeEffekseer::Play(std::string name, const Vector3D& pos, const Vector3D& angle) {
 	if (_effectHandle.find(name) != _effectHandle.end()) {
 		int play = PlayEffekseer3DEffect(_effectHandle[name]);
 
 		SetPosPlayingEffekseer3DEffect(play, pos.x, pos.y, pos.z);
 
 		SetRotationPlayingEffekseer3DEffect(play, angle.x, angle.y, angle.z);
+
+		return play;
 	}
+	//Ž¸”s
+	return -1;
 }
 

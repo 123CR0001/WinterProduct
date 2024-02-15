@@ -19,7 +19,7 @@ public:
 	virtual bool Process();
 	virtual bool Render();
 
-	virtual void Play(std::string name,const Vector3D& pos,const Vector3D& angle);
+	virtual int Play(std::string name,const Vector3D& pos,const Vector3D& angle);
 
 protected:
 

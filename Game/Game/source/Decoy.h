@@ -9,10 +9,12 @@ public:
 	bool Initialize()override;
 	bool Terminate()override;
 	bool Process()override;
+	bool Render()override;
 
 protected:
 	class CapsuleComponent* _capsule;
-	class AnimationComponent* _anim;
 
 	int _hitCnt;
+
+	int _frameCnt;
 };
