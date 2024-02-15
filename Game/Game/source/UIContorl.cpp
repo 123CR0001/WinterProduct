@@ -1,8 +1,6 @@
 
-#include "ApplicationMain.h"
-#include "UIContorl.h"
 #include "UIServer.h"
-#include "ModePause.h"
+#include "UIContorl.h"
 #include "UIDisplay.h"
 
 UIContorl::UIContorl(float initPosX, float initPosY, float endPosX, float endPosY, int frame)
@@ -10,44 +8,14 @@ UIContorl::UIContorl(float initPosX, float initPosY, float endPosX, float endPos
 {
  }
 
-
-//void UIContorl::Process() {
-//	
-//}
-
-void UIContorl::Render() {
-
-	auto ConvertX = [](float posX) {
-		float disp = ApplicationMain::GetInstance()->DispSizeW();
-		float result = disp * posX / 1920;
-		return result;
-	};
-	auto ConvertY = [](float posY) {
-		float disp = ApplicationMain::GetInstance()->DispSizeH();
-		float result = disp * posY / 1080;
-		return result;
-	};
-
-	ModePause* mdPause = static_cast<ModePause*>(_param);
-	int num = mdPause->GetSelect();
-
-	if (_selectNum == num) {
-		float x = ConvertX(_x);
-		float y = ConvertY(_y) - ConvertY(5);
-		float w = x + ConvertX(_w) + ConvertX(51);
-		float h = ConvertY(_y) + ConvertY(_h) + ConvertY(5);
-		DrawExtendGraph(x, y, w, h, _cg, TRUE);
-	}
-	else {
-		float x = ConvertX(_x);
-		float y = ConvertY(_y);
-		float w = x + ConvertX(_w);
-		float h = y + ConvertY(_h);
-		DrawExtendGraph(x, y, w, h, _cg, TRUE);
-	}
-}
-
 int UIContorl::Selected() {
-	return 1;
+	// UIServer‚ðŠi”[‚µ‚Ä‚¢‚é‚©
+	if (typeid(UIServer*) != typeid(static_cast<UIServer*>(_param))) { return -1; }
+	UIServer* server = static_cast<UIServer*>(_param);
+	// ControlScreen‚ð’Ç‰Á
+	server->Add(new UIDisplay(), nullptr, ResourceServer::LoadGraph("res/UI/Menu/ui_controlscreen_01.png"),
+		640, 64, 763, 831, 20, "control_screen");
+
+	return 0;
 }
 

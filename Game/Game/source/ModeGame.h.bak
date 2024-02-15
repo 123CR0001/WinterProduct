@@ -5,8 +5,6 @@ class ModeGame : public ModeBase
 {
 	typedef ModeBase base;
 public:
-	ModeGame(std::string stageNum);
-
 	virtual bool Initialize();
 	virtual bool Terminate();
 	virtual bool Process();
@@ -23,12 +21,5 @@ protected:
 
 	class ObjectServer* _objServer;
 	class ModeEffekseer* _modeEffekseer;
-
-	//ライツアウトを一度でも使用したかの、判別に使用
-	bool _isCouldLightsOut;
-
-	int _handleShadowMap;
-
 	class FPS* _fps;
-	std::string _stageNum;
 }; 

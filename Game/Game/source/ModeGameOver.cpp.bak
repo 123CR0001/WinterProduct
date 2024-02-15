@@ -19,10 +19,10 @@ bool ModeGameOver::Process() {
 	auto trg = ApplicationMain::GetInstance()->GetPad()->GetTrgButton();
 
 	if (trg & INPUT_A) {
-		//モードを全削除
+		// このモードを削除予約
 		ModeServer::GetInstance()->Clear();
 		// 次のモードを登録
-		ModeServer::GetInstance()->Add(new ModeGame("1"), 1, "game");
+		ModeServer::GetInstance()->Add(new ModeGame(), 1, "game");
 	}
 	return true;
 }

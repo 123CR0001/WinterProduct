@@ -10,15 +10,16 @@ UIGameStart::UIGameStart() {
 }
 
 int UIGameStart::Selected() {
-	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
 
-	auto func = []() {
+	auto func = [this]() {
 		//タイトルの削除
+
+		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
 		ModeBase* title = ModeServer::GetInstance()->Get("title");
 		ModeServer::GetInstance()->Del(title);
 
 		//ゲームの追加
-		ModeServer::GetInstance()->Add(NEW ModeGame(), 10, "game");
+		ModeServer::GetInstance()->Add(NEW ModeGame("1"), 10, "game");
 	};
 
 	// 次のモードを登録

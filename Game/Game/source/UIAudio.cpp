@@ -1,49 +1,22 @@
 
-#include "ApplicationMain.h"
 #include "ModePause.h"
 #include "UIAudio.h"
+#include "UIDisplay.h"
+#include "UIServer.h"
 
 UIAudio::UIAudio(float initPosX, float initPosY, float endPosX, float endPosY, int frame)
 	:UISlide(initPosX, initPosY, endPosX, endPosY, frame)
 {
 }
 
-void UIAudio::Terminate() {
+int UIAudio::Selected() {
+	// UIServer‚ðŠi”[‚µ‚Ä‚¢‚é‚©
+	if (typeid(UIServer*) != typeid(static_cast<UIServer*>(_param))) { return -1; }
+	UIServer* server = static_cast<UIServer*>(_param);
 
-}
+	// AudioMeter‚ð’Ç‰Á
+	server->Add(new UIDisplay(), nullptr, ResourceServer::LoadGraph("res/UI/Menu/ui_audiometer_01.png"),
+		640, 64, 763, 831, 20, "audio_meter");
 
-void UIAudio::Render() {
-	auto ConvertX = [](float posX) {
-		float disp = ApplicationMain::GetInstance()->DispSizeW();
-		float result = disp * posX / 1920;
-		return result;
-	};
-	auto ConvertY = [](float posY) {
-		float disp = ApplicationMain::GetInstance()->DispSizeH();
-		float result = disp * posY / 1080;
-		return result;
-	};
-
-	ModePause* mdPause = static_cast<ModePause*>(_param);
-	int num = mdPause->GetSelect();
-
-	if (_selectNum == num) {
-		float x = ConvertX(_x);
-		float y = ConvertY(_y) - ConvertY(5);
-		float w = x + ConvertX(_w) + ConvertX(51);
-		float h = ConvertY(_y) + ConvertY(_h) + ConvertY(5);
-		DrawExtendGraph(x, y, w, h, _cg, TRUE);
-	}
-	else {
-		float x = ConvertX(_x);
-		float y = ConvertY(_y);
-		float w = x + ConvertX(_w);
-		float h = y + ConvertY(_h);
-		DrawExtendGraph(x, y, w, h, _cg, TRUE);
-	}
-}
-
-int UIAudio::Selected()
-{
-	return 2;
+	return 0;
 }

@@ -24,8 +24,13 @@
 #include"PhysWorld.h"
 
 #include"CreateAfterImageComponent.h"
+#include"FPS.h"
 
 SoundComponent* m = nullptr;
+
+ModeGame::ModeGame(std::string stageNum) {
+	_stageNum = stageNum;
+}
 
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
@@ -40,11 +45,12 @@ bool ModeGame::Initialize() {
 
 	_modeEffekseer = NEW ModeEffekseer();
 
+	_fps = NEW FPS();
+
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
 
 	_isCouldLightsOut = false;
-
 
 	// シャドウマップの生成
 	_handleShadowMap = MakeShadowMap(2048, 2048);
@@ -63,6 +69,8 @@ bool ModeGame::Terminate() {
 
 bool ModeGame::Process() {
 	base::Process();
+	// fpsの更新
+	_fps->Update();	
 
 	//オブジェクトサーバーの処理
 	if (!_objServer->ProcessInit()) { return false; }
@@ -109,6 +117,11 @@ bool ModeGame::Process() {
 			ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");
 		}
 	}
+
+	// fpsの待機
+	_fps->WaitFPS();
+	auto CommonSoldiers = GetObjectServer()->GetCommonSoldiers();
+	if (CommonSoldiers.size() == 0) { _fps->SetFPS(50); }
 
 	return true;
 }
@@ -160,12 +173,14 @@ bool ModeGame::Render() {
 	// 描画に使用するシャドウマップの設定を解除
 	SetUseShadowMap(0, -1);
 
+	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stageNum);
+
 	return true;
 }
 
 bool ModeGame::LoadData() {
 	nlohmann::json j;
-	std::ifstream file("res/map/stage1.json");
+	std::ifstream file("res/map/stage" + _stageNum + ".json");
 
 	if (!file) { return false; }
 	file >> j;
@@ -227,9 +242,6 @@ bool ModeGame::LoadData() {
 	map["siren"].filePath = "res/Object/siren/siren.mv1";
 	map["siren"].attachFrameName = "UCX_siren1";
 	map["siren"].func = [this](const char* path,const char* frameName) {return NEW Siren(GetObjectServer()); };
-
-	map["mapcollisionstage1"].filePath = "res/Map/mapcollisionstage1.mv1";
-	map["mapcollisionstage1"].attachFrameName = "mapcollisionstage1";
 
 	for (auto&& object : j.at("object")) {
 		std::string name = object.at("objectName");

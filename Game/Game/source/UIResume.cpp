@@ -1,45 +1,31 @@
 
-#include "ApplicationMain.h"
-#include "ModePause.h"
 #include "UIResume.h"
+#include "UIServer.h"
 
 UIResume::UIResume(float initPosX, float initPosY, float endPosX, float endPosY, int frame)
 	:UISlide(initPosX, initPosY, endPosX, endPosY, frame)
 {
 }
 
-void UIResume::Render() {
-	auto ConvertX = [](float posX) {
-		float disp = ApplicationMain::GetInstance()->DispSizeW();
-		float result = disp * posX / 1920;
-		return result;
-	};
-	auto ConvertY = [](float posY) {
-		float disp = ApplicationMain::GetInstance()->DispSizeH();
-		float result = disp * posY / 1080;
-		return result;
-	};
+int UIResume::Selected() {
+    // UIServerを格納しているか
+    if (typeid(UIServer*) != typeid(static_cast<UIServer*>(_param))) { return -1; }
+    UIServer* server = static_cast<UIServer*>(_param);
 
-	ModePause* mdPause = static_cast<ModePause*>(_param);
-	int num = mdPause->GetSelect();
+    // サーバーからUIを検索して、スライドさせる
+    std::vector<std::string> targetNames = { "system", "left_frame", "right_frame", "control", "audio", "resume", "to_title", "get" };
+    for (auto& name : targetNames) {
+        auto ui = server->Search(name);
+        if (ui) {
+            float initX = ui->_endPosX;
+            float initY = ui->_endPosY;
+            float endX = ui->_initPosX;
+            float endY = ui->_initPosY;
+            int frame = ui->_frame;
+            // スライドさせる
+            ui->SetSlideUIPosition(initX, initY, endX, endY, frame);
+        }
+    }
 
-	if (_selectNum == num) {
-		float x = ConvertX(_x);
-		float y = ConvertY(_y) - ConvertY(5);
-		float w = x + ConvertX(_w) + ConvertX(51);
-		float h = ConvertY(_y) + ConvertY(_h) + ConvertY(5);
-		DrawExtendGraph(x, y, w, h, _cg, TRUE);
-	}
-	else {
-		float x = ConvertX(_x);
-		float y = ConvertY(_y);
-		float w = x + ConvertX(_w);
-		float h = y + ConvertY(_h);
-		DrawExtendGraph(x, y, w, h, _cg, TRUE);
-	}
-}
-
-int UIResume::Selected()
-{
-	return 3;
+	return 1;
 }

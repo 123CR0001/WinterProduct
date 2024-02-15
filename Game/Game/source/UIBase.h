@@ -22,6 +22,9 @@ public:
 	int _cnt;
 	int _frame;
 
+private:
+	class UIServer* _server;
+
 public:
 	UIBase();
 
@@ -39,4 +42,5 @@ public:
 	virtual void	SetPos(float posX, float posY) { _x = posX; _y = posY; }
 	virtual float	GetPosX() { return _x; }
 	virtual float	GetPosY() { return _y; }
+	class UIServer* GetUIServer()const { return _server; }
 };

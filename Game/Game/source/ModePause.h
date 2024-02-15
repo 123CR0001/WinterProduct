@@ -12,12 +12,8 @@ public:
 	bool Process()override;
 	bool Render()override;
 
-	void SelectedItemProcess(int selectResult);
 	void AdjustItemPos(std::string selectedItem);
-	void PoseEndProcess();
 	bool AllMoveFinished();
-
-	int GetSelect();
 
 protected:
 	class UIServer* _ui;
@@ -33,6 +29,6 @@ protected:
 	int	_select;
 	bool _bToGeme;
 	bool _bToGameFade;
-
+	bool _bClosePause;
 };
 
