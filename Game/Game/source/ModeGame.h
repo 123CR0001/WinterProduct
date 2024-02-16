@@ -26,4 +26,5 @@ protected:
 	class UIServer* _uiServer;
 	class FPS* _fps;
 	std::string _stage;
+	class Timer* _timer;
 }; 

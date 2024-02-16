@@ -4,13 +4,25 @@
 #include "Timer.h"
 
 UILightsTimer::UILightsTimer() {
+
+	int cgFrame[FRAME_NUM];
+	int cgNum[TIME_NUM];
+
 	_mCg["colon"].push_back( res::LoadGraph("res/UI/Game/Timer/ui_timer_02.png"));
-	 res::LoadDivGraph("res/UI/Game/Timer/ui_timerbg_01.png",5,1,5,600,150, &_mCg["frame"][0]);
-	 res::LoadDivGraph("res/UI/Game/Timer/ui_timer_01.png", 10, 5, 2, 46, 70, &_mCg["number"][0]);
+	 res::LoadDivGraph("res/UI/Game/Timer/ui_timerbg_01.png",5,1,5,600,150, cgFrame);
+	 res::LoadDivGraph("res/UI/Game/Timer/ui_timer_01.png", 10, 5, 2, 46, 70, cgNum);
+
+	 for (int i = 0; i < FRAME_NUM; i++) {
+		 _mCg["frame"].push_back(cgFrame[i]);
+	 }
+	 for (int i = 0; i < TIME_NUM; i++) {
+		 _mCg["number"].push_back(cgNum[i]);
+	 }
+
 	_timer = new Timer();
 	_bFrameOpen = false;
 	_animCnt = 0;
-	_frameCnt = 6;
+	_frameCnt = 1;
 	_motCnt = 0;
 }
 
@@ -57,10 +69,10 @@ void UILightsTimer::Render() {
 	DrawExtendGraph(x, y, w, h, _mCg["frame"][_motCnt], TRUE);
 
 	if (OpenFrame()) {
-		x += ConvertX(120 + 5);
-		y += ConvertY(5);
+		x += ConvertX(230);
+		y += ConvertY(30);
 		w = x + ConvertX(46);
-		h = y + ConvertY(140);
+		h = y + ConvertY(70);
 		// タイマーの数字
 		DrawExtendGraph(x, y, w, h, _mCg["number"][_mDigit["sec1"]], TRUE);
 		x += ConvertX(46);
@@ -68,7 +80,7 @@ void UILightsTimer::Render() {
 		DrawExtendGraph(x, y, w, h, _mCg["number"][_mDigit["sec2"]], TRUE);
 		x += ConvertX(46);
 		w = x + ConvertX(15);
-		DrawExtendGraph(x, y, w, h, _mCg["colon"][0], TRUE);	
+		DrawExtendGraph(x, y, w, h, res::LoadGraph("res/UI/Game/Timer/ui_timer_02.png"), TRUE);
 		x += ConvertX(15);
 		w = x + ConvertX(46);
 		DrawExtendGraph(x, y, w, h, _mCg["number"][_mDigit["mSec1"]], TRUE);
@@ -81,14 +93,12 @@ void UILightsTimer::Render() {
 int UILightsTimer::Selected() {
 	// フレームのオープン、クローズ
 	_bFrameOpen = !_bFrameOpen;
-	// タイマーの設定
-	_timer->SetTimeMS(10000);
 
 	return 0;
 }
 
 bool UILightsTimer::OpenFrame() {
-	if (_motCnt == _mCg["frame"].size()) {
+	if (_motCnt == 4) {
 		_bFrameOpen = false;
 		return true;
 	}
@@ -102,5 +112,9 @@ void UILightsTimer::AnimProcess() {
 		_motCnt++;
 	}
 	
-	if (OpenFrame()) { _timer->Start(); }
+	if (OpenFrame()) {
+		// タイマーの設定
+		_timer->SetTimeMS(10000); 
+		_timer->Start(); 
+	}
 }

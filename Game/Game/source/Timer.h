@@ -17,8 +17,8 @@ public:
 	bool AddS(int second);
 	bool AddMS(int mSecond);
 
-	void SetTimeS(int second) { _setTimeS = second; }
-	void SetTimeMS(int mSecond) { _setTimeMS = mSecond; }
+	void SetTimeS(int second) { _second = _setTimeS = second; }
+	void SetTimeMS(int mSecond) { _mSecond = _setTimeMS = mSecond; }
 	int GetTimeS()const { return _second; }
 	int GetTimeMS()const { return _mSecond; }
 

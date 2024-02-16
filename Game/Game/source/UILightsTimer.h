@@ -17,12 +17,14 @@ public:
 	void AnimProcess();
 
 protected:
-	const int FRAME_NUM = 10;
-	const int TIME_NUM = 20;
-
 	std::map<std::string, std::vector<int>> _mCg;
 	std::map<std::string, int> _mDigit;
+
 	class Timer* _timer;
+
+#define FRAME_NUM 5
+#define TIME_NUM 10
+
 	bool _bFrameOpen;
 	int _animCnt;
 	int _frameCnt;

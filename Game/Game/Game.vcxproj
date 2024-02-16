@@ -183,6 +183,7 @@
     <ClCompile Include="source\ModeEndConfirm.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameOver.cpp" />
+    <ClCompile Include="source\ModeGameUI.cpp" />
     <ClCompile Include="source\ModeLightsOut.cpp" />
     <ClCompile Include="source\ModeMiniMap.cpp" />
     <ClCompile Include="source\ModePause.cpp" />
@@ -247,6 +248,7 @@
     <ClInclude Include="source\ModeEffekseer.h" />
     <ClInclude Include="source\ModeColorOut.h" />
     <ClInclude Include="source\ModeEndConfirm.h" />
+    <ClInclude Include="source\ModeGameUI.h" />
     <ClInclude Include="source\ModeLightsOut.h" />
     <ClInclude Include="source\ModeMiniMap.h" />
     <ClInclude Include="source\ApplicationMain.h" />
