@@ -23,6 +23,7 @@ protected:
 
 	class ObjectServer* _objServer;
 	class ModeEffekseer* _modeEffekseer;
+	class UIServer* _uiServer;
 	class FPS* _fps;
 	std::string _stage;
 }; 

@@ -21,6 +21,9 @@
 #include"SoundComponent.h"
 #include"PhysWorld.h"
 
+#include"UIServer.h"
+#include"UILightsTimer.h"
+
 #include"FPS.h"
 
 SoundComponent* m = nullptr;
@@ -42,11 +45,15 @@ bool ModeGame::Initialize() {
 
 	_modeEffekseer = NEW ModeEffekseer();
 
+	_uiServer = NEW UIServer();
+
 	_fps = NEW FPS();
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
 	
+	_uiServer->Add(NEW UILightsTimer(), nullptr, 0, 0, 930, 0, 0, 100, "lightsOutTimer");
+
 	return true;
 }
 
@@ -55,6 +62,8 @@ bool ModeGame::Terminate() {
 	base::Terminate();
 
 	delete _objServer;
+	delete _uiServer;
+	delete _fps;
 
 	return true;
 }
@@ -63,6 +72,8 @@ bool ModeGame::Process() {
 	base::Process();
 	// fps‚ÌXV
 	_fps->Update();	
+
+	_uiServer->Process();
 
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
@@ -102,6 +113,8 @@ bool ModeGame::Render() {
 	if (!_objServer->Renderer()) { return false; }
 
 	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stage);
+
+	_uiServer->Render();
 
 	return true;
 }

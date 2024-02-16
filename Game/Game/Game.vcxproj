@@ -201,6 +201,7 @@
     <ClCompile Include="source\SoundComponent.cpp" />
     <ClCompile Include="source\SoundItem.cpp" />
     <ClCompile Include="source\SoundServer.cpp" />
+    <ClCompile Include="source\Timer.cpp" />
     <ClCompile Include="source\UIAudio.cpp" />
     <ClCompile Include="source\UIBackToTitle.cpp" />
     <ClCompile Include="source\UIBase.cpp" />
@@ -219,6 +220,7 @@
     <ClCompile Include="source\UISelectMap.cpp" />
     <ClCompile Include="source\UIServer.cpp" />
     <ClCompile Include="source\UISlide.cpp" />
+    <ClCompile Include="source\UILightsTimer.cpp" />
     <ClCompile Include="source\UITitle.cpp" />
     <ClCompile Include="source\UIToConfirm.cpp" />
     <ClCompile Include="source\WeaponBase.cpp" />
@@ -270,6 +272,7 @@
     <ClInclude Include="source\SoundComponent.h" />
     <ClInclude Include="source\SoundItem.h" />
     <ClInclude Include="source\SoundServer.h" />
+    <ClInclude Include="source\Timer.h" />
     <ClInclude Include="source\UIAudio.h" />
     <ClInclude Include="source\UIBackToTitle.h" />
     <ClInclude Include="source\UIBase.h" />
@@ -287,6 +290,7 @@
     <ClInclude Include="source\UISelectMap.h" />
     <ClInclude Include="source\UIServer.h" />
     <ClInclude Include="source\UISlide.h" />
+    <ClInclude Include="source\UILightsTimer.h" />
     <ClInclude Include="source\UITitle.h" />
     <ClInclude Include="source\UIToConfirm.h" />
     <ClInclude Include="source\WeaponBase.h" />

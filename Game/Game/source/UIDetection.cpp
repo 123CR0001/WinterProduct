@@ -6,10 +6,6 @@
 #include"CommonSoldier.h"
 
 UIDetection::UIDetection(class ModeGame* game):_game(game) {
-	// 画像読み込み
-	_cgBaseCircle	= ResourceServer::LoadGraph("res/UI/Game/cir.png");
-	_cgQuestion		= ResourceServer::LoadGraph("res/UI/Game/question.png");
-	_cgSuprise		= ResourceServer::LoadGraph("res/UI/Game/surprise.png");
 	// 初期化
 	_eneInfo.bFind = false;
 	_eneInfo.val = 100;
@@ -46,6 +42,11 @@ void UIDetection::Process() {
 }
 
 void UIDetection::Render() {
+	// 画像読み込み
+	int cgBaseCircle = ResourceServer::LoadGraph("res/UI/Game/cir.png");
+	int cgQuestion = ResourceServer::LoadGraph("res/UI/Game/question.png");
+	int cgSuprise = ResourceServer::LoadGraph("res/UI/Game/surprise.png");
+
 	// playerを発見している敵を見つける
 	auto CommonSoldiers = _game->GetObjectServer()->GetCommonSoldiers();
 	int i = 0;
@@ -56,13 +57,13 @@ void UIDetection::Render() {
 			VECTOR eneOverhead = VAdd(vPos, highVec);											// 敵の頭上に表示するためにベクトルを加算する
 			VECTOR convertScreenPos = ConvWorldPosToScreenPos(eneOverhead);						// ワールド座標をスクリーン座標に変換する
 																								// 
-			DrawGraph(convertScreenPos.x - 50, convertScreenPos.y - 50, _cgBaseCircle, TRUE);	// ベース用の色付きサークル
+			DrawGraph(convertScreenPos.x - 50, convertScreenPos.y - 50, cgBaseCircle, TRUE);	// ベース用の色付きサークル
 			DrawCircleGauge(convertScreenPos.x, convertScreenPos.y, _vEneInfo[i].val, _cg);					// 実際にゲージの上昇・減少を描画するサークル　黒
 			if (_vEneInfo[i].val == 0) {
-				DrawGraph(convertScreenPos.x - 40, convertScreenPos.y - 40, _cgSuprise, TRUE);	// 「！」見つかった
+				DrawGraph(convertScreenPos.x - 40, convertScreenPos.y - 40, cgSuprise, TRUE);	// 「！」見つかった
 			}
 			else {
-				DrawGraph(convertScreenPos.x - 40, convertScreenPos.y - 40, _cgQuestion, TRUE);	// 「？」疑問
+				DrawGraph(convertScreenPos.x - 40, convertScreenPos.y - 40, cgQuestion, TRUE);	// 「？」疑問
 			}
 		}
 		i++;

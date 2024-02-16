@@ -22,9 +22,6 @@
     <Filter Include="ヘッダー ファイル\Weapon">
       <UniqueIdentifier>{152c8623-4567-4dfc-9b0c-06152aeda4d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Weapon">
-      <UniqueIdentifier>{99bdd997-c818-46f0-a2f9-08fb1873bf75}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Mode">
       <UniqueIdentifier>{f7b5071e-4892-42a9-9e02-70951a14353b}</UniqueIdentifier>
     </Filter>
@@ -85,6 +82,9 @@
     <Filter Include="ソース ファイル\PhysWorld">
       <UniqueIdentifier>{17a74db2-3e90-43a3-a291-1d759b0a546d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\UI\Weapon">
+      <UniqueIdentifier>{99bdd997-c818-46f0-a2f9-08fb1873bf75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -106,10 +106,10 @@
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="source\WeaponBase.cpp">
-      <Filter>ソース ファイル\Weapon</Filter>
+      <Filter>ソース ファイル\UI\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="source\Knife.cpp">
-      <Filter>ソース ファイル\Weapon</Filter>
+      <Filter>ソース ファイル\UI\Weapon</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeClear.cpp">
       <Filter>ソース ファイル\Mode</Filter>
@@ -287,6 +287,12 @@
     </ClCompile>
     <ClCompile Include="source\UITitle.cpp">
       <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UILightsTimer.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Timer.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +493,12 @@
     </ClInclude>
     <ClInclude Include="source\UITitle.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UILightsTimer.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Timer.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
