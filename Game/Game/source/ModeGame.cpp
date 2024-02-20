@@ -23,6 +23,7 @@
 
 #include"UIServer.h"
 #include"UILightsTimer.h"
+#include "UIRemainingUses.h"
 
 #include"FPS.h"
 #include"Timer.h"
@@ -54,7 +55,10 @@ bool ModeGame::Initialize() {
 	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
 	
 	_uiServer->Add(NEW UILightsTimer(), nullptr, 0, 0, 930, 600, 150, 100, "lightsOutTimer");
-	
+	// 最初はスライドがいらないので、初期位置と終了位置を同じにしておく
+	_uiServer->Add(NEW UIRemainingUses(this, 2, 930, 2, 930,3), nullptr, 0, 2, 930, 450, 150, 100, "remainingUses");
+	_cntTest = 0;
+
 	return true;
 }
 
@@ -88,7 +92,12 @@ bool ModeGame::Process() {
 		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
 	}
 
+	if (GetPad()->GetTrgButton() & INPUT_DPAD_UP) {
+		_cntTest++;
+	}
+
 	if (GetPad()->GetTrgButton() & INPUT_X) {
+		_uiServer->Search("remainingUses")->Selected();
 		_uiServer->Search("lightsOutTimer")->Selected();
 	}
 

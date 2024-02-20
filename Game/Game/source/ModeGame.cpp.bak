@@ -21,9 +21,17 @@
 #include"SoundComponent.h"
 #include"PhysWorld.h"
 
+#include"UIServer.h"
+#include"UILightsTimer.h"
+
 #include"FPS.h"
+#include"Timer.h"
 
 SoundComponent* m = nullptr;
+
+ModeGame::ModeGame(std::string stageNum) {
+	_stage = stageNum;
+}
 
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
@@ -38,10 +46,14 @@ bool ModeGame::Initialize() {
 
 	_modeEffekseer = NEW ModeEffekseer();
 
+	_uiServer = NEW UIServer();
+
 	_fps = NEW FPS();
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
+	
+	_uiServer->Add(NEW UILightsTimer(), nullptr, 0, 0, 930, 600, 150, 100, "lightsOutTimer");
 	
 	return true;
 }
@@ -51,6 +63,8 @@ bool ModeGame::Terminate() {
 	base::Terminate();
 
 	delete _objServer;
+	delete _uiServer;
+	delete _fps;
 
 	return true;
 }
@@ -59,6 +73,8 @@ bool ModeGame::Process() {
 	base::Process();
 	// fpsの更新
 	_fps->Update();	
+	
+	_uiServer->Process();
 
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
@@ -66,15 +82,20 @@ bool ModeGame::Process() {
 		ModeColorIn* colorIn = NEW ModeColorIn(10);
 		ModeColorOut* mode = NEW ModeColorOut(colorIn,nullptr, 10, NEW ModeLightsOut(), 100, "LightsOut");
 		ModeServer::GetInstance()->Add(mode, 100, "Out");
+		
 	}
 	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
 		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
 	}
 
+	if (GetPad()->GetTrgButton() & INPUT_X) {
+		_uiServer->Search("lightsOutTimer")->Selected();
+	}
+
 	// fpsの待機
 	_fps->WaitFPS();
 	auto CommonSoldiers = GetObjectServer()->GetCommonSoldiers();
-	if (CommonSoldiers.size() == 0) { _fps->SetFPS(20); }
+	if (CommonSoldiers.size() == 0) { _fps->SetFPS(50); }
 
 	return true;
 }
@@ -96,13 +117,20 @@ bool ModeGame::Render() {
 #endif
 
 	if (!_objServer->Renderer()) { return false; }
+	
+	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stage);
+
+	_uiServer->Render();
 
 	return true;
 }
 
 bool ModeGame::LoadData() {
+	std::string stage = _stage.substr(0, 1);
+	std::string area = _stage.substr(2, 1);
 	nlohmann::json j;
-	std::ifstream file("res/map/stage1.json");
+	std::string str = "res/map/stage" + stage + "/" + area + "/stage" + area + ".json";
+	std::ifstream file(str);
 
 	if (!file) { return false; }
 	file >> j;
@@ -147,11 +175,15 @@ bool ModeGame::LoadData() {
 	};
 
 	std::unordered_map<std::string, ModelData>map;
-	map["stage1"].filePath = "res/Stage/stage1/stage1.mv1";
-	map["stage1"].attachFrameName = "UCX_stage1";
+	std::string filePath = "res/Stage/stage" + stage + "/stage" + area + ".mv1";
+	std::string attachFrameName = "UCX_stage" + stage;
+	map["stage" + stage].filePath = filePath.c_str();
+	map["stage" + stage].attachFrameName = attachFrameName.c_str();
 
-	map["mapcollisionstage1"].filePath = "res/Map/mapcollisionstage1.mv1";
-	map["mapcollisionstage1"].attachFrameName = "mapcollisionstage1";
+	std::string filePathColl = "res/Map/stage" +  stage + "/" + area +"/mapcollisionstage" + stage + ".mv1";
+	std::string attachFrameNameColl = "mapcollisionstage" + stage;
+	map["mapcollisionstage" + stage].filePath = filePathColl.c_str();
+	map["mapcollisionstage" + stage].attachFrameName = attachFrameNameColl.c_str();
 
 	{
 		//ナビゲーション
@@ -168,7 +200,7 @@ bool ModeGame::LoadData() {
 			}
 		}
 	}
-
+	
 	for (auto&& object : j.at("object")) {
 		std::string name = object.at("objectName");
 	

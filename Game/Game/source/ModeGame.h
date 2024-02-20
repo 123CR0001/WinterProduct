@@ -19,6 +19,7 @@ public:
 	class ObjectServer* GetObjectServer()const { return _objServer; }
 	class ModeEffekseer* GetModeEffekseer()const { return _modeEffekseer; }
 	class FPS* GetFps()const { return _fps; }
+	int GetCnt()const { return _cntTest; }	// ‚¨‚µ@Œã‚ÅÁ‚·
 protected:
 
 	class ObjectServer* _objServer;
@@ -27,4 +28,5 @@ protected:
 	class FPS* _fps;
 	std::string _stage;
 	class Timer* _timer;
+	int _cntTest;	// ‚¨‚µ@Œã‚ÅÁ‚·
 }; 

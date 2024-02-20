@@ -215,6 +215,7 @@
     <ClCompile Include="source\UIGetSlide.cpp" />
     <ClCompile Include="source\UINo.cpp" />
     <ClCompile Include="source\UIQuit.cpp" />
+    <ClCompile Include="source\UIRemainingUses.cpp" />
     <ClCompile Include="source\UIResume.cpp" />
     <ClCompile Include="source\UIRetry.cpp" />
     <ClCompile Include="source\UISelectController.cpp" />
@@ -286,6 +287,7 @@
     <ClInclude Include="source\UIGameStart.h" />
     <ClInclude Include="source\UIGetSlide.h" />
     <ClInclude Include="source\UIQuit.h" />
+    <ClInclude Include="source\UIRemainingUses.h" />
     <ClInclude Include="source\UIResume.h" />
     <ClInclude Include="source\UIRetry.h" />
     <ClInclude Include="source\UISelectController.h" />
