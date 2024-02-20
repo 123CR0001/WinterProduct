@@ -10,19 +10,19 @@
 
 std::unordered_map<std::string, std::function<void(const MOTION_DATA_ITEM&)>> MotionComponent::_commandFuncMap;
 
-MotionComponent::MotionComponent(CharaBase* owner,int order)
-	:Component(owner,order)
-	, _chara(owner)
+MotionComponent::MotionComponent(AnimationComponent* owner,int order)
+	:Component(owner->GetOwner(), order)
+	, _anim(owner)
 	, _motCnt(0) 
 {
 	_commandFuncMap["MOVE"] = [this](const MOTION_DATA_ITEM& item) {
 		
-		float rad = DegToRad(item.vector) + _chara->GetEulerAngle().y;
+		float rad = DegToRad(item.vector) + _anim->GetOwner()->GetEulerAngle().y;
 
 		Vector3D v(sin(rad), 0, cos(rad));
 		v.Normalized();
 
-		_chara->AddPos( v * item.vectorScale);
+		_anim->GetOwner()->AddPos( v * item.vectorScale);
 
 		_motCnt++; 
 	};
@@ -45,14 +45,14 @@ MotionComponent::MotionComponent(CharaBase* owner,int order)
 		if (mode) {
 
 			// フレーム名からフレーム番号を取得する
-			int FrameIndex = MV1SearchFrame(_chara->GetHandle(), item.effectPlay3DFrame.c_str());
+			int FrameIndex = MV1SearchFrame(_anim->GetOwner()->GetHandle(), item.effectPlay3DFrame.c_str());
 
 			// フレームの現在のワールドでの状態を示す行列を取得する
-			MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(_chara->GetHandle(), FrameIndex);
+			MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(_anim->GetOwner()->GetHandle(), FrameIndex);
 
-			ModeEffekseer* effect = _chara->GetObjectServer()->GetGame()->GetModeEffekseer();
+			ModeEffekseer* effect = _anim->GetOwner()->GetObjectServer()->GetGame()->GetModeEffekseer();
 
-			Vector3D angle = _chara->GetEulerAngle();
+			Vector3D angle = _anim->GetOwner()->GetEulerAngle();
 
 			effect->Play(
 				item.effectPlayName,
@@ -80,8 +80,8 @@ bool MotionComponent::Process() {
 	auto motionData = gGlobal._charaMotionData;
 
 	//このコンポーネントを保持するオーナーの名前
-	std::string name = _chara->GetName();
-	AnimationComponent* anim = _chara->GetAnimationComponent();
+	std::string name = _anim->GetOwner()->GetName();
+	AnimationComponent* anim = _anim;
 	std::string animName = anim->GetAnimationName();
 
 	//CharaBaseが再生しているアニメーションの再生時間を取得		切り上げ

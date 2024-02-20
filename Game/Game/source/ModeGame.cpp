@@ -25,6 +25,7 @@
 
 #include"CreateAfterImageComponent.h"
 #include"FPS.h"
+#include"AnimationComponent.h"
 
 SoundComponent* m = nullptr;
 
@@ -82,7 +83,7 @@ bool ModeGame::Process() {
 		auto func = [this]() {
 			ModeServer::GetInstance()->Add(NEW ModeLightsOut(this), 100, "LightsOut"); 
 			//プレイヤーから残像を出力するようにする
-			NEW CreateAfterImageComponent(_objServer->GetPlayer());
+			NEW CreateAfterImageComponent(_objServer->GetPlayer()->GetAnimationComponent());
 
 			_isCouldLightsOut = true;
 		};

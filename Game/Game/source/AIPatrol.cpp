@@ -29,7 +29,16 @@ bool AIPatrol::Process() {
 	auto objectServer = _owner->GetOwner()->GetObjectServer();
 
 	//経路を巡回
-	_owner->MoveTo(_owner->GetPoints(GetName()), _patrolPointsNum);
+	{
+		int oldNum = _patrolPointsNum;
+		_owner->MoveTo(_owner->GetPoints(GetName()), _patrolPointsNum);
+
+		//ポイントに到着
+		if (oldNum != _patrolPointsNum) {
+			_owner->ChangeState("LookAround");
+		}
+	}
+
 
 	//音が聞こえたか？
 	{

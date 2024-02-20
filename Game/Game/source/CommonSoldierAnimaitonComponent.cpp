@@ -9,6 +9,13 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 	, _csOwner(owner)
 {
 	//アニメーションを登録
+
+	_csOwner->LoadModel("res/Chara/soldier_2_4_IK_A.mv1");
+
+	LoadAnimation("Walk","mo_moveenemy_01",0);
+	LoadAnimation("Death", "mo_deathenemy_01", 1);
+	LoadAnimation("LookAround", "mo_losesight_01", 0);
+
 }
 
 CommonSoldierAnimationComponent::~CommonSoldierAnimationComponent() {
@@ -20,16 +27,21 @@ bool CommonSoldierAnimationComponent::Process() {
 
 	//アニメーションの遷移条件を記述
 
-	AnimationComponent* anim = _csOwner->GetAnimationComponent();
 
-	//すでに変更したいアニメーションに、変更されていた場合は処理をしないので、条件式は遷移条件だけでいい
+	//AIのステート名に変更があるか
+	if (_stateName != _csOwner->GetAIComponent()->GetCurrentState()->GetName()) {
 
-	if (_csOwner->GetAIComponent()->GetCurrentState()->GetName() == "Panic") {
+		const char* name = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
+
+		if (name == "LookAround") {
+			ChangeAnimation("LookAround");
+		}
+		else if (_csOwner->GetMoveComponent()->GetSpeed() >= 1.0f) {
+			ChangeAnimation("Walk");
+		}
 
 	}
-	else if (_csOwner->GetMoveComponent()->GetSpeed() >= 2.0f) {
-		ChangeAnimation("");
-	}
+	_stateName = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
 
 	return true;
 }

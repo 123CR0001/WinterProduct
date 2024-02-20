@@ -160,6 +160,8 @@
     <ClCompile Include="source\AIChase.cpp" />
     <ClCompile Include="source\AICheckPoint.cpp" />
     <ClCompile Include="source\AIComponent.cpp" />
+    <ClCompile Include="source\AIDeath.cpp" />
+    <ClCompile Include="source\AILookAround.cpp" />
     <ClCompile Include="source\AIPanic.cpp" />
     <ClCompile Include="source\AIPatrol.cpp" />
     <ClCompile Include="source\AIBlindWalk.cpp" />
@@ -233,6 +235,8 @@
     <ClInclude Include="source\AIBackPatrol.h" />
     <ClInclude Include="source\AIChase.h" />
     <ClInclude Include="source\AIComponent.h" />
+    <ClInclude Include="source\AIDeath.h" />
+    <ClInclude Include="source\AILookAround.h" />
     <ClInclude Include="source\AIPanic.h" />
     <ClInclude Include="source\AIPatrol.h" />
     <ClInclude Include="source\AIBlindWalk.h" />

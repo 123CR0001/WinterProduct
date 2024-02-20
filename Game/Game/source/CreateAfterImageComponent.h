@@ -3,7 +3,7 @@
 
 class CreateAfterImageComponent :public Component {
 public:
-	CreateAfterImageComponent(class CharaBase* owner);
+	CreateAfterImageComponent(class AnimationComponent* owner);
 	~CreateAfterImageComponent();
 
 	bool Process()override;
@@ -15,5 +15,5 @@ private:
 	//フレームをカウントする変数
 	int _frameCnt;
 
-	class CharaBase* _chara;
+	class AnimationComponent* _anim;
 };

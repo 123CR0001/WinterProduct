@@ -26,5 +26,6 @@ protected:
 	class AIComponent* _AI;
 	class MoveComponent* _moveCom;
 	class CapsuleComponent* _capsule;
+	class AnimationComponent* _anim;
 
 };

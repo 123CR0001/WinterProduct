@@ -213,6 +213,12 @@
     <ClCompile Include="source\UIAudio.cpp">
       <Filter>ソースファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="source\AILookAround.cpp">
+      <Filter>ソースファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AIDeath.cpp">
+      <Filter>ソースファイル\Component\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\FPS.h" />
@@ -316,63 +322,6 @@
     <ClInclude Include="source\ModeTitle.h">
       <Filter>ヘッダーファイル\Mode</Filter>
     </ClInclude>
-    <ClInclude Include="source\UIAudio.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIBackToTitle.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIBase.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIBlink.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIContorl.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIDetection.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIDisplay.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIGameEnd.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIGameStart.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIGetSlide.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIQuit.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIResume.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIRetry.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UISelectController.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UISelectMap.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIServer.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UISlide.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UITitle.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIToConfirm.h">
-      <Filter>ソースファイル\UI\UI</Filter>
-    </ClInclude>
     <ClInclude Include="source\Siren.h">
       <Filter>ヘッダーファイル\Object</Filter>
     </ClInclude>
@@ -423,6 +372,69 @@
     </ClInclude>
     <ClInclude Include="source\ObjectServer.h">
       <Filter>ヘッダーファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIAudio.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIBackToTitle.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIBase.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIBlink.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIContorl.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIDetection.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIDisplay.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIGameEnd.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIGameStart.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIGetSlide.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIQuit.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIResume.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIRetry.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISelectController.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISelectMap.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIServer.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISlide.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UITitle.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIToConfirm.h">
+      <Filter>ヘッダーファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AILookAround.h">
+      <Filter>ヘッダーファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIDeath.h">
+      <Filter>ヘッダーファイル\Component\AI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -483,7 +495,7 @@
     <Filter Include="ソースファイル\UI">
       <UniqueIdentifier>{0215e81e-70dc-41a3-9e0f-c073d5b71a3b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソースファイル\UI\UI">
+    <Filter Include="ヘッダーファイル\UI">
       <UniqueIdentifier>{3551a272-0614-47b6-a788-fb074306d769}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

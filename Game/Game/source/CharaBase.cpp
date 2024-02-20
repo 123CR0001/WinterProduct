@@ -11,7 +11,6 @@
 CharaBase::CharaBase(ObjectServer* server, std::string name)
 	:ObjectBase(server, false, name)
 	, _moveCom(NEW MoveComponent(this, 10))
-	, _anim(NEW AnimationComponent(this))
 {
 	server->GetCharas().emplace_back(this);
 }

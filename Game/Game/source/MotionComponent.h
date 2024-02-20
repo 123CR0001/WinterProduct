@@ -8,7 +8,7 @@
 
 class MotionComponent :public Component {
 public:
-	MotionComponent(class CharaBase* owner, int order = 100);
+	MotionComponent(class AnimationComponent* owner, int order = 100);
 	~MotionComponent();
 
 	bool Process()override;
@@ -21,7 +21,7 @@ public:
 
 
 private:
-	class CharaBase* _chara;
+	class AnimationComponent* _anim;
 	int _motCnt;
 
 	//全キャラ共通のコマンド

@@ -4,6 +4,7 @@
 #include "ModeGame.h"
 #include "ModeColorIn.h"
 #include"ModeColorOut.h"
+#include"ModeSelect.h"
 
 UIGameStart::UIGameStart() {
 	
@@ -19,7 +20,7 @@ int UIGameStart::Selected() {
 		ModeServer::GetInstance()->Del(title);
 
 		//ƒQ[ƒ€‚Ì’Ç‰Á
-		ModeServer::GetInstance()->Add(NEW ModeGame("1"), 10, "game");
+		ModeServer::GetInstance()->Add(NEW ModeSelect(), 10, "select");
 	};
 
 	// Ÿ‚Ìƒ‚[ƒh‚ğ“o˜^

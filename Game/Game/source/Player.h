@@ -16,6 +16,7 @@ public:
 	void AddMoveSpeedMag(const float up) { _moveSpeedMag += up; _moveSpeedMag = Clamp(1.f, 2.f, _moveSpeedMag); }
 
 	class CapsuleComponent* GetCapsuleComponent() { return _capsule; }
+	class AnimationComponent* GetAnimationComponent()const { return _anim; }
 
 	enum class ACTION_STATE :unsigned int{
 		kIdle,
@@ -38,6 +39,7 @@ protected:
 	class CameraComponent* _cameraCom;
 	class MotionComponent* _motCom;
 	class CapsuleComponent* _capsule;
+	class AnimationComponent* _anim;
 
 	float _moveSpeedMag;
 };

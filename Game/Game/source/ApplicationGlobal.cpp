@@ -21,6 +21,7 @@ bool ApplicationGlobal::Init() {
 	ResourceServer::MV1LoadModel("res/Chara/mannequin.mv1");
 	ResourceServer::MV1LoadModel("res/Object/siren/siren.mv1");
 	ResourceServer::MV1LoadModel("res/cg_player_girl/cg_player_girl.mv1");
+	ResourceServer::MV1LoadModel("res/Chara/soldier_2_4_IK_A.mv1");
 
 	return true;
 }

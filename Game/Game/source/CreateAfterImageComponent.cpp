@@ -4,9 +4,9 @@
 #include"AfterImage.h"
 #include"AnimationComponent.h"
 
-CreateAfterImageComponent::CreateAfterImageComponent(CharaBase* owner)
-	:Component(owner,10000)
-	,_chara(owner)
+CreateAfterImageComponent::CreateAfterImageComponent(AnimationComponent* owner)
+	:Component(owner->GetOwner(), 10000)
+	,_anim(owner)
 	,_maxCnt(10)
 	,_frameCnt(0)
 {
@@ -20,7 +20,7 @@ CreateAfterImageComponent::~CreateAfterImageComponent() {
 bool CreateAfterImageComponent::Process() {
 
 	if (_frameCnt == _maxCnt) {
-		NEW AfterImage(_chara->GetAnimationComponent());
+		NEW AfterImage(_anim);
 		_frameCnt = 0;
 	}
 

@@ -17,11 +17,14 @@
 #include"ModeGame.h"
 #include"ModeEffekseer.h"
 #include"AIPanic.h"
+#include"AILookAround.h"
+#include"CommonSoldierAnimaitonComponent.h"
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server,"CommonSoldier")
 	, _AI(NEW AIComponent(this, 1))
 	,_capsule(NEW CapsuleComponent(this,1000))
+	,_anim(NEW CommonSoldierAnimationComponent(this,1000))
 	,_detectionLevel(0.f)
 {
 
@@ -33,6 +36,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AICheckPoint(_AI));
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
 	_AI->RegisterState(NEW AIPanic(_AI));
+	_AI->RegisterState(NEW AILookAround(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);
@@ -45,7 +49,6 @@ CommonSoldier::~CommonSoldier(){
 bool CommonSoldier::Initialize() {
 	ObjectBase::Initialize();
 
-	LoadModel("res/SDChar/SDChar.mv1");
 	// 3Dモデルの1番目のアニメーションをアタッチする
 	_attachIndex = 0;
 	// アタッチしたアニメーションの総再生時間を取得する
