@@ -33,10 +33,8 @@ SoundComponent::~SoundComponent() {
 
 bool SoundComponent::Process() {
 	//1ƒtƒŒ[ƒ€‚ÅÁ‚·
-	_volumeSize -= 1;
-	if (_volumeSize < 0.f) {
-		_owner->DeleteComponent(this);
-	}
+	_owner->DeleteComponent(this);
+	
 	return true;
 }
 

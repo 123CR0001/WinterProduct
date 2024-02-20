@@ -14,7 +14,10 @@ public:
 protected:
 	class CapsuleComponent* _capsule;
 
-	int _hitCnt;
+	//時間経過で削除するためのカウント変数と時間経過の目安
+	int _elapsedFrame;
+
+	const int _maxFrame;
 
 	int _frameCnt;
 };

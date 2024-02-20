@@ -2,7 +2,6 @@
 #include"CharaBase.h"
 
 
-
 class CommonSoldier : public CharaBase{
 public:
 	CommonSoldier(class ObjectServer* server);
@@ -24,7 +23,6 @@ protected:
 	float _detectionLevel;	//ŒŸ’m“x
 
 	class AIComponent* _AI;
-	class MoveComponent* _moveCom;
 	class CapsuleComponent* _capsule;
 	class AnimationComponent* _anim;
 

@@ -34,16 +34,16 @@ bool AIChase::Process() {
 
 	//プレイヤーを見つけずに目標地点についたら巡回ルートに戻るAIStateにする
 	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
-		_owner->ChangeState("BackPatrol");
+		_owner->ChangeState("LookAround");
 	}
 
-	//プレイヤーを見つけたら、随時更新
+	//オブジェクトを見つけたら、随時更新
 	if (_owner->IsFound(_owner->GetChaseObject())) {
-		auto player = _owner->GetOwner()->GetObjectServer()->GetPlayer();
+		auto object = _owner->GetChaseObject();
 		//
 		if (_owner->GetPoints(GetName()).size() > 0) {
 			//ルートの最後の座標とずれが100以上だったら、ルートを更新する
-			if (Vector3D::LengthSquare(player->GetPos(), _owner->GetPoints(GetName()).back()) > 10000) {
+			if (Vector3D::LengthSquare(object->GetPos(), _owner->GetPoints(GetName()).back()) > 10000) {
 				GetShortestRoots();
 			}
 		}

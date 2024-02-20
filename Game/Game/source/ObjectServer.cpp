@@ -101,6 +101,7 @@ bool ObjectServer::ClearObject() {
 	_objects.clear();
 
 	for (auto&& obj : _addObj) {
+		obj->Terminate();
 		delete obj;
 	}
 	_addObj.clear();
@@ -121,6 +122,7 @@ bool ObjectServer::ProcessInit() {
 	for (auto&& deleteObj : _deleteObj) {
 		auto iter = std::find(_objects.begin(), _objects.end(), deleteObj);
 		if (iter != _objects.end()) {
+			(*iter)->Terminate();
 			delete (*iter);
 			_objects.erase(iter);
 		}

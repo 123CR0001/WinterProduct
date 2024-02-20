@@ -5,7 +5,7 @@
 AnimationComponent::AnimationComponent(ObjectBase* owner ,int order)
 	:Component(owner,order) 
 {
-
+	_closeMaxTime = 6.f;
 }
 
 AnimationComponent::~AnimationComponent(){
@@ -78,7 +78,7 @@ void AnimationComponent::ChangeAnimation(const char* animName) {
 		// アタッチされているアニメーションに、close時間を設ける
 		for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ++iteAnim) {
 			if ((*iteAnim)->_closeTime == 0.f) {
-				(*iteAnim)->_closeTime = 6.f;		// ブレンドするフレーム数
+				(*iteAnim)->_closeTime = _closeMaxTime;		// ブレンドするフレーム数
 				(*iteAnim)->_closeTotalTime = (*iteAnim)->_closeTime;
 			}
 		}

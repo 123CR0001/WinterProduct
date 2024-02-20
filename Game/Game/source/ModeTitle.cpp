@@ -62,17 +62,17 @@ bool ModeTitle::Process() {
 	int key = ApplicationMain::GetInstance()->GetKey();
 	int trg = ApplicationMain::GetInstance()->GetPad()->GetTrgButton();
 
-	if (trg & INPUT_A && !ModeServer::GetInstance()->IsAdd("Out")) {
-		auto func = [this]() {
-			ModeServer::GetInstance()->Del(this);
-			ModeServer::GetInstance()->Add(NEW ModeGame("1"), 10, "game");
-		};
+	//if (trg & INPUT_A && !ModeServer::GetInstance()->IsAdd("Out")) {
+	//	auto func = [this]() {
+	//		ModeServer::GetInstance()->Del(this);
+	//		ModeServer::GetInstance()->Add(NEW ModeGame("1"), 10, "game");
+	//	};
 
-		ModeColorIn* colorIn = NEW ModeColorIn(30, true);
-		ModeBase* mode = NEW ModeColorOut(colorIn,func);
+	//	ModeColorIn* colorIn = NEW ModeColorIn(30, true);
+	//	ModeBase* mode = NEW ModeColorOut(colorIn,func);
 
-		ModeServer::GetInstance()->Add(mode, 11, "Out");
-	}
+	//	ModeServer::GetInstance()->Add(mode, 11, "Out");
+	//}
 
 
 	_ui->Process();
@@ -92,7 +92,7 @@ bool ModeTitle::Process() {
 			std::string name = ui->_uiName;	// ‘I‘ð‚µ‚Ä‚¢‚é€–Ú‚Ì–¼‘O
 			_ui->SelectPosAdjustment(name, "get", 0, 0);
 			if (trg & INPUT_A) {	// Œˆ’è‚Å‘I‘ð€–Ú‚ÌSelected()‚ðŒÄ‚Ô
-				//close = _ui->Search(name)->Selected();
+				close = _ui->Search(name)->Selected();
 			}
 			break;
 		}

@@ -58,11 +58,11 @@ bool ModeLightsOut::Process() {
 		ModeServer::GetInstance()->Add(new ModeColorOut(colorIn,func, 10), 10, "Out");
 	}
 	if(_frameCnt > 0) {
-		//_frameCnt--;
+		_frameCnt--;
 	}
 
 	if (_oldEnemyNum > (int)_game->GetObjectServer()->GetEnemys().size()) {
-		_frameCnt += 120;
+		_frameCnt += 60;
 		_oldEnemyNum = (int)_game->GetObjectServer()->GetEnemys().size();
 		_game->GetObjectServer()->GetPlayer()->AddMoveSpeedMag(0.2f);
 	}
@@ -86,7 +86,7 @@ bool ModeLightsOut::Render() {
 
 	SetFontSize(64);
 	DrawFormatString(500, 0, GetColor(255, 0, 0), "Žc‚èŽžŠÔ %d", _frameCnt);
-	SetFontSize(GetFontSize());
+	SetFontSize(16);
 
 	return true;
 }

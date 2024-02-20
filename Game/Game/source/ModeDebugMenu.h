@@ -63,8 +63,12 @@ public:
 
 		class ModeDebugMenu* _menu;
 	};
+
+
+	std::vector<class AIComponent*>& GetAIs() { return _debugAIs; }
+
 protected:
 
 	std::vector<DebugMenuItem*>_debugMenus;
-
+	std::vector<class AIComponent*>_debugAIs;
 };

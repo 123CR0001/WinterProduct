@@ -10,9 +10,9 @@ bool ModeEffekseer::Initialize() {
 	// エフェクトリソースを読み込む。
 	// 読み込む時に大きさを指定する。ef_blood_02
 	_effectHandle["Laser"] = LoadEffekseerEffect("res/effekseer/Laser01.efkefc", 10.0f);
-	_effectHandle["Blood01"] = LoadEffekseerEffect("res/effekseer/ef_blood_01/ef_blood_01.efkefc", 70.f);
-	_effectHandle["Blood02"] = LoadEffekseerEffect("res/effekseer/ef_blood_02/ef_blood_02.efkefc", 70.f);
-	_effectHandle["Decoy"] = LoadEffekseerEffect("res/effekseer/ef_decoy_2/ef_decoy.efkefc",1.f);
+	_effectHandle["Blood01"] = LoadEffekseerEffect("res/effekseer/ef_blood_01/ef_blood_01.efkefc", 50.f);
+	_effectHandle["Blood02"] = LoadEffekseerEffect("res/effekseer/ef_blood_02/ef_blood_02.efkefc", 50.f);
+	_effectHandle["Decoy"] = LoadEffekseerEffect("res/effekseer/ef_decoy_3/ef_decoy_3.efkefc",1.f);
 	return true;
 }
 

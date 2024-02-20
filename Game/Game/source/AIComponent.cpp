@@ -4,12 +4,21 @@
 #include"ObjectServer.h"
 #include"PhysWorld.h"
 #include"FrameComponent.h"
+#include"AIChase.h"
+
+#include"ModeGame.h"
+#include"ModeDebugMenu.h"
+
+#include<algorithm>
 
 AIComponent::AIComponent(ObjectBase* owner,int order)
 	:Component(owner,order)
 	,_currentState(nullptr)
 	,_chaseObj(nullptr)
 {
+	//デバッグ用
+	_owner->GetObjectServer()->GetGame()->GetDebugMenu()->GetAIs().emplace_back(this);
+
 }
 
 AIComponent::~AIComponent(){
@@ -18,6 +27,16 @@ AIComponent::~AIComponent(){
 	}
 
 	_stateMap.clear();
+
+	//デバッグ
+	auto& ais = _owner->GetObjectServer()->GetGame()->GetDebugMenu()->GetAIs();
+
+	auto iter = std::find(ais.begin(), ais.end(), this);
+
+	//if (ais.end() != iter) {
+		ais.erase(iter);
+	//}
+
 }
 
 bool AIComponent::Process() {

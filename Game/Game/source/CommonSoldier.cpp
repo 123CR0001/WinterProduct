@@ -18,6 +18,7 @@
 #include"ModeEffekseer.h"
 #include"AIPanic.h"
 #include"AILookAround.h"
+#include"AIDeath.h"
 #include"CommonSoldierAnimaitonComponent.h"
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
@@ -37,13 +38,13 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
 	_AI->RegisterState(NEW AIPanic(_AI));
 	_AI->RegisterState(NEW AILookAround(_AI));
+	_AI->RegisterState(NEW AIDeath(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);
 }
 
 CommonSoldier::~CommonSoldier(){
-	Terminate();
 }
 
 bool CommonSoldier::Initialize() {
@@ -73,11 +74,11 @@ bool CommonSoldier::Initialize() {
 
 bool CommonSoldier::Terminate() {
 	CharaBase::Terminate();
-	auto iter = std::find(GetObjectServer()->GetCommonSoldiers().begin(), GetObjectServer()->GetCommonSoldiers().end(), this);
-	GetObjectServer()->GetCommonSoldiers().erase(iter);
 
-	auto iter2 = std::find(GetObjectServer()->GetEnemys().begin(), GetObjectServer()->GetEnemys().end(), this);
-	GetObjectServer()->GetEnemys().erase(iter2);
+	auto iter = std::find(GetObjectServer()->GetCommonSoldiers().begin(), GetObjectServer()->GetCommonSoldiers().end(), this);
+	if (iter != GetObjectServer()->GetCommonSoldiers().end()) {
+		GetObjectServer()->GetCommonSoldiers().erase(iter);
+	}
 
 	return true;
 }
@@ -115,8 +116,14 @@ bool CommonSoldier::Process() {
 	//ダメージを受けたか
 	if (_damageData.isDamage) {
 
-		//自分を削除登録
-		GetObjectServer()->DeleteObject(this);
+		//死亡
+		_AI->ChangeState("Death");
+
+		auto iter2 = std::find(GetObjectServer()->GetEnemys().begin(), GetObjectServer()->GetEnemys().end(), this);
+	
+		if (iter2 != GetObjectServer()->GetEnemys().end()){
+			GetObjectServer()->GetEnemys().erase(iter2);
+		}
 
 		//エフェクト再生
 		//GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
@@ -131,6 +138,8 @@ bool CommonSoldier::Process() {
 		);
 		//カメラの揺れ
 		GetObjectServer()->GetPlayer()->GetCamera()->Swap();
+
+		DeleteComponent(_capsule);
 
 		//データを空にする
 		_damageData = DamageData{};

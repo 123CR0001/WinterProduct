@@ -238,8 +238,8 @@ bool ModeDebugMenu::Process() {
 
 		if (trg & INPUT_A) { _debugMenus[_selectNum]->Select(); }
 
-		// このモードより下のレイヤーはProcess()を呼ばない
-		ModeServer::GetInstance()->SkipProcessUnderLayer();
+		//// このモードより下のレイヤーはProcess()を呼ばない
+		//ModeServer::GetInstance()->SkipProcessUnderLayer();
 	}
 
 	if (trg & INPUT_BACK) {
@@ -247,7 +247,7 @@ bool ModeDebugMenu::Process() {
 	}
 
 
-	return true;
+	return _isProcess;
 }
 
 bool ModeDebugMenu::Render() {
@@ -260,6 +260,8 @@ bool ModeDebugMenu::Render() {
 	if (_sirenInfo) { RenerSirenInfo(); }
 	if (_soundInfo) { RenderSoundInfo(); }
 	if (_detectionInfo) { RenderDetectionInfo(); }
+
+	DrawFormatString(0, 500, GetColor(255, 0, 0), "AI %d", _debugAIs.size());
 
 	if (_isProcess) {
 		SetFontSize(FONT_SIZE);
@@ -304,22 +306,16 @@ void ModeDebugMenu::RenderCharaCollision() {
 
 void ModeDebugMenu::RenderEnemyRoot() {
 
-	auto CommonSoldiers = _game->GetObjectServer()->GetCommonSoldiers();
 
-	if (CommonSoldiers.size() == 0) { return; }
+	for (auto iter = _debugAIs.begin(); iter != _debugAIs.end(); ++iter) {
 
+		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetOwner()->GetPos() + Vector3D(0, 180, 0)));
 
-	for (auto iter = CommonSoldiers.begin(); iter != CommonSoldiers.end(); ++iter) {
-
-		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetPos() + Vector3D(0, 180, 0)));
-
-		auto AI = (*iter)->GetAIComponent();
-
-		if (!AI) { continue; }
+		auto AI = (*iter);
 
 		int num = 0;
 
-		for (auto route : AI->GetPoints(AI->GetCurrentState()->GetName())) {
+		for (auto&& route : AI->GetPoints(AI->GetCurrentState()->GetName())) {
 			num++;
 			DrawSphere3D(
 				DxConverter::VecToDx(route + Vector3D(0, 30, 0)),
@@ -414,14 +410,11 @@ void ModeDebugMenu::RenderViewCollision() {
 }
 
 void ModeDebugMenu::RenderEnemyAIName() {
-	auto CommonSoldiers = _game->GetObjectServer()->GetCommonSoldiers();
 
-	if (CommonSoldiers.size() == 0) { return; }
-
-	for (auto iter = CommonSoldiers.begin(); iter != CommonSoldiers.end(); ++iter) {
-		auto _AI = (*iter)->GetAIComponent();
+	for (auto iter = _debugAIs.begin(); iter != _debugAIs.end(); ++iter) {
+		auto _AI = (*iter);
 		if (_AI) {
-			VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetPos() + Vector3D(0, 180, 0)));
+			VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetOwner()->GetPos() + Vector3D(0, 180, 0)));
 			DrawFormatString((int)pos.x, (int)pos.y, GetColor(0, 255, 0), "%s ", _AI->GetCurrentState()->GetName());
 		}
 	}

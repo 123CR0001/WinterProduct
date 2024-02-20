@@ -62,4 +62,6 @@ protected:
 
 	//再生中のアニメーションの名前
 	const char* _playAnimationName;
+
+	float _closeMaxTime;
 };

@@ -1,7 +1,7 @@
 #include"CharaBase.h"
 #include"ObjectServer.h"
 #include"ModeGame.h"
-#include"AnimationConmponent.h"
+#include"AnimationComponent.h"
 #include"CapsuleComponent.h"
 #include<algorithm>
 #include"appframe.h"

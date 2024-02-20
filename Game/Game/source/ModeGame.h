@@ -6,6 +6,7 @@ class ModeGame : public ModeBase
 	typedef ModeBase base;
 public:
 	ModeGame(std::string stageNum);
+	~ModeGame();
 
 	virtual bool Initialize();
 	virtual bool Terminate();
@@ -31,4 +32,9 @@ protected:
 
 	class FPS* _fps;
 	std::string _stageNum;
+
+	//デバッグ用
+	class ModeDebugMenu* _debug;
+public:
+	class ModeDebugMenu* GetDebugMenu() { return _debug; }
 }; 

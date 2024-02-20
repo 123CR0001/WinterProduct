@@ -38,4 +38,4 @@ bool MoveComponent::Process() {
 	return true;
 }
 
-float MoveComponent::GetSpeed() { return Vector3D(_owner->GetPos() - _oldPos).Length(); }
+float MoveComponent::GetSpeed() { return Vector3D::Length(_oldPos,_owner->GetPos()); }

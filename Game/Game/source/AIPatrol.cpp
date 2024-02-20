@@ -7,6 +7,7 @@
 #include"AIBackPatrol.h"
 #include"PhysWorld.h"
 #include"Player.h"
+#include"AIChase.h"
 
 AIPatrol::AIPatrol(AIComponent* owner)
 	:AIState(owner)
@@ -59,16 +60,19 @@ bool AIPatrol::Process() {
 
 		for (int a = 0; a < objects.size(); a++) {
 
-			//Ž‹ŠE‚É“ü‚Á‚Ä‚¢‚È‚¢
-			if (!_owner->IsFound(objects[a])) { continue; }
-
 			for (int b = 0; b < names.size(); b++) {
-				if (objects[a]->GetName() == names[b]) {
+
+				//“o˜^‚µ‚½–¼‘O‚©
+				if (objects[a]->GetName() != names[b]) { continue; }
+
+				//Ž‹ŠE‚É“ü‚Á‚Ä‚¢‚é‚©
+				if (_owner->IsFound(objects[a])) { 
 					//’Ç‚¢‚©‚¯‚éƒIƒuƒWƒFƒNƒg‚ÌƒAƒhƒŒƒX‚ð“o˜^
 					_owner->SetChaseObject(objects[a]);
 					//AIState‚ð•ÏX
 					_owner->ChangeState("Chase");
-					break;
+					return true;
+				
 				}
 			}
 		}

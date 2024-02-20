@@ -19,6 +19,8 @@
 #include"CommonSoldier.h"
 #include"Player.h"
 #include"Siren.h"
+#include"Traser.h"
+#include"TraserSpawner.h"
 
 #include"SoundComponent.h"
 #include"PhysWorld.h"
@@ -33,6 +35,12 @@ ModeGame::ModeGame(std::string stageNum) {
 	_stageNum = stageNum;
 }
 
+ModeGame::~ModeGame() {
+	
+	delete _objServer;
+	delete _debug;
+}
+
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 
@@ -42,19 +50,23 @@ bool ModeGame::Initialize() {
 
 	_objServer = NEW ObjectServer(this);
 
-	LoadData();
+
 
 	_modeEffekseer = NEW ModeEffekseer();
 
 	_fps = NEW FPS();
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
-	ModeServer::GetInstance()->Add(NEW ModeDebugMenu(this), 300, "Debug");
+
+	_debug = NEW ModeDebugMenu(this);
+	_debug->Initialize();
 
 	_isCouldLightsOut = false;
 
 	// シャドウマップの生成
 	_handleShadowMap = MakeShadowMap(2048, 2048);
+
+	LoadData();
 
 	return true;
 }
@@ -62,8 +74,7 @@ bool ModeGame::Initialize() {
 bool ModeGame::Terminate() {
 
 	base::Terminate();
-
-	delete _objServer;
+	_debug->Terminate();
 
 	return true;
 }
@@ -72,6 +83,8 @@ bool ModeGame::Process() {
 	base::Process();
 	// fpsの更新
 	_fps->Update();	
+
+	if (_debug->Process()) { return true; }
 
 	//オブジェクトサーバーの処理
 	if (!_objServer->ProcessInit()) { return false; }
@@ -103,6 +116,7 @@ bool ModeGame::Process() {
 
 	//勝敗判定
 	for (auto iter = _objServer->GetCommonSoldiers().begin(); iter != _objServer->GetCommonSoldiers().end(); ++iter) {
+		//検知度が一定を超える敵がいたら、ゲームオーバー
 		if ((*iter)->GetDetectionLevel() >= 1.f) {
 
 			//ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
@@ -110,8 +124,10 @@ bool ModeGame::Process() {
 		}
 	}
 
+
+
 	if (_isCouldLightsOut && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
-		if (_objServer->GetCommonSoldiers().size() > 0) {
+		if (_objServer->GetEnemys().size() > 0) {
 			ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
 		}
 		else {
@@ -176,6 +192,8 @@ bool ModeGame::Render() {
 
 	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stageNum);
 
+	_debug->Render();
+
 	return true;
 }
 
@@ -193,6 +211,7 @@ bool ModeGame::LoadData() {
 			Player* p = NEW Player(GetObjectServer());
 			p->SetJsonDataUE(object);
 		}
+
 	}
 	
 	//エネミーの読み込み
@@ -244,6 +263,9 @@ bool ModeGame::LoadData() {
 	map["siren"].attachFrameName = "UCX_siren1";
 	map["siren"].func = [this](const char* path,const char* frameName) {return NEW Siren(GetObjectServer()); };
 
+	map["mapcollisionstage1"].filePath = "res/Map/mapcollisionstage1.mv1";
+	map["mapcollisionstage1"].attachFrameName = "mapcollisionstage1";
+
 	for (auto&& object : j.at("object")) {
 		std::string name = object.at("objectName");
 
@@ -277,6 +299,8 @@ bool ModeGame::LoadData() {
 		}
 	}
 
+	//Spawner
+	NEW TraserSpawner(_objServer);
 
 	return true;
 }

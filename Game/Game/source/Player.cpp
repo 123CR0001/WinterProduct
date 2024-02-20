@@ -46,7 +46,6 @@ Player::Player(ObjectServer* server)
 }
 
 Player::~Player() {
-	Player::Terminate();
 }
 
 bool Player::Initialize() {
@@ -115,6 +114,9 @@ bool Player::Process() {
 		}
 		if (pad->GetTrgButton() & INPUT_B) {
 			NEW Decoy(this);
+		}
+		if (pad->GetTrgButton() & INPUT_X) {
+			_actionState = ACTION_STATE::kSilent;
 		}
 		break;
 	case ACTION_STATE::kAttack:

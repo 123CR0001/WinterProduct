@@ -8,6 +8,7 @@ CapsuleComponent::CapsuleComponent(ObjectBase* owner,int order)
 	:Component(owner,order)
 {
 	owner->GetObjectServer()->GetPhysWorld()->GetCapsuleComponent().emplace_back(this);
+
 }
 
 CapsuleComponent::~CapsuleComponent() {
@@ -22,6 +23,8 @@ CapsuleComponent::~CapsuleComponent() {
 }
 
 bool CapsuleComponent::Process() {
+
+
 	//オブジェクトとの押出処理
 	int i = 0;
 

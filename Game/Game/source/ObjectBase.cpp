@@ -20,10 +20,10 @@ ObjectBase::ObjectBase(ObjectServer* server, bool isFrame, std::string name)
 	_server->AddObject(this);
 
 	if (isFrame) { NEW FrameComponent(this); }
+
 }
 
 ObjectBase::~ObjectBase() {
-	Terminate();
 
 	for (auto iter = _components.begin(); iter != _components.end(); ++iter) {
 		delete (*iter);
@@ -36,6 +36,10 @@ ObjectBase::~ObjectBase() {
 	_addComponents.clear();
 	_deleteComponents.clear();
 	_components.clear();
+
+	ResourceServer::MV1DeleteModel(_handle);
+
+	MV1TerminateCollInfo(_handle, _attachIndex);
 }
 
 bool ObjectBase::Initialize() {
@@ -47,28 +51,29 @@ bool ObjectBase::Initialize() {
 }
 
 bool ObjectBase::Terminate() {
-	ResourceServer::MV1DeleteModel(_handle);
 
-	MV1TerminateCollInfo(_handle, _attachIndex);
 
 	return true;
 }
 
 bool ObjectBase::Process() {
 	//コンポーネントの追加
-	if (_addComponents.size() > 0) {
-		for (auto&& add : _addComponents) {
-			//末尾に追加
+	if(_addComponents.size() > 0) {
+		for(auto&& add : _addComponents) {
 			_components.emplace_back(add);
-			for (int a = 0; a < _components.size(); a++) {
-				if (_components[a]->GetOrder() > add->GetOrder() && _components[a] != add) {
-					//末尾に追加されたコンポーネントをorder順に入れ替え
-					std::swap(_components[a], _components[_components.size()-1]);
-					break;
+		}
+		_addComponents.clear();
+
+		//降順にソート
+		for(int a = 0; a < _components.size(); a++) {
+			for(int b = a; b < _components.size(); b++) {
+				if(_components[a] > _components[b]) {
+					auto temp = _components[a];
+					_components[a] = _components[b];
+					_components[b] = temp;
 				}
 			}
 		}
-		_addComponents.clear();
 	}
 
 	//コンポーネントの削除

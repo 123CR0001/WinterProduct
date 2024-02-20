@@ -15,6 +15,10 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 	LoadAnimation("Walk","mo_moveenemy_01",0);
 	LoadAnimation("Death", "mo_deathenemy_01", 1);
 	LoadAnimation("LookAround", "mo_losesight_01", 0);
+	LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
+	LoadAnimation("Idle", "mo_standbyenemy_01", 0);
+
+	_closeMaxTime = 12.f;
 
 }
 
@@ -33,10 +37,15 @@ bool CommonSoldierAnimationComponent::Process() {
 
 		const char* name = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
 
-		if (name == "LookAround") {
+		if(name == "LookAround"){
 			ChangeAnimation("LookAround");
 		}
-		else if (_csOwner->GetMoveComponent()->GetSpeed() >= 1.0f) {
+		else if (name == "Panic") { ChangeAnimation("Shoot"); }
+		//else if (_csOwner->GetMoveComponent()->GetSpeed() < 0.01f) {
+		//	ChangeAnimation("Idle");
+		//}
+		else if (name == "Death") { ChangeAnimation("Death"); }
+		else {
 			ChangeAnimation("Walk");
 		}
 

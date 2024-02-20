@@ -8,7 +8,7 @@
 #include<algorithm>
 
 int Siren::_maxInterval = 360;
-float Siren::_volumeSize = 500.f;
+float Siren::_volumeSize = 700.f;
 float Siren::_playerDist = 200.f;
 
 Siren::Siren(ObjectServer* server)

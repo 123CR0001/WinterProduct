@@ -79,7 +79,7 @@ bool AICheckPoint::Process() {
 
 	//移動　最後の座標まで到達したら、巡回経路に戻る
 	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
-		_owner->ChangeState("BackPatrol");
+		_owner->ChangeState("LookAround");
 	}
 
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか

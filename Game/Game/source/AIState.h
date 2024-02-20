@@ -11,7 +11,7 @@ public:
 
 	//状態の切り替えの際に自クラスから別クラスに遷移する場合にする処理
 	virtual void OnExist() = 0;
-	
+
 	//固有の名前を返す
 	virtual const char* GetName() = 0;
 

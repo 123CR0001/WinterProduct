@@ -20,7 +20,7 @@ AIBackPatrol::~AIBackPatrol(){}
 void AIBackPatrol::OnEnter() {
 	//_pointsのサイズが0の場合は、もう巡回地点に戻ってきたと判断
 	if (_owner->GetPoints(GetName()).size() == 0) {
-		_owner->ChangeState("Patrol");
+		//_owner->ChangeState("Patrol");
 	}
 }
 void AIBackPatrol::OnExist() {

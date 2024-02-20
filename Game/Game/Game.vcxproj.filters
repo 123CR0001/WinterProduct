@@ -1,502 +1,570 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="source\ApplicationMain.cpp" />
-    <ClCompile Include="source\FPS.cpp" />
-    <ClCompile Include="source\AIBackPatrol.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AIBlindWalk.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AIChase.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AICheckPoint.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AIComponent.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AIPanic.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AIPatrol.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AIState.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AfterImage.cpp">
-      <Filter>ソースファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\AnimationComponent.cpp">
-      <Filter>ソースファイル\Component\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CameraComponent.cpp">
-      <Filter>ソースファイル\Component\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CreateAfterImageComponent.cpp">
-      <Filter>ソースファイル\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CharaBase.cpp">
-      <Filter>ソースファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CommonSoldier.cpp">
-      <Filter>ソースファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Component.cpp">
-      <Filter>ソースファイル\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FollowCamera.cpp">
-      <Filter>ソースファイル\Component\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Decoy.cpp">
-      <Filter>ソースファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeClear.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeColorIn.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeColorOut.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeDebugMenu.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeEffekseer.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeEndConfirm.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeGame.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeGameOver.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeLightsOut.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeMiniMap.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModePause.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModePauseConfirm.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeSelect.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeSoundLayer.cpp">
-      <Filter>ソースファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeTitle.cpp">
-      <Filter>ソースファイル\Mode</Filter>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object">
+      <UniqueIdentifier>{d290c2d1-e124-415b-a30f-6823102bc4ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{14c0a70c-bab7-43ec-9ea2-ddb62df113a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Weapon">
+      <UniqueIdentifier>{152c8623-4567-4dfc-9b0c-06152aeda4d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Weapon">
+      <UniqueIdentifier>{99bdd997-c818-46f0-a2f9-08fb1873bf75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Mode">
+      <UniqueIdentifier>{f7b5071e-4892-42a9-9e02-70951a14353b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Global">
+      <UniqueIdentifier>{39cf4179-61b1-46a7-9ba1-6d2622c1c72a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Global\Sound">
+      <UniqueIdentifier>{8c932bea-f733-4650-ba49-d77ce4d7411b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Mode">
+      <UniqueIdentifier>{2e347162-553c-4acc-ac7d-46c9a10ebb64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Global">
+      <UniqueIdentifier>{d8fd755e-68b5-4fc1-9727-e1e1f3a9743b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Global\Sound">
+      <UniqueIdentifier>{b3e82d69-aa8e-4ada-9611-5af22e4c3576}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Component">
+      <UniqueIdentifier>{5fcdc8ae-35c6-4f72-80cb-088467160346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component">
+      <UniqueIdentifier>{d8154097-4b27-4151-898d-f6a2a0095a75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Component\AI">
+      <UniqueIdentifier>{7f0205b6-88ae-4c21-8080-dbbbfe961441}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\AI">
+      <UniqueIdentifier>{bd499232-8841-4279-a5eb-0ed546fa026b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Component\Animation">
+      <UniqueIdentifier>{7f2bd198-d844-434d-83eb-b41c05157d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\Animation">
+      <UniqueIdentifier>{eccf52b6-9276-432d-988a-06df8e642308}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Component\Camera">
+      <UniqueIdentifier>{36c54f87-000e-4358-8bf3-43a3a1871109}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Component\Camera">
+      <UniqueIdentifier>{5f7a800c-8901-4305-86b2-e4f597fc13c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Mode\SceneSwitch">
+      <UniqueIdentifier>{513c693d-4688-48ed-a40f-7d412f165c33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Mode\SceneSwitch">
+      <UniqueIdentifier>{885f8881-9a27-41a2-966c-2c2d8af963ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{323264fb-8912-44d1-b183-d9ca4a8e52d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI">
+      <UniqueIdentifier>{14653d72-9d6a-4701-95f6-317b2996549a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\PhysWorld">
+      <UniqueIdentifier>{fcf78554-ea31-4a66-83d5-937aa38a05aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\PhysWorld">
+      <UniqueIdentifier>{17a74db2-3e90-43a3-a291-1d759b0a546d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\ApplicationMain.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="source\ObjectBase.cpp">
-      <Filter>ソースファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Player.cpp">
-      <Filter>ソースファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Siren.cpp">
-      <Filter>ソースファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MotionComponent.cpp">
-      <Filter>ソースファイル\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MoveComponent.cpp">
-      <Filter>ソースファイル\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="source\OrbitCamera.cpp">
-      <Filter>ソースファイル\Component\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CommonSoldierAnimaitonComponent.cpp">
-      <Filter>ソースファイル\Component\Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ApplicationGlobal.cpp">
-      <Filter>ソースファイル\Global</Filter>
-    </ClCompile>
-    <ClCompile Include="source\MotionData.cpp">
-      <Filter>ソースファイル\Global</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SoundItem.cpp">
-      <Filter>ソースファイル\Global</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SoundServer.cpp">
-      <Filter>ソースファイル\Global</Filter>
-    </ClCompile>
-    <ClCompile Include="source\CapsuleComponent.cpp">
-      <Filter>ソースファイル\PhysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FrameComponent.cpp">
-      <Filter>ソースファイル\PhysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="source\PhysWorld.cpp">
-      <Filter>ソースファイル\PhysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="source\SoundComponent.cpp">
-      <Filter>ソースファイル\PhysWorld</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Knife.cpp">
-      <Filter>ソースファイル\Object</Filter>
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="source\ObjectServer.cpp">
-      <Filter>ソースファイル\Object</Filter>
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Player.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CharaBase.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonSoldier.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="source\WeaponBase.cpp">
-      <Filter>ソースファイル\Object</Filter>
+      <Filter>ソース ファイル\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIToConfirm.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\Knife.cpp">
+      <Filter>ソース ファイル\Weapon</Filter>
     </ClCompile>
-    <ClCompile Include="source\UITitle.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeClear.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UISlide.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeEffekseer.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIServer.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeGame.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UISelectMap.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeGameOver.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UISelectController.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeMiniMap.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIRetry.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeSoundLayer.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIResume.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeTitle.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIQuit.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\SoundItem.cpp">
+      <Filter>ソース ファイル\Global\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="source\UINo.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\SoundServer.cpp">
+      <Filter>ソース ファイル\Global\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIGetSlide.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ApplicationGlobal.cpp">
+      <Filter>ソース ファイル\Global</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIGameStart.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\MotionData.cpp">
+      <Filter>ソース ファイル\Global</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIGameEnd.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\Component.cpp">
+      <Filter>ソース ファイル\Component</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIDisplay.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\AIState.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIDetection.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\AIPatrol.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIContorl.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\AIChase.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIBlink.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\AIBackPatrol.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIBase.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\AIComponent.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIBackToTitle.cpp">
-      <Filter>ソースファイル\UI</Filter>
+    <ClCompile Include="source\ModeDebugMenu.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AIPanic.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AIBlindWalk.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MoveComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CapsuleComponent.cpp">
+      <Filter>ソース ファイル\PhysWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PhysWorld.cpp">
+      <Filter>ソース ファイル\PhysWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FrameComponent.cpp">
+      <Filter>ソース ファイル\PhysWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="source\OrbitCamera.cpp">
+      <Filter>ソース ファイル\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FollowCamera.cpp">
+      <Filter>ソース ファイル\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CameraComponent.cpp">
+      <Filter>ソース ファイル\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeColorOut.cpp">
+      <Filter>ソース ファイル\Mode\SceneSwitch</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeColorIn.cpp">
+      <Filter>ソース ファイル\Mode\SceneSwitch</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeLightsOut.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
     <ClCompile Include="source\UIAudio.cpp">
-      <Filter>ソースファイル\UI</Filter>
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIBackToTitle.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIBase.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIBlink.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIContorl.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIDisplay.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIGameEnd.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIGameStart.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UINo.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIQuit.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIResume.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIRetry.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIServer.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UISlide.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIToTitle.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeEndConfirm.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModePauseConfirm.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModePause.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIGetSlide.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SoundComponent.cpp">
+      <Filter>ソース ファイル\PhysWorld</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AICheckPoint.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Siren.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIDetection.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AfterImage.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CreateAfterImageComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CommonSoldierAnimaitonComponent.cpp">
+      <Filter>ソース ファイル\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MotionComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Decoy.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="source\AILookAround.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FPS.cpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeSelect.cpp">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UISelectController.cpp">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UISelectMap.cpp">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UITitle.cpp">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIToConfirm.cpp">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\AIDeath.cpp">
-      <Filter>ソースファイル\Component\AI</Filter>
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AnimationComponent.cpp">
+      <Filter>ソース ファイル\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Traser.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AITrase.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AIRush.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TraserSpawner.cpp">
+      <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\FPS.h" />
-    <ClInclude Include="source\ApplicationMain.h" />
-    <ClInclude Include="source\AIBackPatrol.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AIBlindWalk.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AIChase.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AICheckPoint.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AIComponent.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AIPanic.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AIPatrol.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AIState.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AnimationConmponent.h">
-      <Filter>ヘッダーファイル\Component\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CommonSoldierAnimaitonComponent.h">
-      <Filter>ヘッダーファイル\Component\Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="source\FollowCamera.h">
-      <Filter>ヘッダーファイル\Component\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AfterImage.h">
-      <Filter>ヘッダーファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CameraComponent.h">
-      <Filter>ヘッダーファイル\Component\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CreateAfterImageComponent.h">
-      <Filter>ヘッダーファイル\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CharaBase.h">
-      <Filter>ヘッダーファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CommonSoldier.h">
-      <Filter>ヘッダーファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Component.h">
-      <Filter>ヘッダーファイル\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Decoy.h">
-      <Filter>ヘッダーファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeClear.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeColorIn.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeColorOut.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeDebugMenu.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeEffekseer.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeEndConfirm.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeGame.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeGameOver.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeLightsOut.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeMiniMap.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModePause.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModePauseConfirm.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeSelect.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeSoundLayer.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeTitle.h">
-      <Filter>ヘッダーファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Siren.h">
-      <Filter>ヘッダーファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Player.h">
-      <Filter>ヘッダーファイル\Object</Filter>
+    <ClInclude Include="source\ApplicationMain.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="source\ObjectBase.h">
-      <Filter>ヘッダーファイル\Object</Filter>
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\PhysWorld.h">
-      <Filter>ヘッダーファイル\PhysWorld</Filter>
+    <ClInclude Include="source\Player.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\SoundComponent.h">
-      <Filter>ヘッダーファイル\PhysWorld</Filter>
+    <ClInclude Include="source\CharaBase.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\FrameComponent.h">
-      <Filter>ヘッダーファイル\PhysWorld</Filter>
-    </ClInclude>
-    <ClInclude Include="source\CapsuleComponent.h">
-      <Filter>ヘッダーファイル\PhysWorld</Filter>
-    </ClInclude>
-    <ClInclude Include="source\WeaponBase.h">
-      <Filter>ヘッダーファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Knife.h">
-      <Filter>ヘッダーファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SoundServer.h">
-      <Filter>ヘッダーファイル\Global</Filter>
-    </ClInclude>
-    <ClInclude Include="source\SoundItem.h">
-      <Filter>ヘッダーファイル\Global</Filter>
-    </ClInclude>
-    <ClInclude Include="source\MotionData.h">
-      <Filter>ヘッダーファイル\Global</Filter>
-    </ClInclude>
-    <ClInclude Include="source\OrbitCamera.h">
-      <Filter>ヘッダーファイル\Component\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="source\MotionComponent.h">
-      <Filter>ヘッダーファイル\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="source\MoveComponent.h">
-      <Filter>ヘッダーファイル\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ApplicationGlobal.h">
-      <Filter>ヘッダーファイル\Global</Filter>
+    <ClInclude Include="source\CommonSoldier.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="source\ObjectServer.h">
-      <Filter>ヘッダーファイル\Object</Filter>
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Knife.h">
+      <Filter>ヘッダー ファイル\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\WeaponBase.h">
+      <Filter>ヘッダー ファイル\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeClear.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeEffekseer.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGame.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGameOver.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeMiniMap.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeSoundLayer.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeTitle.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ApplicationGlobal.h">
+      <Filter>ヘッダー ファイル\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MotionData.h">
+      <Filter>ヘッダー ファイル\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SoundServer.h">
+      <Filter>ヘッダー ファイル\Global\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SoundItem.h">
+      <Filter>ヘッダー ファイル\Global\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Component.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIState.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIPatrol.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIChase.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIBackPatrol.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIComponent.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeDebugMenu.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIPanic.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIBlindWalk.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MoveComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PhysWorld.h">
+      <Filter>ヘッダー ファイル\PhysWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CapsuleComponent.h">
+      <Filter>ヘッダー ファイル\PhysWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="source\FrameComponent.h">
+      <Filter>ヘッダー ファイル\PhysWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="source\FollowCamera.h">
+      <Filter>ヘッダー ファイル\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\OrbitCamera.h">
+      <Filter>ヘッダー ファイル\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CameraComponent.h">
+      <Filter>ヘッダー ファイル\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeColorOut.h">
+      <Filter>ヘッダー ファイル\Mode\SceneSwitch</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeLightsOut.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="source\UIAudio.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIBackToTitle.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIBase.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIBlink.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIContorl.h">
-      <Filter>ヘッダーファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIDetection.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIDisplay.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIGameEnd.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIGameStart.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIGetSlide.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIQuit.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIResume.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIRetry.h">
-      <Filter>ヘッダーファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UISelectController.h">
-      <Filter>ヘッダーファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UISelectMap.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIServer.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="source\UISlide.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+    <ClInclude Include="source\UIToTitle.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="source\UITitle.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+    <ClInclude Include="source\ModeEndConfirm.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
-    <ClInclude Include="source\UIToConfirm.h">
-      <Filter>ヘッダーファイル\UI</Filter>
+    <ClInclude Include="source\ModePauseConfirm.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeColorIn.h">
+      <Filter>ヘッダー ファイル\Mode\SceneSwitch</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModePause.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SoundComponent.h">
+      <Filter>ヘッダー ファイル\PhysWorld</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AICheckPoint.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Siren.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIDetection.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AfterImage.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CreateAfterImageComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CommonSoldierAnimaitonComponent.h">
+      <Filter>ヘッダー ファイル\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MotionComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Decoy.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="source\AILookAround.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\FPS.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeSelect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AnimationComponent.h">
+      <Filter>ヘッダー ファイル\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UINo.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISelectController.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISlide.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISelectMap.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UITitle.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIToConfirm.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\AIDeath.h">
-      <Filter>ヘッダーファイル\Component\AI</Filter>
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="ヘッダーファイル">
-      <UniqueIdentifier>{558e25c0-b685-4a1f-b7e1-c9067b46f409}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\Mode">
-      <UniqueIdentifier>{8a886b91-b0c7-4a7b-924a-684c348c6476}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\Component">
-      <UniqueIdentifier>{19cc48af-351d-4144-ae1f-3d9ebb434a94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\Component\AI">
-      <UniqueIdentifier>{defdf7fd-b359-4420-82f2-f02b455a0269}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\Component\Animation">
-      <UniqueIdentifier>{e96f3644-0515-491b-b79c-192e9c87e77b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\Component\Camera">
-      <UniqueIdentifier>{f61b3109-19aa-47dd-9b2c-919566f39e94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\Object">
-      <UniqueIdentifier>{a6742ec8-6088-4141-b5cb-afdf51904d55}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル">
-      <UniqueIdentifier>{a565a9a4-56ff-4f88-8638-817add5d75dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\Object">
-      <UniqueIdentifier>{409b2a0c-25b0-4146-9351-6812a6dbf3cb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\Mode">
-      <UniqueIdentifier>{7c604310-dda6-471f-aa05-e57aa260333f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\PhysWorld">
-      <UniqueIdentifier>{1e76c0d3-4941-43d1-ae2b-f7b3029e2059}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\Global">
-      <UniqueIdentifier>{9422358c-2b85-44c1-9d56-9acfd3fd99c2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\Global">
-      <UniqueIdentifier>{8d8b49b6-4c0b-4415-b442-2ecb248bdcc6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\Component">
-      <UniqueIdentifier>{98031e35-7d8a-4794-8b46-64bbea7af7f4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\Component\AI">
-      <UniqueIdentifier>{18b16244-1e50-461c-b174-73b092d292c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\Component\Animation">
-      <UniqueIdentifier>{aa6eaf23-8e31-4ac3-a860-7bf0a3e28868}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\Component\Camera">
-      <UniqueIdentifier>{4ed01d9e-5c03-4453-8aa2-ca7f0c09ba6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\PhysWorld">
-      <UniqueIdentifier>{2a2a323e-c010-429f-897d-a6a06052258a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソースファイル\UI">
-      <UniqueIdentifier>{0215e81e-70dc-41a3-9e0f-c073d5b71a3b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダーファイル\UI">
-      <UniqueIdentifier>{3551a272-0614-47b6-a788-fb074306d769}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="source\Traser.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AITrase.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIRush.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TraserSpawner.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EnemyBase.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
