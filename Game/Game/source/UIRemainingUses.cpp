@@ -38,12 +38,18 @@ void UIRemainingUses::Render() {
 	int h = ConvertY(_y) + ConvertY(_h);
 	// ”wŒi
 	DrawExtendGraph(x, y, w, h, _mCg["bg"][0], TRUE);
-	x = x + ConvertX(300);
+	x = x + ConvertX(270);
 	y = y + ConvertY(40);
 	w = x + ConvertX(46);
 	h = y + ConvertY(70);
 	// ”Žš
-	DrawExtendGraph(x, y, w, h, _mCg["number"][_game->GetCnt()], TRUE);
+	DrawExtendGraph(x, y, w, h, _mCg["number"][_game->GetCnt() / 10], TRUE);
+	x = x + ConvertX(50);
+	//y = y + ConvertY(40);
+	w = x + ConvertX(46);
+	h = y + ConvertY(70);
+	// ”Žš
+	DrawExtendGraph(x, y, w, h, _mCg["number"][_game->GetCnt() % 10], TRUE);
 }
 
 int UIRemainingUses::Selected() {
