@@ -8,7 +8,7 @@ OrbitCamera::OrbitCamera(ObjectBase* owner, int order)
 	:CameraComponent(owner, order)
 {
 	_angle.y = 0.f;
-	_angle.x = PI / 2.f;
+	_angle.x = PI / 4.f;
 	_dist = 400.f;
 }
 
@@ -42,9 +42,9 @@ bool OrbitCamera::Process() {
 	}
 
 	Vector3D pos(
-		_dist * sinf(_angle.x) * cosf(_angle.y),
+		_dist * sinf(_angle.x) * cosf(_angle.y-PI/2.f),
 		_dist * cosf(_angle.x),
-		_dist * sinf(_angle.y) * sinf(_angle.x)
+		_dist * sinf(_angle.y-PI/2.f) * sinf(_angle.x)
 	);
 
 	_pos = _owner->GetPos() + pos;

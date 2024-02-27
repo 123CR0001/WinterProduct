@@ -199,7 +199,7 @@ int ModeServer::ProcessInit() {
 
 		// レイヤーによるソートを行う
 		_vMode.sort(modeSort);
-	}
+	}	
 
 	// スキップ、ポーズの解除
 	_skipProcessMode = NULL;

@@ -7,7 +7,7 @@
 TraserSpawner::TraserSpawner(ObjectServer* owner)
 	:ObjectBase(owner)
 	,_elapsedTime(0)
-	,_spawnTime(300)
+	,_spawnTime(10800)
 	//プレイヤーの最初の座標を取得したいから
 	,_frameCnt(30)
 	,_interval(30)

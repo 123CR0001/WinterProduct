@@ -14,6 +14,7 @@
 #include"ModePause.h"
 #include"ModeGameOver.h"
 #include"ModeClear.h"
+#include"ModeMiniMap.h"
 
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
@@ -31,8 +32,14 @@
 
 SoundComponent* m = nullptr;
 
-ModeGame::ModeGame(std::string stageNum) {
+ModeGame::ModeGame(std::string stageNum) 
+	:_objServer(NEW ObjectServer(this))
+	,_debug(NEW ModeDebugMenu(this))
+	,_modeEffekseer(NEW ModeEffekseer())
+{
 	_stageNum = stageNum;
+
+	LoadData();
 }
 
 ModeGame::~ModeGame() {
@@ -48,17 +55,13 @@ bool ModeGame::Initialize() {
 	// アプリケーショングローバルの初期化
 	gGlobal.Init();
 
-	_objServer = NEW ObjectServer(this);
-
-
-
-	_modeEffekseer = NEW ModeEffekseer();
 
 	_fps = NEW FPS();
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 
-	_debug = NEW ModeDebugMenu(this);
+	ModeServer::GetInstance()->Add(NEW ModeMiniMap(this), 100, "MiniMap");
+
 	_debug->Initialize();
 
 	_isCouldLightsOut = false;
@@ -66,7 +69,6 @@ bool ModeGame::Initialize() {
 	// シャドウマップの生成
 	_handleShadowMap = MakeShadowMap(2048, 2048);
 
-	LoadData();
 
 	return true;
 }
