@@ -30,22 +30,28 @@
 #include"FPS.h"
 #include"AnimationComponent.h"
 
-SoundComponent* m = nullptr;
+#include"UIServer.h"
+#include"UILightsTimer.h"
+#include "UIRemainingUses.h"
+
+#include"FPS.h"
+#include"Timer.h"
 
 ModeGame::ModeGame(std::string stageNum) 
 	:_objServer(NEW ObjectServer(this))
 	,_debug(NEW ModeDebugMenu(this))
 	,_modeEffekseer(NEW ModeEffekseer())
 {
-	_stageNum = stageNum;
+	_stage = stageNum;
 
 	LoadData();
 }
 
 ModeGame::~ModeGame() {
-	
 	delete _objServer;
 	delete _debug;
+	delete _uiServer;
+	delete _fps;
 }
 
 bool ModeGame::Initialize() {
@@ -56,11 +62,13 @@ bool ModeGame::Initialize() {
 	gGlobal.Init();
 
 
+	_uiServer = NEW UIServer();
+
 	_fps = NEW FPS();
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 
-	ModeServer::GetInstance()->Add(NEW ModeMiniMap(this), 100, "MiniMap");
+	ModeServer::GetInstance()->Add(new ModeMiniMap(this), 100, "MiniMap");
 
 	_debug->Initialize();
 
@@ -70,12 +78,19 @@ bool ModeGame::Initialize() {
 	_handleShadowMap = MakeShadowMap(2048, 2048);
 
 
+	_uiServer->Add(NEW UILightsTimer(), nullptr, 0, 0, 930, 600, 150, 100, "lightsOutTimer");
+	// 最初はスライドがいらないので、初期位置と終了位置を同じにしておく
+	_uiServer->Add(NEW UIRemainingUses(this, 2, 930, 2, 930,3), nullptr, 0, 2, 930, 450, 150, 100, "remainingUses");
+	_cntTest = 0;
+
+
 	return true;
 }
 
 bool ModeGame::Terminate() {
 
 	base::Terminate();
+
 	_debug->Terminate();
 
 	return true;
@@ -85,6 +100,8 @@ bool ModeGame::Process() {
 	base::Process();
 	// fpsの更新
 	_fps->Update();	
+	
+	_uiServer->Process();
 
 	if (_debug->Process()) { return true; }
 
@@ -135,6 +152,15 @@ bool ModeGame::Process() {
 		else {
 			ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");
 		}
+	}
+
+	if (GetPad()->GetTrgButton() & INPUT_DPAD_UP) {
+		_cntTest++;
+	}
+
+	if (GetPad()->GetTrgButton() & INPUT_X) {
+		_uiServer->Search("remainingUses")->Selected();
+		_uiServer->Search("lightsOutTimer")->Selected();
 	}
 
 	// fpsの待機
@@ -191,8 +217,11 @@ bool ModeGame::Render() {
 
 	// 描画に使用するシャドウマップの設定を解除
 	SetUseShadowMap(0, -1);
+	if (!_objServer->Renderer()) { return false; }
+	
+	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stage);
 
-	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stageNum);
+	_uiServer->Render();
 
 	_debug->Render();
 
@@ -200,8 +229,11 @@ bool ModeGame::Render() {
 }
 
 bool ModeGame::LoadData() {
+	std::string stage = _stage.substr(0, 1);
+	std::string area = _stage.substr(2, 1);
 	nlohmann::json j;
-	std::ifstream file("res/map/stage" + _stageNum + ".json");
+	std::string str = "res/stage/stage" + stage + "/" + area + "/StageData.json";
+	std::ifstream file(str);
 
 	if (!file) { return false; }
 	file >> j;
@@ -257,43 +289,26 @@ bool ModeGame::LoadData() {
 
 	std::unordered_map<std::string, ModelData>map;
 
-	map["stage1"].filePath = "res/Stage/stage1/stage1.mv1";
-	map["stage1"].attachFrameName = "UCX_stage1";
-	map["stage1"].func = func;
+	std::string strPath = "res/stage/stage" + stage + "/" + area + "/";
 
-	map["siren"].filePath = "res/Object/siren/siren.mv1";
-	map["siren"].attachFrameName = "UCX_siren1";
-	map["siren"].func = [this](const char* path,const char* frameName) {return NEW Siren(GetObjectServer()); };
+	std::string filePath = strPath + "model/StageObject.mv1";
+	std::string attachFrameName = "UCX_StageObject";
+	map["StageObject"].filePath = filePath.c_str();
+	map["StageObject"].attachFrameName = attachFrameName.c_str();
 
-	map["mapcollisionstage1"].filePath = "res/Map/mapcollisionstage1.mv1";
-	map["mapcollisionstage1"].attachFrameName = "mapcollisionstage1";
-
-	for (auto&& object : j.at("object")) {
-		std::string name = object.at("objectName");
-
-		auto iter = map.begin();
-
-		//登録している名前が頭にあったら、実体化する
-		for (iter; iter != map.end(); ++iter) {
-
-			if (iter->first.find(name) == 0) {
-				ObjectBase* p = iter->second.func(iter->second.filePath, iter->second.attachFrameName);
-				p->SetJsonDataUE(object);
-				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
-				break;
-			}
-		}
-	}
-
+	std::string filePathColl = strPath +"NavigationMesh.mv1";
+	std::string attachFrameNameColl = "NavigationMesh";
+	map["NavigationMesh"].filePath = filePathColl.c_str();
+	map["NavigationMesh"].attachFrameName = attachFrameNameColl.c_str();
 
 	{
 		//ナビゲーション
-		if (j.find("mapcollision") != j.end()) {
-			for (auto&& mapcollision : j.at("mapcollision")) {
-				std::string name = mapcollision.at("objectName");
+		if (j.find("navmesh") != j.end()) {
+			for (auto&& navMesh : j.at("navmesh")) {
+				std::string name = navMesh.at("objectName");
 				if (map.find(name) != map.end()) {
 					_objServer->SetNavigationModel(map[name].filePath, map[name].attachFrameName);
-					MV1SetPosition(_objServer->GetNavigationHandle(), VGet(mapcollision.at("translate").at("x"), mapcollision.at("translate").at("z"), -1 * mapcollision.at("translate").at("y")));
+					MV1SetPosition(_objServer->GetNavigationHandle(), VGet(navMesh.at("translate").at("x"), navMesh.at("translate").at("z"), -1 * navMesh.at("translate").at("y")));
 					MV1SetRotationXYZ(_objServer->GetNavigationHandle(), VGet(DegToRad(90.f), 0.f, 0.f));
 					MV1RefreshCollInfo(_objServer->GetNavigationHandle(), _objServer->GetNavigationAttachIndex());
 				}
@@ -303,6 +318,20 @@ bool ModeGame::LoadData() {
 
 	//Spawner
 	NEW TraserSpawner(_objServer);
+
+	
+	for (auto&& object : j.at("object")) {
+		std::string name = object.at("objectName");
+	
+		if (map.find(name) != map.end()) {
+				ObjectBase* p = NEW ObjectBase(GetObjectServer(),true);
+				p->LoadModel(map[name].filePath, map[name].attachFrameName);
+				p->SetJsonDataUE(object);
+				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
+				MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());
+		}
+	}
+
 
 	return true;
 }

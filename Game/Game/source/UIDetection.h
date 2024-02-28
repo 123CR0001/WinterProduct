@@ -13,9 +13,6 @@ public:
 
 protected:
 	class ModeGame* _game;
-	int _cgBaseCircle;
-	int _cgQuestion;
-	int _cgSuprise;
 
 	struct ENEMY_INFORMATION {
 		bool bFind;

@@ -10,7 +10,7 @@ UISelectController::UISelectController(float initPosX, float initPosY, float end
 
 int UISelectController::Selected() {
     std::string stage = _uiName;
-    int stageNum = std::stoi(_uiName.substr(5));
+    int stageNum = std::stoi(stage.substr(5));
   
     if (typeid(UIServer*) != typeid(static_cast<UIServer*>(_param))) { return -1; }
     UIServer* server = static_cast<UIServer*>(_param);
@@ -41,7 +41,7 @@ int UISelectController::Selected() {
             else {
                 std::string path = "res/UI/StageSelect/stage" + std::to_string(stageNum) + "/ui_stage0" + std::to_string(stageNum) + "_" + std::to_string(i) + ".png";
                 int cgStage = res::LoadGraph(path.c_str());
-                server->Add(new UISelectMap(-672, vAreaPos[i - 1], 128, vAreaPos[i - 1], 10, std::to_string(i)),
+                server->Add(new UISelectMap(-672, vAreaPos[i - 1], 128, vAreaPos[i - 1], 10, stage.substr(5) + "_" + std::to_string(i)),
                     nullptr, cgStage, -672, vAreaPos[i - 1], 600, 100, BASIC_LAYER_VALUE, uiName);
                 server->Search(uiName)->_selectNum = i;
             }

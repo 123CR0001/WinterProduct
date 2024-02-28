@@ -20,6 +20,7 @@ public:
 	class ObjectServer* GetObjectServer()const { return _objServer; }
 	class ModeEffekseer* GetModeEffekseer()const { return _modeEffekseer; }
 	class FPS* GetFps()const { return _fps; }
+	int GetCnt()const { return _cntTest; }	// お試し　後で消す
 protected:
 
 	class ObjectServer* _objServer;
@@ -31,10 +32,15 @@ protected:
 	int _handleShadowMap;
 
 	class FPS* _fps;
-	std::string _stageNum;
 
 	//デバッグ用
 	class ModeDebugMenu* _debug;
 public:
 	class ModeDebugMenu* GetDebugMenu() { return _debug; }
+
+	class UIServer* _uiServer;
+
+	std::string _stage;
+	class Timer* _timer;
+	int _cntTest;	// お試し　後で消す
 }; 

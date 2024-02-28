@@ -191,6 +191,7 @@
     <ClCompile Include="source\ModeEndConfirm.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameOver.cpp" />
+    <ClCompile Include="source\ModeGameUI.cpp" />
     <ClCompile Include="source\ModeLightsOut.cpp" />
     <ClCompile Include="source\ModeMiniMap.cpp" />
     <ClCompile Include="source\ModePause.cpp" />
@@ -210,6 +211,7 @@
     <ClCompile Include="source\SoundComponent.cpp" />
     <ClCompile Include="source\SoundItem.cpp" />
     <ClCompile Include="source\SoundServer.cpp" />
+    <ClCompile Include="source\Timer.cpp" />
     <ClCompile Include="source\Traser.cpp" />
     <ClCompile Include="source\TraserSpawner.cpp" />
     <ClCompile Include="source\UIAudio.cpp" />
@@ -222,8 +224,10 @@
     <ClCompile Include="source\UIGameEnd.cpp" />
     <ClCompile Include="source\UIGameStart.cpp" />
     <ClCompile Include="source\UIGetSlide.cpp" />
+    <ClCompile Include="source\UILightsTimer.cpp" />
     <ClCompile Include="source\UINo.cpp" />
     <ClCompile Include="source\UIQuit.cpp" />
+    <ClCompile Include="source\UIRemainingUses.cpp" />
     <ClCompile Include="source\UIResume.cpp" />
     <ClCompile Include="source\UIRetry.cpp" />
     <ClCompile Include="source\UISelectController.cpp" />
@@ -266,6 +270,7 @@
     <ClInclude Include="source\ModeEffekseer.h" />
     <ClInclude Include="source\ModeColorOut.h" />
     <ClInclude Include="source\ModeEndConfirm.h" />
+    <ClInclude Include="source\ModeGameUI.h" />
     <ClInclude Include="source\ModeLightsOut.h" />
     <ClInclude Include="source\ModeMiniMap.h" />
     <ClInclude Include="source\ApplicationMain.h" />
@@ -292,6 +297,7 @@
     <ClInclude Include="source\SoundComponent.h" />
     <ClInclude Include="source\SoundItem.h" />
     <ClInclude Include="source\SoundServer.h" />
+    <ClInclude Include="source\Timer.h" />
     <ClInclude Include="source\TraserSpawner.h" />
     <ClInclude Include="source\UIAudio.h" />
     <ClInclude Include="source\UIBackToTitle.h" />
@@ -303,8 +309,10 @@
     <ClInclude Include="source\UIGameEnd.h" />
     <ClInclude Include="source\UIGameStart.h" />
     <ClInclude Include="source\UIGetSlide.h" />
+    <ClInclude Include="source\UILightsTimer.h" />
     <ClInclude Include="source\UINo.h" />
     <ClInclude Include="source\UIQuit.h" />
+    <ClInclude Include="source\UIRemainingUses.h" />
     <ClInclude Include="source\UIResume.h" />
     <ClInclude Include="source\UIRetry.h" />
     <ClInclude Include="source\UISelectController.h" />
