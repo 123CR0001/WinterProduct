@@ -75,6 +75,8 @@ bool ModeMiniMap::Process() {
 	//プレイヤーのアドレスを取得
 	auto player = _game->GetObjectServer()->GetPlayer();
 
+	if(!player) { return false; }
+
 	//プレイヤーの位置情報を取得
 	auto playerPos = player->GetPos();
 

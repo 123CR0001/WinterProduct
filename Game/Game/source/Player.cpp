@@ -78,6 +78,7 @@ bool Player::Initialize() {
 
 bool Player::Terminate() {
 	CharaBase::Terminate();
+	GetObjectServer()->SetPlayer(nullptr);
 	return true;
 }
 

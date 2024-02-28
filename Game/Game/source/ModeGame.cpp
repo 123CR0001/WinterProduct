@@ -92,6 +92,7 @@ bool ModeGame::Terminate() {
 	base::Terminate();
 
 	_debug->Terminate();
+	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("MiniMap"));
 
 	return true;
 }
@@ -301,6 +302,10 @@ bool ModeGame::LoadData() {
 	map["NavigationMesh"].filePath = filePathColl.c_str();
 	map["NavigationMesh"].attachFrameName = attachFrameNameColl.c_str();
 
+	map["siren"].filePath = "res/Object/siren/siren.mv1";
+	map["siren"].attachFrameName = "UCX_siren1";
+	map["siren"].func = [this](const char* path, const char* frameName) {return NEW Siren(GetObjectServer()); };
+
 	{
 		//ナビゲーション
 		if (j.find("navmesh") != j.end()) {
@@ -319,9 +324,21 @@ bool ModeGame::LoadData() {
 	//Spawner
 	NEW TraserSpawner(_objServer);
 
-	
+	//オブジェクトの配置
 	for (auto&& object : j.at("object")) {
 		std::string name = object.at("objectName");
+
+		//オブジェクト名＋数字		例：Enemy1
+		//数字部分を削除
+
+		//0~9の数字が含まれていれば、それ以降の文字を削除
+		for(int a = 0; a < 10; a++) {
+			//整数をstringに変換　数字を検索
+			int num = name.find(std::to_string(a));
+
+			//findは、検索した文字がなければ、-1を返す
+			if(num != -1) { name = name.substr(0, num); break; }
+		}
 	
 		if (map.find(name) != map.end()) {
 				ObjectBase* p = NEW ObjectBase(GetObjectServer(),true);
