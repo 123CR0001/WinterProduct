@@ -113,8 +113,6 @@ bool ModeMiniMap::Process() {
 	);
 
 
-
-
 	// ï`âÊêÊÇó†âÊñ Ç…Ç∑ÇÈ
 	SetDrawScreen(DX_SCREEN_BACK);
 
@@ -149,7 +147,9 @@ bool ModeMiniMap::Render() {
 		pos[a] = VTransform(pos[a], m);
 	}
 
-	DrawCircleAA(_x, _y, 120.f, 40, GetColor(255, 0, 0), TRUE);
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+	DrawCircleAA(_x, _y, 103.f, 40, GetColor(255, 255, 0), TRUE);
 	DrawCircleAA(_x, _y, 100.f, 40, GetColor(0, 0, 0), TRUE);
 	DrawModiGraphF(
 		pos[0].x, pos[0].y,
@@ -159,5 +159,6 @@ bool ModeMiniMap::Render() {
 		_mixScreen,
 		TRUE
 	);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	return true;
 }

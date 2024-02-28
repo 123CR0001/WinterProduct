@@ -62,7 +62,7 @@ public:
 class PlayerCameraChange : public ModeDebugMenu::DebugMenuItem {
 public:
 	PlayerCameraChange(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
-	const char* GetText()override { return "カメラの処理を切り替えます"; }
+	const char* GetText()override { return "カメラの処理を切り替え"; }
 	void Select()override {
 		ModeDebugMenu::_cameraChange = !ModeDebugMenu::_cameraChange;
 		if (ModeDebugMenu::_cameraChange) {
@@ -88,7 +88,7 @@ public:
 class NavigationPolygons :public ModeDebugMenu::DebugMenuItem {
 public:
 	NavigationPolygons(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
-	const char* GetText()override { return "ナビゲーション用のポリゴンを描画します"; }
+	const char* GetText()override { return "ナビゲーション用のポリゴンを描画"; }
 	void Select()override {
 		ModeDebugMenu::_navigationPolygon = !ModeDebugMenu::_navigationPolygon;
 	}
@@ -97,7 +97,7 @@ public:
 class GameEnd :public ModeDebugMenu::DebugMenuItem {
 public:
 	GameEnd(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
-	const char* GetText()override { return "ゲームを終了します"; }
+	const char* GetText()override { return "ゲームを終了"; }
 	void Select()override {
 		ApplicationBase::GetInstance()->GameEnd();
 	}
@@ -123,7 +123,7 @@ class StageReset :public ModeDebugMenu::DebugMenuItem {
 public:
 	StageReset(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
 	~StageReset() {}
-	const char* GetText()override { return "キャラやステージの状態を初期化します"; }
+	const char* GetText()override { return "キャラやステージの状態を初期化"; }
 	void Select()override {
 		_menu->GetGame()->GetObjectServer()->Terminate();
 		_menu->GetGame()->LoadData();
@@ -135,7 +135,7 @@ class SirenInfo :public ModeDebugMenu::DebugMenuItem {
 public:
 	SirenInfo(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
 	~SirenInfo(){}
-	const char* GetText()override { return "サイレンの情報を描画します"; }
+	const char* GetText()override { return "サイレンの情報を描画"; }
 	void Select()override {
 		ModeDebugMenu::_sirenInfo = !ModeDebugMenu::_sirenInfo;
 	}
@@ -145,7 +145,7 @@ class SoundInfo :public ModeDebugMenu::DebugMenuItem {
 public:
 	SoundInfo(ModeDebugMenu* menu) :DebugMenuItem(menu) {}
 	~SoundInfo() {}
-	const char* GetText()override { return "サウンドコンポーネントの情報を描画します"; }
+	const char* GetText()override { return "サウンドコンポーネントの情報を描画"; }
 	void Select()override {
 		ModeDebugMenu::_soundInfo = !ModeDebugMenu::_soundInfo;
 	}
@@ -155,7 +155,7 @@ class DetectionInfo :public ModeDebugMenu::DebugMenuItem {
 public:
 	DetectionInfo(ModeDebugMenu* menu) : DebugMenuItem(menu) {}
 	~DetectionInfo(){}
-	const char* GetText()override { return "検知度を描画します"; }
+	const char* GetText()override { return "検知度を描画"; }
 	void Select()override {
 		ModeDebugMenu::_detectionInfo = !ModeDebugMenu::_detectionInfo;
 	}

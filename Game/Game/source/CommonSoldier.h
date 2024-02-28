@@ -26,4 +26,10 @@ protected:
 	class CapsuleComponent* _capsule;
 	class AnimationComponent* _anim;
 
+	std::vector<unsigned short>_versNums;
+	std::vector<VERTEX3D>_vers;
+
+	int _visionHandleRed;
+	int _visionHandleBlue;
+
 };
