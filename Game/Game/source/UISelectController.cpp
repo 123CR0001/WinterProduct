@@ -29,6 +29,7 @@ int UISelectController::Selected() {
                 ui->_selectNum = -1;
                 i++;
             }
+            if(i == 4) { break; }
         }
 
         // ステージに関連するUIの登録済みチェックと再利用
