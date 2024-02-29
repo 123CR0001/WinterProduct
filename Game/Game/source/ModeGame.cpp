@@ -148,7 +148,8 @@ bool ModeGame::Process() {
 
 	if (_isCouldLightsOut && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		if (_objServer->GetEnemys().size() > 0) {
-			ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
+			ModeServer::GetInstance()->Add(NEW ModeGameOver(this), 100, "GameOver");
+			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("game"));
 		}
 		else {
 			ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");

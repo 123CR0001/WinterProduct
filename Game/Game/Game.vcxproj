@@ -226,6 +226,7 @@
     <ClCompile Include="source\UIGetSlide.cpp" />
     <ClCompile Include="source\UILightsTimer.cpp" />
     <ClCompile Include="source\UINo.cpp" />
+    <ClCompile Include="source\UIOverToTitle.cpp" />
     <ClCompile Include="source\UIQuit.cpp" />
     <ClCompile Include="source\UIRemainingUses.cpp" />
     <ClCompile Include="source\UIResume.cpp" />
@@ -311,6 +312,7 @@
     <ClInclude Include="source\UIGetSlide.h" />
     <ClInclude Include="source\UILightsTimer.h" />
     <ClInclude Include="source\UINo.h" />
+    <ClInclude Include="source\UIOverToTitle.h" />
     <ClInclude Include="source\UIQuit.h" />
     <ClInclude Include="source\UIRemainingUses.h" />
     <ClInclude Include="source\UIResume.h" />

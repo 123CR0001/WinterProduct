@@ -288,24 +288,6 @@
     <ClCompile Include="source\AILookAround.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\FPS.cpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeSelect.cpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UISelectController.cpp">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UISelectMap.cpp">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UITitle.cpp">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIToConfirm.cpp">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="source\AIDeath.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
@@ -324,17 +306,38 @@
     <ClCompile Include="source\TraserSpawner.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeGameUI.cpp">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClCompile Include="source\UIOverToTitle.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="source\Timer.cpp">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClCompile Include="source\UISelectController.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UISelectMap.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UITitle.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIToConfirm.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeGameUI.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FPS.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeSelect.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
     <ClCompile Include="source\UILightsTimer.cpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Timer.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="source\UIRemainingUses.cpp">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -536,9 +539,6 @@
     <ClInclude Include="source\FPS.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeSelect.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\AnimationComponent.h">
       <Filter>ヘッダー ファイル\Component\Animation</Filter>
     </ClInclude>
@@ -578,17 +578,23 @@
     <ClInclude Include="source\EnemyBase.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\ModeGameUI.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\Timer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="source\UILightsTimer.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="source\UIOverToTitle.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIRemainingUses.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UILightsTimer.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeSelect.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeGameUI.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
