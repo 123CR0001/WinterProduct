@@ -5,6 +5,7 @@
 #include"appframe.h"
 #include"Player.h"
 #include"SoundComponent.h"
+#include"ApplicationGlobal.h"
 #include<algorithm>
 
 int Siren::_maxInterval = 360;
@@ -59,6 +60,8 @@ bool Siren::Process() {
 		_interval = 360;
 
 		new SoundComponent(this,_pos, _volumeSize);
+
+		gGlobal._sndServer.Get("SE_07")->Play();
 	}
 	return true;
 }

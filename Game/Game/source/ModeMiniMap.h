@@ -28,8 +28,11 @@ private:
 	//ミニマップを画面上に描画する位置
 	int _x, _y;
 	
-	//描画するミニマップの大きさ
+	//_mapScreenに描画するミニマップの大きさ
 	int  _w, _h;
+
+	//画面に描画する円形上のマップの半径
+	float _radius;
 
 	//ミニマップの画像ハンドル
 	int _mapTextHandle;

@@ -7,6 +7,8 @@
 #include"ModeGame.h"
 #include"ModeEffekseer.h"
 
+#include"ApplicationGlobal.h"
+
 Decoy::Decoy(Player* player)
 	:ObjectBase(player->GetObjectServer(),false,"Decoy")
 	,_capsule(NEW CapsuleComponent(this,1000))
@@ -29,6 +31,7 @@ bool Decoy::Initialize() {
 	ObjectBase::Initialize();
 
 	_handle = GetObjectServer()->GetGame()->GetModeEffekseer()->Play("Decoy", _pos, _eulerAngle);
+	gGlobal._sndServer.Get("SE_08")->Play();
 
 	return true;
 }

@@ -69,6 +69,9 @@ bool ModeMiniMap::Initialize() {
 	_clipScreen =	MakeScreen(_w, _h, FALSE);
 	_mixScreen =	MakeScreen(_w, _h, TRUE);
 
+	//描画するミニマップの円形上の半径
+	_radius = 170.f;
+
 	return true;
 }
 
@@ -107,7 +110,7 @@ bool ModeMiniMap::Process() {
 	ClearDrawScreen();
 
 	//ミニマップ上のプレイヤーの位置を中心に、円を描画
-	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, 170.f, 40, GetColor(255, 255, 255), TRUE);
+	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, _radius, 40, GetColor(255, 255, 255), TRUE);
 
 	GraphBlendBlt(_mapScreen, _clipScreen, _mixScreen, 255,
 		DX_GRAPH_BLEND_RGBA_SELECT_MIX,
@@ -154,8 +157,8 @@ bool ModeMiniMap::Render() {
 
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-	DrawCircleAA(_x, _y, 173.f, 40, GetColor(255, 255, 0), TRUE);
-	DrawCircleAA(_x, _y, 170.f, 40, GetColor(0, 0, 0), TRUE);
+	DrawCircleAA(_x, _y, _radius + 3.f, 40, GetColor(255, 255, 0), TRUE);
+	DrawCircleAA(_x, _y, _radius, 40, GetColor(0, 0, 0), TRUE);
 	DrawModiGraphF(
 		pos[0].x, pos[0].y,
 		pos[1].x, pos[1].y,

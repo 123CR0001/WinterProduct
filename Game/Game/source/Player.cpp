@@ -105,6 +105,8 @@ bool Player::Process() {
 
 		if (trg & INPUT_X && ModeServer::GetInstance()->IsAdd("LightsOut")) {
 			_actionState = ACTION_STATE::kAttack;
+
+			gGlobal._sndServer.Get("SE_02")->Play();
 		}
 		if (trg & INPUT_X && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 			NEW Decoy(this);
@@ -135,7 +137,7 @@ bool Player::Process() {
 
 		}
 
-		if (trg & INPUT_A) {
+		if (pad->GetKeyButton() & INPUT_A) {
 			_actionState = ACTION_STATE::kIdle;
 		}
 		break;
@@ -146,7 +148,8 @@ bool Player::Process() {
 	//‘«‰¹
 	if (_moveCom->GetSpeed() >= moveSpeed && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		new SoundComponent(this, 200.f);
-	}
+	}	
+
 
 	return true;
 }

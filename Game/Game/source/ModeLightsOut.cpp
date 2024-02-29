@@ -5,6 +5,7 @@
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
 #include"Player.h"
+#include"ApplicationGlobal.h"
 
 ModeLightsOut::ModeLightsOut(ModeGame* game)
 	:_game(game) 
@@ -37,6 +38,8 @@ bool ModeLightsOut::Initialize() {
 
 	_frameCnt = 300;
 
+	_frameCntSE = 60;
+
 	return true;
 }
 
@@ -67,6 +70,12 @@ bool ModeLightsOut::Process() {
 		_game->GetObjectServer()->GetPlayer()->AddMoveSpeedMag(0.2f);
 	}
 
+	_frameCntSE--;
+	if(_frameCntSE == 0) {
+		gGlobal._sndServer.Get("SE_15")->Play();
+		_frameCntSE = 60;
+	}
+
 	return true;
 }
 
@@ -85,7 +94,7 @@ bool ModeLightsOut::Render() {
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, _alpha);
 
 	SetFontSize(64);
-	DrawFormatString(500, 0, GetColor(255, 0, 0), "Žc‚èŽžŠÔ %d", _frameCnt);
+	DrawFormatString(500, 0, GetColor(255, 0, 0), "Žc‚èŽžŠÔ %d", _frameCnt / 60 + 1);
 	SetFontSize(16);
 
 	return true;

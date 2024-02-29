@@ -61,5 +61,8 @@ protected:
 
 	int _oldEnemyNum;
 
+	//SE‚ÌÄ¶ŠÔŠu
+	int _frameCntSE;
+
 	class ModeGame* _game;
 };

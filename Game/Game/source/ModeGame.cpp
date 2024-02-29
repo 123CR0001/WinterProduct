@@ -113,10 +113,13 @@ bool ModeGame::Process() {
 	//LightsOutモードを追加
 	if (GetPad()->GetTrgButton() & INPUT_Y  && !ModeServer::GetInstance()->IsAdd("Out") && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 
+		gGlobal._sndServer.Get("SE_09")->Play();
+
 		auto func = [this]() {
 			ModeServer::GetInstance()->Add(NEW ModeLightsOut(this), 100, "LightsOut"); 
 			//プレイヤーから残像を出力するようにする
 			NEW CreateAfterImageComponent(_objServer->GetPlayer()->GetAnimationComponent());
+
 
 			_isCouldLightsOut = true;
 		};
@@ -159,15 +162,15 @@ bool ModeGame::Process() {
 		_cntTest++;
 	}
 
-	if (GetPad()->GetTrgButton() & INPUT_X) {
-		_uiServer->Search("remainingUses")->Selected();
-		_uiServer->Search("lightsOutTimer")->Selected();
-	}
+	//if (GetPad()->GetTrgButton() & INPUT_X) {
+	//	_uiServer->Search("remainingUses")->Selected();
+	//	_uiServer->Search("lightsOutTimer")->Selected();
+	//}
 
 	// fpsの待機
-	_fps->WaitFPS();
-	auto CommonSoldiers = GetObjectServer()->GetCommonSoldiers();
-	if (CommonSoldiers.size() == 0) { _fps->SetFPS(50); }
+	//_fps->WaitFPS();
+	//auto CommonSoldiers = GetObjectServer()->GetCommonSoldiers();
+	//if (CommonSoldiers.size() == 0) { _fps->SetFPS(50); }
 
 	return true;
 }
@@ -296,11 +299,13 @@ bool ModeGame::LoadData() {
 	std::string attachFrameName = "UCX_StageObject";
 	map["StageObject"].filePath = filePath.c_str();
 	map["StageObject"].attachFrameName = attachFrameName.c_str();
+	map["StageObject"].func = func;
 
 	std::string filePathColl = strPath +"NavigationMesh.mv1";
 	std::string attachFrameNameColl = "NavigationMesh";
 	map["NavigationMesh"].filePath = filePathColl.c_str();
 	map["NavigationMesh"].attachFrameName = attachFrameNameColl.c_str();
+	map["NavigationMesh"].func = func;
 
 	map["siren"].filePath = "res/Object/siren/siren.mv1";
 	map["siren"].attachFrameName = "UCX_siren1";
@@ -341,8 +346,7 @@ bool ModeGame::LoadData() {
 		}
 	
 		if (map.find(name) != map.end()) {
-				ObjectBase* p = NEW ObjectBase(GetObjectServer(),true);
-				p->LoadModel(map[name].filePath, map[name].attachFrameName);
+				ObjectBase* p = map[name].func(map[name].filePath, map[name].attachFrameName);
 				p->SetJsonDataUE(object);
 				p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
 				MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());

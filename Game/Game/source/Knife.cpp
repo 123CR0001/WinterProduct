@@ -12,6 +12,7 @@
 #include"CameraComponent.h"
 #include"CharaBase.h"
 #include"SoundComponent.h"
+#include"ApplicationGlobal.h"
 
 bool Knife::Initialize() {
 
@@ -55,6 +56,7 @@ bool Knife::Process() {
 			//‰¹‚ð¶¬
 			NEW SoundComponent(result.item._object, 300.f);
 
+			gGlobal._sndServer.Get("SE_03")->Play();
 		}
 	}
 
