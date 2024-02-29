@@ -4,6 +4,7 @@
 
 AnimationComponent::AnimationComponent(ObjectBase* owner ,int order)
 	:Component(owner,order) 
+	,_playAnimationName(nullptr)
 {
 	_closeMaxTime = 6.f;
 }

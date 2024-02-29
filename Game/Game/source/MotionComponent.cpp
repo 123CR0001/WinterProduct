@@ -82,6 +82,10 @@ bool MotionComponent::Process() {
 	//このコンポーネントを保持するオーナーの名前
 	std::string name = _anim->GetOwner()->GetName();
 	AnimationComponent* anim = _anim;
+
+	//アニメーションが初期可視化されていなかったら、処理をしない
+	if(!anim->GetAnimationName()) { return false; }
+
 	std::string animName = anim->GetAnimationName();
 
 	//CharaBaseが再生しているアニメーションの再生時間を取得		切り上げ

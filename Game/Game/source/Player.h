@@ -29,6 +29,8 @@ public:
 
 	class CameraComponent* GetCamera()const { return _cameraCom; }
 	void SetCamera(class CameraComponent* camera) { _cameraCom = camera; }
+
+	ACTION_STATE GetState()const { return _actionState; }
 protected:
 
 

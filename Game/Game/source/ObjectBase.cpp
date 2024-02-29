@@ -67,7 +67,7 @@ bool ObjectBase::Process() {
 		//~‡‚Éƒ\[ƒg
 		for(int a = 0; a < _components.size(); a++) {
 			for(int b = a; b < _components.size(); b++) {
-				if(_components[a] > _components[b]) {
+				if(_components[a]->GetOrder() > _components[b]->GetOrder()) {
 					auto temp = _components[a];
 					_components[a] = _components[b];
 					_components[b] = temp;

@@ -8,7 +8,7 @@
 #include"ApplicationGlobal.h"
 #include"ModeEffekseer.h"
 #include"CapsuleComponent.h"
-#include"AnimationComponent.h"
+#include"PlayerAnimationComponent.h"
 #include"FollowCamera.h"
 #include"OrbitCamera.h"
 #include"MoveComponent.h"
@@ -23,7 +23,7 @@
 Player::Player(ObjectServer* server)
 	:CharaBase(server,"player")
 	,_cameraCom(NEW FollowCamera(this,999))
-	,_anim(NEW AnimationComponent(this,1000))
+	,_anim(NEW PlayerAnimationComponent(this,1000))
 	,_weapon (NEW Knife(this))
 	,_actionState(ACTION_STATE::kIdle)
 	,_capsule(NEW CapsuleComponent(this,1000))
@@ -53,14 +53,6 @@ bool Player::Initialize() {
 	CharaBase::Initialize();
 
 	_cameraCom->Initialize();
-
-	LoadModel("res/Chara/mannequin.mv1");
-
-	//アニメーションの登録
-	_anim->LoadAnimation("Idle", "mo_standby_01", 0);
-	_anim->LoadAnimation("run", "mo_move_01", 0);
-	_anim->LoadAnimation("Attack", "mo_lightsout_01", 1);
-	_anim->LoadAnimation("Attack2", "mo_lightsout_01", 1);
 
 	_capsule->SetMember(40.f, 30.f);
 
@@ -149,31 +141,6 @@ bool Player::Process() {
 	}
 
 	ObjectBase::Process();
-
-	// ステータスが変わっていないか？
-	if(oldState != _actionState) {
-		// ステータスに合わせてアニメーションのアタッチ
-		switch(_actionState) {
-		case ACTION_STATE::kIdle:
-			_anim->ChangeAnimation("Idle");
-			break;
-		case ACTION_STATE::kWalk:
-			_anim->ChangeAnimation("run");
-			break;
-		case ACTION_STATE::kAttack:
-			_anim->ChangeAnimation("Attack");
-			break;
-		case ACTION_STATE::kAttack2:
-			_anim->ChangeAnimation("Attack2");
-			break;
-		case ACTION_STATE::kSilent:
-			_anim->ChangeAnimation("Idle");
-			break;
-		case ACTION_STATE::kSilentWalk:
-			_anim->ChangeAnimation("run");
-			break;
-		}
-	}
 
 	//足音
 	if (_moveCom->GetSpeed() >= moveSpeed && !ModeServer::GetInstance()->IsAdd("LightsOut")) {

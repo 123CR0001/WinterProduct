@@ -339,6 +339,9 @@
     <ClCompile Include="source\TracerAnimationComponent.cpp">
       <Filter>ソース ファイル\Component\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="source\PlayerAnimationComponent.cpp">
+      <Filter>ソース ファイル\Component\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -594,6 +597,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="source\TracerAnimationComponent.h">
+      <Filter>ヘッダー ファイル\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\PlayerAnimationComponent.h">
       <Filter>ヘッダー ファイル\Component\Animation</Filter>
     </ClInclude>
   </ItemGroup>
