@@ -35,7 +35,7 @@ bool AIRush::Process() {
 
 	//“Ëi‚µ‚½‚ªAƒLƒƒƒ‰‚ª‚¢‚È‚¢
 	if (Vector3D::LengthSquare(_rushPos, _owner->GetOwner()->GetPos()) < 10.f) {
-		_owner->ChangeState("Trase");
+		_owner->ChangeState("Trace");
 	}
 
 	return true;

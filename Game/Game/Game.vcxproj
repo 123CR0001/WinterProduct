@@ -167,7 +167,7 @@
     <ClCompile Include="source\AIBlindWalk.cpp" />
     <ClCompile Include="source\AIRush.cpp" />
     <ClCompile Include="source\AIState.cpp" />
-    <ClCompile Include="source\AITrase.cpp" />
+    <ClCompile Include="source\AITracer.cpp" />
     <ClCompile Include="source\AnimationComponent.cpp" />
     <ClCompile Include="source\ApplicationGlobal.cpp" />
     <ClCompile Include="source\ApplicationMain.cpp" />
@@ -212,8 +212,9 @@
     <ClCompile Include="source\SoundItem.cpp" />
     <ClCompile Include="source\SoundServer.cpp" />
     <ClCompile Include="source\Timer.cpp" />
-    <ClCompile Include="source\Traser.cpp" />
-    <ClCompile Include="source\TraserSpawner.cpp" />
+    <ClCompile Include="source\Tracer.cpp" />
+    <ClCompile Include="source\TracerAnimationComponent.cpp" />
+    <ClCompile Include="source\TracerSpawner.cpp" />
     <ClCompile Include="source\UIAudio.cpp" />
     <ClCompile Include="source\UIBackToTitle.cpp" />
     <ClCompile Include="source\UIBase.cpp" />
@@ -252,7 +253,7 @@
     <ClInclude Include="source\AICheckPoint.h" />
     <ClInclude Include="source\AIRush.h" />
     <ClInclude Include="source\AIState.h" />
-    <ClInclude Include="source\AITrase.h" />
+    <ClInclude Include="source\AITrace.h" />
     <ClInclude Include="source\AnimationComponent.h" />
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\CameraComponent.h" />
@@ -298,7 +299,8 @@
     <ClInclude Include="source\SoundItem.h" />
     <ClInclude Include="source\SoundServer.h" />
     <ClInclude Include="source\Timer.h" />
-    <ClInclude Include="source\TraserSpawner.h" />
+    <ClInclude Include="source\TracerAnimationComponent.h" />
+    <ClInclude Include="source\TracerSpawner.h" />
     <ClInclude Include="source\UIAudio.h" />
     <ClInclude Include="source\UIBackToTitle.h" />
     <ClInclude Include="source\UIBase.h" />
@@ -323,7 +325,7 @@
     <ClInclude Include="source\UIToConfirm.h" />
     <ClInclude Include="source\UIToTitle.h" />
     <ClInclude Include="source\WeaponBase.h" />
-    <ClInclude Include="source\Traser.h" />
+    <ClInclude Include="source\Tracer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

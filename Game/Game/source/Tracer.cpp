@@ -1,8 +1,8 @@
-#include"Traser.h"
+#include"Tracer.h"
 #include"ObjectServer.h"
 
 #include"AIComponent.h"
-#include"AITrase.h"
+#include"AITrace.h"
 #include"AIRush.h"
 
 #include"MoveComponent.h"
@@ -11,45 +11,45 @@
 
 #include"Player.h"
 
-#include"TraserSpawner.h"
+#include"TracerSpawner.h"
 
 #include"ModeGame.h"
 #include"ModeEffekseer.h"
 #include"CameraComponent.h"
+#include"TracerAnimationComponent.h"
 
-
-Traser::Traser(TraserSpawner* spawner)
-	:CharaBase(spawner->GetObjectServer(), "Traser")
+Tracer::Tracer(TracerSpawner* spawner)
+	:CharaBase(spawner->GetObjectServer(), "Trace")
 	, _capsule(NEW CapsuleComponent(this, 1000))
 	,_AI(NEW AIComponent(this,1))
+	,_anim(NEW TracerAnimationComponent(this,1000))
 	,_frameCnt(0)
 	,_maxFrame(20)
 {
 
-	LoadModel("res/Chara/soldier_2_4_IK_A.mv1");
 	_attachIndex =  MV1SearchFrame(_handle, "Soldier");
 
 	//AIStateを登録
-	_AI->RegisterState(NEW AITrase(_AI));
+	_AI->RegisterState(NEW AITrace(_AI));
 	_AI->RegisterState(NEW AIRush(_AI));
 
-	_AI->ChangeState("Trase");
+	_AI->ChangeState("Trace");
 
 	//今まで記録していた、プレイヤーの座標をmove
-	_AI->GetPoints("Trase") = std::move(spawner->GetPoints());
+	_AI->GetPoints("Trace") = std::move(spawner->GetPoints());
 
 	//最初の座標に移動
-	_pos = _AI->GetPoints("Trase").front();
+	_pos = _AI->GetPoints("Trace").front();
 
 	GetObjectServer()->GetEnemys().emplace_back(this);
 
 }
 
-Traser::~Traser(){
+Tracer::~Tracer(){
 
 }
 
-bool Traser::Initialize() {
+bool Tracer::Initialize() {
 
 	//カプセルのメンバを設定
 	_capsule->SetMember(180.f, 30.f);
@@ -62,19 +62,19 @@ bool Traser::Initialize() {
 	return true;
 }
 
-bool Traser::Terminate() {
+bool Tracer::Terminate() {
 	CharaBase::Terminate();
 	return true;
 }
 
-bool Traser::Process() {
+bool Tracer::Process() {
 	ObjectBase::Process();
 
 	if (_frameCnt == _maxFrame) {
 
 		_frameCnt = 0;
 
-		_AI->AddPoint("Trase", GetObjectServer()->GetPlayer()->GetPos());
+		_AI->AddPoint("Trace", GetObjectServer()->GetPlayer()->GetPos());
 	}
 
 	_frameCnt++;

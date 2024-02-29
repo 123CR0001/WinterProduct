@@ -312,16 +312,16 @@
     <ClCompile Include="source\AnimationComponent.cpp">
       <Filter>ソース ファイル\Component\Animation</Filter>
     </ClCompile>
-    <ClCompile Include="source\Traser.cpp">
+    <ClCompile Include="source\Tracer.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="source\AITrase.cpp">
+    <ClCompile Include="source\AITracer.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
     <ClCompile Include="source\AIRush.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\TraserSpawner.cpp">
+    <ClCompile Include="source\TracerSpawner.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
     <ClCompile Include="source\ModeGameUI.cpp">
@@ -335,6 +335,9 @@
     </ClCompile>
     <ClCompile Include="source\UIRemainingUses.cpp">
       <Filter>ヘッダー ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TracerAnimationComponent.cpp">
+      <Filter>ソース ファイル\Component\Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -563,16 +566,16 @@
     <ClInclude Include="source\AIDeath.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
-    <ClInclude Include="source\Traser.h">
+    <ClInclude Include="source\Tracer.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\AITrase.h">
+    <ClInclude Include="source\AITrace.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
     <ClInclude Include="source\AIRush.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
-    <ClInclude Include="source\TraserSpawner.h">
+    <ClInclude Include="source\TracerSpawner.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
     <ClInclude Include="source\EnemyBase.h">
@@ -589,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="source\UIRemainingUses.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TracerAnimationComponent.h">
+      <Filter>ヘッダー ファイル\Component\Animation</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

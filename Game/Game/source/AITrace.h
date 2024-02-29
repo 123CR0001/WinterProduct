@@ -1,15 +1,15 @@
 #pragma once
 #include"AIState.h"
 
-class AITrase :public AIState {
+class AITrace :public AIState {
 public:
-	AITrase(class AIComponent* owner);
-	~AITrase();
+	AITrace(class AIComponent* owner);
+	~AITrace();
 
 	void OnEnter()override;
 	void OnExist()override;
 
-	const char* GetName()override { return "Trase"; }
+	const char* GetName()override { return "Trace"; }
 
 	bool Process()override;
 private:

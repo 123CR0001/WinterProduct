@@ -1,13 +1,13 @@
-#include"TraserSpawner.h"
+#include"TracerSpawner.h"
 #include"ObjectServer.h"
 
-#include"Traser.h"
+#include"Tracer.h"
 #include"Player.h"
 
-TraserSpawner::TraserSpawner(ObjectServer* owner)
+TracerSpawner::TracerSpawner(ObjectServer* owner)
 	:ObjectBase(owner)
 	,_elapsedTime(0)
-	,_spawnTime(10800)
+	,_spawnTime(300)
 	//プレイヤーの最初の座標を取得したいから
 	,_frameCnt(30)
 	,_interval(30)
@@ -15,22 +15,22 @@ TraserSpawner::TraserSpawner(ObjectServer* owner)
 
 }
 
-TraserSpawner::~TraserSpawner() {
+TracerSpawner::~TracerSpawner() {
 
 }
 
-bool TraserSpawner::Initialize() {
+bool TracerSpawner::Initialize() {
 	return true;
 }
 
-bool TraserSpawner::Terminate() {
+bool TracerSpawner::Terminate() {
 	return true;
 }
 
-bool TraserSpawner::Process() {
+bool TracerSpawner::Process() {
 	//一定時間経過したら、トレーサーをスポーン
 	if (_elapsedTime == _spawnTime) {
-		NEW Traser(this);
+		NEW Tracer(this);
 		//一回きりでいいので、自身を削除
 		GetObjectServer()->DeleteObject(this);
 	}
@@ -48,6 +48,6 @@ bool TraserSpawner::Process() {
 	return true;
 }
 
-bool TraserSpawner::Render() {
+bool TracerSpawner::Render() {
 	return true;
 }

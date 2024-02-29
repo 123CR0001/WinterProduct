@@ -72,6 +72,9 @@ void AnimationComponent::LoadAnimation(const char* animName,const char* fileName
 
 void AnimationComponent::ChangeAnimation(const char* animName) {
 
+	//再生しているアニメーションなら、変更しない
+	if(_playAnimationName == animName) { return; }
+
 	//変更したいアニメーションが登録されているか
 	if (_animation.find(animName) != _animation.end()) {
 

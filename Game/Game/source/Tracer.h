@@ -1,14 +1,16 @@
 #pragma once
 #include"CharaBase.h"
 
-class Traser :public CharaBase {
+class Tracer :public CharaBase {
 public:
-	Traser(class TraserSpawner* spawner);
-	~Traser();
+	Tracer(class TracerSpawner* spawner);
+	~Tracer();
 
 	bool Initialize()override;
 	bool Terminate()override;
 	bool Process()override;
+
+	class AIComponent* GetAI()const { return _AI; }
 	
 private:
 	class AIComponent* _AI;

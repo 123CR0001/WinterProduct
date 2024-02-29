@@ -1,10 +1,10 @@
 #pragma once
 #include"ObjectBase.h"
 
-class TraserSpawner :public ObjectBase {
+class TracerSpawner :public ObjectBase {
 public:
-	TraserSpawner(class ObjectServer* server);
-	~TraserSpawner();
+	TracerSpawner(class ObjectServer* server);
+	~TracerSpawner();
 
 	bool Initialize()override;
 	bool Terminate()override;

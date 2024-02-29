@@ -20,8 +20,8 @@
 #include"CommonSoldier.h"
 #include"Player.h"
 #include"Siren.h"
-#include"Traser.h"
-#include"TraserSpawner.h"
+#include"Tracer.h"
+#include"TracerSpawner.h"
 
 #include"SoundComponent.h"
 #include"PhysWorld.h"
@@ -322,7 +322,7 @@ bool ModeGame::LoadData() {
 	}
 
 	//Spawner
-	NEW TraserSpawner(_objServer);
+	NEW TracerSpawner(_objServer);
 
 	//オブジェクトの配置
 	for (auto&& object : j.at("object")) {

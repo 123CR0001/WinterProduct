@@ -1,28 +1,28 @@
-#include"AITrase.h"
+#include"AITrace.h"
 #include"AIComponent.h"
 #include"ObjectBase.h"
 #include"ObjectServer.h"
 #include"Player.h"
 
-AITrase::AITrase(AIComponent* owner)
+AITrace::AITrace(AIComponent* owner)
 	:AIState(owner)
 	,_pointsNum(0)
 {
 
 }
 
-AITrase::~AITrase(){}
+AITrace::~AITrace(){}
 
-void AITrase::OnEnter() {
+void AITrace::OnEnter() {
 
 }
 
-void AITrase::OnExist(){
-	_owner->DeletePoint("Trase");
+void AITrace::OnExist(){
+	_owner->DeletePoint("Trace");
 	_pointsNum = 0;
 }
 
-bool AITrase::Process() {
+bool AITrace::Process() {
 
 	//ˆÚ“®
 	_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum);
