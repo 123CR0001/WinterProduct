@@ -339,6 +339,9 @@
     <ClCompile Include="source\UIRemainingUses.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="source\Result.cpp">
+      <Filter>ソース ファイル\Global</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -595,6 +598,9 @@
     </ClInclude>
     <ClInclude Include="source\ModeGameUI.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Result.h">
+      <Filter>ヘッダー ファイル\Global</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

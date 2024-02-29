@@ -70,6 +70,8 @@ bool ModeGame::Initialize() {
 
 	ModeServer::GetInstance()->Add(new ModeMiniMap(this), 100, "MiniMap");
 
+	gGlobal._result.SetModeGame(this);
+
 	_debug->Initialize();
 
 	_isCouldLightsOut = false;
@@ -110,6 +112,8 @@ bool ModeGame::Process() {
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
 
+	gGlobal._result.Process();
+
 	//LightsOutƒ‚[ƒh‚ð’Ç‰Á
 	if (GetPad()->GetTrgButton() & INPUT_Y  && !ModeServer::GetInstance()->IsAdd("Out") && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 
@@ -149,7 +153,7 @@ bool ModeGame::Process() {
 	if (_isCouldLightsOut && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		if (_objServer->GetEnemys().size() > 0) {
 			ModeServer::GetInstance()->Add(NEW ModeGameOver(this), 100, "GameOver");
-			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("game"));
+			ModeServer::GetInstance()->Del(this);
 		}
 		else {
 			ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");
@@ -163,6 +167,12 @@ bool ModeGame::Process() {
 	if (GetPad()->GetTrgButton() & INPUT_X) {
 		_uiServer->Search("remainingUses")->Selected();
 		_uiServer->Search("lightsOutTimer")->Selected();
+	}
+
+	if(GetPad()->GetTrgButton() & INPUT_LEFT_THUMB) {
+		ModeServer::GetInstance()->Del(this); 
+		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
+		ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");
 	}
 
 	// fps‚Ì‘Ò‹@

@@ -1,6 +1,7 @@
 #include"ModeClear.h"
 #include"ModeTitle.h"
 #include "ApplicationMain.h"
+#include"ApplicationGlobal.h"
 
 bool ModeClear::Initialize() {
 	return true;
@@ -39,5 +40,8 @@ bool ModeClear::Render() {
 	int y = ApplicationMain::GetInstance()->DispSizeH()/2 - 64 / 2;
 	DrawFormatString(x, y, GetColor(255, 0, 0), "%s",str.c_str());
 	SetFontSize(16);
+
+	gGlobal._result.Render();
+
 	return true;
 }
