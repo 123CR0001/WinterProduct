@@ -219,6 +219,8 @@
     <ClCompile Include="source\UIBackToTitle.cpp" />
     <ClCompile Include="source\UIBase.cpp" />
     <ClCompile Include="source\UIBlink.cpp" />
+    <ClCompile Include="source\UIClearTime.cpp" />
+    <ClCompile Include="source\UIClearTimeRank.cpp" />
     <ClCompile Include="source\UIContorl.cpp" />
     <ClCompile Include="source\UIDetection.cpp" />
     <ClCompile Include="source\UIDisplay.cpp" />
@@ -226,6 +228,7 @@
     <ClCompile Include="source\UIGameStart.cpp" />
     <ClCompile Include="source\UIGetSlide.cpp" />
     <ClCompile Include="source\UILightsTimer.cpp" />
+    <ClCompile Include="source\UINextStage.cpp" />
     <ClCompile Include="source\UINo.cpp" />
     <ClCompile Include="source\UIOverToTitle.cpp" />
     <ClCompile Include="source\UIQuit.cpp" />
@@ -306,6 +309,8 @@
     <ClInclude Include="source\UIBackToTitle.h" />
     <ClInclude Include="source\UIBase.h" />
     <ClInclude Include="source\UIBlink.h" />
+    <ClInclude Include="source\UIClearTime.h" />
+    <ClInclude Include="source\UIClearTimeRank.h" />
     <ClInclude Include="source\UIContorl.h" />
     <ClInclude Include="source\UIDetection.h" />
     <ClInclude Include="source\UIDisplay.h" />
@@ -313,6 +318,7 @@
     <ClInclude Include="source\UIGameStart.h" />
     <ClInclude Include="source\UIGetSlide.h" />
     <ClInclude Include="source\UILightsTimer.h" />
+    <ClInclude Include="source\UINextStage.h" />
     <ClInclude Include="source\UINo.h" />
     <ClInclude Include="source\UIOverToTitle.h" />
     <ClInclude Include="source\UIQuit.h" />

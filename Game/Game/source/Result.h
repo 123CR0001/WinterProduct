@@ -13,10 +13,10 @@ protected:
 	bool _bDeath;
 
 	enum class ClearTimeRank {
-		kSrank = 5000,
-		kArank = 10000,
-		kBrank = 15000,
-		kCrank = 20000
+		ksrank = 5000,
+		karank = 10000,
+		kbrank = 15000,
+		kcrank = 20000
 	};
 	ClearTimeRank _eTimeRank;
 

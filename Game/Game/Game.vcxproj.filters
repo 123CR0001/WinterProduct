@@ -330,9 +330,6 @@
     <ClCompile Include="source\ModeSelect.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\UILightsTimer.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="source\Timer.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -341,6 +338,18 @@
     </ClCompile>
     <ClCompile Include="source\Result.cpp">
       <Filter>ソース ファイル\Global</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UINextStage.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UILightsTimer.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIClearTime.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIClearTimeRank.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -601,6 +610,15 @@
     </ClInclude>
     <ClInclude Include="source\Result.h">
       <Filter>ヘッダー ファイル\Global</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UINextStage.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIClearTime.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIClearTimeRank.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

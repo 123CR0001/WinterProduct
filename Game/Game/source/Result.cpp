@@ -14,7 +14,7 @@ Result::Result() {
 	_diedTime = 0;
 	_bDeath = false;
 
-	_eTimeRank = ClearTimeRank::kSrank;
+	_eTimeRank = ClearTimeRank::ksrank;
 	_eDetectionRank = MaxDetectionRank::kSrank;
 
 	_game = nullptr;
@@ -47,10 +47,10 @@ bool Result::Render() {
 
 bool Result::EvaluateClearTime(int clearTime) {
 	if (clearTime == 0) { return false; }
-	else if (clearTime <= static_cast<int>(ClearTimeRank::kSrank)) { _eTimeRank = ClearTimeRank::kSrank; }
-	else if (clearTime <= static_cast<int>(ClearTimeRank::kArank)) { _eTimeRank = ClearTimeRank::kArank; }
-	else if (clearTime <= static_cast<int>(ClearTimeRank::kBrank)) { _eTimeRank = ClearTimeRank::kBrank; }
-	else { _eTimeRank = ClearTimeRank::kCrank; }
+	else if (clearTime <= static_cast<int>(ClearTimeRank::ksrank)) { _eTimeRank = ClearTimeRank::ksrank; }
+	else if (clearTime <= static_cast<int>(ClearTimeRank::karank)) { _eTimeRank = ClearTimeRank::karank; }
+	else if (clearTime <= static_cast<int>(ClearTimeRank::kbrank)) { _eTimeRank = ClearTimeRank::kbrank; }
+	else { _eTimeRank = ClearTimeRank::kcrank; }
 	return true;
 }
 
@@ -65,10 +65,10 @@ bool Result::TimeRankProcess() {
 
 bool Result::TimeRankRender() {
 	std::string rankStr;
-	if (_eTimeRank == ClearTimeRank::kSrank) rankStr = "S";
-	else if (_eTimeRank == ClearTimeRank::kArank) rankStr = "A";
-	else if (_eTimeRank == ClearTimeRank::kBrank) rankStr = "B";
-	else if (_eTimeRank == ClearTimeRank::kCrank) rankStr = "C";
+	if (_eTimeRank == ClearTimeRank::ksrank) rankStr = "S";
+	else if (_eTimeRank == ClearTimeRank::karank) rankStr = "A";
+	else if (_eTimeRank == ClearTimeRank::kbrank) rankStr = "B";
+	else if (_eTimeRank == ClearTimeRank::kcrank) rankStr = "C";
 
 	DrawFormatString(0, 100, GetColor(0, 255, 0),
 		"time:%d \nrank:%s",

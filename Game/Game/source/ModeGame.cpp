@@ -156,7 +156,7 @@ bool ModeGame::Process() {
 			ModeServer::GetInstance()->Del(this);
 		}
 		else {
-			ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");
+			ModeServer::GetInstance()->Add(NEW ModeClear(this), 100, "GameClear");
 		}
 	}
 
@@ -170,9 +170,18 @@ bool ModeGame::Process() {
 	}
 
 	if(GetPad()->GetTrgButton() & INPUT_LEFT_THUMB) {
-		ModeServer::GetInstance()->Del(this); 
-		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
-		ModeServer::GetInstance()->Add(NEW ModeClear(), 100, "GameClear");
+		auto func = [this]() {
+			// ƒ‚[ƒh‚Ìíœ
+			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
+			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
+			ModeServer::GetInstance()->Del(this);
+			// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
+			ModeServer::GetInstance()->Add(NEW ModeClear(this), 1, "GameClear");
+			};
+		// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
+		ModeColorIn* colorIn = new ModeColorIn(60, true);
+		ModeBase* mode = new ModeColorOut(colorIn, func);
+		ModeServer::GetInstance()->Add(mode, 11, "Out");
 	}
 
 	// fps‚Ì‘Ò‹@
