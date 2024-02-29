@@ -56,9 +56,6 @@ bool ModeGameOver::Terminate() {
 bool ModeGameOver::Process() {
 	base::Process();
 
-	// このモードより下のレイヤーはProcess()を呼ばない
-	ModeServer::GetInstance()->SkipProcessUnderLayer();
-
 	// UIの処理
 	_uiServer->Process();
 
