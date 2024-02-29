@@ -4,6 +4,7 @@
 #include"AIComponent.h"
 #include"AITrace.h"
 #include"AIRush.h"
+#include"AIDeath.h"
 
 #include"MoveComponent.h"
 #include"AnimationComponent.h"
@@ -24,7 +25,7 @@ Tracer::Tracer(TracerSpawner* spawner)
 	,_AI(NEW AIComponent(this,1))
 	,_anim(NEW TracerAnimationComponent(this,1000))
 	,_frameCnt(0)
-	,_maxFrame(20)
+	,_maxFrame(3)
 {
 
 	_attachIndex =  MV1SearchFrame(_handle, "Soldier");
@@ -32,6 +33,7 @@ Tracer::Tracer(TracerSpawner* spawner)
 	//AIStateを登録
 	_AI->RegisterState(NEW AITrace(_AI));
 	_AI->RegisterState(NEW AIRush(_AI));
+	_AI->RegisterState(NEW AIDeath(_AI));
 
 	_AI->ChangeState("Trace");
 
@@ -92,11 +94,11 @@ bool Tracer::Process() {
 		}
 
 		//エフェクト再生
-		//GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
-		//	"Blood01",
-		//	_damageData.item.hitPosition,
-		//	Vector3D(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
-		//);
+		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
+			"Blood01",
+			_damageData.item.hitPosition,
+			Vector3D(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
+		);
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
 			"Blood02",
 			_pos + Vector3D(0.f, 10.f, 0.f),

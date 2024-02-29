@@ -53,7 +53,7 @@ bool Siren::Process() {
 
 	if (_interval <= 0 &&
 		Vector3D::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(), _pos) < _playerDist * _playerDist &&
-		GetObjectServer()->GetGame()->GetPad()->GetTrgButton() & INPUT_X
+		GetObjectServer()->GetGame()->GetPad()->GetTrgButton() & INPUT_B
 		) {
 
 		_interval = 360;

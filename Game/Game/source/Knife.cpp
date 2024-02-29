@@ -23,8 +23,8 @@ bool Knife::Initialize() {
 
 	MV1SetFrameVisible(_handle, _attachIndex, FALSE);
 
-	_scale = Vector3D(1.5f, 2.5f, 1.5f);
-	_eulerAngle = Vector3D(0.f,0.f, PI);
+	_scale = Vector3D(1.f, 0.5f, 1.f);
+	_eulerAngle = Vector3D(PI,0.f,0.f);
 
 	return true;
 }
@@ -33,7 +33,7 @@ bool Knife::Process() {
 	int FrameIndex;
 	_matrix = MGetIdent();
 	// フレーム名からフレーム番号を取得する
-	FrameIndex = MV1SearchFrame(_equippedChara->GetHandle(), "Character1_LeftHandThumb6");
+	FrameIndex = MV1SearchFrame(_equippedChara->GetHandle(), "Owl_RightHandThumb1");
 	_matrix = MGetScale(DxConverter::VecToDx(_scale));
 	_matrix = MMult(_matrix, MGetRotX(_eulerAngle.x));
 	_matrix = MMult(_matrix, MGetRotZ(_eulerAngle.z));
@@ -48,7 +48,7 @@ bool Knife::Process() {
 		//カプセルコンポーネントとぶつかったか、自分を装備しているキャラじゃないか
 		if (result.isHit && result.item._object != _equippedChara) {
 
-			CharaBase::DamageData damageData = {true,this};
+			CharaBase::DamageData damageData = { true,this,result.item };
 
 			result.item._object->ApplyDamage(damageData);
 

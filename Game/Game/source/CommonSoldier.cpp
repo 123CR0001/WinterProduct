@@ -137,11 +137,11 @@ bool CommonSoldier::Process() {
 		}
 
 		//エフェクト再生
-		//GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
-		//	"Blood01",
-		//	_damageData.item.hitPosition,
-		//	Vector3D(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
-		//);
+		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
+			"Blood01",
+			_damageData.item.hitPosition,
+			Vector3D(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
+		);
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
 			"Blood02",
 			_pos + Vector3D(0.f, 10.f, 0.f),
@@ -233,7 +233,6 @@ bool CommonSoldier::Render() {
 	DrawPolygonIndexed3D(_vers.data(), _vers.size(), _versNums.data(), _versNums.size() / 3, handle,FALSE);
 	SetUseLighting(TRUE);
 
-	DrawFormatString(300, 0, GetColor(0, 0, 255), "size %f", _AI->GetViewDist());
 	return true;
 }
 

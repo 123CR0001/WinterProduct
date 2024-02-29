@@ -10,6 +10,8 @@
 #include"ObjectBase.h"
 #include"Player.h"
 
+#include"ApplicationMain.h"
+
 ModeMiniMap::ModeMiniMap(ModeGame* game)
 	:_game(game)
 	, _maxPos(Vector3D(-9999999.f, 0.f, -9999999.f))
@@ -53,7 +55,7 @@ bool ModeMiniMap::Initialize() {
 	}
 
 	//画像の描画位置
-	_x = 900;
+	_x = ApplicationMain::GetInstance()->GetInstance()->DispSizeW() - 150;
 	_y = 100;
 
 	_mag = 0.1f;
@@ -75,6 +77,7 @@ bool ModeMiniMap::Process() {
 	//プレイヤーのアドレスを取得
 	auto player = _game->GetObjectServer()->GetPlayer();
 
+	//プレやーのアドレスがなければ、処理をしない
 	if(!player) { return false; }
 
 	//プレイヤーの位置情報を取得
@@ -104,7 +107,7 @@ bool ModeMiniMap::Process() {
 	ClearDrawScreen();
 
 	//ミニマップ上のプレイヤーの位置を中心に、円を描画
-	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, 100.f, 40, GetColor(255, 255, 255), TRUE);
+	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, 170.f, 40, GetColor(255, 255, 255), TRUE);
 
 	GraphBlendBlt(_mapScreen, _clipScreen, _mixScreen, 255,
 		DX_GRAPH_BLEND_RGBA_SELECT_MIX,
@@ -151,8 +154,8 @@ bool ModeMiniMap::Render() {
 
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-	DrawCircleAA(_x, _y, 103.f, 40, GetColor(255, 255, 0), TRUE);
-	DrawCircleAA(_x, _y, 100.f, 40, GetColor(0, 0, 0), TRUE);
+	DrawCircleAA(_x, _y, 173.f, 40, GetColor(255, 255, 0), TRUE);
+	DrawCircleAA(_x, _y, 170.f, 40, GetColor(0, 0, 0), TRUE);
 	DrawModiGraphF(
 		pos[0].x, pos[0].y,
 		pos[1].x, pos[1].y,

@@ -2,6 +2,8 @@
 #include"DxLib.h"
 #include"appFrame.h"
 #include"../../../include/nlohmann/json.hpp"
+#include"PhysWorld.h"
+
 class ObjectBase {
 public:
 	ObjectBase(class ObjectServer* _server, bool isFrane = false, std::string name = "");
@@ -55,6 +57,8 @@ public:
 		bool isDamage = false;
 		//誰がダメージを与えたか
 		ObjectBase* object = nullptr;
+
+		PhysWorld::CollisionDetectionItem item;
 
 	};
 	void ApplyDamage(const DamageData& data);

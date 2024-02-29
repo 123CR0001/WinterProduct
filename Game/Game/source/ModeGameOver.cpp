@@ -1,6 +1,6 @@
 #include"ModeGameOver.h"
 #include "ApplicationMain.h"
-#include"ModeGame.h"
+#include"ModeTitle.h"
 
 bool ModeGameOver::Initialize() {
 	return true;
@@ -22,7 +22,7 @@ bool ModeGameOver::Process() {
 		//モードを全削除
 		ModeServer::GetInstance()->Clear();
 		// 次のモードを登録
-		ModeServer::GetInstance()->Add(new ModeGame("1"), 1, "game");
+		ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
 	}
 	return true;
 }

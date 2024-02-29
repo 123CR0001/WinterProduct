@@ -47,5 +47,6 @@ private:
 	Vector3D _mapPlayerPos;
 
 
+
 	float _zoom;
 };

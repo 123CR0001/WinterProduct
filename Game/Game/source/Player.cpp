@@ -79,6 +79,7 @@ bool Player::Process() {
 	ACTION_STATE oldState = _actionState;
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
+	auto trg = pad->GetTrgButton();
 
 	const float moveSpeed = 5.f * _moveSpeedMag;
 
@@ -102,13 +103,13 @@ bool Player::Process() {
 
 		}
 
-		if (pad->GetTrgButton() & INPUT_A && ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		if (trg & INPUT_X && ModeServer::GetInstance()->IsAdd("LightsOut")) {
 			_actionState = ACTION_STATE::kAttack;
 		}
-		if (pad->GetTrgButton() & INPUT_B) {
+		if (trg & INPUT_X && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 			NEW Decoy(this);
 		}
-		if (pad->GetTrgButton() & INPUT_X) {
+		if (trg & INPUT_A) {
 			_actionState = ACTION_STATE::kSilent;
 		}
 		break;
@@ -134,7 +135,7 @@ bool Player::Process() {
 
 		}
 
-		if (pad->GetTrgButton() & INPUT_B) {
+		if (trg & INPUT_A) {
 			_actionState = ACTION_STATE::kIdle;
 		}
 		break;
@@ -153,71 +154,6 @@ bool Player::Process() {
 bool Player::Render() {
 
 	CharaBase::Render();
-
-	int y = 0;
-	//DrawFormatString(
-	//	0, y, GetColor(255, 0, 0),
-	//	"x %f y %f z %f",
-	//	_pos.x,
-	//	_pos.y,
-	//	_pos.z,
-	//	TRUE
-	//); y += 25;
-	//DrawFormatString(
-	//	0, y, GetColor(255, 0, 0),
-	//	"y　マトリックス %f",
-	//	-atan2(_matrix.m[2][0], -_matrix.m[2][2]),
-	//	TRUE
-	//); y += 25;
-	//DrawFormatString(
-	//	0, y, GetColor(255, 0, 0),
-	//	"y　オイラー %f",
-	//	_eulerAngle.y,
-	//	TRUE
-	//); y += 25;
-	////if (_is_stand) {
-	////	DrawFormatString(0, 25, GetColor(255, 0, 0), "stand");
-	////}
-
-	//VECTOR pos = ConvWorldPosToViewPos(DxConverter::VecToDx(_pos));
-
-	//DrawFormatString(0,y, GetColor(255, 0, 0), "再生時間\t%f", _anim->GetPlayTime()); y += 25;
-	//DrawFormatString(0,y, GetColor(255, 0, 0), "総再生時間\t%f", _totalTime); y += 25;
-
-	//DrawFormatString(
-	//	0, y, GetColor(255, 0, 0),
-	//	"marix X %f marix Y %f marix Z %f ",
-	//	_matrix.m[3][0], _matrix.m[3][1], _matrix.m[3][2],
-	//	TRUE
-	//); y += 25;
-
-	//MATRIX inverse = MInverse(_matrix);
-
-	//MMult(inverse, _matrix);
-
-
-	switch (_actionState) {
-	case ACTION_STATE::kIdle:
-		DrawFormatString(0, y, GetColor(255, 0, 0), "Idle"); y += 25;
-		break;
-	case ACTION_STATE::kWalk:
-		DrawFormatString(0, y, GetColor(255, 0, 0), "Walk"); y += 25;
-		break;
-	case ACTION_STATE::kAttack:
-		DrawFormatString(0, y, GetColor(255, 0, 0), "Attack"); y += 25;
-		break;
-	case ACTION_STATE::kAttack2:
-		DrawFormatString(0, y, GetColor(255, 0, 0), "Attack2"); y += 25;
-		break;
-	case ACTION_STATE::kSilent:
-		DrawFormatString(0, y, GetColor(255, 0, 0), "Silent"); y += 25;
-		break;
-	case ACTION_STATE::kSilentWalk:
-		DrawFormatString(0, y, GetColor(255, 0, 0), "SilentWalk"); y += 25;
-		break;
-
-	}
-
 	return true;
 }
 
