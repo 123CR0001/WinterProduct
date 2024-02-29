@@ -13,6 +13,7 @@ public:
 	bool Render()override;
 
 	void Load();
+	void AddSelect();
 	bool SwitchTagWithBg(std::string);
 	bool AdjustItemPos(std::string selectedItem);
 
@@ -34,5 +35,7 @@ protected:
 	// ‰½‚ð‘I‘ð‚µ‚Ä‚¢‚é‚©
 	int	_select;
 	bool _bSelected;
+	int _selectCnt;
+	bool _bAddSelect;
 };
 

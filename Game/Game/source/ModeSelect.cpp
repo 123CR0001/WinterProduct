@@ -16,16 +16,15 @@ bool ModeSelect::Initialize() {
 
 	Load();
 	
-	_ui->Search("stage1")->_selectNum = 0;
-	_ui->Search("stage2")->_selectNum = 1;
-	_ui->Search("stage3")->_selectNum = 2;
-	_ui->Search("toTitle")->_selectNum = 3;
-
-	_select = _ui->Search("stage1")->_selectNum;
-
 	_maxOptions = STAGE_SELECT_NUM;
 
 	_bSelected = false;
+
+	_selectCnt = 0;
+
+	_bAddSelect = false;
+
+	SwitchTagWithBg("stage1");
 
 	return true;
 }
@@ -43,6 +42,26 @@ bool ModeSelect::Process() {
 	int trg = ApplicationMain::GetInstance()->GetPad()->GetTrgButton();
 
 	_ui->Process();
+
+	if(_ui->Search("leftFrame")->IsSlide() && !_bAddSelect) { return false; }
+	else if (!_ui->Search("rightFrame")->IsSlide() && _selectCnt == 0 && !_bAddSelect) {
+		_selectCnt = GetModeCount();
+	}
+	else if (_selectCnt + 15 < GetModeCount() && !_bAddSelect){
+		AddSelect(); 
+
+		_ui->Search("stage1")->_selectNum = 0;
+		_ui->Search("stage2")->_selectNum = 1;
+		_ui->Search("stage3")->_selectNum = 2;
+		_ui->Search("toTitle")->_selectNum = 3;
+
+		_select = _ui->Search("stage1")->_selectNum;
+
+		_bAddSelect = true;
+
+		_selectCnt = 0;
+	}
+	else if(_ui->IsRegistering("stage1") && _ui->Search("stage1")->IsSlide()) { return false; }
 
 	if (_bSelected) { _maxOptions = AREA_SELECT_NUM; }
 	else { _maxOptions = STAGE_SELECT_NUM; }
@@ -71,13 +90,13 @@ bool ModeSelect::Process() {
 			if (trg & INPUT_A) {
 				ui->Selected();
 				if (_bSelected) { _bSelected = false; }
-				else { _bSelected = true; _select = 0; }
+				else if(!_bSelected && _ui->Search("toTitle")) { _bSelected = true; }
+				else if(!_bSelected) { _bSelected = true; _select = 0; }
 				
 			}
 			break;
 		}
 	}
-
 
 	return true;
 }
@@ -103,6 +122,8 @@ bool ModeSelect::Render() {
 
 	_ui->Render();
 
+	if(!_bAddSelect) { return false; }
+
 	// ループ外で選択されたUI要素を取得
 	auto selectUI = _ui->Search(selectName);
 	
@@ -110,22 +131,6 @@ bool ModeSelect::Render() {
 	selectUI->_w = oldW;
 	selectUI->_y = oldY;
 	selectUI->_h = oldH;
-
-	{
-		std::string name;
-		for (const auto& ui : _ui->_vUI) {
-			if (ui == _ui->Search("Get")) { continue; }			// 
-			if (ui->_selectNum == _select) {					// ui側に割り振られた番号と_selectの数字が同じか否か
-				name = ui->_uiName;					// 選択している項目の名前	
-				break;
-			}
-		}
-
-		int ss = _ui->Search("toTitle")->_selectNum;
-		int X = _ui->Search("Get")->_x;
-	int Y = _ui->Search("Get")->_y;
-		DrawFormatString(0, 0, GetColor(255, 0, 0), "X:%d \nY:%d \n%d \n%s \n%d", X, Y, _select, name.c_str(), ss);
-	}
 
 	return true;
 }
@@ -138,8 +143,8 @@ void ModeSelect::Load() {
 		"res/UI/StageSelect/ui_stagebg_03.png"
 	};
 
-	for (size_t i = 0; i < bgImages.size(); ++i) {
-		_ui->Add(new UIDisplay(), nullptr, res::LoadGraph(bgImages[i].c_str()), 0, 0, 1920, 1080, 1, "bgStage" + std::to_string(i + 1));
+	for (int i = 0; i < bgImages.size(); ++i) {
+		_ui->Add(new UIDisplay(), nullptr, res::LoadGraph(bgImages[i].c_str()), 0, 0, 1920, 1080, 1, "bgStage" + std::to_string( i + 1));
 	}
 
 	// フレーム
@@ -148,7 +153,7 @@ void ModeSelect::Load() {
 		"res/UI/StageSelect/ui_stageframe_02.png"
 	};
 
-	for (size_t i = 0; i < frameImages.size(); ++i) {
+	for (int i = 0; i < frameImages.size(); ++i) {
 		float initX = i == 0 ? -800 : 1920;
 		float endX = i == 0 ? 0 : 800;
 		float w = i == 0 ? 800 : 1120;
@@ -171,7 +176,7 @@ void ModeSelect::Load() {
 		"tagStage3"
 	};
 
-	for (size_t i = 0; i < tagImages.size(); ++i) {
+	for (int i = 0; i < tagImages.size(); ++i) {
 		float initX = i == 0 ? -800 : 2592;
 		float initY = i == 0 ? 5 : 64;
 		float endX = i == 0 ? 0 : 1472;
@@ -183,7 +188,9 @@ void ModeSelect::Load() {
 			_ui->Search(tagNames[i])->_bView = false;
 		}
 	}
+}
 
+void ModeSelect::AddSelect() {
 	// ステージセレクト 
 	std::vector<std::string> stageImages = {
 		"res/UI/StageSelect/stage1/ui_stage01.png",
@@ -217,13 +224,13 @@ void ModeSelect::Load() {
 		{10, 110}
 	};
 
-	for (size_t i = 0; i < stageImages.size(); ++i) {
+	for(int i = 0; i < stageImages.size(); ++i) {
 		float initX = stagePos[i].first;
 		float initY = stagePos[i].second;
 		float endY = stagePos[i].second;
 		float w = stageSizes[i].first;
 		float h = stageSizes[i].second;
-		if (i == 3) {
+		if(i == 3) {
 			_ui->Add(new UITitle(initX, initY, 30, endY, 20, "select"), _ui,
 				res::LoadGraph(stageImages[i].c_str()), initX, initY, w, h, BASIC_LAYER_VALUE, stageNames[i]);
 			continue;
