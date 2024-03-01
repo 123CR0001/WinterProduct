@@ -31,7 +31,7 @@ Player::Player(ObjectServer* server)
 {
 	server->SetPlayer(this);
 
-	_motCom = NEW MotionComponent(_anim);
+	_motCom = NEW MotionComponent(_anim,1001);
 
 	//このクラス特有のモーションデータのコマンド処理
 	auto func = [this](const MOTION_DATA_ITEM& item) {_weapon->OnAttack(); _motCom->IncrementMotionCount(); };
@@ -75,8 +75,6 @@ bool Player::Terminate() {
 }
 
 bool Player::Process() {
-
-	ACTION_STATE oldState = _actionState;
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
 	auto trg = pad->GetTrgButton();
@@ -137,7 +135,7 @@ bool Player::Process() {
 
 		}
 
-		if (pad->GetKeyButton() & INPUT_A) {
+		if (trg & INPUT_A) {
 			_actionState = ACTION_STATE::kIdle;
 		}
 		break;
@@ -157,6 +155,28 @@ bool Player::Process() {
 bool Player::Render() {
 
 	CharaBase::Render();
+
+	const char* name = nullptr;
+
+	switch (_actionState) {
+	case ACTION_STATE::kIdle:
+		name = "idle";
+		break;
+	case ACTION_STATE::kWalk:
+		name = "kWalk";
+		break;
+	case ACTION_STATE::kAttack:
+		break;
+	case ACTION_STATE::kAttack2:
+		break;
+	case ACTION_STATE::kSilent:
+		name = "kSilent";
+		break;
+	case ACTION_STATE::kSilentWalk:
+		name = "kSilentWalk";
+		break;
+	}
+	DrawFormatString(0, 0, GetColor(255, 0, 0), "%d", _motCom->GetMotionCount());
 	return true;
 }
 

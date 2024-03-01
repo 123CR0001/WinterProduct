@@ -342,6 +342,9 @@
     <ClCompile Include="source\PlayerAnimationComponent.cpp">
       <Filter>ソース ファイル\Component\Animation</Filter>
     </ClCompile>
+    <ClCompile Include="source\AIStay.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -601,6 +604,12 @@
     </ClInclude>
     <ClInclude Include="source\PlayerAnimationComponent.h">
       <Filter>ヘッダー ファイル\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIStay.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MiniSiren.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

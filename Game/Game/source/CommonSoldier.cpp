@@ -19,6 +19,7 @@
 #include"AIPanic.h"
 #include"AILookAround.h"
 #include"AIDeath.h"
+#include"AIStay.h"
 #include"CommonSoldierAnimaitonComponent.h"
 
 constexpr int SIDE_NUM = 100;
@@ -37,10 +38,10 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AIPatrol(_AI));
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
 	_AI->RegisterState(NEW AICheckPoint(_AI));
-	_AI->RegisterState(NEW AIBlindWalk(_AI));
 	_AI->RegisterState(NEW AIPanic(_AI));
 	_AI->RegisterState(NEW AILookAround(_AI));
 	_AI->RegisterState(NEW AIDeath(_AI));
+	_AI->RegisterState(NEW AIStay(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);
@@ -242,21 +243,25 @@ void CommonSoldier::SetJsonDataUE(nlohmann::json data) {
 
 	if (!state) { return; }
 
-	char num[10];
-	int count = 1;
-
 	//AIPatrolの巡回経路を登録
 	for (auto&& marker : data) {
 
-		std::string name = "marker";
-		snprintf(num, 8, "%d", count);
-		name += num;
-		count++;
+		std::string name = marker.at("objectName");
+		//オブジェクト名＋数字		例：Enemy1
+		//数字部分を削除
 
-		if (marker.at("objectName") == name) {
-			Vector3D pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
-			_AI->AddPoint(state->GetName(), pos);
+		//0~9の数字が含まれていれば、それ以降の文字を削除
+		for(int a = 0; a < 10; a++) {
+			//整数をstringに変換　数字を検索
+			int num = name.find(std::to_string(a));
+
+			//findは、検索した文字がなければ、-1を返す
+			if(num != -1) { name = name.substr(0, num); break; }
 		}
+
+		Vector3D pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
+		_AI->AddPoint(state->GetName(), pos);
+		
 	}
 	if (_AI->GetPoints(state->GetName()).size() > 0) {
 		SetPos(_AI->GetPoints(state->GetName()).front());

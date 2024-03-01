@@ -167,6 +167,7 @@
     <ClCompile Include="source\AIBlindWalk.cpp" />
     <ClCompile Include="source\AIRush.cpp" />
     <ClCompile Include="source\AIState.cpp" />
+    <ClCompile Include="source\AIStay.cpp" />
     <ClCompile Include="source\AITracer.cpp" />
     <ClCompile Include="source\AnimationComponent.cpp" />
     <ClCompile Include="source\ApplicationGlobal.cpp" />
@@ -254,6 +255,7 @@
     <ClInclude Include="source\AICheckPoint.h" />
     <ClInclude Include="source\AIRush.h" />
     <ClInclude Include="source\AIState.h" />
+    <ClInclude Include="source\AIStay.h" />
     <ClInclude Include="source\AITrace.h" />
     <ClInclude Include="source\AnimationComponent.h" />
     <ClInclude Include="source\ApplicationGlobal.h" />
@@ -268,6 +270,7 @@
     <ClInclude Include="source\FPS.h" />
     <ClInclude Include="source\FrameComponent.h" />
     <ClInclude Include="source\Knife.h" />
+    <ClInclude Include="source\MiniSiren.h" />
     <ClInclude Include="source\ModeDebugMenu.h" />
     <ClInclude Include="source\ModeEffekseer.h" />
     <ClInclude Include="source\ModeColorOut.h" />

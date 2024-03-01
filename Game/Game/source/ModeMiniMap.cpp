@@ -12,6 +12,8 @@
 
 #include"ApplicationMain.h"
 
+#include<algorithm>
+
 ModeMiniMap::ModeMiniMap(ModeGame* game)
 	:_game(game)
 	, _maxPos(Vector3D(-9999999.f, 0.f, -9999999.f))
@@ -58,7 +60,7 @@ bool ModeMiniMap::Initialize() {
 	_x = ApplicationMain::GetInstance()->GetInstance()->DispSizeW() - 150;
 	_y = 100;
 
-	_mag = 0.1f;
+	_mag = 0.2f;
 
 	//画像の描画サイズを拡大縮小率に合わせる
 	_w = static_cast<int>(fabsf(_maxPos.x - _minPos.x) * _mag);
@@ -70,7 +72,7 @@ bool ModeMiniMap::Initialize() {
 	_mixScreen =	MakeScreen(_w, _h, TRUE);
 
 	//描画するミニマップの円形上の半径
-	_radius = 170.f;
+	_radius = 100.f;
 
 	return true;
 }
@@ -99,11 +101,54 @@ bool ModeMiniMap::Process() {
 	SetDrawScreen(_mapScreen);
 	ClearDrawScreen();
 
+	//ベース生地
+	DrawBox(-10, -10, _w + 10, _h + 10, GetColor(0, 10, 0), TRUE);
 	//ミニマップを描画
 	DrawExtendGraph(0, 0, _w, _h, _mapTextHandle, TRUE);
 
+
 	//ミニマップの上にキャラの位置を描画
 	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, 3.f, 40, GetColor(255, 0, 0), TRUE);
+
+	//SetFontSize(16);
+	for (auto&& obj : _game->GetObjectServer()->GetObjects()) {
+		if (obj == player) { continue; }
+
+		bool is = false;
+
+		for(auto&& frame : _game->GetObjectServer()->GetPhysWorld()->GetFrameComponent()) {
+			if(frame->GetOwner() == obj) {
+				is = true;
+				break;
+			}
+		}
+
+		if(is) { continue; }
+		
+		auto pos = obj->GetPos();
+
+		auto vecMapObjMiddle = Vector3D::LineInter(_middlePos, pos, _mag) - _middlePos;
+
+		vecMapObjMiddle.z *= -1.f;
+
+		auto mapPos = Vector3D((float)_w / 2, 0.f, (float)_h / 2) + vecMapObjMiddle;
+
+		DrawCircleAA(mapPos.x, mapPos.z, 3.f, 40, GetColor(255, 0, 0), TRUE);
+
+		std::string name = obj->GetName();
+		int size = name.size();
+		int centerX = 0;
+		int centerY =0;
+
+		DrawRotaFormatString(mapPos.x - centerX, mapPos.z - centerY, 
+			1.0, 1.0, 
+			centerX, centerY, 
+			player->GetCamera()->GetAngle().y + PI,
+			GetColor(255, 255, 255), GetColor(255, 255, 255),
+			FALSE,
+			"%s", name.c_str()
+		);
+	}
 
 	/*地図と合成*/
 	SetDrawScreen(_clipScreen);

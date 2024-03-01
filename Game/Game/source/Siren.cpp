@@ -9,12 +9,13 @@
 #include<algorithm>
 
 int Siren::_maxInterval = 360;
-float Siren::_volumeSize = 700.f;
 float Siren::_playerDist = 200.f;
 
 Siren::Siren(ObjectServer* server)
-	:ObjectBase(server)
+	:ObjectBase(server,true,"Siren")
 	, _interval(0) 
+	,_SEName("SE_07")
+	,_volumeSize(1000.f)
 {
 	LoadModel("res/Object/siren/siren.mv1");
 	MV1SetFrameVisible(_handle, MV1SearchFrame(_handle,"UCX_Keihouki"),FALSE);
@@ -59,9 +60,18 @@ bool Siren::Process() {
 
 		_interval = 360;
 
-		new SoundComponent(this,_pos, _volumeSize);
+		MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
+			GetObjectServer()->GetNavigationHandle(),
+			GetObjectServer()->GetNavigationAttachIndex(),
+			DxConverter::VecToDx(_pos + Vector3D(0.f, 100.f, 0.f)),
+			DxConverter::VecToDx(_pos + Vector3D(0.f, -100.f, 0.f))
+			);
 
-		gGlobal._sndServer.Get("SE_07")->Play();
+		if (result.HitFlag) {
+			new SoundComponent(this, DxConverter::DxToVec(result.HitPosition), _volumeSize);
+
+			gGlobal._sndServer.Get(_SEName)->Play();
+		}
 	}
 	return true;
 }

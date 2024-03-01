@@ -35,4 +35,7 @@ void ApplicationGlobal::LoadMotionData() {
 
 	data = MotionDataJson("res/MotionData/test2.json");
 	_charaMotionData[MotionType::PLAYER]["Attack2"] = data.GetMotionData();
+
+	data = MotionDataJson("res/MotionData/mo_move_01.json");
+	_charaMotionData[MotionType::PLAYER]["run"] = data.GetMotionData();
 }

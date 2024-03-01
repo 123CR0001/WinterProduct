@@ -44,6 +44,7 @@ bool CommonSoldierAnimationComponent::Process() {
 		//else if (_csOwner->GetMoveComponent()->GetSpeed() < 0.01f) {
 		//	ChangeAnimation("Idle");
 		//}
+		else if(name == "Stay") { ChangeAnimation("Idle"); }
 		else if (name == "Death") { ChangeAnimation("Death"); }
 		else {
 			ChangeAnimation("Walk");

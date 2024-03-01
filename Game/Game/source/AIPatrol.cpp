@@ -29,6 +29,9 @@ bool AIPatrol::Process() {
 	auto owner = _owner->GetOwner();
 	auto objectServer = _owner->GetOwner()->GetObjectServer();
 
+	//„‰ñ‚·‚éŒo˜H‚ª‚È‚¢‚Ì‚ÅAAIStay‚ÉØ‚è‘Ö‚¦‚é
+	if(_owner->GetPoints(GetName()).size() == 1) { 	_owner->ChangeState("Stay");}
+
 	//Œo˜H‚ð„‰ñ
 	{
 		int oldNum = _patrolPointsNum;
@@ -45,6 +48,7 @@ bool AIPatrol::Process() {
 	{
 		Vector3D p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
+			_owner->DeletePoint("CheckPoint");
 			_owner->AddPoint("CheckPoint", p);
 			_owner->ChangeState("CheckPoint");
 		}

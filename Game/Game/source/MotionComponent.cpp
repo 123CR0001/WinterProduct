@@ -80,7 +80,7 @@ bool MotionComponent::Process() {
 	auto motionData = gGlobal._charaMotionData;
 
 	//このコンポーネントを保持するオーナーの名前
-	std::string name = _anim->GetOwner()->GetName();
+	std::string objectName = _anim->GetOwner()->GetName();
 	AnimationComponent* anim = _anim;
 
 	//アニメーションが初期可視化されていなかったら、処理をしない
@@ -91,13 +91,27 @@ bool MotionComponent::Process() {
 	//CharaBaseが再生しているアニメーションの再生時間を取得		切り上げ
 	int playTime = static_cast<int>(anim->GetPlayTime() + 0.999f);
 
-	if (motionData.find(name) == motionData.end()) { return false; }
-	if (motionData[name].find(animName) == motionData[name].end()) { return false; }
+	//モーションが切り替わっていたら、_motCntを0にする
+	if(_oldAnimName != animName) {
+		_motCnt = 0;
+	}
+
+	//更新
+	_oldAnimName = animName;
+
+	//モーションデータが登録されていないか
+	if (motionData.find(objectName) == motionData.end()) { return false; }
+	if (motionData[objectName].find(animName) == motionData[objectName].end()) { return false; }
+
+	//モーションに登録されるデータのvectorコンテナを_motCntで参照しているため、_motCntがそのコンテナのサイズ以上にならないようにする。
+	if (motionData[objectName][animName].size() <= _motCnt) {
+		_motCnt = 0;
+	}
 
 	//モーションデータで指定された再生時間と一緒か
-	if (playTime == motionData[name][animName][_motCnt].playTime) {
+	if (playTime == motionData[objectName][animName][_motCnt].playTime) {
 
-		const auto& data = motionData[name][animName][_motCnt];
+		const auto& data = motionData[objectName][animName][_motCnt];
 
 		//共通のコマンド処理か
 		if (_commandFuncMap.find(data.command) != _commandFuncMap.end()) {
@@ -112,6 +126,8 @@ bool MotionComponent::Process() {
 		}
 
 	}
+
+
 
 	return true;
 }

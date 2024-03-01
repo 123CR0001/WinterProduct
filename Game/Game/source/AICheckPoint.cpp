@@ -39,7 +39,7 @@ void AICheckPoint::OnEnter() {
 		server->GetNavigationHandle(),
 		server->GetNavigationAttachIndex(),
 		center,
-		_owner->GetViewDist()
+		Vector3D::Length(checkPoint,DxConverter::DxToVec(center))
 	);
 
 	for (int a = 0; a < result.HitNum; a++) {
