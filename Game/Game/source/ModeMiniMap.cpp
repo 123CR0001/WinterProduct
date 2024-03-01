@@ -57,8 +57,8 @@ bool ModeMiniMap::Initialize() {
 	}
 
 	//画像の描画位置
-	_x = ApplicationMain::GetInstance()->GetInstance()->DispSizeW() - 150;
-	_y = 100;
+	_x = ApplicationMain::GetInstance()->GetInstance()->DispSizeW() - 225;
+	_y = 160;
 
 	_mag = 0.2f;
 
@@ -110,7 +110,7 @@ bool ModeMiniMap::Process() {
 	//ミニマップの上にキャラの位置を描画
 	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, 3.f, 40, GetColor(255, 0, 0), TRUE);
 
-	//SetFontSize(16);
+	SetFontSize(12);
 	for (auto&& obj : _game->GetObjectServer()->GetObjects()) {
 		if (obj == player) { continue; }
 

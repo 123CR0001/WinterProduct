@@ -1,6 +1,7 @@
 #include "appframe.h"
 #include"MotionData.h"
 #include "SoundServer.h"
+#include "Result.h"
 
 class ApplicationGlobal
 {
@@ -18,6 +19,7 @@ public:
 	std::unordered_map<std::string/*ƒLƒƒƒ‰–¼*/, MOTION_DATA> _charaMotionData;
 
 	SoundServer	_sndServer;
+	Result		_result;
 
 }; 
 

@@ -21,6 +21,7 @@ public:
 	class ModeEffekseer* GetModeEffekseer()const { return _modeEffekseer; }
 	class FPS* GetFps()const { return _fps; }
 	int GetCnt()const { return _cntTest; }	// ‚¨‚µ@Œã‚ÅÁ‚·
+	std::string GetStage()const { return _stage; }
 protected:
 
 	class ObjectServer* _objServer;
