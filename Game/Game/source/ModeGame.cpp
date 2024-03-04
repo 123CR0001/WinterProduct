@@ -85,6 +85,7 @@ bool ModeGame::Initialize() {
 	_uiServer->Add(NEW UIRemainingUses(this, 2, 930, 2, 930,3), nullptr, 0, 2, 930, 450, 150, 100, "remainingUses");
 	_cntTest = 0;
 
+	_bg = ResourceServer::LoadGraph("res/gamemain_bg.png");
 
 	return true;
 }
@@ -202,7 +203,16 @@ bool ModeGame::Render() {
 	SetWriteZBuffer3D(TRUE);
 	SetUseBackCulling(TRUE);
 
+	auto instance = ApplicationBase::GetInstance();
 
+	DrawModiGraph(
+		0, 0,
+		instance->DispSizeW(),0,
+		instance->DispSizeW(), instance->DispSizeH(),
+		0,instance->DispSizeH(),
+		_bg,
+		TRUE
+	);
 
 #if 0	// •½sƒ‰ƒCƒg
 	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));

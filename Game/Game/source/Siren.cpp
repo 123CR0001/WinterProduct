@@ -60,18 +60,11 @@ bool Siren::Process() {
 
 		_interval = 360;
 
-		MV1_COLL_RESULT_POLY result = MV1CollCheck_Line(
-			GetObjectServer()->GetNavigationHandle(),
-			GetObjectServer()->GetNavigationAttachIndex(),
-			DxConverter::VecToDx(_pos + Vector3D(0.f, 100.f, 0.f)),
-			DxConverter::VecToDx(_pos + Vector3D(0.f, -100.f, 0.f))
-			);
+	
+		new SoundComponent(this, _pos, _volumeSize);
 
-		if (result.HitFlag) {
-			new SoundComponent(this, DxConverter::DxToVec(result.HitPosition), _volumeSize);
-
-			gGlobal._sndServer.Get(_SEName)->Play();
-		}
+		gGlobal._sndServer.Get(_SEName)->Play();
+		
 	}
 	return true;
 }

@@ -34,6 +34,8 @@ protected:
 
 	class FPS* _fps;
 
+	int _bg;
+
 	//デバッグ用
 	class ModeDebugMenu* _debug;
 public:

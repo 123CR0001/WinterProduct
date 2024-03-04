@@ -56,6 +56,8 @@ protected:
 	//画面に貼るエフェクトの上にかけるノイズのアニメーション
 	Animation2D* _noiseAnim;
 
+	int _textHud;
+
 	//処理時間
 	int _frameCnt;
 

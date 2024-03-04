@@ -34,6 +34,8 @@ bool ModeLightsOut::Initialize() {
 
 	_cg = ResourceServer::LoadGraph("res/Effect/nightscope_01.png");
 
+	_textHud = ResourceServer::LoadGraph("res/hud_01.png");
+
 	_alpha = 170;
 
 	_frameCnt = 300;
@@ -97,5 +99,13 @@ bool ModeLightsOut::Render() {
 	DrawFormatString(500, 0, GetColor(255, 0, 0), "Žc‚èŽžŠÔ %d", _frameCnt / 60 + 1);
 	SetFontSize(16);
 
+	DrawModiGraph(
+		0, 0,
+		instance->DispSizeW(), 0,
+		instance->DispSizeW(), instance->DispSizeH(),
+		0, instance->DispSizeH(),
+		_textHud,
+		TRUE
+	);
 	return true;
 }
