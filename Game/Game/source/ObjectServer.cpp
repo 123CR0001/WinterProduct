@@ -9,6 +9,7 @@
 #include"Siren.h"
 #include"Tracer.h"
 #include"TracerSpawner.h"
+#include"Energy.h"
 
 #include<fstream>
 #include<unordered_map>
@@ -220,6 +221,10 @@ bool ObjectServer::LoadData(std::string stageName) {
 	map["siren"].filePath = "res/Object/siren/siren.mv1";
 	map["siren"].attachFrameName = "UCX_siren1";
 	map["siren"].func = [this](const char* path, const char* frameName) {return NEW Siren(this); };
+
+	map["energy"].filePath = "";
+	map["energy"].attachFrameName = "UCX_siren1";
+	map["energy"].func = [this](const char* path, const char* frameName) {return NEW Energy(this); };
 
 	{
 		//ナビゲーション

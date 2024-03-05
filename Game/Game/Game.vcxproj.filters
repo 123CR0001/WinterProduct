@@ -360,6 +360,9 @@
     <ClCompile Include="source\UIOverToTitle.cpp">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="source\Energy.cpp">
+      <Filter>ソース ファイル\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -643,6 +646,9 @@
     </ClInclude>
     <ClInclude Include="source\UIOverToTitle.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Energy.h">
+      <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

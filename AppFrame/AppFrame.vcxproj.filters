@@ -99,5 +99,8 @@
     <ClInclude Include="source\ResourceServer\ResourceServer.h">
       <Filter>ResourceServer</Filter>
     </ClInclude>
+    <ClInclude Include="source\Collision\Sphere.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

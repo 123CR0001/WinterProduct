@@ -180,6 +180,7 @@
     <ClCompile Include="source\CommonSoldier.cpp" />
     <ClCompile Include="source\CreateAfterImageComponent.cpp" />
     <ClCompile Include="source\Decoy.cpp" />
+    <ClCompile Include="source\Energy.cpp" />
     <ClCompile Include="source\FollowCamera.cpp" />
     <ClCompile Include="source\FPS.cpp" />
     <ClCompile Include="source\FrameComponent.cpp" />
@@ -272,6 +273,7 @@
     <ClInclude Include="source\CreateAfterImageComponent.h" />
     <ClInclude Include="source\Decoy.h" />
     <ClInclude Include="source\EnemyBase.h" />
+    <ClInclude Include="source\Energy.h" />
     <ClInclude Include="source\FollowCamera.h" />
     <ClInclude Include="source\FPS.h" />
     <ClInclude Include="source\FrameComponent.h" />

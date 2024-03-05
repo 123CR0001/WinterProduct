@@ -3,6 +3,7 @@
 #include"Polygon.h"
 #include"DxLib.h"
 #include"Plane3D.h"
+#include"Sphere.h"
 
 constexpr auto zero_com = 0.00001;
 
@@ -324,5 +325,5 @@ public:
 	//ƒJƒvƒZƒ‹“¯Žm‚Ì“–‚½‚è”»’è
 	static bool Intersection(const Capsule& right, const Capsule& left,Segment* result = nullptr);
 	static bool Intersection(const Polygon3D& poly, const Capsule& capsule);
-
+	static bool Intersection(const Capsule& capsule, const Sphere& sphere);
 };

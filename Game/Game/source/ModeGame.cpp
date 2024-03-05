@@ -42,6 +42,7 @@ ModeGame::ModeGame(std::string stageNum)
 	,_debug(NEW ModeDebugMenu(this))
 	,_modeEffekseer(NEW ModeEffekseer())
 	,_stage(stageNum)
+	,_energyCount(0)
 {
 	_uiServer = NEW UIServer();
 	_fps = NEW FPS();
@@ -112,7 +113,12 @@ bool ModeGame::Process() {
 	if (!_objServer->Process()) { return false; }
 
 	//LightsOutƒ‚[ƒh‚ð’Ç‰Á
-	if (GetPad()->GetTrgButton() & INPUT_Y  && !ModeServer::GetInstance()->IsAdd("Out") && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
+	if (
+		GetPad()->GetTrgButton() & INPUT_Y  
+		&& !ModeServer::GetInstance()->IsAdd("Out")
+		&& !ModeServer::GetInstance()->IsAdd("LightsOut") 
+		&& _energyCount == 0
+		) {
 
 		gGlobal._sndServer.Get("SE_09")->Play();
 

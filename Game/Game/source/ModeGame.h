@@ -21,6 +21,9 @@ public:
 	class FPS* GetFps()const { return _fps; }
 	int GetCnt()const { return _cntTest; }	// ‚¨‚µ@Œã‚ÅÁ‚·
 	std::string GetStage()const { return _stage; }
+
+	void IncrementEnergyCount() { _energyCount++; }
+	void DecremetEnergyCOunt() { _energyCount--; }
 protected:
 
 	class ObjectServer* _objServer;
@@ -30,6 +33,9 @@ protected:
 	bool _isCouldLightsOut;
 
 	int _handleShadowMap;
+
+	//LightsOut‚ğg‚¦‚é‚Ì‚Í‚±‚Ì•Ï”‚ª‚O‚Ì
+	int _energyCount;
 
 	class FPS* _fps;
 

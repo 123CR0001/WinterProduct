@@ -14,3 +14,6 @@ bool Collision::Intersection(const Polygon3D& poly, const Capsule& capsule) {
 	return false;
 }
 
+bool Collision::Intersection(const Capsule& capsule, const Sphere& sphere) {
+	return SegPointDistSq(sphere.center, capsule.seg) < (capsule.radius + sphere.radius) * (capsule.radius + sphere.radius);
+}
