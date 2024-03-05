@@ -60,7 +60,6 @@ bool ObjectServer::Renderer() {
 	//オブジェクトを巡回処理
 
 	for (int a = 0; a < _objects.size(); a++) {
-		ChangeLightTypePoint(VAdd(_objects[a]->GetDxPos(), VGet(0.f, 50.f, 0)), 1000.f, 0.f, 0.005f, 0.f);
 		if (!_objects[a]->Render()) {
 			return false;
 		}

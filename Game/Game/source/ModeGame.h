@@ -51,4 +51,5 @@ public:
 	std::string _stage;
 	class Timer* _timer;
 	int _cntTest;	// ‚¨‚µ@Œã‚ÅÁ‚·
+
 }; 

@@ -53,7 +53,9 @@ bool AfterImage::Process() {
 }
 
 bool AfterImage::Render() {
-
+	//Žc‘œ‚Íƒ‰ƒCƒg‚Ì‰e‹¿‚ðŽó‚¯‚È‚¢
+	SetUseLighting(FALSE);
 	MV1DrawModel(_handle);
+	SetUseLighting(TRUE);
 	return true;
 }

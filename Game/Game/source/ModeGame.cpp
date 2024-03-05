@@ -216,24 +216,27 @@ bool ModeGame::Render() {
 		TRUE
 	);
 
-#if 0	// 平行ライト
-	SetGlobalAmbientLight(GetColorF(0.5f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(VGet(-1, -1, 0));
-#endif
+	// ライト設定
+	SetUseLighting(TRUE);
 
-#if 1	// ポイントライト
 	VECTOR vLightDir = VGet(-1, -1, 0.5f);
-	// 平行ライト
+	VECTOR target = _objServer->GetPlayer()->GetDxPos();
+#if 1	// 平行ライト
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(vLightDir);
-	
+#endif
+#if 1	// ポイントライト
+	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
+	ChangeLightTypePoint(VAdd(target, VGet(0, 50.f, 0)), 1000.f, 0.f, 0.005f, 0.f);
 #endif
 
 	// シャドウマップが想定するライトの方向もセット
 	SetShadowMapLightDirection(_handleShadowMap, vLightDir);
 
 	// シャドウマップに描画する範囲を設定
-	SetShadowMapDrawArea(_handleShadowMap, VGet(-500.0f, -1.0f, -500.0f), VGet(500.0f, 500.0f, 500.0f));
+	target.y += 50.f;
+
+	SetShadowMapDrawArea(_handleShadowMap,VAdd(target, VGet(-800.0f, -1.0f, -800.0f)), VAdd(target, VGet(800.0f, 800.0f, 800.0f)));
 
 	// 2回まわして、path=0:シャドウマップへの描画, path=1:モデルの描画
 	for (int path = 0; path < 2; path++) {
@@ -253,13 +256,28 @@ bool ModeGame::Render() {
 
 	// 描画に使用するシャドウマップの設定を解除
 	SetUseShadowMap(0, -1);
-	if (!_objServer->Renderer()) { return false; }
-	
-	DrawFormatString(0, 16, GetColor(255, 0, 0), "stage%s", _stage);
 
 	_uiServer->Render();
 
 	_debug->Render();
+
+	VECTOR lpos = GetLightPosition();
+
+	const char* lightType = nullptr;
+
+	switch(GetLightType()) {
+		case DX_LIGHTTYPE_POINT:
+			lightType = "ポイント";
+			break;
+		case DX_LIGHTTYPE_SPOT:
+			lightType = "スポット";
+			break;
+		case DX_LIGHTTYPE_DIRECTIONAL:
+			lightType = "ディレクショなる";
+			break;
+	}
+
+	DrawFormatString(100, 100, GetColor(0, 255, 0), "%s %d", lightType, GetLightType());
 
 	return true;
 }
