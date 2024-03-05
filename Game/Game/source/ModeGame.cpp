@@ -221,7 +221,7 @@ bool ModeGame::Render() {
 
 	VECTOR vLightDir = VGet(-1, -1, 0.5f);
 	VECTOR target = _objServer->GetPlayer()->GetDxPos();
-#if 1	// 平行ライト
+#if 0	// 平行ライト
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
 	ChangeLightTypeDir(vLightDir);
 #endif
@@ -260,24 +260,6 @@ bool ModeGame::Render() {
 	_uiServer->Render();
 
 	_debug->Render();
-
-	VECTOR lpos = GetLightPosition();
-
-	const char* lightType = nullptr;
-
-	switch(GetLightType()) {
-		case DX_LIGHTTYPE_POINT:
-			lightType = "ポイント";
-			break;
-		case DX_LIGHTTYPE_SPOT:
-			lightType = "スポット";
-			break;
-		case DX_LIGHTTYPE_DIRECTIONAL:
-			lightType = "ディレクショなる";
-			break;
-	}
-
-	DrawFormatString(100, 100, GetColor(0, 255, 0), "%s %d", lightType, GetLightType());
 
 	return true;
 }
