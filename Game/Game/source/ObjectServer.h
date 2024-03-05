@@ -30,13 +30,9 @@ public:
 	std::vector<class CommonSoldier*>& GetCommonSoldiers() { return _commonSoldiers; }
 	std::vector<class Siren*>& GetSirens() { return _sirens; }
 
-	bool SetNavigationModel(const char* fileName,const char* attacFrameIndex) {
-		_navigationModel = MV1LoadModel(fileName); 
-		_navigationAttachIndex = MV1SearchFrame(_navigationModel, attacFrameIndex);
-		return true;
-	}
-	int GetNavigationHandle()const { return _navigationModel; }
-	int GetNavigationAttachIndex()const { return _navigationAttachIndex; }
+	bool LoadData(std::string stageName);
+
+	class Navi* GetNavi()const { return _navi; }
 
 	class PhysWorld* GetPhysWorld()const { return _physWorld; }
 
@@ -59,8 +55,7 @@ private:
 
 	class Player* _player;
 
-	int _navigationModel;				//UEのナビゲーションメッシュ　
-	int _navigationAttachIndex;
+	class Navi* _navi;
 
 	//ModeGameが持つ機能や情報を利用するために、自身をnewしたModeGameクラスのアドレスと保持
 	class ModeGame* _game;

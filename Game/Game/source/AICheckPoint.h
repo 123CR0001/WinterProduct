@@ -14,5 +14,5 @@ public:
 	const char* GetName()override { return "CheckPoint"; }
 private:
 	int _pointsNum;
-	int _frameCnt;
+
 };

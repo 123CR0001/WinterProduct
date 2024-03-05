@@ -18,9 +18,14 @@ AIBackPatrol::AIBackPatrol(AIComponent* owner)
 AIBackPatrol::~AIBackPatrol(){}
 
 void AIBackPatrol::OnEnter() {
-	//_pointsのサイズが0の場合は、もう巡回地点に戻ってきたと判断
-	if (_owner->GetPoints(GetName()).size() == 0) {
-		//_owner->ChangeState("Patrol");
+	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
+
+	auto startPolygon = navi->GetHitPoygon(_owner->GetOwner()->GetPos());
+	auto goalPolygon = navi->GetHitPoygon(_owner->GetPoints("Patrol").front());
+
+	//最短経路
+	if(startPolygon && goalPolygon) {
+		navi->BFS(startPolygon, goalPolygon, _owner->GetPoints(GetName()));
 	}
 }
 void AIBackPatrol::OnExist() {

@@ -13,7 +13,6 @@ public:
 	virtual bool Process();
 	virtual bool Render();
 
-	bool LoadData();
 
 	XGamePad* GetPad()const;
 

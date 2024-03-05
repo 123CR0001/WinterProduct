@@ -33,9 +33,9 @@ AIComponent::~AIComponent(){
 
 	auto iter = std::find(ais.begin(), ais.end(), this);
 
-	//if (ais.end() != iter) {
+	if (ais.end() != iter) {
 		ais.erase(iter);
-	//}
+	}
 
 }
 

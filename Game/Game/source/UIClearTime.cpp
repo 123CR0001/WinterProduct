@@ -12,7 +12,6 @@ UIClearTime::UIClearTime() {
 	for(int i = 0; i < TIME_NUM; i++) {
 		_mCg["number"].push_back(cgNum[i]);
 	}
-	_clearTime = gGlobal._result.GetClearTime();
 	// clearTime‚Ì”’l‚©‚ç”Žš‚ðŽæ“¾‚·‚é
 	_mDigit["min1"] = _clearTime / 600000;
 	_mDigit["min2"] = _clearTime / 60000;

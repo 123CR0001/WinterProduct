@@ -1,13 +1,13 @@
 #include"AICheckPoint.h"
 #include"AIComponent.h"
 #include"ObjectServer.h"
+#include"appframe.h"
 #include"CommonSoldier.h"
 #include"Player.h"
 
 AICheckPoint::AICheckPoint(AIComponent* owner)
 	:AIState(owner)
 	,_pointsNum(0)
-	,_frameCnt(0)
 {
 
 }
@@ -26,53 +26,20 @@ void AICheckPoint::OnEnter() {
 	auto server = _owner->GetOwner()->GetObjectServer();
 	auto owner = _owner->GetOwner();
 
-	VECTOR center = MV1CollCheck_Line(
-		server->GetNavigationHandle(),
-		server->GetNavigationAttachIndex(),
-		DxConverter::VecToDx(owner->GetPos() - Vector3D(0.f, 100.f, 0.f)),
-		DxConverter::VecToDx(owner->GetPos() + Vector3D(0.f, 100.f, 0.f))
-	).HitPosition;
+	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
-	std::vector<Polygon3D>hitPolygons;
+	auto startPolygon = navi->GetHitPoygon(_owner->GetOwner()->GetPos());
+	auto goalPolygon = navi->GetHitPoygon(checkPoint);
 
-	MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(
-		server->GetNavigationHandle(),
-		server->GetNavigationAttachIndex(),
-		center,
-		Vector3D::Length(checkPoint,DxConverter::DxToVec(center))
-	);
-
-	for (int a = 0; a < result.HitNum; a++) {
-		Polygon3D add(
-			DxConverter::DxToVec(result.Dim[a].Position[0]),
-			DxConverter::DxToVec(result.Dim[a].Position[1]),
-			DxConverter::DxToVec(result.Dim[a].Position[2])
-		);
-		hitPolygons.emplace_back(add);
-	}
-	MV1CollResultPolyDimTerminate(result);
-
-	ConectPolygonMap conectPolygonMap;
-	Navi::GetConectPolygonMap(hitPolygons, conectPolygonMap);
-
-	auto ownerOnPolygon = Navi::GetHitPoygon(_owner->GetOwner()->GetPos(), hitPolygons);
-	auto checkPointOnPolygon = Navi::GetHitPoygon(checkPoint, hitPolygons);
-
-	if (ownerOnPolygon && checkPointOnPolygon) {
-
-		Navi::BFS(conectPolygonMap,
-			ownerOnPolygon,
-			checkPointOnPolygon,
-			_owner->GetPoints(GetName())
-		);
-
+	//Å’ZŒo˜H
+	if(startPolygon && goalPolygon) {
+		navi->BFS(startPolygon,goalPolygon,_owner->GetPoints(GetName()));
 	}
 
 }
 
 void AICheckPoint::OnExist() {
 	_owner->GetPoints(GetName()).clear();
-	_frameCnt = 0;
 }
 
 bool AICheckPoint::Process() {
@@ -107,16 +74,6 @@ bool AICheckPoint::Process() {
 		}
 	}
 
-	_frameCnt++;
-	if (_frameCnt == 30) {
-		if (_owner->GetPoints("BackPatrol").size() == 0) {
-			_owner->AddPoint("BackPatrol", _owner->GetOwner()->GetPos());
-		}
-		else {
-			_owner->InsertPoint("BackPatrol", _owner->GetOwner()->GetPos(), 0);
-		}
-		_frameCnt = 0;
-	}
 
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
 	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {

@@ -85,7 +85,6 @@ bool ModeClear::Render() {
 	DrawFormatString(x, y, GetColor(255, 0, 0), "%s",str.c_str());
 	SetFontSize(16);
 
-	gGlobal._result.Render();
 
 	_uiServer->Render();
 

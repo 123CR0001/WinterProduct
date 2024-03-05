@@ -17,6 +17,8 @@
 #include"ModeEffekseer.h"
 #include"ModeGame.h"
 
+#include"appframe.h"
+
 bool ModeDebugMenu::_charaCollision = false;
 bool ModeDebugMenu::_root = false;
 bool ModeDebugMenu::_visionCollision = false;
@@ -125,9 +127,8 @@ public:
 	~StageReset() {}
 	const char* GetText()override { return "キャラやステージの状態を初期化"; }
 	void Select()override {
-		_menu->GetGame()->GetObjectServer()->Terminate();
-		_menu->GetGame()->LoadData();
-		_menu->GetGame()->GetObjectServer()->ProcessInit();
+		_menu->GetGame()->Terminate();
+		_menu->GetGame()->Initialize();
 	}
 };
 
@@ -167,7 +168,7 @@ public:
 //}
 
 ModeDebugMenu::~ModeDebugMenu(){
-	
+	Terminate();
 }
 
 bool ModeDebugMenu::Initialize() {
@@ -421,13 +422,11 @@ void ModeDebugMenu::RenderEnemyAIName() {
 }
 
 void ModeDebugMenu::RenderNavigationPolygons() {
-	auto handle = _game->GetObjectServer()->GetNavigationHandle();
+	auto handle = _game->GetObjectServer()->GetNavi()->GetHandle();
 
 	if (handle <= 0) { return; }
 
-	std::vector<Polygon3D>polygons;
-
-	Navi::GetPolygonData(handle, &polygons);
+	std::vector<Polygon3D>polygons = _game->GetObjectServer()->GetNavi()->GetPolygon();
 
 	for (auto iter = polygons.begin(); iter != polygons.end(); ++iter) {
 	

@@ -19,7 +19,6 @@ public:
 	std::unordered_map<std::string/*ƒLƒƒƒ‰–¼*/, MOTION_DATA> _charaMotionData;
 
 	SoundServer	_sndServer;
-	Result		_result;
 
 }; 
 

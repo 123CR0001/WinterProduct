@@ -11,15 +11,12 @@
 AIChase::AIChase(AIComponent* owner)
 	:AIState(owner)
 	, _pointsNum(0)
-	,_frameCnt(0)
 {
 }
 
 AIChase::~AIChase() {}
 
 void AIChase::OnEnter() {
-
-	_frameCnt = 0;
 
 	GetShortestRoots();
 
@@ -49,17 +46,6 @@ bool AIChase::Process() {
 		}
 	}
 
-	_frameCnt++;
-	if (_frameCnt == 30) {
-		if (_owner->GetPoints("BackPatrol").size() == 0) {
-			_owner->AddPoint("BackPatrol", _owner->GetOwner()->GetPos());
-		}
-		else {
-			_owner->InsertPoint("BackPatrol", _owner->GetOwner()->GetPos(),0);
-		}
-		_frameCnt = 0;
-	}
-
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
 	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		_owner->ChangeState("BlindWalk");
@@ -74,46 +60,14 @@ void AIChase::GetShortestRoots() {
 	_owner->GetPoints(GetName()).clear();
 
 	//‚±‚ÌAIState‚ðŠŽ‚·‚éAIComponent‚ðŠŽ‚·‚éObjectBase‚ªŠ‘®‚·‚éServer
-	auto server = _owner->GetOwner()->GetObjectServer();
+	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
-	VECTOR center = MV1CollCheck_Line(
-		server->GetNavigationHandle(),
-		server->GetNavigationAttachIndex(),
-		DxConverter::VecToDx(_owner->GetOwner()->GetPos() - Vector3D(0.f, 100.f, 0.f)),
-		DxConverter::VecToDx(_owner->GetOwner()->GetPos() + Vector3D(0.f, 100.f, 0.f))
-	).HitPosition;
+	auto startPolygon = navi->GetHitPoygon(_owner->GetOwner()->GetPos());
+	auto goalPolygon = navi->GetHitPoygon(_owner->GetChaseObject()->GetPos());
 
-	std::vector<Polygon3D>hitPolygons;
-
-	MV1_COLL_RESULT_POLY_DIM result = MV1CollCheck_Sphere(
-		server->GetNavigationHandle(),
-		server->GetNavigationAttachIndex(),
-		center,
-		_owner->GetViewDist()
-	);
-
-	for (int a = 0; a < result.HitNum; a++) {
-		Polygon3D add(
-			DxConverter::DxToVec(result.Dim[a].Position[0]),
-			DxConverter::DxToVec(result.Dim[a].Position[1]),
-			DxConverter::DxToVec(result.Dim[a].Position[2])
-		);
-		hitPolygons.emplace_back(add);
-	}
-	MV1CollResultPolyDimTerminate(result);
-
-	ConectPolygonMap conectPolygonMap;
-	Navi::GetConectPolygonMap(hitPolygons, conectPolygonMap);
-
-	auto ownerOnPolygon = Navi::GetHitPoygon(_owner->GetOwner()->GetPos(), hitPolygons);
-	auto objectOnPolygon = Navi::GetHitPoygon(_owner->GetChaseObject()->GetPos(), hitPolygons);
-
-	if (ownerOnPolygon && objectOnPolygon) {
-		Navi::BFS(conectPolygonMap,
-			ownerOnPolygon,
-			objectOnPolygon,
-			_owner->GetPoints(GetName()
-			));
+	//Å’ZŒo˜H
+	if(startPolygon && goalPolygon) {
+		navi->BFS(startPolygon, goalPolygon, _owner->GetPoints(GetName()));
 	}
 	
 }
