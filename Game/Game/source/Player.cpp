@@ -88,9 +88,8 @@ bool Player::Process() {
 		_actionState = ACTION_STATE::kIdle;
 
 		if (pad->IsInputLeftStick()) {
-			Vector3D vec(_pos - _cameraCom->GetPos());
-			vec.Normalized();
-			_eulerAngle.y = atan2f(vec.x, vec.z);
+
+			_eulerAngle.y = -_cameraCom->GetAngle().y;
 
 			float angle = atan2f((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
 
@@ -122,9 +121,8 @@ bool Player::Process() {
 		_actionState = ACTION_STATE::kSilent;
 
 		if (pad->IsInputLeftStick()) {
-			Vector3D vec(_pos - _cameraCom->GetPos());
-			vec.Normalized();
-			_eulerAngle.y = atan2f(vec.x, vec.z);
+
+			_eulerAngle.y = -_cameraCom->GetAngle().y;
 
 			float angle = atan2f((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
 

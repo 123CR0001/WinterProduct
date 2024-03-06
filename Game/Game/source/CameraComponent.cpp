@@ -1,7 +1,11 @@
 #include"CameraComponent.h"
 #include"ObjectBase.h"
 CameraComponent::CameraComponent(ObjectBase* owner, int order)
-	:Component(owner, order) {
+	:Component(owner, order)
+	,_targetDistMag(1.f)
+	,_swapWidth(0)
+	,_swapHeight(0)
+{
 
 }
 

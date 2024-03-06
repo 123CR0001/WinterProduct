@@ -41,13 +41,15 @@ bool OrbitCamera::Process() {
 		_angle.x += DegToRad(1);
 	}
 
-	Vector3D pos(
+	Vector3D diff(
 		_dist * sinf(_angle.x) * cosf(_angle.y-PI/2.f),
 		_dist * cosf(_angle.x),
 		_dist * sinf(_angle.y-PI/2.f) * sinf(_angle.x)
 	);
 
-	_pos = _owner->GetPos() + pos;
+	diff *= _targetDistMag;
+
+	_pos = _owner->GetPos() + diff;
 
 	//カメラにセット
 	SetCameraPositionAndTarget_UpVecY(DxConverter::VecToDx(_pos), _owner->GetDxPos());

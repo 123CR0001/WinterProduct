@@ -4,7 +4,7 @@
 FollowCamera::FollowCamera(ObjectBase* owner, int order)
 	:CameraComponent(owner, order)
 	,_springConst(0.7f)
-	,_vDist(250.f)
+	,_widthDist(250.f)
 	,_heightDist(800.f)
 {
 	_angle = Vector3D(0.f, DegToRad(-90.f), 0.f);
@@ -15,7 +15,7 @@ FollowCamera::~FollowCamera(){}
 bool FollowCamera::Initialize() {
 	//Å‰‚É—‘z‚Æ‚·‚éˆÊ’u‚ÉˆÚ“®
 	float backwardAngle = DegToRad(180) - _owner->GetEulerAngle().y;
-	Vector3D ideal = Vector3D(sin(backwardAngle), 0.f, cos(backwardAngle)) * _vDist;
+	Vector3D ideal = Vector3D(sin(backwardAngle), 0.f, cos(backwardAngle)) * _widthDist;
 	ideal.y = _heightDist;
 	ideal += _owner->GetPos();
 	_pos = ideal;
@@ -27,8 +27,8 @@ bool FollowCamera::Process() {
 
 	CameraComponent::Process();
 
-	Vector3D idealPos = Vector3D(sinf(_angle.y), 0.f, cosf(_angle.y)) * _vDist;
-	idealPos.y = _heightDist;
+	Vector3D idealPos = Vector3D(sinf(_angle.y), 0.f, cosf(_angle.y)) * (_widthDist * _targetDistMag);
+	idealPos.y = _heightDist * _targetDistMag;
 	idealPos += _owner->GetPos();
 
 	float diff = Vector3D::Length(idealPos, _pos);

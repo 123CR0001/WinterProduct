@@ -366,6 +366,9 @@
     <ClCompile Include="source\AIStare.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
+    <ClCompile Include="source\CameraZoomComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -655,6 +658,9 @@
     </ClInclude>
     <ClInclude Include="source\AIStare.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CameraZoomComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

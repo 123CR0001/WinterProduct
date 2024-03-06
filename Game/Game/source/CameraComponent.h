@@ -13,9 +13,15 @@ public:
 	Vector3D GetPos()const { return _pos; }	
 	Vector3D GetAngle()const { return _angle; }
 	void Swap() { _swapWidth = rand() % 30 + 30; _swapHeight = rand() % 30 + 30; }
+
+	void SetTargetDistmag(const float mag) { _targetDistMag = mag; }
+	const float GetTargetDistMag()const { return _targetDistMag; }
 protected:
 	Vector3D _pos;
 	Vector3D _angle;
+
+	//ターゲットとの距離の倍率
+	float _targetDistMag;
 
 	int _swapWidth, _swapHeight;
 };

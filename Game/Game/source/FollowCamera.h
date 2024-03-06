@@ -11,6 +11,6 @@ public:
 
 protected:
 	float _springConst;
-	float _vDist;
+	float _widthDist;
 	float _heightDist;
 };

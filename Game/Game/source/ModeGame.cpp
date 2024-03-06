@@ -37,6 +37,9 @@
 #include"FPS.h"
 #include"Timer.h"
 
+#include"CameraZoomComponent.h"
+#include"CameraComponent.h"
+
 ModeGame::ModeGame(std::string stageNum) 
 	:_objServer(NEW ObjectServer(this))
 	,_debug(NEW ModeDebugMenu(this))
@@ -126,6 +129,7 @@ bool ModeGame::Process() {
 			ModeServer::GetInstance()->Add(NEW ModeLightsOut(this), 100, "LightsOut"); 
 			//プレイヤーから残像を出力するようにする
 			NEW CreateAfterImageComponent(_objServer->GetPlayer()->GetAnimationComponent());
+			NEW CameraZoomComponent(_objServer->GetPlayer()->GetCamera(), -0.3f, 60);
 
 
 			_isCouldLightsOut = true;
