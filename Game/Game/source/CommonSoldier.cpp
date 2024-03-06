@@ -263,12 +263,14 @@ void CommonSoldier::SetJsonDataUE(nlohmann::json data) {
 			if(num != -1) { name = name.substr(0, num); break; }
 		}
 
-		Vector3D pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
+		const Vector3D pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
 		_AI->AddPoint(state->GetName(), pos);
 		
 	}
 	if (_AI->GetPoints(state->GetName()).size() > 0) {
 		SetPos(_AI->GetPoints(state->GetName()).front());
+		const Vector3D deg = Vector3D(data.front().at("rotate").at("x"), data.front().at("rotate").at("z"), data.front().at("rotate").at("y"));
+		SetEulerAngleDeg(deg);
 	}
 
 	ModelMatrixSetUp();

@@ -55,6 +55,7 @@ bool Player::Initialize() {
 	_cameraCom->Initialize();
 
 	_capsule->SetMember(40.f, 30.f);
+	_capsule->AddSkipName("Decoy");
 
 	_actionState = ACTION_STATE::kIdle;
 	_anim->ChangeAnimation("Idle");
