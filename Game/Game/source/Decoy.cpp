@@ -21,6 +21,11 @@ Decoy::Decoy(Player* player)
 	_eulerAngle = player->GetEulerAngle();
 
 	_capsule->SetMember(100.f, 40.f);
+	_capsule->AddSkipName("Decoy");
+	_capsule->AddSkipName("CommonSoldier");
+	_capsule->AddSkipName("player");
+	_capsule->AddSkipName("Tracer");
+
 }
 
 Decoy::~Decoy() {

@@ -54,6 +54,8 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 
 	_visionHandleRed = ResourceServer::LoadGraph("res/UI/visualrange_01.png");
 	_visionHandleBlue = ResourceServer::LoadGraph("res/UI/visualrange_02.png");
+
+	_capsule->AddSkipName("CommonSoldier");
 }
 
 CommonSoldier::~CommonSoldier(){

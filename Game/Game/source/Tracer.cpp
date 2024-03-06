@@ -20,7 +20,7 @@
 #include"TracerAnimationComponent.h"
 
 Tracer::Tracer(TracerSpawner* spawner)
-	:CharaBase(spawner->GetObjectServer(), "Trace")
+	:CharaBase(spawner->GetObjectServer(), "Tracer")
 	, _capsule(NEW CapsuleComponent(this, 1000))
 	,_AI(NEW AIComponent(this,1))
 	,_anim(NEW TracerAnimationComponent(this,1000))

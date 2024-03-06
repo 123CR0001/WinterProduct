@@ -9,6 +9,8 @@ public:
 
 	void SetMember(float length, float radius, Vector3D diff = Vector3D(0.f, 0.f, 0.f)) { _length = length; _radius = radius; }
 
+	void AddSkipName(const char* name) { _skipName.emplace_back(name); }
+
 	Capsule GetCapsule()const;
 
 	bool Process()override;
@@ -22,4 +24,7 @@ protected:
 	Vector3D _diff;	//オブジェクトの位置からどれだけ離れているか
 
 	PhysWorld::CollisionDetectionResult _result;
+
+	//押し出し処理をしないキャラの名前を登録
+	std::vector<std::string>_skipName;
 };
