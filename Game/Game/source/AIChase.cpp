@@ -31,7 +31,12 @@ bool AIChase::Process() {
 
 	//プレイヤーを見つけずに目標地点についたら巡回ルートに戻るAIStateにする
 	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
-		_owner->ChangeState("LookAround");
+		if(!_owner->IsFound(_owner->GetChaseObject())) {
+			_owner->ChangeState("LookAround");
+		}
+		else {
+			_owner->ChangeState("Stare");
+		}
 	}
 
 	//オブジェクトを見つけたら、随時更新
@@ -62,12 +67,11 @@ void AIChase::GetShortestRoots() {
 	//このAIStateを所持するAIComponentを所持するObjectBaseが所属するServer
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
-	auto startPolygon = navi->GetHitPoygon(_owner->GetOwner()->GetPos());
-	auto goalPolygon = navi->GetHitPoygon(_owner->GetChaseObject()->GetPos());
+	auto startPolygon = _owner->GetOwner()->GetPos();
+	auto goalPolygon = _owner->GetChaseObject()->GetPos();
 
 	//最短経路
-	if(startPolygon && goalPolygon) {
-		navi->BFS(startPolygon, goalPolygon, _owner->GetPoints(GetName()));
-	}
+	navi->BFS(startPolygon, goalPolygon, _owner->GetPoints(GetName()));
+	
 	
 }

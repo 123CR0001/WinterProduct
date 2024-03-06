@@ -363,6 +363,9 @@
     <ClCompile Include="source\Energy.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
+    <ClCompile Include="source\AIStare.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -649,6 +652,9 @@
     </ClInclude>
     <ClInclude Include="source\Energy.h">
       <Filter>ヘッダー ファイル\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIStare.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

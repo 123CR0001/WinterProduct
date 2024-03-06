@@ -20,6 +20,7 @@
 #include"AILookAround.h"
 #include"AIDeath.h"
 #include"AIStay.h"
+#include"AIStare.h"
 #include"CommonSoldierAnimaitonComponent.h"
 
 constexpr int SIDE_NUM = 100;
@@ -42,6 +43,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AILookAround(_AI));
 	_AI->RegisterState(NEW AIDeath(_AI));
 	_AI->RegisterState(NEW AIStay(_AI));
+	_AI->RegisterState(NEW AIStare(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);

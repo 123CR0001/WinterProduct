@@ -163,7 +163,7 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 	float moveSpeed = 2.f;
 
 	//–Ú“I’n‚É’…‚¢‚½
-	if (Vector3D::LengthSquare(arrowPoint, notYPos) <= 10 * 10) {
+	if (Vector3D::LengthSquare(arrowPoint, notYPos) <= 50 * 50) {
 		num++;
 		//moveSpeed = Vector3D::Length(arrowPoint, notYPos);
 	}

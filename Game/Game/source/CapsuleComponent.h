@@ -9,7 +9,7 @@ public:
 
 	void SetMember(float length, float radius, Vector3D diff = Vector3D(0.f, 0.f, 0.f)) { _length = length; _radius = radius; }
 
-	void AddSkipName(const char* name) { _skipName.emplace_back(name); }
+	void AddSkipName(const char* name) { _skipNames.emplace_back(name); }
 
 	Capsule GetCapsule()const;
 
@@ -26,5 +26,5 @@ protected:
 	PhysWorld::CollisionDetectionResult _result;
 
 	//‰Ÿ‚µo‚µˆ—‚ğ‚µ‚È‚¢ƒLƒƒƒ‰‚Ì–¼‘O‚ğ“o˜^
-	std::vector<std::string>_skipName;
+	std::vector<std::string>_skipNames;
 };

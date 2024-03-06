@@ -59,7 +59,7 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 		if ((*iter)->GetOwner() == _owner) { continue; }//自分とは判定をしない 
 
 		//登録されいている名前なら、スキップ
-		if (std::find(_skipName.begin(), _skipName.end(), (*iter)->GetOwner()->GetName()) != _skipName.end()) { continue; }
+		if (std::find(_skipNames.begin(), _skipNames.end(), (*iter)->GetOwner()->GetName()) != _skipNames.end()) { continue; }
 
 		auto otherCap = (*iter)->GetCapsule();
 		auto thisCap = GetCapsule();
@@ -90,7 +90,7 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 
 		if ((*iter)->GetOwner() == _owner) { continue; }//自分とは判定をしない 
 		//登録されいている名前なら、スキップ
-		if (std::find(_skipName.begin(), _skipName.end(), (*iter)->GetOwner()->GetName()) != _skipName.end()) { continue; }
+		if (std::find(_skipNames.begin(), _skipNames.end(), (*iter)->GetOwner()->GetName()) != _skipNames.end()) { continue; }
 
 		MV1_COLL_RESULT_POLY_DIM  hitObj = MV1CollCheck_Capsule(
 			(*iter)->GetOwner()->GetHandle(),

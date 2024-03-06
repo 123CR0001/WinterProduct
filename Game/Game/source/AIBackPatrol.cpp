@@ -20,13 +20,12 @@ AIBackPatrol::~AIBackPatrol(){}
 void AIBackPatrol::OnEnter() {
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
-	auto startPolygon = navi->GetHitPoygon(_owner->GetOwner()->GetPos());
-	auto goalPolygon = navi->GetHitPoygon(_owner->GetPoints("Patrol").front());
+	auto startPolygon = _owner->GetOwner()->GetPos();
+	auto goalPolygon = _owner->GetPoints("Patrol").front();
 
 	//Å’ZŒo˜H
-	if(startPolygon && goalPolygon) {
 		navi->BFS(startPolygon, goalPolygon, _owner->GetPoints(GetName()));
-	}
+	
 }
 void AIBackPatrol::OnExist() {
 	if (_owner->GetPoints(GetName()).size() == 0) { return; }

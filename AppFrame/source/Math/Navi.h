@@ -24,8 +24,8 @@ public:
 
 	//ƒ|ƒŠƒSƒ“o‚ÌÅ’ZŒo˜H
 	bool BFS(
-		Polygon3D* goal,
-		Polygon3D* start,
+		Vector3D goalPos,
+		Vector3D startPos,
 		std::vector<Vector3D>& route,
 		std::vector<Polygon3D*>* routePolygon = nullptr
 	); 
@@ -38,7 +38,7 @@ public:
 	void GetConectPolygonMap();
 
 
-	Polygon3D* GetHitPoygon(Vector3D pos);
+	Polygon3D* GetHitPolygon(Vector3D pos);
 
 	int LoadModel(const char* fileName, const char* attachName) {
 		_handle = MV1LoadModel(fileName);

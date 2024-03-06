@@ -7,16 +7,24 @@
 
 
 bool Navi::BFS(
-	Polygon3D* goal,
-	Polygon3D* start,
+	Vector3D goalPos,
+	Vector3D startPos,
 	std::vector<Vector3D>& route,
 	std::vector<Polygon3D*>* routePolygon
 ) {
 	bool pathFound = false;
 
+	Polygon3D* start = GetHitPolygon(startPos);
+	Polygon3D* goal = GetHitPolygon(goalPos);
+
+	if (!start || !goal) { return false; }
+
 	if(goal == start) {
-		return false;
+		route.emplace_back(goalPos);
+		return true;
 	}
+
+	GetHitPolygon(Vector3D(0, 0, 0));
 
 	std::queue<Polygon3D*> data;
 
@@ -45,6 +53,7 @@ bool Navi::BFS(
 				m = routeCandi[m].neighborPoly;
 			}
 
+			impuritiesMix.emplace_back(startPos);
 			route = impuritiesMix;
 
 			pathFound = true;
@@ -203,7 +212,7 @@ void Navi::GetConectPolygonMap() {
 
 }
 
-Polygon3D* Navi::GetHitPoygon(Vector3D pos) {
+Polygon3D* Navi::GetHitPolygon(Vector3D pos) {
 
 	for (auto& poly : _polys) {
 		if (HitCheck_Line_Triangle(

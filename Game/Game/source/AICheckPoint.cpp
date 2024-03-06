@@ -28,13 +28,12 @@ void AICheckPoint::OnEnter() {
 
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
-	auto startPolygon = navi->GetHitPoygon(_owner->GetOwner()->GetPos());
-	auto goalPolygon = navi->GetHitPoygon(checkPoint);
+	auto startPolygon = _owner->GetOwner()->GetPos();
+	auto goalPolygon = checkPoint;
 
 	//Å’ZŒo˜H
-	if(startPolygon && goalPolygon) {
 		navi->BFS(startPolygon,goalPolygon,_owner->GetPoints(GetName()));
-	}
+	
 
 }
 

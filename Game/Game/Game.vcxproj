@@ -166,6 +166,7 @@
     <ClCompile Include="source\AIPatrol.cpp" />
     <ClCompile Include="source\AIBlindWalk.cpp" />
     <ClCompile Include="source\AIRush.cpp" />
+    <ClCompile Include="source\AIStare.cpp" />
     <ClCompile Include="source\AIState.cpp" />
     <ClCompile Include="source\AIStay.cpp" />
     <ClCompile Include="source\AITracer.cpp" />
@@ -261,6 +262,7 @@
     <ClInclude Include="source\AIBlindWalk.h" />
     <ClInclude Include="source\AICheckPoint.h" />
     <ClInclude Include="source\AIRush.h" />
+    <ClInclude Include="source\AIStare.h" />
     <ClInclude Include="source\AIState.h" />
     <ClInclude Include="source\AIStay.h" />
     <ClInclude Include="source\AITrace.h" />
