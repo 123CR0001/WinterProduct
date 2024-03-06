@@ -333,7 +333,7 @@ void ModeDebugMenu::RenderEnemyRoot() {
 				"%d番目 x = %3f y = %3f z = %3f",
 				num, route.x, route.y, route.z
 			);
-			DrawFormatString((int)pos.x, (int)pos.y, GetColor(255, 255, 255), "最大サイズ%d", AI->GetPoints(AI->GetCurrentState()->GetName()));
+			//DrawFormatString((int)pos.x, (int)pos.y, GetColor(255, 255, 255), "最大サイズ%d", AI->GetPoints(AI->GetCurrentState()->GetName()));
 		}
 
 	}

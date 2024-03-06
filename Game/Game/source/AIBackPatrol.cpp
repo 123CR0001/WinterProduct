@@ -18,20 +18,27 @@ AIBackPatrol::AIBackPatrol(AIComponent* owner)
 AIBackPatrol::~AIBackPatrol(){}
 
 void AIBackPatrol::OnEnter() {
+
+	if(_owner->GetPoints("BackPatrolGoal").empty()) { 
+		_owner->ChangeState("Patrol"); 
+		return; 
+	}
+
+	//自キャラの位置
+	const Vector3D pos = _owner->GetOwner()->GetPos();
+
+	//目的地
+	Vector3D goal = _owner->GetPoints("BackPatrolGoal").front();
+
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
-	auto startPolygon = _owner->GetOwner()->GetPos();
-	auto goalPolygon = _owner->GetPoints("Patrol").front();
-
 	//最短経路
-		navi->BFS(startPolygon, goalPolygon, _owner->GetPoints(GetName()));
+	navi->BFS(pos, goal, _owner->GetPoints(GetName()));
 	
 }
 void AIBackPatrol::OnExist() {
-	if (_owner->GetPoints(GetName()).size() == 0) { return; }
-	for (int a = 0; a < _owner->GetPoints(GetName()).size(); a++) {
-		_owner->GetPoints(GetName()).erase(_owner->GetPoints(GetName()).begin());
-	}
+	_owner->GetPoints(GetName()).clear();
+	_pointsNum = 0;
 }
 
 bool AIBackPatrol::Process() {
@@ -39,6 +46,8 @@ bool AIBackPatrol::Process() {
 	//プレイヤーを見つけずに目標地点についたら巡回ルートに戻るPatrolに切り替え
 	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
 		_owner->ChangeState("Patrol");
+		_owner->GetPoints("BackPatrolGoal").clear();
+		return true;
 	}
 
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか

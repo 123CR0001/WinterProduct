@@ -18,6 +18,8 @@ AIPatrol::~AIPatrol(){}
 
 
 void AIPatrol::OnEnter() {
+	//巡回する経路がないので、AIStayに切り替える
+	if(_owner->GetPoints(GetName()).size() == 1) { _owner->ChangeState("Stay"); }
 }
 
 void AIPatrol::OnExist() {
@@ -28,9 +30,6 @@ bool AIPatrol::Process() {
 
 	auto owner = _owner->GetOwner();
 	auto objectServer = _owner->GetOwner()->GetObjectServer();
-
-	//巡回する経路がないので、AIStayに切り替える
-	if(_owner->GetPoints(GetName()).size() == 1) { 	_owner->ChangeState("Stay");}
 
 	//経路を巡回
 	{
@@ -43,6 +42,8 @@ bool AIPatrol::Process() {
 		}
 	}
 
+	//AIStateを変更したか
+	bool isChangeState = false;
 
 	//音が聞こえたか？
 	{
@@ -51,6 +52,7 @@ bool AIPatrol::Process() {
 			_owner->DeletePoint("CheckPoint");
 			_owner->AddPoint("CheckPoint", p);
 			_owner->ChangeState("CheckPoint");
+			isChangeState = true;
 		}
 	}
 
@@ -75,6 +77,8 @@ bool AIPatrol::Process() {
 					_owner->SetChaseObject(objects[a]);
 					//AIStateを変更
 					_owner->ChangeState("Chase");
+					
+					isChangeState = true;
 					return true;
 				
 				}
@@ -86,6 +90,10 @@ bool AIPatrol::Process() {
 	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		_owner->ChangeState("BlindWalk");
 	}
+
+	//AIStateが変更されていたら、目的地の座標をAIBackPatrolの座標コンテナに登録
+	//この登録した座標を基に、元の位置に戻ってくる
+	if(isChangeState) { _owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());  }
 	
 	return true;
 }

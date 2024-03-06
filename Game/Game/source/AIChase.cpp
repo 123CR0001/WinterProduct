@@ -20,7 +20,6 @@ void AIChase::OnEnter() {
 
 	GetShortestRoots();
 
-	if(_owner->GetPoints(GetName()).size() == 0)_owner->ChangeState("BackPatrol");
 }
 
 void AIChase::OnExist() {
@@ -45,7 +44,7 @@ bool AIChase::Process() {
 		//
 		if (_owner->GetPoints(GetName()).size() > 0) {
 			//ルートの最後の座標とずれが100以上だったら、ルートを更新する
-			if (Vector3D::LengthSquare(object->GetPos(), _owner->GetPoints(GetName()).back()) > 10000) {
+			if (Vector3D::LengthSquare(object->GetPos(), _owner->GetPoints(GetName()).back()) > 100 * 100) {
 				GetShortestRoots();
 			}
 		}

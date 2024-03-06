@@ -133,7 +133,7 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 	//下でも同じ処理をしているが、こちらはエラーを出さないための処理
 	if (points.size() <= num) {
 		num = 0;
-		return true;
+		return false;
 	}
 
 	//現在の位置座標 Y軸成分を抜く

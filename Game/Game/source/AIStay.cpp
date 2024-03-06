@@ -28,6 +28,7 @@ bool AIStay::Process() {
 		if(_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			_owner->AddPoint("CheckPoint", p);
 			_owner->ChangeState("CheckPoint");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
 
@@ -52,6 +53,7 @@ bool AIStay::Process() {
 					_owner->SetChaseObject(objects[a]);
 					//AIState‚ğ•ÏX
 					_owner->ChangeState("Chase");
+					_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 					return true;
 
 				}

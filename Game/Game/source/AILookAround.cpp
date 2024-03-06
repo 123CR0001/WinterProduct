@@ -31,12 +31,15 @@ bool AILookAround::Process() {
 		_owner->ChangeState("BackPatrol");
 	}
 
+	//BackPatrolは最初に登録された座標に戻るので、Patrol → LookAround → Chase(もしくはCheckPoint) → LookAround → BackPatrolでも、Patrolで記録された座標に戻る
+
 	//音が聞こえたか？
 	{
 		Vector3D p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			_owner->AddPoint("CheckPoint", p);
 			_owner->ChangeState("CheckPoint");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
 
@@ -59,6 +62,7 @@ bool AILookAround::Process() {
 					_owner->SetChaseObject(objects[a]);
 					//AIStateを変更
 					_owner->ChangeState("Chase");
+					_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 					break;
 				}
 			}
