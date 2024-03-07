@@ -22,7 +22,6 @@ TracerAnimationComponent::~TracerAnimationComponent() {
 }
 
 bool TracerAnimationComponent::Process() {
-	AnimationComponent::Process();
 
 	//アニメーションの遷移条件を記述
 
@@ -38,5 +37,8 @@ bool TracerAnimationComponent::Process() {
 	else if(name == "Death") {
 		ChangeAnimation("Death");
 	}
+
+	AnimationComponent::Process();
+
 	return true;
 }

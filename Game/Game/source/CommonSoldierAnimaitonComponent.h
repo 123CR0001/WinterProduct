@@ -10,5 +10,4 @@ public:
 
 private:
 	class CommonSoldier* _csOwner;
-	const char* _stateName;
 };

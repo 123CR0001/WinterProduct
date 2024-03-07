@@ -21,7 +21,6 @@ PlayerAnimationComponent::~PlayerAnimationComponent() {
 }
 
 bool PlayerAnimationComponent::Process() {
-	AnimationComponent::Process();
 
 	switch(_pOwner->GetState()) {
 	case Player::ACTION_STATE::kIdle:
@@ -43,6 +42,8 @@ bool PlayerAnimationComponent::Process() {
 		ChangeAnimation("StealthWalk");
 		break;
 	}
+
+	AnimationComponent::Process();
 
 	return true;
 }

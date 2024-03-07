@@ -27,31 +27,28 @@ CommonSoldierAnimationComponent::~CommonSoldierAnimationComponent() {
 }
 
 bool CommonSoldierAnimationComponent::Process() {
-	AnimationComponent::Process();
 
 	//アニメーションの遷移条件を記述
 
 
 	//AIのステート名に変更があるか
-	if (_stateName != _csOwner->GetAIComponent()->GetCurrentState()->GetName()) {
 
-		const char* name = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
+	const char* name = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
 
-		if(name == "LookAround"){
-			ChangeAnimation("LookAround");
-		}
-		else if (name == "Panic") { ChangeAnimation("Shoot"); }
-		//else if (_csOwner->GetMoveComponent()->GetSpeed() < 0.01f) {
-		//	ChangeAnimation("Idle");
-		//}
-		else if(name == "Stay") { ChangeAnimation("Idle"); }
-		else if (name == "Death") { ChangeAnimation("Death"); }
-		else {
-			ChangeAnimation("Walk");
-		}
-
+	if(name == "LookAround"){
+		ChangeAnimation("LookAround");
 	}
-	_stateName = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
+	else if (name == "Panic") { ChangeAnimation("Shoot"); }
+	else if(name == "Death") { ChangeAnimation("Death"); }
+	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f) {
+		ChangeAnimation("Walk");
+	}
+	else {
+		ChangeAnimation("Idle");
+	}
+
+	AnimationComponent::Process();
+
 
 	return true;
 }

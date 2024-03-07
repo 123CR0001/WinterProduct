@@ -10,7 +10,7 @@ UISelectController::UISelectController(float initPosX, float initPosY, float end
 
 int UISelectController::Selected() {
     std::string stage = _uiName;
-    int stageNum = std::stoi(stage.substr(5));
+    int stageNum = std::stoi(_uiName.substr(5));
   
     if (typeid(UIServer*) != typeid(static_cast<UIServer*>(_param))) { return -1; }
     UIServer* server = static_cast<UIServer*>(_param);
@@ -29,6 +29,7 @@ int UISelectController::Selected() {
                 ui->_selectNum = -1;
                 i++;
             }
+            if(i == 4) { break; }
         }
 
         // ステージに関連するUIの登録済みチェックと再利用

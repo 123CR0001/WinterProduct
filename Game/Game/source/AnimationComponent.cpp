@@ -5,6 +5,7 @@
 AnimationComponent::AnimationComponent(ObjectBase* owner ,int order)
 	:Component(owner,order) 
 	,_playAnimationName(nullptr)
+	,_rate(0.f)
 {
 	_closeMaxTime = 6.f;
 }
@@ -17,7 +18,7 @@ AnimationComponent::~AnimationComponent(){
 
 bool AnimationComponent::Process() {
 
-	int handle = _owner->GetHandle();
+	const int handle = _owner->GetHandle();
 
 	// アニメーション時間処理
 	for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ) {
@@ -36,6 +37,9 @@ bool AnimationComponent::Process() {
 					(*iteAnim)->_playTime = (*iteAnim)->_totalTime;
 				}
 			}
+
+			// ブレンド率を変更する
+			MV1SetAttachAnimBlendRate(handle, (*iteAnim)->_attachIndex, 1.f - _rate);
 		}
 		else {
 			// 閉じ時間を減らす
@@ -43,15 +47,23 @@ bool AnimationComponent::Process() {
 
 			// 閉じ時間が終わったか？
 			if ((*iteAnim)->_closeTime <= 0.f) {
+				_rate = 0.f;
+				// ブレンド率を変更する
+				MV1SetAttachAnimBlendRate(handle, (*iteAnim)->_attachIndex, _rate);
+
 				// アニメーションがアタッチされていたら、デタッチする
 				MV1DetachAnim(handle, (*iteAnim)->_attachIndex);
 				// このアニメーションを削除
 				delete (*iteAnim);
 				iteAnim = _vAnim.erase(iteAnim);
+
 				continue;
 			}
+
+			_rate = (*iteAnim)->_closeTime / (*iteAnim)->_closeTotalTime;
+
 			// ブレンド率を変更する
-			MV1SetAttachAnimBlendRate(handle, (*iteAnim)->_attachIndex, (*iteAnim)->_closeTime / (*iteAnim)->_closeTotalTime);
+			MV1SetAttachAnimBlendRate(handle, (*iteAnim)->_attachIndex, _rate);
 		}
 		++iteAnim;
 	}
@@ -77,29 +89,42 @@ void AnimationComponent::ChangeAnimation(const char* animName) {
 	if(_playAnimationName == animName) { return; }
 
 	//変更したいアニメーションが登録されているか
-	if (_animation.find(animName) != _animation.end()) {
+	if(_animation.find(animName) == _animation.end()) { return; }
 
-		// アタッチされているアニメーションに、close時間を設ける
-		for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ++iteAnim) {
-			if ((*iteAnim)->_closeTime == 0.f) {
-				(*iteAnim)->_closeTime = _closeMaxTime;		// ブレンドするフレーム数
-				(*iteAnim)->_closeTotalTime = (*iteAnim)->_closeTime;
-			}
+	//モーションを3つ以上ブレンドすると危険なので、2つになるようにする
+	{	
+		const int handle = _owner->GetHandle(); 
+		while(_vAnim.size() > 1) {
+			auto anim = _vAnim.front();
+			// アニメーションがアタッチされていたら、デタッチする
+			MV1DetachAnim(handle, anim->_attachIndex);
+			// このアニメーションを削除
+			delete anim;
+			_vAnim.pop_front();
 		}
-		// 新しいアニメーションを追加
-		Animation* anim = NEW Animation();
-		anim->_attachIndex = MV1AttachAnim(_owner->GetHandle(), _animation[animName], -1, FALSE);
-
-		// アタッチしたアニメーションの総再生時間を取得する
-		anim->_totalTime = MV1GetAttachAnimTotalTime(_owner->GetHandle(), anim->_attachIndex);
-		// 再生時間を初期化
-		anim->_playTime = 0.0f;
-		anim->_closeTime = 0.0f;
-		// ループ回数設定
-		anim->_loopCnt = _animLoop[animName];
-		// アニメーション追加
-		_vAnim.push_back(anim);
 	}
+
+	// アタッチされているアニメーションに、close時間を設ける
+	for (auto iteAnim = _vAnim.begin(); iteAnim != _vAnim.end(); ++iteAnim) {
+		if ((*iteAnim)->_closeTime == 0.f) {
+			(*iteAnim)->_closeTime = _closeMaxTime;		// ブレンドするフレーム数
+			(*iteAnim)->_closeTotalTime = (*iteAnim)->_closeTime;
+			(*iteAnim)->_playTime = 0.f;
+		}
+	}
+	// 新しいアニメーションを追加
+	Animation* anim = NEW Animation();
+	anim->_attachIndex = MV1AttachAnim(_owner->GetHandle(), _animation[animName], -1, FALSE);
+
+	// アタッチしたアニメーションの総再生時間を取得する
+	anim->_totalTime = MV1GetAttachAnimTotalTime(_owner->GetHandle(), anim->_attachIndex);
+	// 再生時間を初期化
+	anim->_playTime = 0.0f;
+	anim->_closeTime = 0.0f;
+	// ループ回数設定
+	anim->_loopCnt = _animLoop[animName];
+	// アニメーション追加
+	_vAnim.emplace_back(anim);
 
 	_playAnimationName = animName;
 }

@@ -27,7 +27,7 @@ constexpr int SIDE_NUM = 100;
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server,"CommonSoldier")
-	, _AI(NEW AIComponent(this, 1))
+	, _AI(NEW AIComponent(this, 11))
 	,_capsule(NEW CapsuleComponent(this,1000))
 	,_anim(NEW CommonSoldierAnimationComponent(this,1000))
 	,_detectionLevel(0.f)

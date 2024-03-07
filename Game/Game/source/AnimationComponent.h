@@ -1,6 +1,6 @@
 #pragma once
 #include"Component.h"
-#include<vector>
+#include<deque>
 #include<unordered_map>
 
 class AnimationComponent :public Component {
@@ -51,10 +51,10 @@ public:
 		return _playAnimationName;
 	}
 
-	std::vector<Animation*>& GetAnimations() { return _vAnim; }
+	std::deque<Animation*>& GetAnimations() { return _vAnim; }
 
 protected:
-	std::vector<Animation*> _vAnim;
+	std::deque<Animation*> _vAnim;
 
 	//アニメーション用のハンドルを登録
 	std::unordered_map<const char*, int>_animation;
@@ -64,4 +64,6 @@ protected:
 	const char* _playAnimationName;
 
 	float _closeMaxTime;
+
+	float _rate;
 };
