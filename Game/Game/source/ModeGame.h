@@ -31,14 +31,11 @@ public:
 
 	class MyUIServer* GetUIServer()const { return _uiServer; }
 
-	void SwichOverOrClear();
+	void SwitchOverOrClear();
 protected:
 
 	class ObjectServer* _objServer;
 	class ModeEffekseer* _modeEffekseer;
-
-	//ライツアウトを一度でも使用したかの、判別に使用
-	bool _isCouldLightsOut;
 
 	int _handleShadowMap;
 

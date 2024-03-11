@@ -129,7 +129,7 @@ bool LightsOut::Process() {
 		if (_useTimes == 0) {
 			//120フレーム後にゲームオーバーかゲームクリアを決める
 			auto func = [this]() {
-				_game->SwichOverOrClear();
+				_game->SwitchOverOrClear();
 			};
 
 			_game->GetTimeLine()->AddLine(120, func);

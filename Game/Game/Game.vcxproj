@@ -242,6 +242,7 @@
     <ClCompile Include="source\UIClearTimeRank.cpp" />
     <ClCompile Include="source\UIContorl.cpp" />
     <ClCompile Include="source\UIDetection.cpp" />
+    <ClCompile Include="source\UIDetectionLevvel.cpp" />
     <ClCompile Include="source\UIDisplay.cpp" />
     <ClCompile Include="source\UIGameEnd.cpp" />
     <ClCompile Include="source\UIGameStart.cpp" />
@@ -340,6 +341,7 @@
     <ClInclude Include="source\SoundItem.h" />
     <ClInclude Include="source\SoundServer.h" />
     <ClInclude Include="source\SpriteTextFlipAnimation.h" />
+    <ClInclude Include="source\UIDetectionLevel.h" />
     <ClInclude Include="source\UISpriteText.h" />
     <ClInclude Include="source\TimeLine.h" />
     <ClInclude Include="source\Timer.h" />

@@ -43,6 +43,8 @@
 #include"MyUIServer.h"
 #include"LightsOut.h"
 
+#include"UIDetectionLevel.h"
+
 ModeGame::ModeGame(std::string stageNum) 
 	:_objServer(NEW ObjectServer(this))
 	,_debug(NEW ModeDebugMenu(this))
@@ -52,6 +54,7 @@ ModeGame::ModeGame(std::string stageNum)
 	,_resultData(std::make_shared<ResultData>())
 	,_timeLine(NEW TimeLine())
 	,_uiServer(NEW MyUIServer())
+	,_enemyCount(0)
 {
 	_fps = NEW FPS();
 
@@ -77,8 +80,6 @@ bool ModeGame::Initialize() {
 
 	ModeServer::GetInstance()->Add(NEW ModeMiniMap(this), 100, "MiniMap");
 
-	_isCouldLightsOut = false;
-
 	// シャドウマップの生成
 	_handleShadowMap = MakeShadowMap(2048, 2048);
 
@@ -87,6 +88,7 @@ bool ModeGame::Initialize() {
 
 	_lightsOut = NEW LightsOut(this);
 
+	_uiServer->AddUI(NEW UIDetectionLevel(_objServer));
 	return true;
 }
 
@@ -148,15 +150,6 @@ bool ModeGame::Process() {
 
 		}
 	}
-	//if (GetPad()->GetTrgButton() & INPUT_X) {
-	//	_uiServer->Search("remainingUses")->Selected();
-	//	_uiServer->Search("lightsOutTimer")->Selected();
-	//}
-
-	// fpsの待機
-	//_fps->WaitFPS();
-	//auto CommonSoldiers = GetObjectServer()->GetCommonSoldiers();
-	//if (CommonSoldiers.size() == 0) { _fps->SetFPS(50); }
 
 	return true;
 }
@@ -228,7 +221,7 @@ bool ModeGame::Render() {
 
 XGamePad* ModeGame::GetPad()const { return ApplicationMain::GetInstance()->GetPad(); }
 
-void ModeGame::SwichOverOrClear() {
+void ModeGame::SwitchOverOrClear() {
 	if (_enemyCount == 0) {
 		auto func = [this]() {
 			// モードの削除

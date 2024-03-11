@@ -11,6 +11,9 @@
 #include"TracerSpawner.h"
 #include"Energy.h"
 
+#include"MyUIServer.h"
+#include"UIDetectionLevel.h"
+
 #include<fstream>
 #include<unordered_map>
 
