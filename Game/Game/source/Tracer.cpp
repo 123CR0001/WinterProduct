@@ -45,6 +45,9 @@ Tracer::Tracer(TracerSpawner* spawner)
 
 	GetObjectServer()->GetEnemys().emplace_back(this);
 
+	//_enemyCoutを増やす
+	spawner->GetObjectServer()->GetGame()->IncrementEnemyCount();
+
 }
 
 Tracer::~Tracer(){
@@ -108,6 +111,12 @@ bool Tracer::Process() {
 		GetObjectServer()->GetPlayer()->GetCamera()->Swap();
 
 		DeleteComponent(_capsule);
+
+		//_enemyCoutを減らす
+		GetObjectServer()->GetGame()->DecrementEnemyCount();
+
+		//プレイヤーの移動スピードの倍率を上げる
+		GetObjectServer()->GetPlayer()->AddMoveSpeedMag(0.2f);
 
 		//データを空にする
 		_damageData = DamageData{};

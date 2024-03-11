@@ -26,6 +26,12 @@ public:
 	void DecremetEnergyCOunt() { _energyCount--; }
 	void IncrementEnemyCount() { _enemyCount++; }
 	void DecrementEnemyCount() { _enemyCount--; }
+
+	class TimeLine* GetTimeLine()const { return _timeLine; }
+
+	class MyUIServer* GetUIServer()const { return _uiServer; }
+
+	void SwichOverOrClear();
 protected:
 
 	class ObjectServer* _objServer;
@@ -42,19 +48,23 @@ protected:
 	//倒す敵の数
 	int _enemyCount;
 
+	class LightsOut* _lightsOut;
+
+	//
+	class TimeLine* _timeLine;
+
+	class MyUIServer* _uiServer;
+
 	class FPS* _fps;
 
 	int _bg;
+
+	std::string _stage;
 
 	//デバッグ用
 	class ModeDebugMenu* _debug;
 public:
 	class ModeDebugMenu* GetDebugMenu() { return _debug; }
-
-	class UIServer* _uiServer;
-
-	std::string _stage;
-	class Timer* _timer;
 
 	class ResultData {
 	public:

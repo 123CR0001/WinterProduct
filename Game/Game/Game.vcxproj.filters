@@ -219,9 +219,6 @@
     <ClCompile Include="source\ModeColorIn.cpp">
       <Filter>ソース ファイル\Mode\SceneSwitch</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeLightsOut.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="source\UIAudio.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
@@ -438,6 +435,9 @@
     <ClCompile Include="source\UISpriteText.cpp">
       <Filter>ソース ファイル\MYUI</Filter>
     </ClCompile>
+    <ClCompile Include="source\LightsOut.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -547,9 +547,6 @@
     </ClInclude>
     <ClInclude Include="source\ModeColorOut.h">
       <Filter>ヘッダー ファイル\Mode\SceneSwitch</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeLightsOut.h">
-      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="source\UIAudio.h">
       <Filter>ヘッダー ファイル\UI</Filter>
@@ -731,9 +728,6 @@
     <ClInclude Include="source\ButtonServer.h">
       <Filter>ヘッダー ファイル\Button</Filter>
     </ClInclude>
-    <ClInclude Include="source\Animation2D.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\SpriteText.h">
       <Filter>ヘッダー ファイル\SpriteText</Filter>
     </ClInclude>
@@ -775,6 +769,9 @@
     </ClInclude>
     <ClInclude Include="source\UISpriteText.h">
       <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\LightsOut.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

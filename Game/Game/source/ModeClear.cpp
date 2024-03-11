@@ -104,7 +104,7 @@ void ModeClear::SetUI() {
 
 	//クリアタイム
 	{
-		auto func = [this]() {_uiServer->AddUI(NEW UIHrsMinSec(30, _resultData->clearSecondTime)); };
+		auto func = [=]()mutable {_uiServer->AddUI(NEW UIHrsMinSec(30, _resultData->clearSecondTime,Transform2(Vector2(screenWidth*0.92f,screenHeight * 0.21f)),Vector2(46.f,70.f))); };
 		//MyUIServerのProcess()が70回呼ばれたら、処理する
 		_timeLine->AddLine(70, func);
 	}

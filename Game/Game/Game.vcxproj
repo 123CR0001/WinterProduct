@@ -193,6 +193,7 @@
     <ClCompile Include="source\FPS.cpp" />
     <ClCompile Include="source\FrameComponent.cpp" />
     <ClCompile Include="source\Knife.cpp" />
+    <ClCompile Include="source\LightsOut.cpp" />
     <ClCompile Include="source\ModeColorOut.cpp" />
     <ClCompile Include="source\ModeClear.cpp" />
     <ClCompile Include="source\ModeColorIn.cpp" />
@@ -202,7 +203,6 @@
     <ClCompile Include="source\ModeGame.cpp" />
     <ClCompile Include="source\ModeGameOver.cpp" />
     <ClCompile Include="source\ModeGameUI.cpp" />
-    <ClCompile Include="source\ModeLightsOut.cpp" />
     <ClCompile Include="source\ModeMiniMap.cpp" />
     <ClCompile Include="source\ModePause.cpp" />
     <ClCompile Include="source\ModePauseConfirm.cpp" />
@@ -282,7 +282,6 @@
     <ClInclude Include="source\AIStay.h" />
     <ClInclude Include="source\AITrace.h" />
     <ClInclude Include="source\Animation.h" />
-    <ClInclude Include="source\Animation2D.h" />
     <ClInclude Include="source\AnimationComponent.h" />
     <ClInclude Include="source\ApplicationGlobal.h" />
     <ClInclude Include="source\Button.h" />
@@ -297,6 +296,7 @@
     <ClInclude Include="source\CreateAfterImageComponent.h" />
     <ClInclude Include="source\Decoy.h" />
     <ClInclude Include="source\EasingNumber.h" />
+    <ClInclude Include="source\LightsOut.h" />
     <ClInclude Include="source\MyUIServer.h" />
     <ClInclude Include="source\OpacityAnimation.h" />
     <ClInclude Include="source\SpriteNumber.h" />
@@ -312,7 +312,6 @@
     <ClInclude Include="source\ModeColorOut.h" />
     <ClInclude Include="source\ModeEndConfirm.h" />
     <ClInclude Include="source\ModeGameUI.h" />
-    <ClInclude Include="source\ModeLightsOut.h" />
     <ClInclude Include="source\ModeMiniMap.h" />
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\CharaBase.h" />

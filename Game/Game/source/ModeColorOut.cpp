@@ -32,7 +32,7 @@ bool ModeColorOut::Process() {
 		ModeServer::GetInstance()->Del(this);
 		ModeServer::GetInstance()->Add(_modeColorIn, 100, "ColorIn");
 		
-		_func();
+		if (_func) { _func(); }
 
 		_frameCnt = -1;
 	}

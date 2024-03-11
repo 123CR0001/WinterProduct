@@ -3,6 +3,7 @@ SpriteTextFlipAnimation::SpriteTextFlipAnimation(int flipInterval, bool isLoop)
 	:SpriteText()
 	, _flipInterval(flipInterval)
 	, _isReverse(false)
+	, _isPlayAnimation(true)
 	, _isLoop(isLoop)
 	, _frameCnt(0)
 {
@@ -18,14 +19,16 @@ void SpriteTextFlipAnimation::Draw(MATRIX mView) {
 	SetHandle(_handles[abs(frameCnt) / _flipInterval % _handles.size()]);
 
 	//_isLoopがtrueなら、アニメーションをループさせる
-	if (!_isReverse) {
-		if ((_handles.size() - 1 > _frameCnt / _flipInterval) || _isLoop) {
-			_frameCnt++;
+	if (_isPlayAnimation) {
+		if (!_isReverse) {
+			if ((_handles.size() - 1 > _frameCnt / _flipInterval) || _isLoop) {
+				_frameCnt++;
+			}
 		}
-	}
-	else {
-		if (_frameCnt > 0 || _isLoop) {
-			_frameCnt--;
+		else {
+			if (_frameCnt > 0 || _isLoop) {
+				_frameCnt--;
+			}
 		}
 	}
 

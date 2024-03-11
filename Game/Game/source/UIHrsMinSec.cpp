@@ -13,11 +13,12 @@ constexpr float NUMBER_HEIGHT = 35.f;
 
 constexpr int NUMBER_DIGIT = 2;
 
-UIHrsMinSec::UIHrsMinSec(int frame,int secondTime)
+UIHrsMinSec::UIHrsMinSec(int frame, int secondTime,const Transform2& transform ,const Vector2& size)
 	:_spriteColon(NEW SpriteText())
-	,_secondTime(secondTime)
-	,_frame(frame)
-	,_frameCnt(0)
+	, _secondTime(secondTime)
+	, _frame(frame)
+	, _frameCnt(0)
+	, _isDraw(true)
 {
 
 
@@ -40,10 +41,12 @@ UIHrsMinSec::UIHrsMinSec(int frame,int secondTime)
 		//画像のハンドル
 		_spriteTimes[a]->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
 		//描画サイズ
-		_spriteTimes[a]->SetSize(Vector2(NUMBER_WIDTH * rateW, NUMBER_HEIGHT * rateH));
+		_spriteTimes[a]->SetSize(Vector2(size.x * rateW, size.y * rateH));
 		//描画位置
 		_spriteTimes[a]->SetPos(								//時間と分、秒は２桁ずつ描画する											//コロンは一回だけ
-			Vector2(screenWidth * 0.92f, screenHeight * 0.22f) - Vector2(NUMBER_WIDTH * rateW * static_cast<float>(NUMBER_DIGIT), 0.f) * a - Vector2(COLON_WIDTH * rateW, 0.f) * a
+			Vector2(transform.pos.x + rateW, transform.pos.y * rateH) 
+			- Vector2(size.x * rateW * static_cast<float>(NUMBER_DIGIT), 0.f) * a 
+			- Vector2(COLON_WIDTH * rateW, 0.f) * a
 		);
 	}
 
@@ -89,6 +92,8 @@ bool UIHrsMinSec::Process() {
 
 bool UIHrsMinSec::Draw() {
 
+	if (!_isDraw)return true;
+
 	int screenWidth = ApplicationMain::GetInstance()->DispSizeW();
 
 	//画面の最大横幅1920と現在の画面横幅との比率
@@ -98,8 +103,10 @@ bool UIHrsMinSec::Draw() {
 		_spriteTimes[a]->Draw();
 
 		//コロンは時間を描画してからは描画しない
-		if (a < _spriteTimes.size() - 1) {																							//中心座標から描画しているので、/2
-			_spriteColon->SetPos(_spriteTimes[a]->GetPos() - Vector2(NUMBER_WIDTH * rateW * static_cast<float>(NUMBER_DIGIT) , 0.f) + Vector2(COLON_WIDTH / 2.f, 0.f));
+		if (a < _spriteTimes.size() - 1) {			
+			//中心座標から描画しているので、/2
+			float size = _spriteTimes[a]->GetSize().x;
+			_spriteColon->SetPos(_spriteTimes[a]->GetPos() - Vector2(size * static_cast<float>(NUMBER_DIGIT)-size/2.f, 0.f) - Vector2(COLON_WIDTH/2.f, 0.f));
 			_spriteColon->Draw();
 		}
 	}

@@ -30,6 +30,8 @@ public:
 	class CameraComponent* GetCamera()const { return _cameraCom; }
 	void SetCamera(class CameraComponent* camera) { _cameraCom = camera; }
 
+	void SetIsLightsOut(bool isLightsOut) { _isLightsOut = isLightsOut; }
+
 	ACTION_STATE GetState()const { return _actionState; }
 protected:
 
@@ -42,6 +44,8 @@ protected:
 	class MotionComponent* _motCom;
 	class CapsuleComponent* _capsule;
 	class AnimationComponent* _anim;
+
+	bool _isLightsOut;
 
 	float _moveSpeedMag;
 };

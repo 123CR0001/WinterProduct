@@ -7,7 +7,10 @@ UISpriteText::UISpriteText(SpriteText* text)
 
 }
 
-UISpriteText::~UISpriteText(){}
+UISpriteText::~UISpriteText(){
+
+	delete _text;
+}
 
 bool UISpriteText::Process() { return true; }
 

@@ -29,6 +29,7 @@ Player::Player(ObjectServer* server)
 	,_actionState(ACTION_STATE::kIdle)
 	,_capsule(NEW CapsuleComponent(this,1000))
 	,_moveSpeedMag(1.f)
+	,_isLightsOut(false)
 {
 	server->SetPlayer(this);
 
@@ -104,12 +105,12 @@ bool Player::Process() {
 
 		}
 
-		if (trg & INPUT_X && ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		if (trg & INPUT_X && _isLightsOut) {
 			_actionState = ACTION_STATE::kAttack;
 
 			gGlobal._sndServer.Get("SE_02")->Play();
 		}
-		if (trg & INPUT_X && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
+		if (trg & INPUT_X && !_isLightsOut) {
 			NEW Decoy(this);
 		}
 		if (trg & INPUT_A) {

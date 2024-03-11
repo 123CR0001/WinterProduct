@@ -65,6 +65,8 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_visionHandleBlue = ResourceServer::LoadGraph("res/UI/visualrange_02.png");
 
 	_capsule->AddSkipName("CommonSoldier");
+
+	server->GetGame()->IncrementEnemyCount();
 }
 
 CommonSoldier::~CommonSoldier(){
@@ -165,6 +167,12 @@ bool CommonSoldier::Process() {
 		_state = STATE::kDead;
 
 		DeleteComponent(_capsule);
+
+		//_enemyCoutを減らす
+		GetObjectServer()->GetGame()->DecrementEnemyCount();
+
+		//プレイヤーの移動スピードの倍率を上げる
+		GetObjectServer()->GetPlayer()->AddMoveSpeedMag(0.2f);
 
 		//データを空にする
 		_damageData = DamageData{};

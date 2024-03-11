@@ -22,6 +22,12 @@ public:
 
 	void Draw(MATRIX mView = MGetIdent())override;
 
+
+	void Play() { _isPlayAnimation = true; }
+	void Stop() { _isPlayAnimation = false; }
+
+	bool IsPlay() { return _isPlayAnimation; }
+
 private:
 	//アニメーション(画像の切り替え)の間隔
 	int _flipInterval;
@@ -30,6 +36,9 @@ private:
 	bool _isReverse;
 
 	int _frameCnt;
+
+	//アニメーションをするか
+	bool _isPlayAnimation;
 
 	//アニメーションをループさせるか
 	bool _isLoop;

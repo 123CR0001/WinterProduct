@@ -103,7 +103,7 @@ void SpriteText::Draw(MATRIX mView) {
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(255.f * _alpha));
 
 	// ïœä∑ÇµÇΩç¿ïWÇ≈ï`âÊÇ∑ÇÈ
-	DrawModiGraph(
+	DrawModiGraphF(
 		_pos[0].x, _pos[0].y,
 		_pos[1].x, _pos[1].y,
 		_pos[2].x, _pos[2].y,

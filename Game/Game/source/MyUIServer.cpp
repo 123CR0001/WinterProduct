@@ -12,6 +12,7 @@ MyUIServer::~MyUIServer(){
 	for (int a = 0; a < _UIs.size(); a++) {
 		delete _UIs[a];
 	}
+	_UIs.clear();
 }
 
 bool MyUIServer::Process() {
