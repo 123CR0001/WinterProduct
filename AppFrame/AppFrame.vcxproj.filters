@@ -102,5 +102,11 @@
     <ClInclude Include="source\Collision\Sphere.h">
       <Filter>Collision</Filter>
     </ClInclude>
+    <ClInclude Include="source\Collision\Vector2.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Collision\Transform2.h">
+      <Filter>Collision</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

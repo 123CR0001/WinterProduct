@@ -46,6 +46,7 @@ ModeGame::ModeGame(std::string stageNum)
 	,_modeEffekseer(NEW ModeEffekseer())
 	,_stage(stageNum)
 	,_energyCount(0)
+	,_resultData(std::make_shared<ResultData>())
 {
 	_uiServer = NEW UIServer();
 	_fps = NEW FPS();
@@ -66,10 +67,6 @@ bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 
 
-	// アプリケーショングローバルの初期化
-	gGlobal.Init();
-
-
 	_objServer->LoadData(_stage);
 
 	ModeServer::GetInstance()->Add(new ModeMiniMap(this), 100, "MiniMap");
@@ -82,8 +79,7 @@ bool ModeGame::Initialize() {
 
 	_uiServer->Add(NEW UILightsTimer(), nullptr, 0, 0, 930, 600, 150, 100, "lightsOutTimer");
 	// 最初はスライドがいらないので、初期位置と終了位置を同じにしておく
-	_uiServer->Add(NEW UIRemainingUses(this, 2, 930, 2, 930,3), nullptr, 0, 2, 930, 450, 150, 100, "remainingUses");
-	_cntTest = 0;
+	//_uiServer->Add(NEW UIRemainingUses(this, 2, 930, 2, 930,3), nullptr, 0, 2, 930, 450, 150, 100, "remainingUses");
 
 	_bg = ResourceServer::LoadGraph("res/gamemain_bg.png");
 
@@ -160,39 +156,37 @@ bool ModeGame::Process() {
 
 
 
-	if (_isCouldLightsOut && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
-		if (_objServer->GetEnemys().size() > 0) {
+	if (_isCouldLightsOut
+		&& !ModeServer::GetInstance()->IsAdd("Out")
+		&& !ModeServer::GetInstance()->IsAdd("GameClear") 
+		&& !ModeServer::GetInstance()->IsAdd("GameOver")
+		) {
+
+		if(_objServer->GetEnemys().size() == 0 && ModeServer::GetInstance()->IsAdd("LightsOut")){
+			auto func = [this]() {
+				// モードの削除
+				ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
+				ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
+				ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("LightsOut"));
+				ModeServer::GetInstance()->Del(this);
+				// 次のモードを登録
+				ModeServer::GetInstance()->Add(NEW ModeClear(_resultData), 100, "GameClear");
+				};
+			// 次のモードを登録
+			ModeColorIn* colorIn = NEW ModeColorIn(60, true);
+			ModeBase* mode = NEW ModeColorOut(colorIn, func);
+			ModeServer::GetInstance()->Add(mode, 100, "Out");
+		}
+		else if(!ModeServer::GetInstance()->IsAdd("LightsOut")){
 			ModeServer::GetInstance()->Add(NEW ModeGameOver(this), 100, "GameOver");
 			ModeServer::GetInstance()->Del(this);
 		}
-		else {
-			ModeServer::GetInstance()->Add(NEW ModeClear(this), 100, "GameClear");
-		}
-	}
-
-	if (GetPad()->GetTrgButton() & INPUT_DPAD_UP) {
-		_cntTest++;
 	}
 
 	//if (GetPad()->GetTrgButton() & INPUT_X) {
 	//	_uiServer->Search("remainingUses")->Selected();
 	//	_uiServer->Search("lightsOutTimer")->Selected();
 	//}
-
-	if(GetPad()->GetTrgButton() & INPUT_LEFT_THUMB) {
-		auto func = [this]() {
-			// モードの削除
-			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
-			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
-			ModeServer::GetInstance()->Del(this);
-			// 次のモードを登録
-			ModeServer::GetInstance()->Add(NEW ModeClear(this), 1, "GameClear");
-			};
-		// 次のモードを登録
-		ModeColorIn* colorIn = new ModeColorIn(60, true);
-		ModeBase* mode = new ModeColorOut(colorIn, func);
-		ModeServer::GetInstance()->Add(mode, 11, "Out");
-	}
 
 	// fpsの待機
 	//_fps->WaitFPS();

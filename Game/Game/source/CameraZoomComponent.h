@@ -3,7 +3,7 @@
 
 class CameraZoomComponent :public Component {
 public:
-	CameraZoomComponent(class CameraComponent* component,const float mag,const int frameCnt);
+	CameraZoomComponent(class CameraComponent* component,float mag,int frameCnt);
 	~CameraZoomComponent();
 
 	bool Process()override;

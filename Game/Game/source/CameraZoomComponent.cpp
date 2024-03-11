@@ -5,7 +5,7 @@
 
 #include"appframe.h"
 
-CameraZoomComponent::CameraZoomComponent(CameraComponent* camera, const float changeMag, const int maxFrameCnt)
+CameraZoomComponent::CameraZoomComponent(CameraComponent* camera, float changeMag, int maxFrameCnt)
 	:Component(camera->GetOwner())
 	,_camera(camera)
 	, _changeMag(changeMag)

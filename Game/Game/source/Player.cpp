@@ -2,7 +2,6 @@
 #include"ObjectServer.h"
 #include"ModeGame.h"
 #include"appframe.h"
-#include<vector>
 #include<algorithm>
 #include"Knife.h"
 #include"ApplicationGlobal.h"
@@ -17,6 +16,8 @@
 #include"AfterImage.h"
 #include"MotionComponent.h"
 #include"Decoy.h"
+
+#include"CountClearTimeComponent.h"
 
 #include<functional>
 
@@ -42,6 +43,8 @@ Player::Player(ObjectServer* server)
 	_motCom->RegisterCustomCommand("ATTACK_ON",func);
 	_motCom->RegisterCustomCommand("ATTACK_OFF", func2);
 	_motCom->RegisterCustomCommand("CHANGE_MOTION", func3);
+
+	NEW CountClearTimeComponent(this);
 
 }
 

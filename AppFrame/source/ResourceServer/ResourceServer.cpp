@@ -109,6 +109,42 @@ int		ResourceServer::LoadDivGraph(const TCHAR* FileName, int AllNum,
 
 }
 
+int		ResourceServer::LoadDivGraph(const TCHAR* FileName, int AllNum,
+    int XNum, int YNum,
+    int XSize, int YSize, std::vector<int>&HandleBuf)
+{
+    //コンテナサイズを変更
+    HandleBuf.resize(AllNum);
+
+    // キーの検索
+    auto itr = _mapDivGraph.find(FileName);
+    if(itr != _mapDivGraph.end())
+    {
+        // キーがあった
+        // データをコピー
+        for(int i = 0; i < itr->second.AllNum; i++) {
+            HandleBuf[i] = itr->second.handle[i];
+        }
+        return 0;
+    }
+    // キーが無かった
+    // まずはメモリを作成する
+    int* hbuf = new int[AllNum];
+    int err = ::LoadDivGraph(FileName, AllNum, XNum, YNum, XSize, YSize, hbuf);     // DXLIBのAPIを呼ぶので、::を先頭に付け、このクラスの同じ名前の関数と区別する
+    if(err == 0) {
+        // 成功
+        // キーとデータをmapに登録
+        _mapDivGraph[FileName].AllNum = AllNum;
+        _mapDivGraph[FileName].handle = hbuf;
+        // データをコピー
+        for(int i = 0; i < AllNum; i++) {
+            HandleBuf[i] = hbuf[i];
+        }
+    }
+
+    return err;
+
+}
 
 int		ResourceServer::LoadSoundMem(const TCHAR* FileName) {
     // キーの検索

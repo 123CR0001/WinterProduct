@@ -24,8 +24,8 @@ public:
 
 	//ƒ|ƒŠƒSƒ“o‚ÌÅ’ZŒo˜H
 	bool BFS(
-		Vector3D goalPos,
-		Vector3D startPos,
+		const Vector3D& goalPos,
+		const Vector3D& startPos,
 		std::vector<Vector3D>& route,
 		std::vector<Polygon3D*>* routePolygon = nullptr
 	); 

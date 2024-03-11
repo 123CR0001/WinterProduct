@@ -1,6 +1,8 @@
-
+#pragma once
 #include "appframe.h"
 
+constexpr int MAX_SCREEN_WIDTH = 1920;
+constexpr int MAX_SCREEN_HEIGHT = 1080;
 
 class ApplicationMain : public ApplicationBase
 {
@@ -17,13 +19,13 @@ public:
 #ifdef _DEBUG
 		return 1280;
 #endif 
-		return 1920;
+		return MAX_SCREEN_WIDTH;
 	 }
 	virtual int DispSizeH() {
 #ifdef _DEBUG
 		return 720;
 #endif 
-		return 1080;
+		return MAX_SCREEN_HEIGHT;
 	}
 
 protected:

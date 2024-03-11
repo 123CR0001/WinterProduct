@@ -44,6 +44,11 @@ void swap(T& x, T& y)
 
 // 様々なイージング
 // https://game-ui.net/?p=835 を参考に
+template <typename T>
+T EasingLinear(T start, T end, T rate) {
+	return (end - start) * rate + start;
+};
+// イージング
 float EasingLinear(float cnt, float start, float end, float frames);
 float EasingInQuad(float cnt, float start, float end, float frames);
 float EasingOutQuad(float cnt, float start, float end, float frames);

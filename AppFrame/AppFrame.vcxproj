@@ -180,6 +180,8 @@
     <ClInclude Include="source\Collision\Polygon.h" />
     <ClInclude Include="source\Collision\Segment.h" />
     <ClInclude Include="source\Collision\Sphere.h" />
+    <ClInclude Include="source\Collision\Transform2.h" />
+    <ClInclude Include="source\Collision\Vector2.h" />
     <ClInclude Include="source\Collision\Vector3D.h" />
     <ClInclude Include="source\GamePad\XGamePad.h" />
     <ClInclude Include="source\Math\Json.h" />

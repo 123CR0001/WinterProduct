@@ -10,11 +10,13 @@
 #include"FrameComponent.h"
 #include"CapsuleComponent.h"
 
+
 ObjectBase::ObjectBase(ObjectServer* server, bool isFrame, std::string name)
 	:_server(server)
 	,_handle(0)
 	,_attachIndex(0)
 	,_name(name)
+	,_state(STATE::kActive)
 {
 	//自分を管理するサーバーを記録する
 	_server->AddObject(this);

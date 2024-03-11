@@ -29,12 +29,8 @@ bool ModeColorIn::Terminate() {
 bool ModeColorIn::Process() {
 
 
-	if (_frameCnt == -1) {
-
-	}
-	else if (_frameCnt > _frameMaxCnt) {
+	if (_frameCnt >= _frameMaxCnt) {
 		ModeServer::GetInstance()->Del(this);
-		_frameCnt = -1;
 	}
 	else {
 		_alpha = EasingLinear((float)_frameCnt, 255, 0, (float)_frameMaxCnt);

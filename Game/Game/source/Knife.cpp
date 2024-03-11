@@ -47,7 +47,10 @@ bool Knife::Process() {
 		PhysWorld::CollisionDetectionResult result = _frame->GetOverlapResult();
 
 		//カプセルコンポーネントとぶつかったか、自分を装備しているキャラじゃないか
-		if (result.isHit && result.item._object != _equippedChara) {
+		if (result.isHit 
+			&& result.item._object != _equippedChara 
+			&& result.item._object->GetState() == STATE::kActive
+			) {
 
 			CharaBase::DamageData damageData = { true,this,result.item };
 

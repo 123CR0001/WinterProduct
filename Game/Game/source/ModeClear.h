@@ -6,29 +6,24 @@ class ModeClear :public ModeBase {
 	typedef ModeBase base;
 	typedef ResourceServer res;
 public:
-	ModeClear(ModeGame* game);
+	ModeClear(std::shared_ptr<ModeGame::ResultData> data);
 
 	virtual bool Initialize();
 	virtual bool Terminate();
 	virtual bool Process();
 	virtual bool Render();
 
-public:
-	void Load();
+private:
 
-protected:
-#define STR(var) #var
+	void SetUI();
+	void SetButton();
 
-	class ModeGame* _game;
-	class UIServer* _uiServer;
-	std::string _stage;
+	std::shared_ptr<ModeGame::ResultData> _resultData;
 
-	const int MAX_OPTIONS = 2;	// 項目の最大数
-	const int LOW_LAYER_VALUE = 10;		// レイヤー値（10）
-	const int BASIC_LAYER_VALUE = 20;	// レイヤー値（20）
-	const int HIGH_LAYER_VALUE = 30;	// レイヤー値（30）
+	class ButtonServer* _buttonServer;
 
-	int _select;	// 選択中の項目
+	//UI
+	class MyUIServer* _uiServer;
 
-
+	class TimeLine* _timeLine;
 };

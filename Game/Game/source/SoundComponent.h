@@ -11,7 +11,7 @@ public:
 	bool Process()override;
 
 	const Vector3D& GetPos() const{ return _pos; }
-	const float& GetVolumeSize() const{ return _volumeSize; }
+	float GetVolumeSize() const{ return _volumeSize; }
 
 	bool IsHear(const Vector3D& pos);
 

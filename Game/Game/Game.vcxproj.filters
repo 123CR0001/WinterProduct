@@ -85,6 +85,30 @@
     <Filter Include="ソース ファイル\PhysWorld">
       <UniqueIdentifier>{17a74db2-3e90-43a3-a291-1d759b0a546d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Button">
+      <UniqueIdentifier>{98860a5d-ad14-4dd2-a0c9-d9a5906a6f6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Button">
+      <UniqueIdentifier>{c52e385c-7c30-4fa0-a386-e0b958d49074}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SpriteText">
+      <UniqueIdentifier>{8340c8ad-873e-484b-a4af-70c3dbe7a716}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SpriteText">
+      <UniqueIdentifier>{6caf1a6e-404c-4306-b9ba-77855092ac6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SpriteText\Animation">
+      <UniqueIdentifier>{86393d69-48d1-4fcf-b6bd-ec02d3aae88f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SpriteText\Animation">
+      <UniqueIdentifier>{5d5ec8af-c66b-4988-bd16-7eb2b8c063c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MYUI">
+      <UniqueIdentifier>{d050621b-32bb-4d4b-a134-95d9984d6b49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\MYUI">
+      <UniqueIdentifier>{637f2d21-6669-40c7-9584-03ab5ef53c47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -345,9 +369,6 @@
     <ClCompile Include="source\Result.cpp">
       <Filter>ヘッダー ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeClear.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="source\UIClearTime.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
@@ -368,6 +389,54 @@
     </ClCompile>
     <ClCompile Include="source\CameraZoomComponent.cpp">
       <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Button.cpp">
+      <Filter>ソース ファイル\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ButtonServer.cpp">
+      <Filter>ソース ファイル\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SpriteText.cpp">
+      <Filter>ソース ファイル\SpriteText</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SpriteTextFlipAnimation.cpp">
+      <Filter>ソース ファイル\SpriteText</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CountClearTimeComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CountKillComboComponent.cpp">
+      <Filter>ソース ファイル\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeClear.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Animation.cpp">
+      <Filter>ソース ファイル\SpriteText\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TransformAnimation.cpp">
+      <Filter>ソース ファイル\SpriteText\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\OpacityAnimation.cpp">
+      <Filter>ソース ファイル\SpriteText\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SpriteNumber.cpp">
+      <Filter>ソース ファイル\SpriteText</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIHrsMinSec.cpp">
+      <Filter>ソース ファイル\MYUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TimeLine.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MyUIServer.cpp">
+      <Filter>ソース ファイル\MYUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EasingNumber.cpp">
+      <Filter>ソース ファイル\SpriteText\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UISpriteText.cpp">
+      <Filter>ソース ファイル\MYUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -605,9 +674,6 @@
     <ClInclude Include="source\TracerSpawner.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\EnemyBase.h">
-      <Filter>ヘッダー ファイル\Object</Filter>
-    </ClInclude>
     <ClInclude Include="source\Timer.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -635,9 +701,6 @@
     <ClInclude Include="source\MiniSiren.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\AICheckPlayer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\Result.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -661,6 +724,57 @@
     </ClInclude>
     <ClInclude Include="source\CameraZoomComponent.h">
       <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Button.h">
+      <Filter>ヘッダー ファイル\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ButtonServer.h">
+      <Filter>ヘッダー ファイル\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Animation2D.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SpriteText.h">
+      <Filter>ヘッダー ファイル\SpriteText</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SpriteTextFlipAnimation.h">
+      <Filter>ヘッダー ファイル\SpriteText</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CountClearTimeComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CountKillComboComponent.h">
+      <Filter>ヘッダー ファイル\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Animation.h">
+      <Filter>ヘッダー ファイル\SpriteText\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\OpacityAnimation.h">
+      <Filter>ヘッダー ファイル\SpriteText\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TransformAnimation.h">
+      <Filter>ヘッダー ファイル\SpriteText\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\SpriteNumber.h">
+      <Filter>ヘッダー ファイル\SpriteText</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UI.h">
+      <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIHrsMinSec.h">
+      <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\MyUIServer.h">
+      <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TimeLine.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EasingNumber.h">
+      <Filter>ヘッダー ファイル\SpriteText\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISpriteText.h">
+      <Filter>ヘッダー ファイル\MYUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -27,8 +27,6 @@ bool ApplicationGlobal::Init() {
 	return true;
 }
 
-#include"Player.h"
-
 void ApplicationGlobal::LoadMotionData() {
 	MotionDataJson data("res/MotionData/test.json");
 	_charaMotionData[MotionType::PLAYER]["Attack"] = data.GetMotionData();

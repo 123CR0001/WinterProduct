@@ -1,6 +1,5 @@
 #include"ModeClear.h"
 #include"ModeTitle.h"
-#include"ModeGame.h"
 
 #include "ApplicationMain.h"
 #include"ApplicationGlobal.h"
@@ -12,108 +11,221 @@
 #include "UIBlink.h"
 #include "UINextStage.h"
 
-ModeClear::ModeClear(ModeGame* game) {
-	_game = game;
-	_stage = _game->GetStage();
-	_uiServer = NEW UIServer();
+#include"ModeColorIn.h"
+#include"ModeColorOut.h"
+#include"ModeSelect.h"
+
+#include"ButtonServer.h"
+#include"Button.h"
+
+#include"SpriteText.h"
+#include"SpriteNumber.h"
+#include"TransformAnimation.h"
+#include"OpacityAnimation.h"
+#include"EasingNumber.h"
+
+#include"MyUIServer.h"
+#include"TimeLine.h"
+#include"UIHrsMinSec.h"
+#include"UISpriteText.h"
+
+ModeClear::ModeClear(std::shared_ptr<ModeGame::ResultData> data)
+	:_resultData(data)
+	,_uiServer(NEW MyUIServer())
+	,_buttonServer(NEW ButtonServer())
+	,_timeLine(NEW TimeLine())
+{
+	
+	SetUI();
+	SetButton();
+
 }
 
 bool ModeClear::Initialize() {
-
-	_uiServer->Initialize();
-
-	Load();
-
-	_uiServer->Search("nextStage")->_selectNum = 0;
 
 	return true;
 }
 
 bool ModeClear::Terminate() {
+	delete _buttonServer;
+	delete _uiServer;
+	delete _timeLine;
 	return true;
 }
 
 bool ModeClear::Process() {
 	base::Process();
 
-	// このモードより下のレイヤーはProcess()を呼ばない
-	ModeServer::GetInstance()->SkipProcessUnderLayer();
-
-	auto trg = ApplicationMain::GetInstance()->GetPad()->GetTrgButton();
-
 	_uiServer->Process();
-
-	// 上下でカーソルを移動する
-	if(trg & INPUT_DPAD_UP) { _select--; }
-	if(trg & INPUT_DPAD_DOWN) { _select++; }
-
-	// 選択位置を上下ループ
-	_select = (_select + MAX_OPTIONS) % MAX_OPTIONS;
-
-
-	// 選択処理
-	for(const auto& ui : _uiServer->_vUI) {
-		if(ui->_selectNum == -1) { continue; }
-		if(ui->_selectNum == _select) {					// ui側に割り振られた番号と_selectの数字が同じか否か
-			std::string name = ui->_uiName;					// 選択している項目の名前
-			_uiServer->SelectPosAdjustment(name, "get", -64, -3);	// 選択中の項目にカーソルを重ねる	
-			if(trg & INPUT_A) {
-				ui->Selected();
-			}
-			break;
-		}
-	}
-
-	if (trg & INPUT_A) { 
-		// このモードを削除予約
-		ModeServer::GetInstance()->Clear();
-		// 次のモードを登録
-		ModeServer::GetInstance()->Add(new ModeTitle(), 1, "title");
-	}
-
+	_buttonServer->Process();
+	_timeLine->Process();
 	return true;
 }
 
 bool ModeClear::Render() {
 	base::Render();
-	SetFontSize(64);
 
-
-	std::string str = "clear";
-	int x = ApplicationMain::GetInstance()->DispSizeW()/2 - str.size() * 64 / 4;
-	int y = ApplicationMain::GetInstance()->DispSizeH()/2 - 64 / 2;
-	DrawFormatString(x, y, GetColor(255, 0, 0), "%s",str.c_str());
-	SetFontSize(16);
-
-
-	_uiServer->Render();
-
-	auto s = _stage.substr(2);
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "area:%s", s.c_str());
+	_uiServer->Draw();
+	_buttonServer->Draw();
+	
+	DrawFormatString(0, 0, GetColor(0, 255, 0), "select Num %d", _buttonServer->GetSelectNum());
 
 	return true;
 }
 
-void ModeClear::Load() {
-	// スコア表示背景
-	int cgScoreBg1, cgScoreBg2;
-	cgScoreBg1 = res::LoadGraph("res/UI/Result/ui_scorebg_01.png");
-	cgScoreBg2 = res::LoadGraph("res/UI/Result/ui_scorebg_02.png");
-	_uiServer->Add(new UIDisplay(), nullptr, cgScoreBg1, 896, 64, 896, 360, LOW_LAYER_VALUE, "scoreBg1");
-	_uiServer->Add(new UIDisplay(), nullptr, cgScoreBg2, 896, 780, 896, 232, LOW_LAYER_VALUE, "scoreBg2");
+void ModeClear::SetUI() {
+	int screenWidth = ApplicationMain::GetInstance()->DispSizeW();
+	int screenHeight = ApplicationMain::GetInstance()->DispSizeH();
 
-	_uiServer->Add(new UIClearTime(), nullptr, 0, 1490, 165, 40, 60, BASIC_LAYER_VALUE, "clearTime");
+	const float rateW = static_cast<float>(screenWidth) / static_cast<float>(1920);
+	const float rateH = static_cast<float>(screenHeight) / static_cast<float>(1080);
 
-	//std::string timeRank = STR(gGlobal._result.GetTimeRank());
-	//static_assert(3 == 3, "timeRank.size() != 3");
-	//std::string strRank = timeRank.substr(1, 1);
-	//int cgRank = res::LoadGraph("res/UI/Result/Emblem/ui_rankemblem_" + strRank.c_str() + ".png");
-	//_uiServer->Add(new UIClearTimeRank(), nullptr, cgRank, 1024, 448, 640, 283, BASIC_LAYER_VALUE, "clearTimeRank");
+	//リゼルとデータ枠
+	{
+		auto text = NEW SpriteText(
+			LoadGraph("res/UI/Result/ui_scorebg_01.png"),
+			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.25f)),
+			Vector2(896.f * rateW, 232.f * rateH)
+		);
+		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(screenWidth * 0.75f,screenHeight * 0.25f))));
+		_uiServer->AddUI(NEW UISpriteText(text));
+	}
 
-	int cgNextStage, cgGet;
-	cgNextStage = res::LoadGraph("res/UI/Result/ui_nextstage_01.png");
-	cgGet = res::LoadGraph("res/UI/Result/ui_target_01.png");
-	_uiServer->Add(new UINextStage(_stage), nullptr, cgNextStage, 1152, 796, 384, 64, BASIC_LAYER_VALUE, "nextStage");
+	//ボタン外枠
+	{
+		auto text = NEW SpriteText(
+			LoadGraph("res/UI/Result/ui_scorebg_02.png"),
+			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.75f)),
+			Vector2(896.f * rateW, 232.f * rateH)
+		);
+		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(screenWidth * 0.75f, screenHeight * 0.75f))));
+		_uiServer->AddUI(NEW UISpriteText(text));
+	}
 
-	_uiServer->Add(new UIBlink(), nullptr, cgGet, 1152, 796, 512, 64, HIGH_LAYER_VALUE, "get");
+	//クリアタイム
+	{
+		auto func = [this]() {_uiServer->AddUI(NEW UIHrsMinSec(30, _resultData->clearSecondTime)); };
+		//MyUIServerのProcess()が70回呼ばれたら、処理する
+		_timeLine->AddLine(70, func);
+	}
+
+	//最高検知度
+	{
+		auto func = [=]() mutable{
+			SpriteNumber* number = NEW SpriteNumber(static_cast<int>(_resultData->maxDetectionLevel * 100.f));
+			number->AddAnimation(NEW EasingNumber(number, 30)); 
+			number->LoadDivNumber("res/UI/Result/ui_timer_01.png",5,2,46,70);
+			number->SetSize(Vector2(23.f * rateW, 35.f * rateH));
+			number->SetPos(Vector2(screenWidth * 0.92f, screenHeight*0.28f));
+			_uiServer->AddUI(NEW UISpriteText(number));
+		};
+
+		_timeLine->AddLine(120, func);
+	}
+
+	//最高キルコンボ
+	{
+		auto func = [=]() mutable {
+			SpriteNumber* number = NEW SpriteNumber(_resultData->maxCombo);
+			number->AddAnimation(NEW EasingNumber(number, 30));
+			number->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
+			number->SetSize(Vector2(23.f * rateW, 35.f * rateH));
+			number->SetPos(Vector2(screenWidth * 0.92f, screenHeight * 0.33f));
+			_uiServer->AddUI(NEW UISpriteText(number));
+		};
+
+		_timeLine->AddLine(180, func);
+	}
+
+	//エンブレム
+	{
+		auto func = [=]() mutable {
+			SpriteText* text = NEW SpriteText(
+					LoadGraph("res/UI/Result/Emblem/ui_renkemblem_s.png"), 
+					//			回転	拡大	座標
+					Transform2(0.f,		3.f,	Vector2(1024.f * rateW, 448.f * rateH)),
+					Vector2(640.f * rateW, 230.f * rateH),
+					0.f
+			);
+			text->AddAnimation(NEW TransformAnimation(text,30,Transform2(0.f, 1.f, Vector2(screenWidth * 0.8f, screenHeight * 0.5f))));
+			text->AddAnimation(NEW OpacityAnimation(text, 30, 1.f));
+			_uiServer->AddUI(NEW UISpriteText(text));
+		};
+
+		_timeLine->AddLine(240, func);
+	}
+}
+
+void ModeClear::SetButton() {
+	int screenWidth = ApplicationMain::GetInstance()->DispSizeW();
+	int screenHeight = ApplicationMain::GetInstance()->DispSizeH();
+
+	const float rateW = static_cast<float>(screenWidth) / static_cast<float>(1920);
+	const float rateH = static_cast<float>(screenHeight) / static_cast<float>(1080);
+
+	{
+		auto targetUI = _buttonServer->GetSelectUI();
+
+		targetUI->SetHandle(LoadGraph("res/UI/Result/ui_target_01.png"));
+		targetUI->SetSize(Vector2(384.f * rateW, 64.f * rateH));
+		targetUI->SetAlpha(1.f);
+		targetUI->AddAnimation(NEW OpacityAnimation(targetUI, -120, 0.6f));
+	}
+	{
+		//画像の設定
+		SpriteText* titleButton = NEW SpriteText(
+			LoadGraph("res/UI/Result/ui_stageselection_01.png"),
+			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.72f)),
+			Vector2(384.f * rateW, 64.f * rateH)
+		);
+		//アニメーションの設定
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(screenWidth * 0.75f, screenHeight * 0.68f))));
+
+		_buttonServer->AddButton(
+			NEW Button(
+				_buttonServer,
+
+				[this]() {
+					auto func = [this]() {
+						// モードの削除
+						ModeServer::GetInstance()->Del(this);
+						// 次のモードを登録
+						ModeServer::GetInstance()->Add(NEW ModeTitle(), 1, "title");
+					};
+					// 次のモードを登録
+					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
+					ModeServer::GetInstance()->Add(mode, 100, "Out");
+				},
+				titleButton
+					)
+		);
+	}
+	{
+		SpriteText* button = NEW SpriteText(
+			LoadGraph("res/UI/Result/ui_nextstage_01.png"),
+			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.8f)),
+			Vector2(384.f * rateW, 64.f * rateH)
+		);
+		button->AddAnimation(NEW TransformAnimation(button, 60.f, Transform2(Vector2(screenWidth * 0.75f, screenHeight * 0.75f))));
+
+		_buttonServer->AddButton(
+			NEW Button(
+				_buttonServer,
+
+				[this]() {
+					auto func = [this]() {
+						// モードの削除
+						ModeServer::GetInstance()->Del(this);
+						// 次のモードを登録
+						ModeServer::GetInstance()->Add(NEW ModeSelect(), 100, "select");
+					};
+					// 次のモードを登録
+					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
+					ModeServer::GetInstance()->Add(mode, 100, "Out");
+				},
+				button
+					)
+		);
+
+	}
 }

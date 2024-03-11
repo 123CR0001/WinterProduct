@@ -22,13 +22,13 @@ public:
 	Vector3D GetScale()const { return _scale; }
 
 	//
-	void SetPos(Vector3D pos) { _pos = pos; }
-	void SetEulerAngle(Vector3D set) { _eulerAngle = set; }
-	void SetEulerAngleDeg(Vector3D set) { _eulerAngle = Vector3D(DegToRad(set.x), DegToRad(set.y),DegToRad(set.z)); }
-	void SetScale(Vector3D set) { _scale = set; }
+	void SetPos(const Vector3D& pos) { _pos = pos; }
+	void SetEulerAngle(const Vector3D& set) { _eulerAngle = set; }
+	void SetEulerAngleDeg(const Vector3D& set) { _eulerAngle = Vector3D(DegToRad(set.x), DegToRad(set.y),DegToRad(set.z)); }
+	void SetScale(const Vector3D& set) { _scale = set; }
 
-	void AddPos(Vector3D vector) { _pos += vector; }
-	void AddEulerAngle(Vector3D add) { _eulerAngle += add; }
+	void AddPos(const Vector3D& vector) { _pos += vector; }
+	void AddEulerAngle(const Vector3D& add) { _eulerAngle += add; }
 	//XZ平面での前方ベクトル
 	Vector3D GetForward()const { return Vector3D(sinf(_eulerAngle.y), 0.f, cosf(_eulerAngle.y)); }
 
@@ -62,7 +62,14 @@ public:
 
 	};
 	void ApplyDamage(const DamageData& data);
+	DamageData GetDamageData()const {return _damageData;}
 
+	enum class STATE {
+		kActive,
+		kDead
+	};
+
+	STATE GetState()const { return _state; }
 protected:
 	//モデルのハンドル
 	int _handle;
@@ -84,6 +91,8 @@ protected:
 	const std::string _name;
 
 	DamageData _damageData;
+
+	STATE _state;
 
 private:
 	class ObjectServer* _server;

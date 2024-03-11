@@ -4,6 +4,8 @@
 #include"DxLib.h"
 #include"Plane3D.h"
 #include"Sphere.h"
+#include"Vector2.h"
+#include"Transform2.h"
 
 constexpr auto zero_com = 0.00001;
 

@@ -1,27 +1,33 @@
 #include"CommonSoldier.h"
 #include"Player.h"
 #include"ObjectServer.h"
+
+#include<algorithm>
+
+#include"PhysWorld.h"
+
+#include"MoveComponent.h"
+#include"CapsuleComponent.h"
+#include"FrameComponent.h"
+#include"CameraComponent.h"
+
+#include"ModeGame.h"
+#include"ModeEffekseer.h"
+
 #include"AIComponent.h"
 #include"AIPatrol.h"
 #include"AIChase.h"
 #include"AIBackPatrol.h"
-#include<algorithm>
-#include"MoveComponent.h"
-#include"AIBlindWalk.h"
-#include"CapsuleComponent.h"
-#include"FrameComponent.h"
-#include"PhysWorld.h"
 #include"AICheckPoint.h"
 #include"AIBlindWalk.h"
-#include"CameraComponent.h"
-#include"ModeGame.h"
-#include"ModeEffekseer.h"
 #include"AIPanic.h"
 #include"AILookAround.h"
 #include"AIDeath.h"
 #include"AIStay.h"
 #include"AIStare.h"
+
 #include"CommonSoldierAnimaitonComponent.h"
+#include"CountKillComboComponent.h"
 
 constexpr int SIDE_NUM = 100;
 
@@ -32,6 +38,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	,_anim(NEW CommonSoldierAnimationComponent(this,1000))
 	,_detectionLevel(0.f)
 {
+	NEW CountKillComboComponent(this);
 
 	//AState‚Ì“o˜^
 	_AI->RegisterState(NEW AIBackPatrol(_AI));
@@ -117,11 +124,11 @@ bool CommonSoldier::Process() {
 		//‚±‚±‚É‘‚¢‚Ä‚¢‚é‚Ì‚Í‘–‚è‘‚«
 		const float dist = _AI->GetViewDist();
 
-		float per = Vector3D::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(), _pos) / dist * dist;
+		float per = 100.f;// Vector3D::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(), _pos) / dist * dist;
 		per = -(per - 1);
 
 		//ŒŸ’m“x‚Ìã¸
-		_detectionLevel += per * 0.01;
+		_detectionLevel += 1.f * 0.01;
 	}
 	else {
 		_detectionLevel -= 0.01f;
@@ -155,11 +162,19 @@ bool CommonSoldier::Process() {
 		//ƒJƒƒ‰‚Ì—h‚ê
 		GetObjectServer()->GetPlayer()->GetCamera()->Swap();
 
+		_state = STATE::kDead;
+
 		DeleteComponent(_capsule);
 
 		//ƒf[ƒ^‚ð‹ó‚É‚·‚é
 		_damageData = DamageData{};
 	}
+
+	
+	if(GetObjectServer()->GetGame()->GetResultData()->maxDetectionLevel < _detectionLevel){
+		GetObjectServer()->GetGame()->GetResultData()->maxDetectionLevel = _detectionLevel;
+	}
+	
 
 	return true;
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include	<string>
 #include	<unordered_map>
+#include<vector>
 
 // リソース管理サーバ
 // すべて静的メンバで構成する
@@ -14,6 +15,10 @@ public:
 	static int		LoadDivGraph(const TCHAR* FileName, int AllNum,
 		int XNum, int YNum,
 		int XSize, int YSize, int* HandleBuf);
+
+	static int		LoadDivGraph(const TCHAR* FileName, int AllNum,
+		int XNum, int YNum,
+		int XSize, int YSize, std::vector<int>& HandleBuf);
 
 	static	int		LoadSoundMem(const TCHAR* FileName);
 

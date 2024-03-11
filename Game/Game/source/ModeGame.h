@@ -1,5 +1,6 @@
 #pragma once
 #include "appframe.h"
+#include<memory>
 
 class ModeGame : public ModeBase
 {
@@ -19,11 +20,12 @@ public:
 	class ObjectServer* GetObjectServer()const { return _objServer; }
 	class ModeEffekseer* GetModeEffekseer()const { return _modeEffekseer; }
 	class FPS* GetFps()const { return _fps; }
-	int GetCnt()const { return _cntTest; }	// ‚¨‚µ@Œã‚ÅÁ‚·
 	std::string GetStage()const { return _stage; }
 
 	void IncrementEnergyCount() { _energyCount++; }
 	void DecremetEnergyCOunt() { _energyCount--; }
+	void IncrementEnemyCount() { _enemyCount++; }
+	void DecrementEnemyCount() { _enemyCount--; }
 protected:
 
 	class ObjectServer* _objServer;
@@ -36,6 +38,9 @@ protected:
 
 	//LightsOut‚ğg‚¦‚é‚Ì‚Í‚±‚Ì•Ï”‚ª‚O‚Ì
 	int _energyCount;
+
+	//“|‚·“G‚Ì”
+	int _enemyCount;
 
 	class FPS* _fps;
 
@@ -50,6 +55,21 @@ public:
 
 	std::string _stage;
 	class Timer* _timer;
-	int _cntTest;	// ‚¨‚µ@Œã‚ÅÁ‚·
 
+	class ResultData {
+	public:
+		ResultData() {
+			maxCombo = 0;
+			clearSecondTime = 0.f;
+			maxDetectionLevel = 0.f;
+		}
+		~ResultData(){}
+		int maxCombo;
+		float clearSecondTime;
+		float maxDetectionLevel;
+	};
+
+	std::shared_ptr<ResultData> GetResultData() const { return _resultData; }
+private:
+	std::shared_ptr<ResultData>_resultData;
 }; 
