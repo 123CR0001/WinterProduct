@@ -5,12 +5,12 @@ PlayerAnimationComponent::PlayerAnimationComponent(Player* owner, int order)
 	:AnimationComponent(owner, order)
 	, _pOwner(owner)
 {
-	_pOwner->LoadModel("res/Chara/Owl_HIK.mv1");
+	_pOwner->LoadModel("res/Chara/Owl_toDX/Owl.mv1");
 
 	LoadAnimation("Idle", "mo_standby_01", 0);
 	LoadAnimation("run", "mo_move_01", 0);
 	LoadAnimation("StealthWalk", "mo_stealthwalk_01", 0);
-	LoadAnimation("Attack", "mo_attack_01", 1);
+	LoadAnimation("Attack", "mo_attack_03", 1);
 	LoadAnimation("Attack2", "mo_attack_01", 1);
 
 	_closeMaxTime = 3.0f;

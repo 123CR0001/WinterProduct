@@ -8,6 +8,8 @@
 #include"ModeGame.h"
 #include"AIBackPatrol.h"
 
+#include"LightsOut.h"
+
 AIChase::AIChase(AIComponent* owner)
 	:AIState(owner)
 	, _pointsNum(0)
@@ -51,9 +53,10 @@ bool AIChase::Process() {
 	}
 
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
-	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");
 	}
+
 
 	return true;
 }

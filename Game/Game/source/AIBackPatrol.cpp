@@ -7,6 +7,7 @@
 #include"appframe.h"
 #include<algorithm>
 #include"ModeGame.h"
+#include"LightsOut.h"
 
 AIBackPatrol::AIBackPatrol(AIComponent* owner)
 	:AIState(owner)
@@ -76,9 +77,10 @@ bool AIBackPatrol::Process() {
 	}
 
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
-	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");
 	}
+
 
 	return true;
 }

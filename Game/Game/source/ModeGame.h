@@ -31,6 +31,8 @@ public:
 
 	class MyUIServer* GetUIServer()const { return _uiServer; }
 
+	class LightsOut* GetLightsOut()const { return _lightsOut; }
+
 	void SwitchOverOrClear();
 protected:
 
@@ -45,11 +47,13 @@ protected:
 	//倒す敵の数
 	int _enemyCount;
 
+	//ライツアウトのクラス
 	class LightsOut* _lightsOut;
 
-	//
+	//タイムライン
 	class TimeLine* _timeLine;
 
+	//UI
 	class MyUIServer* _uiServer;
 
 	class FPS* _fps;

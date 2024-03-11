@@ -11,7 +11,8 @@ public:
 
 private:
 
-	int _handle;
+	int _gaugeHandle;
+	int _gaugeBgHandle;
 	class SpriteText* _text;
 	class ObjectServer* _server;
 };

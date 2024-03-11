@@ -384,9 +384,6 @@
     <ClCompile Include="source\AIStare.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\CameraZoomComponent.cpp">
-      <Filter>ソース ファイル\Component</Filter>
-    </ClCompile>
     <ClCompile Include="source\Button.cpp">
       <Filter>ソース ファイル\Button</Filter>
     </ClCompile>
@@ -439,6 +436,15 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="source\UIDetectionLevvel.cpp">
+      <Filter>ソース ファイル\MYUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\CameraZoomComponent.cpp">
+      <Filter>ソース ファイル\Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIVision.cpp">
+      <Filter>ソース ファイル\MYUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UIMiniMap.cpp">
       <Filter>ソース ファイル\MYUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -722,9 +728,6 @@
     <ClInclude Include="source\AIStare.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
-    <ClInclude Include="source\CameraZoomComponent.h">
-      <Filter>ヘッダー ファイル\Component</Filter>
-    </ClInclude>
     <ClInclude Include="source\Button.h">
       <Filter>ヘッダー ファイル\Button</Filter>
     </ClInclude>
@@ -777,6 +780,15 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="source\UIDetectionLevel.h">
+      <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\CameraZoomComponent.h">
+      <Filter>ヘッダー ファイル\Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIVision.h">
+      <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UIMiniMap.h">
       <Filter>ヘッダー ファイル\MYUI</Filter>
     </ClInclude>
   </ItemGroup>

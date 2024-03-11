@@ -5,6 +5,9 @@
 #include"ObjectServer.h"
 #include"PhysWorld.h"
 
+#include"ModeGame.h"
+#include"LightsOut.h"
+
 AILookAround::AILookAround(AIComponent* owner)
 	:AIState(owner)
 	,_frameCnt(0)
@@ -70,9 +73,10 @@ bool AILookAround::Process() {
 	}
 
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
-	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");
 	}
+
 
 
 	return true;

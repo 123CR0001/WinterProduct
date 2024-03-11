@@ -44,6 +44,8 @@
 #include"LightsOut.h"
 
 #include"UIDetectionLevel.h"
+#include"UIVision.h"
+#include"UIMiniMap.h"
 
 ModeGame::ModeGame(std::string stageNum) 
 	:_objServer(NEW ObjectServer(this))
@@ -78,8 +80,6 @@ bool ModeGame::Initialize() {
 
 	_objServer->LoadData(_stage);
 
-	ModeServer::GetInstance()->Add(NEW ModeMiniMap(this), 100, "MiniMap");
-
 	// シャドウマップの生成
 	_handleShadowMap = MakeShadowMap(2048, 2048);
 
@@ -89,6 +89,8 @@ bool ModeGame::Initialize() {
 	_lightsOut = NEW LightsOut(this);
 
 	_uiServer->AddUI(NEW UIDetectionLevel(_objServer));
+	_uiServer->AddUI(NEW UIVision(_objServer));
+	_uiServer->AddUI(NEW UIMiniMap(this));
 	return true;
 }
 
@@ -98,7 +100,6 @@ bool ModeGame::Terminate() {
 
 	DeleteShadowMap(_handleShadowMap);
 	_objServer->Terminate();
-	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("MiniMap"));
 
 	return true;
 }

@@ -3,6 +3,9 @@
 #include"ObjectBase.h"
 #include"ObjectServer.h"
 
+#include"ModeGame.h"
+#include"LightsOut.h"
+
 AIStay::AIStay(AIComponent* owner)
 	:AIState(owner)
 	,_ownerEulerAngle(nullptr)
@@ -62,7 +65,7 @@ bool AIStay::Process() {
 	}
 
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
-	if(ModeServer::GetInstance()->IsAdd("LightsOut")) {
+	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");
 	}
 

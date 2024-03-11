@@ -11,14 +11,13 @@ public:
 private:
 
 	//どの倍率にするか
-	const float _changeMag;
+	float _changeMag;
 
 	//変更前の値
-	const float _mag;
-	
+	float _mag;
 
 	//何フレームでズームが終わるか
-	const int _maxFrameCnt;
+	int _maxFrameCnt;
 	//何フレーム経ったか記録する
 	int _frameCnt;
 

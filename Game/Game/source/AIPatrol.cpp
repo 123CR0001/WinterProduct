@@ -9,6 +9,9 @@
 #include"Player.h"
 #include"AIChase.h"
 
+#include"ModeGame.h"
+#include"LightsOut.h"
+
 AIPatrol::AIPatrol(AIComponent* owner)
 	:AIState(owner)
 	,_patrolPointsNum(1)
@@ -87,9 +90,10 @@ bool AIPatrol::Process() {
 	}
 
 	//LightsOutになったら,AIBlindWalkに変更
-	if (ModeServer::GetInstance()->IsAdd("LightsOut")) {
+	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");
 	}
+
 
 	//AIStateが変更されていたら、目的地の座標をAIBackPatrolの座標コンテナに登録
 	//この登録した座標を基に、元の位置に戻ってくる

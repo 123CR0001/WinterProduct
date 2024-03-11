@@ -249,6 +249,7 @@
     <ClCompile Include="source\UIGetSlide.cpp" />
     <ClCompile Include="source\UIHrsMinSec.cpp" />
     <ClCompile Include="source\UILightsTimer.cpp" />
+    <ClCompile Include="source\UIMiniMap.cpp" />
     <ClCompile Include="source\UINextStage.cpp" />
     <ClCompile Include="source\UINo.cpp" />
     <ClCompile Include="source\UIOverToTitle.cpp" />
@@ -264,6 +265,7 @@
     <ClCompile Include="source\UITitle.cpp" />
     <ClCompile Include="source\UIToConfirm.cpp" />
     <ClCompile Include="source\UIToTitle.cpp" />
+    <ClCompile Include="source\UIVision.cpp" />
     <ClCompile Include="source\WeaponBase.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -342,6 +344,7 @@
     <ClInclude Include="source\SoundServer.h" />
     <ClInclude Include="source\SpriteTextFlipAnimation.h" />
     <ClInclude Include="source\UIDetectionLevel.h" />
+    <ClInclude Include="source\UIMiniMap.h" />
     <ClInclude Include="source\UISpriteText.h" />
     <ClInclude Include="source\TimeLine.h" />
     <ClInclude Include="source\Timer.h" />
@@ -376,6 +379,7 @@
     <ClInclude Include="source\UITitle.h" />
     <ClInclude Include="source\UIToConfirm.h" />
     <ClInclude Include="source\UIToTitle.h" />
+    <ClInclude Include="source\UIVision.h" />
     <ClInclude Include="source\WeaponBase.h" />
     <ClInclude Include="source\Tracer.h" />
     <ClInclude Include="source\UIHrsMinSec.h" />

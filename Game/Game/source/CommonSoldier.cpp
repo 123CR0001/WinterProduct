@@ -10,6 +10,7 @@
 #include"CapsuleComponent.h"
 #include"FrameComponent.h"
 #include"CameraComponent.h"
+#include"CameraZoomComponent.h"
 
 #include"ModeGame.h"
 #include"ModeEffekseer.h"
@@ -28,6 +29,8 @@
 
 #include"CommonSoldierAnimaitonComponent.h"
 #include"CountKillComboComponent.h"
+
+#include"LightsOut.h"
 
 constexpr int SIDE_NUM = 100;
 
@@ -121,7 +124,7 @@ bool CommonSoldier::Process() {
 	}
 
 	//ŒŸ’m“x‚Ì‘Œ¸(•S•ª—¦)
-	if (_AI->IsFound(GetObjectServer()->GetPlayer())) {
+	if (_AI->IsFound(GetObjectServer()->GetPlayer()) && GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		//AI‚²‚Æ‚Éã¸‚·‚é‚©‚µ‚È‚¢‚©‚ð•ª‚¯‚é‚©‚à‚µ‚ê‚È‚¢
 		//‚±‚±‚É‘‚¢‚Ä‚¢‚é‚Ì‚Í‘–‚è‘‚«
 		const float dist = _AI->GetViewDist();
@@ -182,7 +185,7 @@ bool CommonSoldier::Process() {
 	if(GetObjectServer()->GetGame()->GetResultData()->maxDetectionLevel < _detectionLevel){
 		GetObjectServer()->GetGame()->GetResultData()->maxDetectionLevel = _detectionLevel;
 	}
-	
+
 
 	return true;
 }
