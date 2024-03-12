@@ -46,15 +46,15 @@ bool Navi::BFS(
 
 				if(!routeCandi[m].neighborPoly) { break; }
 
-				impuritiesMix.emplace_back(routeCandi[m].pos);
+				route.emplace_back(routeCandi[m].pos);
 
 				if(routePolygon) { routePolygon->emplace_back(routeCandi[m].neighborPoly); }
 
 				m = routeCandi[m].neighborPoly;
 			}
 
-			impuritiesMix.emplace_back(startPos);
-			route = impuritiesMix;
+			route.emplace_back(startPos);
+			//route = impuritiesMix;
 
 			pathFound = true;
 			break;
@@ -87,7 +87,7 @@ void Navi::GetPolygonData() {
 	//’¸“_‚ÌˆÊ’uî•ñ
 	MV1_REF_VERTEX* ver = list.Vertexs;
 
-	//ƒ|ƒŠƒSƒ“ê‚ğ\’z
+	//ƒ|ƒŠƒSƒ“î•ñ‚ğ\’z
 	for (int a = 0; a < list.PolygonNum; a++) {
 		Polygon3D myPolygon(
 			DxConverter::DxToVec(ver[DxPolygon[a].VIndex[0]].Position),
@@ -214,7 +214,7 @@ void Navi::GetConectPolygonMap() {
 
 Polygon3D* Navi::GetHitPolygon(Vector3D pos) {
 
-	for (auto& poly : _polys) {
+	for (auto&& poly : _polys) {
 		if (HitCheck_Line_Triangle(
 			DxConverter::VecToDx(pos - Vector3D(0.f, 1000.f, 0.f)),
 			DxConverter::VecToDx(pos + Vector3D(0.f, 40.f, 0.f)),

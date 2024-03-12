@@ -174,9 +174,6 @@
     <ClCompile Include="source\AIPatrol.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\AIChase.cpp">
-      <Filter>ソース ファイル\Component\AI</Filter>
-    </ClCompile>
     <ClCompile Include="source\AIBackPatrol.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
@@ -279,7 +276,7 @@
     <ClCompile Include="source\SoundComponent.cpp">
       <Filter>ソース ファイル\PhysWorld</Filter>
     </ClCompile>
-    <ClCompile Include="source\AICheckPoint.cpp">
+    <ClCompile Include="source\AIMoveTo.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
     <ClCompile Include="source\Siren.cpp">
@@ -381,9 +378,6 @@
     <ClCompile Include="source\Energy.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="source\AIStare.cpp">
-      <Filter>ソース ファイル\Component\AI</Filter>
-    </ClCompile>
     <ClCompile Include="source\Button.cpp">
       <Filter>ソース ファイル\Button</Filter>
     </ClCompile>
@@ -449,6 +443,9 @@
     </ClCompile>
     <ClCompile Include="source\UISecMiliSec.cpp">
       <Filter>ソース ファイル\MYUI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AIDiscovery.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -516,9 +513,6 @@
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
     <ClInclude Include="source\AIPatrol.h">
-      <Filter>ヘッダー ファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\AIChase.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
     <ClInclude Include="source\AIBackPatrol.h">
@@ -617,7 +611,7 @@
     <ClInclude Include="source\SoundComponent.h">
       <Filter>ヘッダー ファイル\PhysWorld</Filter>
     </ClInclude>
-    <ClInclude Include="source\AICheckPoint.h">
+    <ClInclude Include="source\AIMoveTo.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
     <ClInclude Include="source\Siren.h">
@@ -728,9 +722,6 @@
     <ClInclude Include="source\Energy.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\AIStare.h">
-      <Filter>ヘッダー ファイル\Component\AI</Filter>
-    </ClInclude>
     <ClInclude Include="source\Button.h">
       <Filter>ヘッダー ファイル\Button</Filter>
     </ClInclude>
@@ -796,6 +787,9 @@
     </ClInclude>
     <ClInclude Include="source\UISecMiliSec.h">
       <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AIDiscovery.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

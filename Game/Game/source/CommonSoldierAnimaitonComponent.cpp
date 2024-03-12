@@ -17,6 +17,7 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 	LoadAnimation("LookAround", "mo_losesight_01", 0);
 	LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
 	LoadAnimation("Idle", "mo_standbyenemy_01", 0);
+	LoadAnimation("Discovery", "mo_discovery_01", 0);
 
 	_closeMaxTime = 12.f;
 
@@ -40,6 +41,7 @@ bool CommonSoldierAnimationComponent::Process() {
 	}
 	else if (name == "Panic") { ChangeAnimation("Shoot"); }
 	else if(name == "Death") { ChangeAnimation("Death"); }
+	else if(name == "Discovery") { ChangeAnimation("Discovery"); }
 	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f) {
 		ChangeAnimation("Walk");
 	}

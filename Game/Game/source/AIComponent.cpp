@@ -4,7 +4,6 @@
 #include"ObjectServer.h"
 #include"PhysWorld.h"
 #include"FrameComponent.h"
-#include"AIChase.h"
 
 #include"ModeGame.h"
 #include"ModeDebugMenu.h"
@@ -132,7 +131,6 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 	//pointsのサイズが移動したい番号以下だった場合、巡回は終わっている
 	//下でも同じ処理をしているが、こちらはエラーを出さないための処理
 	if (points.size() <= num) {
-		num = 0;
 		return false;
 	}
 
@@ -163,7 +161,7 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 	float moveSpeed = 2.f;
 
 	//目的地に着いた
-	if (Vector3D::LengthSquare(arrowPoint, notYPos) <= 50 * 50) {
+	if (arrowPoint.Equal(notYPos,10.f)) {
 		num++;
 		//moveSpeed = Vector3D::Length(arrowPoint, notYPos);
 	}
@@ -200,7 +198,7 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 	_owner->AddPos(forwardVec.Normalize() * moveSpeed);
 	_owner->SetEulerAngle(angle);
 
-	//一巡したから最初の位置を目指す
+	//一巡した
 	if (points.size() <= num) {
 		num = 0;
 		return true;

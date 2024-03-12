@@ -60,8 +60,11 @@ bool Siren::Process() {
 
 		_interval = 360;
 
+		Vector3D pos = _pos;
+		pos.y = 0.f;
+
 	
-		new SoundComponent(this, _pos, _volumeSize);
+		new SoundComponent(this, pos, _volumeSize);
 
 		gGlobal._sndServer.Get(_SEName)->Play();
 		

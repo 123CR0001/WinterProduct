@@ -41,7 +41,7 @@ bool AILookAround::Process() {
 		Vector3D p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			_owner->AddPoint("CheckPoint", p);
-			_owner->ChangeState("CheckPoint");
+			_owner->ChangeState("Discovery");
 			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
@@ -64,7 +64,8 @@ bool AILookAround::Process() {
 					//追いかけるオブジェクトのアドレスを登録
 					_owner->SetChaseObject(objects[a]);
 					//AIStateを変更
-					_owner->ChangeState("Chase");
+					_owner->AddPoint("CheckPoint", objects[a]->GetPos());
+					_owner->ChangeState("Discovery");
 					_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 					break;
 				}

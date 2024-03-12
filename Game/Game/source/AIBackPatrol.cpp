@@ -1,5 +1,4 @@
 #include"AIBackPatrol.h"
-#include"AIChase.h"
 #include"AIComponent.h"
 #include"Player.h"
 #include"CommonSoldier.h"
@@ -38,7 +37,6 @@ void AIBackPatrol::OnEnter() {
 	
 }
 void AIBackPatrol::OnExist() {
-	_owner->GetPoints(GetName()).clear();
 	_pointsNum = 0;
 }
 
@@ -69,7 +67,8 @@ bool AIBackPatrol::Process() {
 					//追いかけるオブジェクトのアドレスを登録
 					_owner->SetChaseObject(objects[a]);
 					//AIStateを変更
-					_owner->ChangeState("Chase");
+					_owner->AddPoint("CheckPoint", objects[a]->GetPos());
+					_owner->ChangeState("Discovery");
 					break;
 				}
 			}

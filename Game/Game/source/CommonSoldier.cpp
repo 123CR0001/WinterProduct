@@ -17,15 +17,14 @@
 
 #include"AIComponent.h"
 #include"AIPatrol.h"
-#include"AIChase.h"
 #include"AIBackPatrol.h"
-#include"AICheckPoint.h"
+#include"AIMoveTo.h"
 #include"AIBlindWalk.h"
 #include"AIPanic.h"
 #include"AILookAround.h"
 #include"AIDeath.h"
 #include"AIStay.h"
-#include"AIStare.h"
+#include"AIDiscovery.h"
 
 #include"CommonSoldierAnimaitonComponent.h"
 #include"CountKillComboComponent.h"
@@ -45,15 +44,14 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 
 	//AState‚Ì“o˜^
 	_AI->RegisterState(NEW AIBackPatrol(_AI));
-	_AI->RegisterState(NEW AIChase(_AI));
 	_AI->RegisterState(NEW AIPatrol(_AI));
 	_AI->RegisterState(NEW AIBlindWalk(_AI));
-	_AI->RegisterState(NEW AICheckPoint(_AI));
+	_AI->RegisterState(NEW AIMoveTo(_AI));
 	_AI->RegisterState(NEW AIPanic(_AI));
 	_AI->RegisterState(NEW AILookAround(_AI));
 	_AI->RegisterState(NEW AIDeath(_AI));
 	_AI->RegisterState(NEW AIStay(_AI));
-	_AI->RegisterState(NEW AIStare(_AI));
+	_AI->RegisterState(NEW AIDiscovery(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);

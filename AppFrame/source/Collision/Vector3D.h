@@ -113,4 +113,8 @@ public:
 
 	//法線ベクトルによるベクトルの反射
 	static Vector3D Reflect(Vector3D vec,Vector3D normal);
+
+	bool Equal(const Vector3D& right, float dist) {
+		return Vector3D((*this) - right).LengthSquare() < (dist * dist);
+	}
 };

@@ -7,7 +7,6 @@
 #include"AIBackPatrol.h"
 #include"PhysWorld.h"
 #include"Player.h"
-#include"AIChase.h"
 
 #include"ModeGame.h"
 #include"LightsOut.h"
@@ -52,15 +51,16 @@ bool AIPatrol::Process() {
 	{
 		Vector3D p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
+			isChangeState = true;
 			_owner->DeletePoint("CheckPoint");
 			_owner->AddPoint("CheckPoint", p);
-			_owner->ChangeState("CheckPoint");
-			isChangeState = true;
+			_owner->ChangeState("Discovery");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
 
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか
-	{
+	
 		auto objects = _owner->GetOwner()->GetObjectServer()->GetObjects();
 		std::vector<std::string>names;
 
@@ -76,18 +76,20 @@ bool AIPatrol::Process() {
 
 				//視界に入っているか
 				if (_owner->IsFound(objects[a])) { 
+
+					isChangeState = true;
 					//追いかけるオブジェクトのアドレスを登録
 					_owner->SetChaseObject(objects[a]);
 					//AIStateを変更
-					_owner->ChangeState("Chase");
-					
-					isChangeState = true;
+					_owner->AddPoint("CheckPoint", objects[a]->GetPos());
+					_owner->ChangeState("Discovery");
+					_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 					return true;
 				
 				}
 			}
 		}
-	}
+	
 
 	//LightsOutになったら,AIBlindWalkに変更
 	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
@@ -97,7 +99,7 @@ bool AIPatrol::Process() {
 
 	//AIStateが変更されていたら、目的地の座標をAIBackPatrolの座標コンテナに登録
 	//この登録した座標を基に、元の位置に戻ってくる
-	if(isChangeState) { _owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());  }
+
 	
 	return true;
 }

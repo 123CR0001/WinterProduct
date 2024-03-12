@@ -1,4 +1,4 @@
-#include"AICheckPoint.h"
+#include"AIMoveTo.h"
 #include"AIComponent.h"
 #include"ObjectServer.h"
 #include"appframe.h"
@@ -8,19 +8,21 @@
 #include"ModeGame.h"
 #include"LightsOut.h"
 
-AICheckPoint::AICheckPoint(AIComponent* owner)
+AIMoveTo::AIMoveTo(AIComponent* owner)
 	:AIState(owner)
 	,_pointsNum(0)
+	,_frameCnt(0)
 {
 
 }
 
-AICheckPoint::~AICheckPoint(){}
+AIMoveTo::~AIMoveTo(){}
 
-void AICheckPoint::OnEnter() {
+void AIMoveTo::OnEnter() {
 
 	//一番最後に追加された座標へ向かう
-	const Vector3D checkPoint = _owner->GetPoints(GetName()).back();
+	Vector3D checkPoint = _owner->GetPoints(GetName()).back();
+
 	//昔のルートは捨てる
 	_pointsNum = 0;
 	_owner->GetPoints(GetName()).clear();
@@ -31,23 +33,25 @@ void AICheckPoint::OnEnter() {
 
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
-	auto startPolygon = _owner->GetOwner()->GetPos();
-	auto goalPolygon = checkPoint;
+	auto ownerPos = owner->GetPos();
 
 	//最短経路
-		navi->BFS(startPolygon,goalPolygon,_owner->GetPoints(GetName()));
-	
+	navi->BFS(ownerPos,checkPoint,_owner->GetPoints(GetName()));
+
+	_oldCheckPoint = checkPoint;
+	_frameCnt = 0;
+}
+
+void AIMoveTo::OnExist() {
 
 }
 
-void AICheckPoint::OnExist() {
-	_owner->GetPoints(GetName()).clear();
-}
+bool AIMoveTo::Process() {
+	//何か見かけたか
+	bool isFound = false;
 
-bool AICheckPoint::Process() {
+	if(_owner->GetPoints(GetName()).size() == 0) {
 
-	//移動　最後の座標まで到達したら、巡回経路に戻る
-	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
 		_owner->ChangeState("LookAround");
 	}
 
@@ -66,16 +70,32 @@ bool AICheckPoint::Process() {
 
 			for (int b = 0; b < names.size(); b++) {
 				if (objects[a]->GetName() == names[b]) {
-					//追いかけるオブジェクトのアドレスを登録
-					_owner->SetChaseObject(objects[a]);
-					//AIStateを変更
-					_owner->ChangeState("Chase");
+
+					//目的地を更新
+					if (_oldCheckPoint != objects[a]->GetPos()){
+						_oldCheckPoint = _owner->GetPoints(GetName()).back();
+						_owner->AddPoint(GetName(), objects[a]->GetPos());
+						_owner->ChangeState(GetName());
+					}
+
+					isFound = true;
 					break;
 				}
 			}
 		}
 	}
 
+	//移動　最後の座標まで到達したら、巡回経路に戻る
+	if (!_owner->GetPoints(GetName()).back().Equal(_owner->GetOwner()->GetPos(), 20.f)) {
+		//移動
+		_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum);
+
+	}
+	else {
+		if (!isFound) {
+			_owner->ChangeState("LookAround");
+		}
+	}
 
 	//LightsOutになったら,AIBlindWalkに変更
 	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {

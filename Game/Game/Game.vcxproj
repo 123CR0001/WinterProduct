@@ -157,8 +157,7 @@
   <ItemGroup>
     <ClCompile Include="source\AfterImage.cpp" />
     <ClCompile Include="source\AIBackPatrol.cpp" />
-    <ClCompile Include="source\AIChase.cpp" />
-    <ClCompile Include="source\AICheckPoint.cpp" />
+    <ClCompile Include="source\AIMoveTo.cpp" />
     <ClCompile Include="source\AIComponent.cpp" />
     <ClCompile Include="source\AIDeath.cpp" />
     <ClCompile Include="source\AILookAround.cpp" />
@@ -166,9 +165,9 @@
     <ClCompile Include="source\AIPatrol.cpp" />
     <ClCompile Include="source\AIBlindWalk.cpp" />
     <ClCompile Include="source\AIRush.cpp" />
-    <ClCompile Include="source\AIStare.cpp" />
     <ClCompile Include="source\AIState.cpp" />
     <ClCompile Include="source\AIStay.cpp" />
+    <ClCompile Include="source\AIDiscovery.cpp" />
     <ClCompile Include="source\AITracer.cpp" />
     <ClCompile Include="source\Animation.cpp" />
     <ClCompile Include="source\AnimationComponent.cpp" />
@@ -272,18 +271,17 @@
   <ItemGroup>
     <ClInclude Include="source\AfterImage.h" />
     <ClInclude Include="source\AIBackPatrol.h" />
-    <ClInclude Include="source\AIChase.h" />
     <ClInclude Include="source\AIComponent.h" />
     <ClInclude Include="source\AIDeath.h" />
     <ClInclude Include="source\AILookAround.h" />
     <ClInclude Include="source\AIPanic.h" />
     <ClInclude Include="source\AIPatrol.h" />
     <ClInclude Include="source\AIBlindWalk.h" />
-    <ClInclude Include="source\AICheckPoint.h" />
+    <ClInclude Include="source\AIMoveTo.h" />
     <ClInclude Include="source\AIRush.h" />
-    <ClInclude Include="source\AIStare.h" />
     <ClInclude Include="source\AIState.h" />
     <ClInclude Include="source\AIStay.h" />
+    <ClInclude Include="source\AIDiscovery.h" />
     <ClInclude Include="source\AITrace.h" />
     <ClInclude Include="source\Animation.h" />
     <ClInclude Include="source\AnimationComponent.h" />
