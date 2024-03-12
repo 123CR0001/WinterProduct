@@ -447,6 +447,9 @@
     <ClCompile Include="source\UIMiniMap.cpp">
       <Filter>ソース ファイル\MYUI</Filter>
     </ClCompile>
+    <ClCompile Include="source\UISecMiliSec.cpp">
+      <Filter>ソース ファイル\MYUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -789,6 +792,9 @@
       <Filter>ヘッダー ファイル\MYUI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIMiniMap.h">
+      <Filter>ヘッダー ファイル\MYUI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UISecMiliSec.h">
       <Filter>ヘッダー ファイル\MYUI</Filter>
     </ClInclude>
   </ItemGroup>

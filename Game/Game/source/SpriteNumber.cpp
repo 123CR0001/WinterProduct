@@ -15,7 +15,9 @@ SpriteNumber::~SpriteNumber()
 
 void SpriteNumber::Draw(MATRIX mView) {
 
-	int number = _number;
+	int number = floor(_number);
+
+	if (number < 0)return;
 
 	int digit = _drawDigit;
 

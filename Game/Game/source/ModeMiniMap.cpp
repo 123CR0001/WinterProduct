@@ -19,7 +19,7 @@ ModeMiniMap::ModeMiniMap(ModeGame* game)
 	, _maxPos(Vector3D(-9999999.f, 0.f, -9999999.f))
 	, _minPos(Vector3D(9999999.f, 0.f, 9999999.f))
 {
-	_mapTextHandle = LoadGraph("res/MiniMap/mapstage1.png");
+	_mapTextHandle = ResourceServer::LoadGraph("res/MiniMap/mapstage1.png");
 }
 
 ModeMiniMap::~ModeMiniMap() {

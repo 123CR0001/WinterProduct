@@ -257,6 +257,7 @@
     <ClCompile Include="source\UIRemainingUses.cpp" />
     <ClCompile Include="source\UIResume.cpp" />
     <ClCompile Include="source\UIRetry.cpp" />
+    <ClCompile Include="source\UISecMiliSec.cpp" />
     <ClCompile Include="source\UISelectController.cpp" />
     <ClCompile Include="source\UISelectMap.cpp" />
     <ClCompile Include="source\UIServer.cpp" />
@@ -345,6 +346,7 @@
     <ClInclude Include="source\SpriteTextFlipAnimation.h" />
     <ClInclude Include="source\UIDetectionLevel.h" />
     <ClInclude Include="source\UIMiniMap.h" />
+    <ClInclude Include="source\UISecMiliSec.h" />
     <ClInclude Include="source\UISpriteText.h" />
     <ClInclude Include="source\TimeLine.h" />
     <ClInclude Include="source\Timer.h" />

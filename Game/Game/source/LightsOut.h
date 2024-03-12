@@ -14,7 +14,7 @@ private:
 	class SpriteTextFlipAnimation* _timerBg;
 	class SpriteTextFlipAnimation* _noise;
 	class SpriteText* _hud;
-	class UIHrsMinSec* _timer;
+	class UISecMiliSec* _timer;
 	class ModeGame* _game;
 
 	int _frameCnt;

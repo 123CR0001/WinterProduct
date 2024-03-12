@@ -32,7 +32,7 @@ UIHrsMinSec::UIHrsMinSec(int frame, int secondTime,const Transform2& transform ,
 
 	//画面が最大サイズの時の描画サイズ * 上記の比率 = 画面の大きさに適した描画サイズにする
 
-	_spriteColon->SetHandle(LoadGraph("res/UI/Result/ui_timer_02.png"));
+	_spriteColon->SetHandle(ResourceServer::LoadGraph("res/UI/Result/ui_timer_02.png"));
 	_spriteColon->SetSize(Vector2(COLON_WIDTH, COLON_HEIGHT));
 
 	for (int a = 0; a < _spriteTimes.size(); a++) {

@@ -83,7 +83,7 @@ void ModeClear::SetUI() {
 	//ÉäÉ[ÉãÇ∆ÉfÅ[É^òg
 	{
 		auto text = NEW SpriteText(
-			LoadGraph("res/UI/Result/ui_scorebg_01.png"),
+			ResourceServer::LoadGraph("res/UI/Result/ui_scorebg_01.png"),
 			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.25f)),
 			Vector2(896.f * rateW, 232.f * rateH)
 		);
@@ -94,7 +94,7 @@ void ModeClear::SetUI() {
 	//É{É^ÉìäOòg
 	{
 		auto text = NEW SpriteText(
-			LoadGraph("res/UI/Result/ui_scorebg_02.png"),
+			ResourceServer::LoadGraph("res/UI/Result/ui_scorebg_02.png"),
 			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.75f)),
 			Vector2(896.f * rateW, 232.f * rateH)
 		);
@@ -141,7 +141,7 @@ void ModeClear::SetUI() {
 	{
 		auto func = [=]() mutable {
 			SpriteText* text = NEW SpriteText(
-					LoadGraph("res/UI/Result/Emblem/ui_renkemblem_s.png"), 
+				ResourceServer::LoadGraph("res/UI/Result/Emblem/ui_renkemblem_s.png"),
 					//			âÒì]	ägëÂ	ç¿ïW
 					Transform2(0.f,		3.f,	Vector2(1024.f * rateW, 448.f * rateH)),
 					Vector2(640.f * rateW, 230.f * rateH),
@@ -166,7 +166,7 @@ void ModeClear::SetButton() {
 	{
 		auto targetUI = _buttonServer->GetSelectUI();
 
-		targetUI->SetHandle(LoadGraph("res/UI/Result/ui_target_01.png"));
+		targetUI->SetHandle(ResourceServer::LoadGraph("res/UI/Result/ui_target_01.png"));
 		targetUI->SetSize(Vector2(384.f * rateW, 64.f * rateH));
 		targetUI->SetAlpha(1.f);
 		targetUI->AddAnimation(NEW OpacityAnimation(targetUI, -120, 0.6f));
@@ -174,7 +174,7 @@ void ModeClear::SetButton() {
 	{
 		//âÊëúÇÃê›íË
 		SpriteText* titleButton = NEW SpriteText(
-			LoadGraph("res/UI/Result/ui_stageselection_01.png"),
+			ResourceServer::LoadGraph("res/UI/Result/ui_stageselection_01.png"),
 			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.72f)),
 			Vector2(384.f * rateW, 64.f * rateH)
 		);
@@ -202,7 +202,7 @@ void ModeClear::SetButton() {
 	}
 	{
 		SpriteText* button = NEW SpriteText(
-			LoadGraph("res/UI/Result/ui_nextstage_01.png"),
+			ResourceServer::LoadGraph("res/UI/Result/ui_nextstage_01.png"),
 			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.8f)),
 			Vector2(384.f * rateW, 64.f * rateH)
 		);

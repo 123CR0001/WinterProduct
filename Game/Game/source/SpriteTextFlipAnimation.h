@@ -7,7 +7,7 @@ public:
 
 	void LoadDivText(const char* fileName, int AllNum, int XNum, int YNum, int XSize, int YSize) {
 		_handles.resize(AllNum);
-		LoadDivGraph(fileName, AllNum, XNum, YNum, XSize, YSize, _handles.data());
+		ResourceServer::LoadDivGraph(fileName, AllNum, XNum, YNum, XSize, YSize, _handles.data());
 	}
 
 	void SetDivText(std::vector<int>handles) {

@@ -19,10 +19,12 @@
 #include"ApplicationMain.h"
 #include"ApplicationGlobal.h"
 
+#include"UISecMiliSec.h"
+
 LightsOut::LightsOut(ModeGame* game) 
 	:_game(game)
-	,_timerBg(NEW SpriteTextFlipAnimation(8,false))
-	,_timer(NEW UIHrsMinSec(1,0,Transform2(Vector2(500.f,100.f)),Vector2(80.f,100.f)))
+	,_timerBg(NEW SpriteTextFlipAnimation(3,false))
+	,_timer(NEW UISecMiliSec(Transform2(Vector2(500.f,100.f))))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
 	,_frameCnt(300)
@@ -43,7 +45,7 @@ LightsOut::LightsOut(ModeGame* game)
 	_noise->SetPos(Vector2((float)screenWidth / 2,(float)screenHeight / 2));
 	_noise->SetAlpha(0.f);
 
-	_hud->SetHandle(LoadGraph("res/hud_01.png"));
+	_hud->SetHandle(ResourceServer::LoadGraph("res/hud_01.png"));
 	_hud->SetSize(Vector2(screenWidth, screenHeight));
 	_hud->SetPos(Vector2((float)screenWidth / 2, (float)screenHeight / 2));
 	_hud->SetAlpha(0.f);
@@ -101,7 +103,7 @@ bool LightsOut::Process() {
 			_state = STATE::kEnd;
 		}
 
-		_timer->SetSecondTime(_frameCnt / 60);
+		_timer->SetFrameCount(_frameCnt);
 
 		if (_frameCnt % 60 == 0) {
 			//SE
