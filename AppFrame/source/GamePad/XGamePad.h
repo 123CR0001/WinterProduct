@@ -72,6 +72,8 @@ public:
 		return stick;
 	}
 
+	float GetLeftStickAtan2() const{ return -(atan2f(static_cast<float>(_input.ThumbLY),static_cast<float>( _input.ThumbLX)) - PI / 2.f); }
+
 	STICK GetRightStick()const {
 		STICK stick = { _input.ThumbRX ,_input.ThumbRY };
 		return stick;

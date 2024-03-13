@@ -12,11 +12,15 @@ UIMiniMap::UIMiniMap(ModeGame* game)
 	:_game(game)
 	, _maxPos(Vector3D(-9999999.f, 0.f, -9999999.f))
 	, _minPos(Vector3D(9999999.f, 0.f, 9999999.f))
+	,_zoom(1.f)
 {
 	_mapTextHandle = ResourceServer::LoadGraph("res/MiniMap/mapstage1.png");
 
 	{
 		auto& frames = _game->GetObjectServer()->GetPhysWorld()->GetFrameComponent();
+
+		//マップモデルがない
+		if(frames.size() == 0)return;
 
 		//全てのオブジェクトのモデルから最大・最小頂点を算出
 		for(int a = 0; a < frames.size(); a++) {
@@ -52,7 +56,7 @@ UIMiniMap::UIMiniMap(ModeGame* game)
 	_w = static_cast<int>(fabsf(_maxPos.x - _minPos.x) * _mag);
 	_h = static_cast<int>(fabsf(_maxPos.z - _minPos.z) * _mag);
 
-
+	// 同期読み込み設定
 	_mapScreen = MakeScreen(_w, _h, TRUE);
 	_clipScreen = MakeScreen(_w, _h, FALSE);
 	_mixScreen = MakeScreen(_w, _h, TRUE);

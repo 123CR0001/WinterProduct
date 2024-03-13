@@ -3,7 +3,7 @@
 
 class Decoy :public ObjectBase {
 public:
-	Decoy(class Player* player);
+	Decoy(class Player* player,float rad);
 	~Decoy();
 
 	bool Initialize()override;

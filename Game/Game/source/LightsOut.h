@@ -7,6 +7,7 @@ public:
 	bool Process();
 
 	void Use() { _state = STATE::kStart; }
+	void Stop() { _state = STATE::kEnd; }
 
 	bool IsUse() { return _state == STATE::kNone && _useTimes > 0; }
 

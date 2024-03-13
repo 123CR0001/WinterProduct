@@ -9,16 +9,17 @@
 
 #include"ApplicationGlobal.h"
 
-Decoy::Decoy(Player* player)
+Decoy::Decoy(Player* player, float rad)
 	:ObjectBase(player->GetObjectServer(),false,"Decoy")
 	,_capsule(NEW CapsuleComponent(this,1000))
 	,_elapsedFrame(0)
 	,_frameCnt(0)
 	,_maxFrame(600)
 {
-	//プレイヤーの前方に配置
-	_pos = player->GetPos() + player->GetForward() * 70.f;
+	//プレイヤーと同じ位置から
+	_pos = player->GetPos();
 	_eulerAngle = player->GetEulerAngle();
+	_eulerAngle.y += rad;
 
 	_capsule->SetMember(100.f, 40.f);
 	_capsule->AddSkipName("Decoy");
@@ -57,9 +58,10 @@ bool Decoy::Process() {
 		_eulerAngle.y = atan2f(ref.x, ref.z);
 	}
 
+	//移動
 	AddPos(GetForward() * 2.0f);
 
-	SetPosPlayingEffekseer3DEffect(_handle, _pos.x, _pos.y, _pos.z);
+	SetPosPlayingEffekseer3DEffect(_handle, _pos.x, _pos.y + PI, _pos.z);
 
 	SetRotationPlayingEffekseer3DEffect(_handle, _eulerAngle.x, _eulerAngle.y, _eulerAngle.z);
 

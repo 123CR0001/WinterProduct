@@ -25,7 +25,7 @@ public:
 	void IncrementEnergyCount() { _energyCount++; }
 	void DecremetEnergyCOunt() { _energyCount--; }
 	void IncrementEnemyCount() { _enemyCount++; }
-	void DecrementEnemyCount() { _enemyCount--; }
+	void DecrementEnemyCount();
 
 	class TimeLine* GetTimeLine()const { return _timeLine; }
 

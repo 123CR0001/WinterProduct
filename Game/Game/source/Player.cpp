@@ -96,14 +96,16 @@ bool Player::Process() {
 	//入力処理
 	switch (_actionState) {
 	case ACTION_STATE::kIdle:
-	case ACTION_STATE::kWalk:
+	case ACTION_STATE::kWalk: {
 		_actionState = ACTION_STATE::kIdle;
 
-		if (pad->IsInputLeftStick()) {
+		float angle = pad->GetLeftStickAtan2();
 
+		if(pad->IsInputLeftStick()) {
+
+			//プレイヤーからカメラのY軸の角度を反転
 			_eulerAngle.y = -_cameraCom->GetAngle().y;
 
-			float angle = atan2f((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
 
 			_moveCom->SetRotateSpeed(angle);
 			_moveCom->SetMoveSpeed(moveSpeed);
@@ -111,19 +113,23 @@ bool Player::Process() {
 			_actionState = ACTION_STATE::kWalk;
 
 		}
+		else {
+			angle = 0.f;
+		}
 
-		if (trg & INPUT_X && _isLightsOut) {
+		if(trg & INPUT_X && _isLightsOut) {
 			_actionState = ACTION_STATE::kAttack;
 
 			gGlobal._sndServer.Get("SE_02")->Play();
 		}
-		if (trg & INPUT_X && !_isLightsOut) {
-			NEW Decoy(this);
+		if(trg & INPUT_X && !_isLightsOut) {
+			NEW Decoy(this, angle);
 		}
-		if (trg & INPUT_A) {
+		if(trg & INPUT_A) {
 			_actionState = ACTION_STATE::kSilent;
 		}
 		break;
+	}
 	case ACTION_STATE::kAttack:
 		break;
 	case ACTION_STATE::kAttack2:
@@ -210,7 +216,9 @@ bool Player::Render() {
 		name = "kSilentWalk";
 		break;
 	}
-	DrawFormatString(0, 0, GetColor(255, 0, 0), "%d", _motCom->GetMotionCount());
+
+	auto pad = GetObjectServer()->GetGame()->GetPad();
+	DrawFormatString(0, 0, GetColor(255, 0, 0), "%f", RadToDeg(atan2f((float)pad->GetLeftStick().y, (float)pad->GetLeftStick().x)-PI/2.f));
 	return true;
 }
 

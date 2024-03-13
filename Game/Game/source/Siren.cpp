@@ -12,7 +12,7 @@ int Siren::_maxInterval = 360;
 float Siren::_playerDist = 200.f;
 
 Siren::Siren(ObjectServer* server)
-	:ObjectBase(server,true,"Siren")
+	:ObjectBase(server,false,"Siren")
 	, _interval(0) 
 	,_SEName("SE_07")
 	,_volumeSize(1000.f)

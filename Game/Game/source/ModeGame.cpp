@@ -228,3 +228,14 @@ void ModeGame::SwitchOverOrClear() {
 		ModeServer::GetInstance()->Add(NEW ModeGameOver(this), 100, "GameOver");
 	}
 }
+
+void ModeGame::DecrementEnemyCount() {
+	_enemyCount--;
+
+	if(_enemyCount == 0) {
+		auto func = [=]()mutable { SwitchOverOrClear(); };
+		_timeLine->AddLine(60, func);
+
+		_lightsOut->Stop();
+	}
+}

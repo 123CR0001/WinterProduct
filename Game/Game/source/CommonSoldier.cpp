@@ -103,6 +103,8 @@ bool CommonSoldier::Initialize() {
 	//Å‰‚ÌAIó‘Ô
 	_AI->ChangeState("Patrol");
 
+	_capsule->AddSkipName("Decoy");
+
 	return true;
 }
 
