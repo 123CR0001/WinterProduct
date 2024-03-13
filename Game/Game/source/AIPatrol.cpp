@@ -52,8 +52,7 @@ bool AIPatrol::Process() {
 		Vector3D p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			isChangeState = true;
-			_owner->DeletePoint("CheckPoint");
-			_owner->AddPoint("CheckPoint", p);
+			_owner->AddPoint("MoveTo", p);
 			_owner->ChangeState("Discovery");
 			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
@@ -81,7 +80,7 @@ bool AIPatrol::Process() {
 					//追いかけるオブジェクトのアドレスを登録
 					_owner->SetChaseObject(objects[a]);
 					//AIStateを変更
-					_owner->AddPoint("CheckPoint", objects[a]->GetPos());
+					_owner->AddPoint("MoveTo", objects[a]->GetPos());
 					_owner->ChangeState("Discovery");
 					_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 					return true;

@@ -25,7 +25,7 @@ bool AIDiscovery::Process() {
 	_frameCnt++;
 
 	if(_frameCnt > 60) {
-		_owner->ChangeState("CheckPoint");
+		_owner->ChangeState("MoveTo");
 	}
 	return true;
 }

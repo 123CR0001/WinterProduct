@@ -11,7 +11,7 @@ public:
 	void OnEnter()override;
 	void OnExist()override;
 
-	const char* GetName()override { return "AIMoveTo"; }
+	const char* GetName()override { return "MoveTo"; }
 private:
 	int _pointsNum;
 	Vector3D _oldCheckPoint;

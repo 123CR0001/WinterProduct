@@ -38,6 +38,7 @@ void AIBackPatrol::OnEnter() {
 }
 void AIBackPatrol::OnExist() {
 	_pointsNum = 0;
+	_owner->GetPoints(GetName()).clear();
 }
 
 bool AIBackPatrol::Process() {
@@ -67,7 +68,7 @@ bool AIBackPatrol::Process() {
 					//追いかけるオブジェクトのアドレスを登録
 					_owner->SetChaseObject(objects[a]);
 					//AIStateを変更
-					_owner->AddPoint("CheckPoint", objects[a]->GetPos());
+					_owner->AddPoint("MoveTo", objects[a]->GetPos());
 					_owner->ChangeState("Discovery");
 					break;
 				}
