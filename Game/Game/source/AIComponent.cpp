@@ -174,7 +174,7 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 			float moveAngle = DegToRad(6);
 
 			//crossAngle‚ª‚Ì³•‰‚ÅA‰E‰ñ“]‚©¶‰ñ“]‰»‚ð”»’è‚·‚é
-			if (crossAngle > 0.0) {
+			if (crossAngle > 0.0f) {
 				if (fabs(diff) < moveAngle) {
 					angle.y += diff;
 				}

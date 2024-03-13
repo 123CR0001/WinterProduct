@@ -24,6 +24,9 @@ bool Navi::BFS(
 		return true;
 	}
 
+	//‰Šú‰»
+	route.clear();
+
 	GetHitPolygon(Vector3D(0, 0, 0));
 
 	std::queue<Polygon3D*> data;
@@ -40,7 +43,6 @@ bool Navi::BFS(
 		if(current == goal)
 		{
 			Polygon3D* m = goal;
-			std::vector<Vector3D> impuritiesMix;
 
 			while(1) {
 

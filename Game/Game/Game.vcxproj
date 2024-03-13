@@ -156,6 +156,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\AfterImage.cpp" />
+    <ClCompile Include="source\AIAttack.cpp" />
     <ClCompile Include="source\AIBackPatrol.cpp" />
     <ClCompile Include="source\AIMoveTo.cpp" />
     <ClCompile Include="source\AIComponent.cpp" />
@@ -188,6 +189,7 @@
     <ClCompile Include="source\Decoy.cpp" />
     <ClCompile Include="source\EasingNumber.cpp" />
     <ClCompile Include="source\Energy.cpp" />
+    <ClCompile Include="source\EventLine.cpp" />
     <ClCompile Include="source\FollowCamera.cpp" />
     <ClCompile Include="source\FPS.cpp" />
     <ClCompile Include="source\FrameComponent.cpp" />
@@ -270,6 +272,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\AfterImage.h" />
+    <ClInclude Include="source\AIAttack.h" />
     <ClInclude Include="source\AIBackPatrol.h" />
     <ClInclude Include="source\AIComponent.h" />
     <ClInclude Include="source\AIDeath.h" />
@@ -298,6 +301,7 @@
     <ClInclude Include="source\CreateAfterImageComponent.h" />
     <ClInclude Include="source\Decoy.h" />
     <ClInclude Include="source\EasingNumber.h" />
+    <ClInclude Include="source\EventLine.h" />
     <ClInclude Include="source\LightsOut.h" />
     <ClInclude Include="source\MyUIServer.h" />
     <ClInclude Include="source\OpacityAnimation.h" />

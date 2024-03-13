@@ -53,6 +53,7 @@ protected:
 	//ƒ^ƒCƒ€ƒ‰ƒCƒ“
 	class TimeLine* _timeLine;
 
+
 	//UI
 	class MyUIServer* _uiServer;
 

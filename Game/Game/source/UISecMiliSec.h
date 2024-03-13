@@ -8,6 +8,8 @@ public:
 	UISecMiliSec(const Transform2& transform);
 	~UISecMiliSec();
 
+	const char* GetName()override { return "SecMiliSec"; }
+
 	bool Process()override;
 	bool Draw()override;
 

@@ -10,6 +10,8 @@ public:
 	UISpriteText(class SpriteText* text);
 	virtual ~UISpriteText();
 
+	const char* GetName() { return "SpriteText"; }
+
 	bool Process()override;
 	bool Draw()override;
 

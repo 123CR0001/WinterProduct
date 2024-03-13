@@ -10,6 +10,8 @@ public:
 
 	bool IsUse() { return _state == STATE::kNone && _useTimes > 0; }
 
+	void AddFrameCount() { _frameCnt += 120; }
+
 private:
 	class SpriteTextFlipAnimation* _timerBg;
 	class SpriteTextFlipAnimation* _noise;

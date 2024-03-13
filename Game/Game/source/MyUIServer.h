@@ -12,6 +12,8 @@ public:
 	void AddUI(class UI* addUI);
 	void DeleteUI(class UI* deleteUI);
 
+	class UI* Get(const char* name);
+
 private:
 
 	std::vector<class UI*>_UIs;

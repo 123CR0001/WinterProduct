@@ -24,5 +24,5 @@ public:
 protected:
 
 	std::unordered_map<std::string,int>_effectHandle;
-
+	std::vector<int>_playingEffectHandles;
 }; 

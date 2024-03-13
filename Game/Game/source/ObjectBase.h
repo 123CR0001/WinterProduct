@@ -65,11 +65,13 @@ public:
 	DamageData GetDamageData()const {return _damageData;}
 
 	enum class STATE {
+		kNone,
 		kActive,
 		kDead
 	};
 
 	STATE GetState()const { return _state; }
+
 protected:
 	//ƒ‚ƒfƒ‹‚Ìƒnƒ“ƒhƒ‹
 	int _handle;

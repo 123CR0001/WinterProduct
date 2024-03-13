@@ -18,7 +18,10 @@ UIDetectionLevel::UIDetectionLevel(ObjectServer* server)
 
 }
 
-UIDetectionLevel::~UIDetectionLevel(){}
+UIDetectionLevel::~UIDetectionLevel(){
+
+	delete _text;
+}
 
 bool UIDetectionLevel::Process() {
 

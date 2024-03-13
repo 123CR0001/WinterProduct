@@ -19,12 +19,14 @@ public:
 	class AnimationComponent* GetAnimationComponent()const { return _anim; }
 
 	enum class ACTION_STATE :unsigned int{
+		kNone,
 		kIdle,
 		kWalk,
 		kAttack,
 		kAttack2,
 		kSilent,
-		kSilentWalk
+		kSilentWalk,
+		kDead
 	};
 
 	class CameraComponent* GetCamera()const { return _cameraCom; }

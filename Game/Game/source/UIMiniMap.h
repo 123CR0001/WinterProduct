@@ -6,6 +6,9 @@ class UIMiniMap :public UI {
 public:
 	UIMiniMap(class ModeGame* game);
 	~UIMiniMap();
+
+	const char* GetName()override { return "MiniMap"; }
+
 	bool Process()override;
 	bool Draw()override;
 

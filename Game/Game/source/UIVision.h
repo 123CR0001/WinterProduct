@@ -8,6 +8,8 @@ public:
 	UIVision(class ObjectServer* server);
 	~UIVision();
 
+	const char* GetName()override { return "Vision"; }
+
 	bool Process()override;
 	bool Draw()override;
 

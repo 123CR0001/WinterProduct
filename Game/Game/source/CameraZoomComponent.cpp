@@ -24,7 +24,7 @@ bool CameraZoomComponent::Process() {
 	if(_frameCnt == _maxFrameCnt) { _owner->DeleteComponent(this); }
 	
 	//ズーム
-	_camera->SetTargetDistmag(EasingLinear(static_cast<float>(_frameCnt), _mag, _mag + _changeMag, static_cast<float>(_maxFrameCnt)));
+	_camera->SetTargetDistmag(EasingLinear(static_cast<float>(_frameCnt), _mag, _changeMag, static_cast<float>(_maxFrameCnt)));
 
 	//カウントを増やす
 	_frameCnt++;

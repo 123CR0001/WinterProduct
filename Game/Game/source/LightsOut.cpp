@@ -21,6 +21,13 @@
 
 #include"UISecMiliSec.h"
 
+#include"CameraZoomComponent.h"
+#include"CreateAfterImageComponent.h"
+#include"AnimationComponent.h"
+#include"CameraComponent.h"
+
+#include"ObjectServer.h"
+
 LightsOut::LightsOut(ModeGame* game) 
 	:_game(game)
 	,_timerBg(NEW SpriteTextFlipAnimation(3,false))
@@ -91,6 +98,14 @@ bool LightsOut::Process() {
 		_noise->SetAlpha(1.f);
 		_hud->SetAlpha(1.f);
 
+		gGlobal._sndServer.Get("SE_09")->Play();
+
+		//プレイヤーから残像を出力するようにする
+		NEW CreateAfterImageComponent(_game->GetObjectServer()->GetPlayer()->GetAnimationComponent());
+
+		//Zoomイン
+		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
+
 		_state = STATE::kProcess;
 		break;
 	}
@@ -140,6 +155,9 @@ bool LightsOut::Process() {
 
 		_noise->SetAlpha(0.f);
 		_hud->SetAlpha(0.f);
+
+		//Zoomアウト
+		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 1.f, 60);
 		_state = STATE::kNone;
 		break;
 	}

@@ -7,6 +7,8 @@ public:
 	UIHrsMinSec(int frmae,int secondTime,const Transform2& transform,const Vector2& size);
 	~UIHrsMinSec();
 
+	const char* GetName()override { return "HrsMinSec"; }
+
 	bool Process()override;
 	bool Draw()override;
 

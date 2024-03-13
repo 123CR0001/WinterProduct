@@ -24,12 +24,13 @@ bool MyUIServer::Process() {
 	}
 
 	if (!_deleteUIs.empty()) {
-		for (int a = 0; a < _addUIs.size(); a++) {
-			auto iter = std::find(_deleteUIs.begin(), _deleteUIs.end(), _deleteUIs[a]);
+		for (int a = 0; a < _deleteUIs.size(); a++) {
+			auto iter = std::find(_UIs.begin(), _UIs.end(), _deleteUIs[a]);
 
-			if (iter != _deleteUIs.end()) {
+			if (iter != _UIs.end()) {
 				_UIs.erase(iter);
 			}
+			delete _deleteUIs[a];
 		}
 		_deleteUIs.clear();
 	}
@@ -60,9 +61,18 @@ void MyUIServer::AddUI(UI* addUI) {
 
 void MyUIServer::DeleteUI(UI* deleteUI) {
 
-	if (std::find(_deleteUIs.begin(), _deleteUIs.end(), deleteUI) != _addUIs.end()) { return; }
+	if (std::find(_deleteUIs.begin(), _deleteUIs.end(), deleteUI) != _deleteUIs.end()) { return; }
 	if (std::find(_UIs.begin(), _UIs.end(), deleteUI) == _UIs.end()) { return; }
 
 	_deleteUIs.emplace_back(deleteUI);
+}
+
+UI* MyUIServer::Get(const char* name) {
+	for(auto&& UI : _UIs) {
+		if(UI->GetName() == name) {
+			return UI;
+		}
+	}
+	return nullptr;
 }
 

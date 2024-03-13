@@ -18,6 +18,7 @@ public:
 
 	class AIComponent* GetAIComponent()const { return _AI; }
 
+	bool GetAttack()const { return _isAttack; }
 protected:
 
 	float _detectionLevel;	//ŒŸ’m“x
@@ -32,4 +33,6 @@ protected:
 	int _visionHandleRed;
 	int _visionHandleBlue;
 
+	//UŒ‚‚·‚é‚©
+	bool _isAttack;
 };

@@ -25,11 +25,17 @@
 #include"AIDeath.h"
 #include"AIStay.h"
 #include"AIDiscovery.h"
+#include"AIAttack.h"
 
 #include"CommonSoldierAnimaitonComponent.h"
 #include"CountKillComboComponent.h"
+#include"CameraZoomComponent.h"
 
 #include"LightsOut.h"
+#include"TimeLine.h"
+
+#include"MyUIServer.h"
+#include"UI.h"
 
 constexpr int SIDE_NUM = 100;
 
@@ -39,6 +45,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	,_capsule(NEW CapsuleComponent(this,1000))
 	,_anim(NEW CommonSoldierAnimationComponent(this,1000))
 	,_detectionLevel(0.f)
+	,_isAttack(false)
 {
 	NEW CountKillComboComponent(this);
 
@@ -52,6 +59,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AIDeath(_AI));
 	_AI->RegisterState(NEW AIStay(_AI));
 	_AI->RegisterState(NEW AIDiscovery(_AI));
+	_AI->RegisterState(NEW AIAttack(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);
@@ -136,6 +144,39 @@ bool CommonSoldier::Process() {
 	else {
 		_detectionLevel -= 0.01f;
 	}
+
+	//検知度が100%になった
+	if(_detectionLevel >= 1.f && !_isAttack) {
+		{
+			//検知度のUIを削除
+			auto ui = GetObjectServer()->GetGame()->GetUIServer()->Get("DetectionLavel");
+
+			if(ui) {
+				GetObjectServer()->GetGame()->GetUIServer()->DeleteUI(ui);
+			}
+		}
+
+		_AI->ChangeState("Attack");
+
+		NEW CameraZoomComponent(GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
+
+		//攻撃する
+		_isAttack = true;
+
+		//1フレーム後に、キャラクター死亡
+		auto timeLine = GetObjectServer()->GetGame()->GetTimeLine();
+		timeLine->AddLine(
+			1, 
+			[=]()mutable {
+				GetObjectServer()->GetPlayer()->ApplyDamage(
+					DamageData{
+						true,this,PhysWorld::CollisionDetectionItem{}
+					}
+				);
+			}
+		);
+	}
+
 	_detectionLevel = Clamp(0.f, 1.f, _detectionLevel);
 
 
@@ -174,6 +215,9 @@ bool CommonSoldier::Process() {
 
 		//プレイヤーの移動スピードの倍率を上げる
 		GetObjectServer()->GetPlayer()->AddMoveSpeedMag(0.2f);
+
+		//ライツアウトの制限時間を伸ばす
+		GetObjectServer()->GetGame()->GetLightsOut()->AddFrameCount();
 
 		//データを空にする
 		_damageData = DamageData{};

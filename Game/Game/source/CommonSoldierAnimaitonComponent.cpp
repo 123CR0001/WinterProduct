@@ -32,14 +32,18 @@ bool CommonSoldierAnimationComponent::Process() {
 	//アニメーションの遷移条件を記述
 
 
-	//AIのステート名に変更があるか
 
+	//AIのステート名に変更があるか
 	const char* name = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
 
-	if(name == "LookAround"){
+
+	if(name == "Attack") {
+		ChangeAnimation("Shoot");
+	}
+	else if(name == "LookAround") {
 		ChangeAnimation("LookAround");
 	}
-	else if (name == "Panic") { ChangeAnimation("Shoot"); }
+	else if(name == "Panic") { ChangeAnimation("Shoot"); }
 	else if(name == "Death") { ChangeAnimation("Death"); }
 	else if(name == "Discovery") { ChangeAnimation("Discovery"); }
 	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f) {
@@ -48,7 +52,7 @@ bool CommonSoldierAnimationComponent::Process() {
 	else {
 		ChangeAnimation("Idle");
 	}
-
+	
 	AnimationComponent::Process();
 
 

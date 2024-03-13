@@ -7,7 +7,9 @@ UIServer::UIServer() {
 }
 
 UIServer::~UIServer() {
-
+	for(auto&& ui : _vUI) {
+		delete ui;
+	}
 }
 
 /*

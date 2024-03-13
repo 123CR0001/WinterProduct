@@ -6,6 +6,8 @@ public:
 	UIDetectionLevel(class ObjectServer* server);
 	~UIDetectionLevel();
 
+	const char* GetName()override { return "DetectionLavel"; }
+
 	bool Process()override;
 	bool Draw()override;
 

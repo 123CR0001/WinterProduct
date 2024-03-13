@@ -28,9 +28,13 @@ bool ModeColorOut::Process() {
 	if (_frameCnt == -1) {
 
 	}
+	else if(_frameCnt == _frameMaxCnt) {
+		ModeServer::GetInstance()->Add(_modeColorIn, 1000, "ColorIn");
+		_frameCnt++;
+	}
 	else if (_frameCnt > _frameMaxCnt) {
 		ModeServer::GetInstance()->Del(this);
-		ModeServer::GetInstance()->Add(_modeColorIn, 100, "ColorIn");
+
 		
 		if (_func) { _func(); }
 

@@ -26,6 +26,10 @@ bool ModeEffekseer::Terminate() {
 		DeleteEffekseerEffect(handle.second);
 	}
 
+	for(auto&& handle : _playingEffectHandles) {
+		StopEffekseer3DEffect(handle);
+	}
+
 	return true;
 }
 
@@ -36,6 +40,14 @@ bool ModeEffekseer::Process() {
 	// Effekseerにより再生中のエフェクトを更新する。
 	UpdateEffekseer3D();
 
+	for(auto iter = _playingEffectHandles.begin(); iter != _playingEffectHandles.end();) {
+		if(IsEffekseer3DEffectPlaying((*iter)) == 0) {
+			++iter;
+		}
+		else {
+			iter = _playingEffectHandles.erase(iter);
+		}
+	}
 	return true;
 }
 
@@ -49,6 +61,7 @@ bool ModeEffekseer::Render() {
 	DrawEffekseer3D();
 
 
+
 	return true;
 }
 
@@ -59,6 +72,8 @@ int ModeEffekseer::Play(std::string name, const Vector3D& pos, const Vector3D& a
 		SetPosPlayingEffekseer3DEffect(play, pos.x, pos.y, pos.z);
 
 		SetRotationPlayingEffekseer3DEffect(play, angle.x, angle.y, angle.z);
+
+		_playingEffectHandles.emplace_back(play);
 
 		return play;
 	}

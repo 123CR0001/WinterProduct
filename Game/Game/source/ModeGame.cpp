@@ -40,6 +40,7 @@
 #include"CameraComponent.h"
 
 #include"TimeLine.h"
+
 #include"MyUIServer.h"
 #include"LightsOut.h"
 
@@ -126,30 +127,12 @@ bool ModeGame::Process() {
 		&& GetPad()->GetTrgButton() & INPUT_Y  
 		&& _energyCount == 0
 		) {
-
-		gGlobal._sndServer.Get("SE_09")->Play();
-
-		//プレイヤーから残像を出力するようにする
-		NEW CreateAfterImageComponent(_objServer->GetPlayer()->GetAnimationComponent());
-		NEW CameraZoomComponent(_objServer->GetPlayer()->GetCamera(), -0.3f, 60);
-	
 		_lightsOut->Use();
 	}
 
 	//Pauseモードを追加
 	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
 		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
-
-	}
-
-	//勝敗判定
-	for (auto iter = _objServer->GetCommonSoldiers().begin(); iter != _objServer->GetCommonSoldiers().end(); ++iter) {
-		//検知度が一定を超える敵がいたら、ゲームオーバー
-		if ((*iter)->GetDetectionLevel() >= 1.f) {
-
-			//ModeServer::GetInstance()->Add(NEW ModeGameOver(), 100, "GameOver");
-
-		}
 	}
 
 	return true;

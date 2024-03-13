@@ -10,6 +10,8 @@ UIRetry::UIRetry(ModeGameOver* over) {
 int UIRetry::Selected() {
 	// gameoverƒ‚[ƒh‚ğíœ
 	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("GameOver"));
+	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("effectsample"));
+	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("game"));
 	// Ÿ‚Ìƒ‚[ƒh‚ğ“o˜^
 	ModeServer::GetInstance()->Add(new ModeGame(_over->GetStage()), 1, "game");
 	return 0;

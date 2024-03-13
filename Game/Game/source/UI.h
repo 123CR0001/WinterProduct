@@ -12,6 +12,8 @@ public:
 	UI(){}
 	virtual ~UI(){}
 
+	virtual const char* GetName() = 0;
+
 	virtual bool Process() = 0;
 	virtual bool Draw() = 0;
 };

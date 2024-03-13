@@ -18,8 +18,15 @@
 #include"Decoy.h"
 
 #include"CountClearTimeComponent.h"
+#include"CameraZoomComponent.h"
 
 #include<functional>
+
+#include"ModeGameOver.h"
+#include"TimeLine.h"
+
+#include"ModeColorIn.h"
+#include"ModeColorOut.h"
 
 Player::Player(ObjectServer* server)
 	:CharaBase(server,"player")
@@ -145,11 +152,35 @@ bool Player::Process() {
 	}
 
 	ObjectBase::Process();
+	//Ž€–Sˆ—
+	//ˆê“x‚¾‚¯
+	if(_state == STATE::kDead && _actionState != ACTION_STATE::kDead) {
+
+		GetObjectServer()->GetGame()->GetTimeLine()->AddLine(240,
+			[=]() {
+				NEW CameraZoomComponent(_cameraCom, 1.f, 60);
+
+				auto func = [=]() {ModeServer::GetInstance()->Add(NEW ModeGameOver(GetObjectServer()->GetGame()), 100, "GameOver"); };
+
+				ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60), 1000, "Out");
+			}
+		);
+
+		_state = STATE::kNone;
+		_actionState = ACTION_STATE::kDead;
+		return true;
+	}
 
 	//‘«‰¹
 	if (_moveCom->GetSpeed() >= moveSpeed && !ModeServer::GetInstance()->IsAdd("LightsOut")) {
 		new SoundComponent(this, 200.f);
 	}	
+
+	if(_damageData.isDamage) {
+		_state = STATE::kDead;
+
+		_damageData = DamageData{};
+	}
 
 
 	return true;
