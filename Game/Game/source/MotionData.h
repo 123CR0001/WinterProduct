@@ -49,6 +49,7 @@ public:
 	MotionDataJson(std::string fileName) {
 		if (LoadData(fileName)) {
 			_success = true;
+			return;
 		}
 		_success = false;
 	}

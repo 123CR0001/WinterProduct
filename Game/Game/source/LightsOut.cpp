@@ -28,10 +28,13 @@
 
 #include"ObjectServer.h"
 
+constexpr float MAG_WIDTH = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(MAX_SCREEN_WIDTH);
+constexpr float MAG_HEIGHT = static_cast<float>(SCREEN_HEIGHT) / static_cast<float>(MAX_SCREEN_HEIGHT);
+
 LightsOut::LightsOut(ModeGame* game) 
 	:_game(game)
 	,_timerBg(NEW SpriteTextFlipAnimation(3,false))
-	,_timer(NEW UISecMiliSec(Transform2(Vector2(500.f,100.f))))
+	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * MAG_WIDTH ,978.f * MAG_HEIGHT))))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
 	,_frameCnt(300)
@@ -43,8 +46,8 @@ LightsOut::LightsOut(ModeGame* game)
 	int screenHeight = ApplicationMain::GetInstance()->DispSizeH();
 
 	_timerBg->Stop();
-	_timerBg->LoadDivText("res/UI/Game/Timer/ui_timerbg_01.png", 5, 1, 5, 600, 150);
-	_timerBg->SetPos(Vector2(200.f, 100.f));
+	_timerBg->LoadDivText("res/UI/Game/Timer/ui_timerbg_01.png", 5, 1, 5, 500, 150);
+	_timerBg->SetPos(Vector2(359.f * MAG_WIDTH, 978.f * MAG_HEIGHT));
 	_timerBg->SetSize(Vector2(600.f,150.f));
 
 	_noise->LoadDivText("res/Effect/ui_nightscope_1.png", 6, 1, 6, 1920, 1080);
@@ -98,13 +101,15 @@ bool LightsOut::Process() {
 		_noise->SetAlpha(1.f);
 		_hud->SetAlpha(1.f);
 
-		gGlobal._sndServer.Get("SE_09")->Play();
-
 		//プレイヤーから残像を出力するようにする
 		NEW CreateAfterImageComponent(_game->GetObjectServer()->GetPlayer()->GetAnimationComponent());
 
 		//Zoomイン
 		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
+
+		//BGMの再生
+		gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
+		gGlobal._sndServer.Play("BGM_02");
 
 		_state = STATE::kProcess;
 		break;
@@ -122,6 +127,7 @@ bool LightsOut::Process() {
 
 		if (_frameCnt % 60 == 0) {
 			//SE
+			gGlobal._sndServer.Get("SE_15")->Play();
 		}
 
 		break;
@@ -158,6 +164,10 @@ bool LightsOut::Process() {
 
 		//Zoomアウト
 		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 1.f, 60);
+
+		//BGMの再生
+		gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
+		gGlobal._sndServer.Play("BGM_01");
 		_state = STATE::kNone;
 		break;
 	}

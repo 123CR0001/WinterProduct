@@ -17,6 +17,7 @@ public:
 	bool Del(std::string name);
 	bool Del(SoundItemBase *snd);
 	SoundItemBase* Get(std::string name);
+	void Play(std::string name);
 
 	std::map<std::string, SoundItemBase*>& GetVector() { return _v; }
 

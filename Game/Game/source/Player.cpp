@@ -40,7 +40,7 @@ Player::Player(ObjectServer* server)
 {
 	server->SetPlayer(this);
 
-	_motCom = NEW MotionComponent(_anim,1001);
+	_motCom = NEW MotionComponent(_anim,10001);
 
 	//このクラス特有のモーションデータのコマンド処理
 	auto func = [this](const MOTION_DATA_ITEM& item) {_weapon->OnAttack(); _motCom->IncrementMotionCount(); };
@@ -99,9 +99,10 @@ bool Player::Process() {
 	case ACTION_STATE::kWalk: {
 		_actionState = ACTION_STATE::kIdle;
 
-		float angle = pad->GetLeftStickAtan2();
+		float angle = 0.f;
 
 		if(pad->IsInputLeftStick()) {
+			angle = pad->GetLeftStickAtan2();
 
 			//プレイヤーからカメラのY軸の角度を反転
 			_eulerAngle.y = -_cameraCom->GetAngle().y;
@@ -113,19 +114,25 @@ bool Player::Process() {
 			_actionState = ACTION_STATE::kWalk;
 
 		}
-		else {
-			angle = 0.f;
-		}
 
 		if(trg & INPUT_X && _isLightsOut) {
 			_actionState = ACTION_STATE::kAttack;
 
 			gGlobal._sndServer.Get("SE_02")->Play();
 		}
+		if(trg & INPUT_Y && _isLightsOut) {
+			_actionState = ACTION_STATE::kAttack2;
+
+			gGlobal._sndServer.Get("SE_02")->Play();
+		}
+		if(trg & INPUT_A && _isLightsOut) {
+			_actionState = ACTION_STATE::kAttack3;
+			gGlobal._sndServer.Get("SE_02")->Play();
+		}
 		if(trg & INPUT_X && !_isLightsOut) {
 			NEW Decoy(this, angle);
 		}
-		if(trg & INPUT_A) {
+		if(trg & INPUT_A && !_isLightsOut) {
 			_actionState = ACTION_STATE::kSilent;
 		}
 		break;
@@ -133,6 +140,8 @@ bool Player::Process() {
 	case ACTION_STATE::kAttack:
 		break;
 	case ACTION_STATE::kAttack2:
+		break;
+	case ACTION_STATE::kAttack3:
 		break;
 	case ACTION_STATE::kSilent:
 	case ACTION_STATE::kSilentWalk:
@@ -218,7 +227,7 @@ bool Player::Render() {
 	}
 
 	auto pad = GetObjectServer()->GetGame()->GetPad();
-	DrawFormatString(0, 0, GetColor(255, 0, 0), "%f", RadToDeg(atan2f((float)pad->GetLeftStick().y, (float)pad->GetLeftStick().x)-PI/2.f));
+	DrawFormatString(0, 0, GetColor(255, 0, 0), "%d", _motCom->GetMotionCount());
 	return true;
 }
 

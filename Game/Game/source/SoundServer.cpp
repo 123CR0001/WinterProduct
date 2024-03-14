@@ -62,6 +62,11 @@ SoundItemBase* SoundServer::Get(std::string name) {
 	return NULL;
 }
 
+void SoundServer::Play(std::string name) {
+	auto soundItem = Get(name);
+	if(soundItem)soundItem->Play();
+}
+
 void SoundServer::StopType(SoundItemBase::TYPE type) {
 	for (auto&& e : _v) {
 		if (e.second->GetType() == type) {

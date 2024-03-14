@@ -26,8 +26,9 @@ private:
 	std::string _oldAnimName;
 
 	//全キャラ共通のコマンド
-	static std::unordered_map<std::string, std::function<void(const MOTION_DATA_ITEM&)>>_commandFuncMap;
+	std::unordered_map<std::string, std::function<void(const MOTION_DATA_ITEM&)>>_commandFuncMap;
 
 	//キャラ固有のコマンド
 	std::unordered_map<std::string, std::function<void(const MOTION_DATA_ITEM&)>>_customCommandFuncMap;
+
 };

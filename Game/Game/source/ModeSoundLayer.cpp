@@ -16,8 +16,8 @@ bool ModeSoundLayer::Initialize() {
 	_asyncLoadTimeMs = 0;
 
 	//// 音データファイルを読み込む
-	//gGlobal._sndServer.Add("BGM_FANTASY_01", new SoundItemBGM("res/bgm/maou_bgm_fantasy/maou_bgm_fantasy01.mp3"));
-
+	gGlobal._sndServer.Add("BGM_01", new SoundItemBGM("res/Sound/bgm/mainstage_01.wav"));
+	gGlobal._sndServer.Add("BGM_02", new SoundItemBGM("res/Sound/bgm/lightsout_01.wav"));
 
 	gGlobal._sndServer.Add("SE_01", new SoundItemSE("res/Sound/se/footsteps_01.wav"));
 	gGlobal._sndServer.Add("SE_02", new SoundItemSE("res/Sound/se/knifeattack_01.wav"));
@@ -34,7 +34,23 @@ bool ModeSoundLayer::Initialize() {
 	gGlobal._sndServer.Add("SE_13", new SoundItemSE("res/Sound/se/confirmation_01.wav"));
 	gGlobal._sndServer.Add("SE_14", new SoundItemSE("res/Sound/se/pause_01.wav"));
 	gGlobal._sndServer.Add("SE_15", new SoundItemSE("res/Sound/se/timer_01.wav"));
-	
+
+	gGlobal._sndServer.Add("SE_16", new SoundItemSE("res/Sound/se/a_reaction_01.wav"));
+	gGlobal._sndServer.Add("SE_17", new SoundItemSE("res/Sound/se/a_reaction_02.wav"));
+	gGlobal._sndServer.Add("SE_18", new SoundItemSE("res/Sound/se/b_reaction_01.wav"));
+	gGlobal._sndServer.Add("SE_19", new SoundItemSE("res/Sound/se/b_reaction_02.wav"));
+	gGlobal._sndServer.Add("SE_20", new SoundItemSE("res/Sound/se/c_reaction_01.wav"));
+
+	gGlobal._sndServer.Add("SE_21", new SoundItemSE("res/Sound/se/a_miss_01.wav"));
+	gGlobal._sndServer.Add("SE_22", new SoundItemSE("res/Sound/se/a_miss_02.wav"));
+	gGlobal._sndServer.Add("SE_23", new SoundItemSE("res/Sound/se/b_miss_01.wav"));
+	gGlobal._sndServer.Add("SE_24", new SoundItemSE("res/Sound/se/b_miss_02.wav"));
+	gGlobal._sndServer.Add("SE_25", new SoundItemSE("res/Sound/se/c_miss_01.wav"));
+
+	gGlobal._sndServer.Add("SE_26", new SoundItemSE("res/Sound/se/enemyfootstep_01.wav"));
+	gGlobal._sndServer.Add("SE_27", new SoundItemSE("res/Sound/se/owldeath_01.wav"));
+
+	gGlobal._sndServer.Add("SE_28", new SoundItemSE("res/Sound/se/energy_01.wav"));
 
 	//gGlobal._sndServer.Add("VOICE_01", new SoundItemVOICE("res/voice/「あとちょっとだったね」.mp3"));
 	//gGlobal._sndServer.Add("VOICE_02", new SoundItemVOICE("res/voice/「おめでとう」.mp3"));

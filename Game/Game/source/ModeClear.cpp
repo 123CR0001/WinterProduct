@@ -42,7 +42,8 @@ ModeClear::ModeClear(std::shared_ptr<ModeGame::ResultData> data)
 }
 
 bool ModeClear::Initialize() {
-
+	//BGMを止める
+	gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
 	return true;
 }
 
@@ -84,10 +85,10 @@ void ModeClear::SetUI() {
 	{
 		auto text = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_scorebg_01.png"),
-			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.25f)),
-			Vector2(896.f * rateW, 232.f * rateH)
+			Transform2(Vector2(3000.f * rateW, 244.f * rateH)),
+			Vector2(896.f * rateW, 366.f * rateH)
 		);
-		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(screenWidth * 0.75f,screenHeight * 0.25f))));
+		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(1344.f * rateW, 244.f * rateH))));
 		_uiServer->AddUI(NEW UISpriteText(text));
 	}
 
@@ -95,16 +96,20 @@ void ModeClear::SetUI() {
 	{
 		auto text = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_scorebg_02.png"),
-			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.75f)),
+			Transform2(Vector2(3000.f * rateW, 896.f * rateH)),
 			Vector2(896.f * rateW, 232.f * rateH)
 		);
-		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(screenWidth * 0.75f, screenHeight * 0.75f))));
+		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(1344.f * rateW, 896.f * rateH))));
 		_uiServer->AddUI(NEW UISpriteText(text));
 	}
 
 	//クリアタイム
 	{
-		auto func = [=]()mutable {_uiServer->AddUI(NEW UIHrsMinSec(30, _resultData->clearSecondTime,Transform2(Vector2(screenWidth*0.92f,screenHeight * 0.21f)),Vector2(46.f,70.f))); };
+		auto func = [=]()mutable {
+			_uiServer->AddUI(
+				NEW UIHrsMinSec(30, _resultData->clearSecondTime,Transform2(Vector2(1766.f * rateW, screenHeight * 0.18f)),Vector2(46.f,70.f))
+			);
+		};
 		//MyUIServerのProcess()が70回呼ばれたら、処理する
 		_timeLine->AddLine(70, func);
 	}
@@ -116,7 +121,7 @@ void ModeClear::SetUI() {
 			number->AddAnimation(NEW EasingNumber(number, 30)); 
 			number->LoadDivNumber("res/UI/Result/ui_timer_01.png",5,2,46,70);
 			number->SetSize(Vector2(23.f * rateW, 35.f * rateH));
-			number->SetPos(Vector2(screenWidth * 0.92f, screenHeight*0.28f));
+			number->SetPos(Vector2(1709.f * rateW, 282.5f * rateH));
 			_uiServer->AddUI(NEW UISpriteText(number));
 		};
 
@@ -130,7 +135,7 @@ void ModeClear::SetUI() {
 			number->AddAnimation(NEW EasingNumber(number, 30));
 			number->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
 			number->SetSize(Vector2(23.f * rateW, 35.f * rateH));
-			number->SetPos(Vector2(screenWidth * 0.92f, screenHeight * 0.33f));
+			number->SetPos(Vector2(1709.f * rateW, 372.5f * rateH));
 			_uiServer->AddUI(NEW UISpriteText(number));
 		};
 
@@ -143,7 +148,7 @@ void ModeClear::SetUI() {
 			SpriteText* text = NEW SpriteText(
 				ResourceServer::LoadGraph("res/UI/Result/Emblem/ui_renkemblem_s.png"),
 					//			回転	拡大	座標
-					Transform2(0.f,		3.f,	Vector2(1024.f * rateW, 448.f * rateH)),
+					Transform2(0.f,		3.f,	Vector2(1344.f * rateW, 589.5f * rateH)),
 					Vector2(640.f * rateW, 230.f * rateH),
 					0.f
 			);
@@ -175,11 +180,11 @@ void ModeClear::SetButton() {
 		//画像の設定
 		SpriteText* titleButton = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_stageselection_01.png"),
-			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.72f)),
+			Transform2(Vector2(Vector2(3000.f * rateW, 900.f * rateH))),
 			Vector2(384.f * rateW, 64.f * rateH)
 		);
 		//アニメーションの設定
-		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(screenWidth * 0.75f, screenHeight * 0.68f))));
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(1344.f * rateW, 900.f * rateH))));
 
 		_buttonServer->AddButton(
 			NEW Button(
@@ -203,10 +208,10 @@ void ModeClear::SetButton() {
 	{
 		SpriteText* button = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_nextstage_01.png"),
-			Transform2(Vector2(screenWidth * 1.5f, screenHeight * 0.8f)),
+			Transform2(Vector2(3000.f * rateW, 828.f * rateH)), 
 			Vector2(384.f * rateW, 64.f * rateH)
 		);
-		button->AddAnimation(NEW TransformAnimation(button, 60.f, Transform2(Vector2(screenWidth * 0.75f, screenHeight * 0.75f))));
+		button->AddAnimation(NEW TransformAnimation(button, 60.f, Transform2(Vector2(1344.f * rateW, 828.f * rateH))));
 
 		_buttonServer->AddButton(
 			NEW Button(

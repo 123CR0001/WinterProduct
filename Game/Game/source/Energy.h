@@ -1,6 +1,6 @@
 #pragma once
 #include"ObjectBase.h"
-
+#include<memory>
 class Energy :public ObjectBase {
 public:
 	Energy(class ObjectServer* server);
@@ -13,4 +13,7 @@ public:
 
 private:
 	const float _radius;
+
+	std::unique_ptr<class SpriteTextFlipAnimation>_text;
+
 };

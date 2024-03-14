@@ -1,5 +1,6 @@
 #include"ModeGameOver.h"
 #include "ApplicationMain.h"
+#include"ApplicationGlobal.h"
 #include"ModeTitle.h"
 
 #include "UIServer.h"
@@ -45,6 +46,8 @@ bool ModeGameOver::Initialize() {
 	_frameCnt = 4;
 	_motCnt = 0;
 
+	//BGM‚ðŽ~‚ß‚é
+	gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
 	return true;
 }
 

@@ -21,4 +21,5 @@ private:
 	std::vector<VERTEX3D>_vers;
 
 	class ObjectServer* _server;
+
 };

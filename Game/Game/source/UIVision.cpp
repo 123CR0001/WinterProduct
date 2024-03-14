@@ -13,16 +13,18 @@ constexpr int SIDE_NUM = 100;
 
 UIVision::UIVision(ObjectServer* server)
 	:_server(server)
-	,_handle(LoadGraph("res/UI/visualrange_01.png"))
+	,_handle(LoadGraph("res/UI/Game/visualrange_01.png"))
 {
-
+	for(int a = 0; a < SIDE_NUM; a++) {
+		_versNums.emplace_back(0);
+		_versNums.emplace_back(a + 1);
+		_versNums.emplace_back(a + 2);
+	}
 }
 
 UIVision::~UIVision(){}
 
 bool UIVision::Process() {
-
-
 	return true;
 }
 
@@ -38,13 +40,12 @@ bool UIVision::Draw() {
 		//床と重ならないように、足元よりちょっと上に位置を調整
 		Vector3D pos = soldier->GetPos() + Vector3D(0.f, 1.f, 0.f);
 
-		int handle = _handle;
-		COLOR_U8 dif = GetColorU8(255, 0, 0, 0);
-		COLOR_U8 spc = GetColorU8(255, 0, 0, 0);
+		COLOR_U8 dif = GetColorU8(128,128,128,128);
+		COLOR_U8 spc = GetColorU8(128,128,128,128);
 
 		if(soldier->GetAIComponent()->IsFound(_server->GetPlayer())) {
-			dif = GetColorU8(0, 0, 255, 0);
-			spc = GetColorU8(0, 0, 255, 0);
+			dif = GetColorU8(128,128,128, 255);
+			spc = GetColorU8(128,128,128, 255);
 		}
 
 		//中心点
@@ -82,8 +83,8 @@ bool UIVision::Draw() {
 				VGet(0.f,1.f,0.f),
 				dif,
 				spc,
-				0.5f + 0.5f * (Vector3D::Length(viewPos,pos) / soldier->GetAIComponent()->GetViewDist()),
-				0.5f + 0.5f * (Vector3D::Length(viewPos,pos) / soldier->GetAIComponent()->GetViewDist()),
+				0.5f + 0.5f * (fabsf(viewPos.x - pos.x) / soldier->GetAIComponent()->GetViewDist()),
+				0.5f + 0.5f * (fabsf(viewPos.y - pos.y) / soldier->GetAIComponent()->GetViewDist()),
 				0.f,
 				0.f
 			};
@@ -96,7 +97,7 @@ bool UIVision::Draw() {
 
 
 		SetUseLighting(FALSE);
-		DrawPolygonIndexed3D(_vers.data(), _vers.size(), _versNums.data(), _versNums.size() / 3, handle, FALSE);
+		DrawPolygonIndexed3D(_vers.data(), _vers.size(), _versNums.data(), _versNums.size() / 3, _handle, FALSE);
 		SetUseLighting(TRUE);
 	}
 	return true;

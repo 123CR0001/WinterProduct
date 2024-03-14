@@ -92,6 +92,8 @@ bool ModeGame::Initialize() {
 	_uiServer->AddUI(NEW UIDetectionLevel(_objServer));
 	_uiServer->AddUI(NEW UIVision(_objServer));
 	_uiServer->AddUI(NEW UIMiniMap(this));
+
+	gGlobal._sndServer.Play("BGM_01");
 	return true;
 }
 
@@ -207,6 +209,7 @@ XGamePad* ModeGame::GetPad()const { return ApplicationMain::GetInstance()->GetPa
 
 void ModeGame::SwitchOverOrClear() {
 	if (_enemyCount == 0) {
+
 		auto func = [this]() {
 			// ƒ‚[ƒh‚Ìíœ
 			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));

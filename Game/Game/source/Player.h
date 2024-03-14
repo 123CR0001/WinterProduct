@@ -24,6 +24,7 @@ public:
 		kWalk,
 		kAttack,
 		kAttack2,
+		kAttack3,
 		kSilent,
 		kSilentWalk,
 		kDead

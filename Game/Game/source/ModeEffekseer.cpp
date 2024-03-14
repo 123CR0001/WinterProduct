@@ -11,8 +11,11 @@ bool ModeEffekseer::Initialize() {
 	// “Ç‚İ‚Ş‚É‘å‚«‚³‚ğw’è‚·‚éBef_blood_02
 	_effectHandle["Laser"] = LoadEffekseerEffect("res/effekseer/Laser01.efkefc", 10.0f);
 	_effectHandle["Blood01"] = LoadEffekseerEffect("res/effekseer/ef_blood_01/ef_blood_01.efkefc", 50.f);
-	_effectHandle["Blood02"] = LoadEffekseerEffect("res/effekseer/ef_blood_02/ef_blood_02.efkefc", 50.f);
+	_effectHandle["Blood02"] = LoadEffekseerEffect("res/effekseer/ef_blood_pool/ef_blood_pool.efkefc", 150.f);
 	_effectHandle["Decoy"] = LoadEffekseerEffect("res/effekseer/ef_decoy_4/ef_decoy_4/ef_decoy.efkefc", 1.f);
+	_effectHandle["GetEnergy"] = LoadEffekseerEffect("res/effekseer/ef_item_01/ef_item_01.efkefc", 30.f);
+	_effectHandle["bikkuri"] = LoadEffekseerEffect("res/effekseer/bikkuri/bikkuri.efkefc", 100.f);
+	_effectHandle["question_mark"] = LoadEffekseerEffect("res/effekseer/question_mark/question mark.efkefc", 100.f);
 	return true;
 }
 

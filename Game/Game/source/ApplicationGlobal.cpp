@@ -36,4 +36,10 @@ void ApplicationGlobal::LoadMotionData() {
 
 	data = MotionDataJson("res/MotionData/mo_move_01.json");
 	_charaMotionData[MotionType::PLAYER]["run"] = data.GetMotionData();
+
+	data = MotionDataJson("res/MotionData/enemydiscovery.json");
+	_charaMotionData["CommonSoldier"]["Discovery"] = data.GetMotionData();
+
+	data = MotionDataJson("res/MotionData/enemylosesight.json");
+	_charaMotionData["CommonSoldier"]["LookAround"] = data.GetMotionData();
 }

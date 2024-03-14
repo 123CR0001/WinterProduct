@@ -7,9 +7,6 @@
 
 #include"ApplicationGlobal.h"
 
-
-std::unordered_map<std::string, std::function<void(const MOTION_DATA_ITEM&)>> MotionComponent::_commandFuncMap;
-
 MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 	:Component(owner->GetOwner(), order)
 	, _anim(owner)
@@ -35,7 +32,9 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 	//};
 
 	_commandFuncMap["PLAY_SOUND"] = [this](const MOTION_DATA_ITEM& item) {//SE‚ÌÄ¶
-		gGlobal._sndServer.Get(item.soundPlayName)->Play();
+	
+		gGlobal._sndServer.Play(item.soundPlayName);
+
 		_motCnt++;
 	};
 
@@ -126,8 +125,6 @@ bool MotionComponent::Process() {
 		}
 
 	}
-
-
 
 	return true;
 }
