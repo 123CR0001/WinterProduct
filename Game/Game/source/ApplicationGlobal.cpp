@@ -28,11 +28,14 @@ bool ApplicationGlobal::Init() {
 }
 
 void ApplicationGlobal::LoadMotionData() {
-	MotionDataJson data("res/MotionData/test.json");
+	MotionDataJson data("res/MotionData/PlayerAttack0.json");
 	_charaMotionData[MotionType::PLAYER]["Attack"] = data.GetMotionData();
 
-	data = MotionDataJson("res/MotionData/test2.json");
+	data = MotionDataJson("res/MotionData/PlayerAttack1.json");
 	_charaMotionData[MotionType::PLAYER]["Attack2"] = data.GetMotionData();
+
+	data = MotionDataJson("res/MotionData/PlayerAttack2.json");
+	_charaMotionData[MotionType::PLAYER]["Attack3"] = data.GetMotionData();
 
 	data = MotionDataJson("res/MotionData/mo_move_01.json");
 	_charaMotionData[MotionType::PLAYER]["run"] = data.GetMotionData();

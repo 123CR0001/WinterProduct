@@ -10,9 +10,9 @@ PlayerAnimationComponent::PlayerAnimationComponent(Player* owner, int order)
 	LoadAnimation("Idle", "mo_standby_01", 0);
 	LoadAnimation("run", "mo_move_01", 0);
 	LoadAnimation("StealthWalk", "mo_stealthwalk_01", 0);
-	LoadAnimation("Attack", "mo_attack_03", 1);
-	LoadAnimation("Attack2", "mo_attack_01", 1);
-	LoadAnimation("Attack3", "mo_attack_02", 1);
+	LoadAnimation("Attack", "mo_attack_01", 1);
+	LoadAnimation("Attack2", "mo_attack_02", 1);
+	LoadAnimation("Attack3", "mo_attack_03", 1);
 	LoadAnimation("Death", "mo_death_01", 1);
 
 	_closeMaxTime = 3.0f;
