@@ -18,7 +18,7 @@ bool Knife::Initialize() {
 
 	WeaponBase::Initialize();
 
-	LoadModel("res/Object/sword.mv1");
+	LoadModel("res/Object/Knife_toDX/Knife.mv1");
 	_attachIndex = MV1SearchFrame(_handle, "AttackCollision");
 	MV1SetupCollInfo(_handle, _attachIndex, 8, 8, 8);
 
@@ -26,7 +26,6 @@ bool Knife::Initialize() {
 
 	_scale = Vector3D(1.f, 0.5f, 1.f);
 	_eulerAngle = Vector3D(PI,0.f,0.f);
-
 	return true;
 }
 

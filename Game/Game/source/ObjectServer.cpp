@@ -250,7 +250,7 @@ bool ObjectServer::LoadData(std::string stageName) {
 	}
 
 	//Spawner
-	NEW TracerSpawner(this);
+	//NEW TracerSpawner(this);
 
 	//オブジェクトの配置
 	for(auto&& object : j.at("object")) {

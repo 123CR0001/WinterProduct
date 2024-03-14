@@ -63,6 +63,7 @@ bool Siren::Process() {
 		Vector3D pos = _pos;
 		pos.y = 0.f;
 
+		pos += GetForward() * 50.f;
 	
 		new SoundComponent(this, pos, _volumeSize);
 
