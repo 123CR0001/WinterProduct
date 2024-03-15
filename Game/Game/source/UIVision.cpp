@@ -9,6 +9,9 @@
 
 #include"Player.h"
 
+#include"ModeGame.h"
+#include"LightsOut.h"
+
 constexpr int SIDE_NUM = 100;
 
 UIVision::UIVision(ObjectServer* server)
@@ -29,6 +32,10 @@ bool UIVision::Process() {
 }
 
 bool UIVision::Draw() {
+
+	//ライツアウト中は描画しない
+	if(!_server->GetGame()->GetLightsOut()->IsUse())return true;
+
 	for(auto&& soldier : _server->GetCommonSoldiers()) {
 
 		//キャラクターがむいている角度から、

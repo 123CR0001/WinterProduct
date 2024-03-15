@@ -108,7 +108,6 @@ bool LightsOut::Process() {
 		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
 
 		//BGMÇÃçƒê∂
-		gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
 		gGlobal._sndServer.Play("BGM_02");
 
 		_state = STATE::kProcess;
@@ -160,7 +159,6 @@ bool LightsOut::Process() {
 		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 1.f, 60);
 
 		//BGMÇÃçƒê∂
-		gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
 		gGlobal._sndServer.Play("BGM_01");
 		_state = STATE::kNone;
 		break;
