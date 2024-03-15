@@ -78,14 +78,6 @@ bool Player::Initialize() {
 
 	ModelMatrixSetUp();
 
-	for(int a = 0; a < MV1GetMaterialNum(_handle); a++) {
-		// マテリアルの元々の輪郭線の太さを取得
-		float DotWidth = MV1GetMaterialOutLineDotWidth(_handle, a);
-
-		//マテリアルの輪郭線の太さを2.5にする
-		MV1SetMaterialOutLineWidth(_handle, a, 0.f);
-		MV1SetMaterialOutLineDotWidth(_handle, a, 0.f);
-	}
 	return true;
 }
 

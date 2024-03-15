@@ -85,6 +85,16 @@ bool AIMoveTo::Process() {
 		}
 	}
 
+	//音が聞こえたか？
+	{
+		Vector3D p;
+		if(_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
+			_owner->AddPoint("MoveTo", p);
+			_owner->ChangeState("Discovery");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
+		}
+	}
+
 	//移動　最後の座標まで到達したら、巡回経路に戻る
 	if (!_owner->GetPoints(GetName()).back().Equal(_owner->GetOwner()->GetPos(), 20.f)) {
 		//移動
