@@ -79,6 +79,54 @@ public:
 		int maxCombo;
 		float clearSecondTime;
 		float maxDetectionLevel;
+
+		const char* GetRank() {
+			int point = 0;
+			//ŽžŠÔ
+			if(clearSecondTime < 60.f * 1.f) {			//•]‰¿S
+				point += 3;
+			}
+			else if(clearSecondTime < 60.f * 2.f) {	//•]‰¿A
+				point += 2;
+			}
+			else if(clearSecondTime < 60.f * 3.f) {	//•]‰¿B
+				point += 1;
+			}
+			else {										//•]‰¿C
+				point += 0;
+			}
+
+			//
+			if(maxDetectionLevel < 0.25f) {				//•]‰¿S
+				point += 3;
+			}
+			else if(maxDetectionLevel < 0.5f) {			//•]‰¿A
+				point += 2;
+			}
+			else if(maxDetectionLevel < 0.75f) {		//•]‰¿B
+				point += 1;
+			}
+			else {										//•]‰¿C
+				point += 0;
+			}
+
+			const char* rank = nullptr;
+
+			if(point <= 1) {
+				rank = "c";
+			}
+			else if(point <= 3) {
+				rank = "b";
+			}
+			else if(point <= 5) {
+				rank = "a";
+			}
+			else {
+				rank = "s";
+			}
+
+			return rank;
+		}
 	};
 
 	std::shared_ptr<ResultData> GetResultData() const { return _resultData; }

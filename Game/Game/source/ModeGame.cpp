@@ -104,6 +104,10 @@ bool ModeGame::Terminate() {
 	DeleteShadowMap(_handleShadowMap);
 	_objServer->Terminate();
 
+	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
+	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
+	ModeServer::GetInstance()->Del(this);
+
 	return true;
 }
 
@@ -208,27 +212,46 @@ bool ModeGame::Render() {
 XGamePad* ModeGame::GetPad()const { return ApplicationMain::GetInstance()->GetPad(); }
 
 void ModeGame::SwitchOverOrClear() {
-	if (_enemyCount == 0) {
-
-		auto func = [this]() {
-			// ƒ‚[ƒh‚Ìíœ
-			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
-			ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
-			ModeServer::GetInstance()->Del(this);
-			// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
-			ModeServer::GetInstance()->Add(NEW ModeClear(_resultData), 100, "GameClear");
-		};
-		// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
-		ModeColorIn* colorIn = NEW ModeColorIn(60, true);
-		ModeBase* mode = NEW ModeColorOut(colorIn, func);
-		ModeServer::GetInstance()->Add(mode, 100, "Out");
+	if(_enemyCount == 0) {
+		{
+			
+			_objServer->GetPlayer()->ChangeState("Clear");
+			NEW CameraZoomComponent(_objServer->GetPlayer()->GetCamera(),0.5f,60);
+		}
+		//ƒNƒŠƒA‰æ–Ê‚Ì‘JˆÚ
+		{
+			auto timeLineFunc = [=]()mutable {
+				auto func = [this]() {
+					// ƒ‚[ƒh‚Ìíœ
+					ModeServer::GetInstance()->Del(this);
+					// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
+					ModeServer::GetInstance()->Add(NEW ModeClear(_resultData), 100, "GameClear");
+					};
+				// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
+				ModeColorIn* colorIn = NEW ModeColorIn(60, true);
+				ModeBase* mode = NEW ModeColorOut(colorIn, func);
+				ModeServer::GetInstance()->Add(mode, 100, "Out");
+				};
+			_timeLine->AddLine(180, timeLineFunc); 
+		}
 	}
 	else {
-		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
-		ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
-		ModeServer::GetInstance()->Del(this);
-
-		ModeServer::GetInstance()->Add(NEW ModeGameOver(this), 100, "GameOver");
+		{
+			_objServer->GetPlayer()->ChangeState("Dead");
+		}
+		{
+			auto timeLineFunc = [=]()mutable {
+				auto func = [this]() {
+					ModeServer::GetInstance()->Del(this);
+					ModeServer::GetInstance()->Add(NEW ModeGameOver(this), 100, "GameOver");
+					};
+				// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
+				ModeColorIn* colorIn = NEW ModeColorIn(60, true);
+				ModeBase* mode = NEW ModeColorOut(colorIn, func);
+				ModeServer::GetInstance()->Add(mode, 100, "Out");
+				};
+			_timeLine->AddLine(180, timeLineFunc); 
+		}
 	}
 }
 

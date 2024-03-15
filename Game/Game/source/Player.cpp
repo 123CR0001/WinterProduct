@@ -77,6 +77,15 @@ bool Player::Initialize() {
 	_eulerAngle.y = atan2f(vec.x, vec.z);
 
 	ModelMatrixSetUp();
+
+	for(int a = 0; a < MV1GetMaterialNum(_handle); a++) {
+		// マテリアルの元々の輪郭線の太さを取得
+		float DotWidth = MV1GetMaterialOutLineDotWidth(_handle, a);
+
+		//マテリアルの輪郭線の太さを2.5にする
+		MV1SetMaterialOutLineWidth(_handle, a, 0.f);
+		MV1SetMaterialOutLineDotWidth(_handle, a, 0.f);
+	}
 	return true;
 }
 
@@ -137,12 +146,6 @@ bool Player::Process() {
 		}
 		break;
 	}
-	case ACTION_STATE::kAttack:
-		break;
-	case ACTION_STATE::kAttack2:
-		break;
-	case ACTION_STATE::kAttack3:
-		break;
 	case ACTION_STATE::kSilent:
 	case ACTION_STATE::kSilentWalk:
 		_actionState = ACTION_STATE::kSilent;
@@ -172,7 +175,7 @@ bool Player::Process() {
 	if(_state == STATE::kDead && _actionState != ACTION_STATE::kDead) {
 
 		GetObjectServer()->GetGame()->GetTimeLine()->AddLine(240,
-			[=]() {
+			[=]() mutable{
 				NEW CameraZoomComponent(_cameraCom, 1.f, 60);
 
 				auto func = [=]() {ModeServer::GetInstance()->Add(NEW ModeGameOver(GetObjectServer()->GetGame()), 100, "GameOver"); };
@@ -237,6 +240,8 @@ bool Player::ChangeState(std::string stateName) {
 		{ "Walk",Player::ACTION_STATE::kWalk },
 		{ "Attack",Player::ACTION_STATE::kAttack },
 		{ "Attack2",Player::ACTION_STATE::kAttack2 },
+		{"Dead",Player::ACTION_STATE::kDead},
+		{"Clear",Player::ACTION_STATE::kClear}
 	};
 
 	if (convert.find(stateName) != convert.end()) {

@@ -13,7 +13,8 @@ PlayerAnimationComponent::PlayerAnimationComponent(Player* owner, int order)
 	LoadAnimation("Attack", "mo_attack_01", 1);
 	LoadAnimation("Attack2", "mo_attack_02", 1);
 	LoadAnimation("Attack3", "mo_attack_03", 1);
-	LoadAnimation("Death", "mo_death_01", 1);
+	LoadAnimation("Dead", "mo_death_01", 1);
+	LoadAnimation("Clear", "mo_standby_01", 0);
 
 	_closeMaxTime = 3.0f;
 }
@@ -47,7 +48,10 @@ bool PlayerAnimationComponent::Process() {
 		ChangeAnimation("StealthWalk");
 		break;
 	case Player::ACTION_STATE::kDead:
-		ChangeAnimation("Death");
+		ChangeAnimation("Dead");
+		break;
+	case Player::ACTION_STATE::kClear:
+		ChangeAnimation("Clear");
 		break;
 	}
 

@@ -137,14 +137,8 @@ bool LightsOut::Process() {
 		
 		//アニメーションを逆再生させる
 		_timerBg->Reverse();
-
-		{
-			//30フレーム後に描画されないようにする
-			auto func = [this]() {
-				_timer->SetIsDraw(false);
-			};
-			_game->GetTimeLine()->AddLine(30, func);
-		}
+		_timer->SetIsDraw(false);
+	
 
 		//フェードインアウトを利用した演出
 		ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");

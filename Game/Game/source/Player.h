@@ -27,7 +27,8 @@ public:
 		kAttack3,
 		kSilent,
 		kSilentWalk,
-		kDead
+		kDead,
+		kClear
 	};
 
 	class CameraComponent* GetCamera()const { return _cameraCom; }

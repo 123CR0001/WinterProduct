@@ -145,8 +145,11 @@ void ModeClear::SetUI() {
 	//ÉGÉìÉuÉåÉÄ
 	{
 		auto func = [=]() mutable {
+			std::string fileName = "res/UI/Result/Emblem/ui_rankemblem_";
+			fileName += _resultData->GetRank();
+			fileName += ".png";
 			SpriteText* text = NEW SpriteText(
-				ResourceServer::LoadGraph("res/UI/Result/Emblem/ui_renkemblem_s.png"),
+				ResourceServer::LoadGraph(fileName.c_str()),
 					//			âÒì]	ägëÂ	ç¿ïW
 					Transform2(0.f,		3.f,	Vector2(1344.f * rateW, 589.5f * rateH)),
 					Vector2(640.f * rateW, 230.f * rateH),
@@ -234,3 +237,4 @@ void ModeClear::SetButton() {
 
 	}
 }
+
