@@ -117,19 +117,6 @@ bool CommonSoldier::Initialize() {
 	_capsule->AddSkipName("Decoy");
 
 
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ð“o˜^
-
-	LoadModel("res/Chara/Soldier_fix/soldier_2_4_IK_A_05.mv1");
-
-	_anim->LoadAnimation("Walk", "mo_moveenemy_01", 0);
-	_anim->LoadAnimation("Death", "mo_deathenemy_01", 1);
-	_anim->LoadAnimation("LookAround", "mo_losesight_01", 0);
-	_anim->LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
-	_anim->LoadAnimation("Idle", "mo_standbyenemy_01", 0);
-	_anim->LoadAnimation("Discovery", "mo_discovery_01", 0);
-	_anim->LoadAnimation("LoseSight", "mo_losesight_01", 0);
-	MV1SetOpacityRate(_handle, 0.5f);
-
 
 	return true;
 }

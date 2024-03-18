@@ -10,6 +10,26 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 {
 
 
+	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ð“o˜^
+
+	_csOwner->LoadModel("res/Chara/Soldier_fix/soldier_2_4_IK_A_05.mv1");
+
+	LoadAnimation("Walk", "mo_moveenemy_01", 0);
+	LoadAnimation("BlindWalk", "mo_enemyrun_01", 0);
+
+	LoadAnimation("Death", "mo_deathenemy_01", 1);
+
+	LoadAnimation("Panic", "mo_shootingenemy_01", 0);
+	LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
+
+
+
+	LoadAnimation("Discovery", "mo_discovery_01", 0);
+
+	LoadAnimation("LoseSight", "mo_losesight_01", 0);
+
+	LoadAnimation("Idle", "mo_standbyenemy_01", 0);
+	LoadAnimation("LookAround", "mo_losesight_01", 0);
 	_closeMaxTime = 12.f;
 
 }
@@ -28,16 +48,15 @@ bool CommonSoldierAnimationComponent::Process() {
 	const char* name = _csOwner->GetAIComponent()->GetCurrentState()->GetName();
 
 
-	if(name == "Attack") {
-		ChangeAnimation("Shoot");
-	}
-	else if(name == "LookAround") {
-		ChangeAnimation("LookAround");
-	}
+	if(name == "Attack") {	ChangeAnimation("Shoot");}
+	else if(name == "LookAround") { ChangeAnimation("LookAround");}
 	else if(name == "LoseSight"){ ChangeAnimation("LoseSight"); }
-	else if(name == "Panic") { ChangeAnimation("Shoot"); }
+	else if(name == "Panic") { ChangeAnimation("Panic"); }
 	else if(name == "Death") { ChangeAnimation("Death"); }
 	else if(name == "Discovery") { ChangeAnimation("Discovery"); }
+	else if(name == "BlindWalk" ) {
+		ChangeAnimation("BlindWalk");
+	}
 	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f || _csOwner->GetMoveComponent()->GetRatateSpeed().Length() > 0.01f) {
 		ChangeAnimation("Walk");
 	}

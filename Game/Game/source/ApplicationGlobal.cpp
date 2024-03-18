@@ -91,4 +91,14 @@ void ApplicationGlobal::LoadMotionData() {
 	if (data.IsSuccess()) {
 		_charaMotionData["CommonSoldier"]["Dead"] = data.GetMotionData();
 	}
+
+	data = MotionDataJson("res/MotionData/CommonSoldier/BlindWalk.json");
+	if(data.IsSuccess()) {
+		_charaMotionData["CommonSoldier"]["BlindWalk"] = data.GetMotionData();
+	}
+
+	data = MotionDataJson("res/MotionData/CommonSoldier/Panic.json");
+	if(data.IsSuccess()) {
+		_charaMotionData["CommonSoldier"]["Panic"] = data.GetMotionData();
+	}
 }

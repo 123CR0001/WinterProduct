@@ -77,6 +77,11 @@ bool ModeSoundLayer::Initialize() {
 	gGlobal._sndServer.Add("SE_44", new SoundItemSE("res/Sound/se/c_impatience_02.wav"));
 	gGlobal._sndServer.Add("SE_45", new SoundItemSE("res/Sound/se/c_reaction_02.wav"));
 
+	gGlobal._sndServer.Add("SE_46", new SoundItemSE("res/Sound/se/a_discovery_01.wav"));
+	gGlobal._sndServer.Add("SE_47", new SoundItemSE("res/Sound/se/a_discovery_02.wav"));
+	gGlobal._sndServer.Add("SE_48", new SoundItemSE("res/Sound/se/b_discovery_01.wav"));
+	gGlobal._sndServer.Add("SE_49", new SoundItemSE("res/Sound/se/c_discovery_01.wav"));
+
 
 	// ì«Ç›çûÇ›éûä‘
 	_loadTimeMs = GetNowCount() - timems;
