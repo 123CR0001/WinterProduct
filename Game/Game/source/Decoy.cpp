@@ -14,7 +14,7 @@ Decoy::Decoy(Player* player, float rad)
 	,_capsule(NEW CapsuleComponent(this,1000))
 	,_elapsedFrame(0)
 	,_frameCnt(0)
-	,_maxFrame(600)
+	,_maxFrame(300)
 {
 	//プレイヤーと同じ位置から
 	_pos = player->GetPos();

@@ -9,8 +9,6 @@ ButtonServer::ButtonServer()
 	:_selectNum(0)
 	,_selectLimitNum(-1)
 	,_oldSelectNum(0)
-	,_trgSelectNum(0)
-	,_relSelectNum(0)
 	,_selectUI(NEW SpriteText())
 	,_step(STEP::kAnimation)
 	,_isProcess(false)
@@ -85,9 +83,6 @@ bool ButtonServer::Process() {
 	{
 		auto trg = ApplicationMain::GetInstance()->GetPad()->GetTrgButton();
 
-		_trgSelectNum = -1;
-		_relSelectNum = -1;
-
 		_oldSelectNum = _selectNum;
 
 		//選択ボタンの変更
@@ -100,13 +95,6 @@ bool ButtonServer::Process() {
 		}
 		_selectNum = _selectNum % _buttons.size();
 
-		//
-		if ((_selectNum ^ _oldSelectNum) & ~_oldSelectNum) {
-			_trgSelectNum = _selectNum;
-		}
-		if ((_selectNum ^ _oldSelectNum) & _oldSelectNum) {
-			_relSelectNum = _oldSelectNum;
-		}
 		
 		//ボタンが押された時の処理
 		if (trg & INPUT_A) {

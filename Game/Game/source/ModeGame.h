@@ -19,7 +19,6 @@ public:
 
 	class ObjectServer* GetObjectServer()const { return _objServer; }
 	class ModeEffekseer* GetModeEffekseer()const { return _modeEffekseer; }
-	class FPS* GetFps()const { return _fps; }
 	std::string GetStage()const { return _stage; }
 
 	void IncrementEnergyCount() { _energyCount++; }
@@ -60,8 +59,6 @@ protected:
 
 	class SpriteText* _enemyCountBg;
 	class SpriteNumber* _enemyCountText;
-
-	class FPS* _fps;
 
 	int _bg;
 

@@ -63,7 +63,6 @@ ModeGame::ModeGame(std::string stageNum)
 	,_enemyCount(0)
 	,_enemyCountText(NEW SpriteNumber(_enemyCount,2))
 {
-	_fps = NEW FPS();
 
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
@@ -75,7 +74,6 @@ ModeGame::ModeGame(std::string stageNum)
 ModeGame::~ModeGame() {
 	delete _objServer;
 	delete _debug;
-	delete _fps;
 	delete _uiServer;
 	delete _lightsOut;
 	delete _timeLine;
@@ -142,8 +140,6 @@ bool ModeGame::Process() {
 	_uiServer->Process();
 	_lightsOut->Process();
 
-	// fpsの更新
-	_fps->Update();	
 	
 	if (_debug->Process()) { return true; }
 	if (!_objServer->ProcessInit()) { return false; }
@@ -157,11 +153,6 @@ bool ModeGame::Process() {
 		_lightsOut->Use();
 		_enemyCountBg->SetAlpha(1.f);
 		_enemyCountText->SetAlpha(1.f);
-	}
-
-	//Pauseモードを追加
-	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
-		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
 	}
 
 	//描画する数字の更新

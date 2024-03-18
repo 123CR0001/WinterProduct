@@ -70,8 +70,6 @@ bool ObjectServer::Renderer() {
 		}
 	}
 
-	DrawFormatString(0, 600, GetColor(255, 0, 0), "オブジェクト　%d",_objects.size());
-
 	return true;
 }
 

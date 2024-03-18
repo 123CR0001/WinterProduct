@@ -14,6 +14,8 @@
 #include "UIDisplay.h"
 #include "UIBlink.h"
 
+#include"SpriteText.h"
+
 bool ModeTitle::Initialize() {
 	if (!base::Initialize()) { return false; }
 
@@ -50,6 +52,16 @@ bool ModeTitle::Initialize() {
 
 	gGlobal._sndServer.Play("BGM_01");
 
+	_schoolLogoText = NEW SpriteText();
+	_schoolLogoText->SetHandle(res::LoadGraph("res/UI/Title/ui_amglogo_01.png"));
+	_schoolLogoText->SetSize(Vector2(512.f * SCREEN_WIDTH_MAG,64.f*SCREEN_HEIGHT_MAG));
+	_schoolLogoText->SetPos(Vector2(1650.f * SCREEN_WIDTH_MAG, 1050.f * SCREEN_HEIGHT_MAG));
+
+	_teamLogoText = NEW SpriteText();
+	_teamLogoText->SetHandle(res::LoadGraph("res/UI/Title/ui_teamlogo_01.png"));
+	_teamLogoText->SetSize(Vector2(192.f * SCREEN_WIDTH_MAG, 128.f * SCREEN_HEIGHT_MAG));
+	_teamLogoText->SetPos(Vector2(1823.f * SCREEN_WIDTH_MAG, 960.f * SCREEN_HEIGHT_MAG));
+
 	return true;
 }
 
@@ -57,6 +69,8 @@ bool ModeTitle::Terminate() {
 	base::Terminate();
 	_ui->Terminate();
 	delete _ui;
+	delete _schoolLogoText;
+	delete _teamLogoText;
 	return true;
 }
 
@@ -110,6 +124,8 @@ bool ModeTitle::Process() {
 bool ModeTitle::Render() {
 	base::Render();
 	_ui->Render();
+	_schoolLogoText->Draw();
+	_teamLogoText->Draw();
 
 	return true;
 }

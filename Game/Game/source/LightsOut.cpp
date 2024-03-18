@@ -37,7 +37,7 @@ LightsOut::LightsOut(ModeGame* game)
 	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * SCREEN_WIDTH_MAG,978.f * SCREEN_HEIGHT_MAG)),100))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
-	,_frameCnt(300)
+	,_frameCnt(600)
 	,_useTimes(1)
 	,_state(STATE::kNone)
 {

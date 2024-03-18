@@ -15,7 +15,7 @@ Siren::Siren(ObjectServer* server)
 	:ObjectBase(server,false,"Siren")
 	, _interval(0) 
 	,_SEName("SE_07")
-	,_volumeSize(1000.f)
+	,_volumeSize(400.f)
 {
 
 }

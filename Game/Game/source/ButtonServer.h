@@ -14,8 +14,6 @@ public:
 	void DeleteButton(class Button* button);
 
 	int GetSelectNum()const { return _selectNum; }
-	int GetTrgSelectNum()const { return _trgSelectNum; }
-	int GetRelSelectNum()const { return _relSelectNum; }
 
 	class SpriteText* GetSelectUI()const { return _selectUI; }
 
@@ -28,21 +26,14 @@ public:
 	enum class STEP {
 		kAnimation,
 		kProcess,
+		kConclude
 	};
 private:
 	int _selectNum;
 	int _selectLimitNum;
 
 	//ボタンから離れた時の処理とボタンに触れた時の処理をするかの比較用変数
-
-	/*
-		if(_trgSelectNum > 0) {
-			_buttons->GetSpriteText()->AddAnimation(TransformAnimation()){}
-		}
-	*/
 	int _oldSelectNum;
-	int _trgSelectNum;
-	int _relSelectNum;
 
 	bool _isProcess;
 	std::vector<class Button*>_buttons;
@@ -55,4 +46,5 @@ private:
 
 public:
 	STEP GetStep()const { return _step; }
+	void SetStep(STEP step) { _step = step; }
 };

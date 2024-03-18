@@ -19,4 +19,6 @@ protected:
 	const int	MAX_OPTIONS = 2;
 	int				_select;
 
+	class SpriteText* _schoolLogoText;
+	class SpriteText* _teamLogoText;
 }; 

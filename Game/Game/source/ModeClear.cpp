@@ -200,6 +200,8 @@ void ModeClear::SetButton() {
 					// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
 					ModeServer::GetInstance()->Add(mode, 100, "Out");
+
+					_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 				},
 				button
 			)
@@ -230,6 +232,8 @@ void ModeClear::SetButton() {
 					// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
 					ModeServer::GetInstance()->Add(mode, 100, "Out");
+
+					_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 				},
 				titleButton
 					)
