@@ -13,4 +13,6 @@ protected:
 	float _springConst;
 	float _widthDist;
 	float _heightDist;
+
+	Vector3 _velocity;
 };

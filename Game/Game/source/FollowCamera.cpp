@@ -3,7 +3,7 @@
 
 FollowCamera::FollowCamera(ObjectBase* owner, int order)
 	:CameraComponent(owner, order)
-	,_springConst(0.7f)
+	,_springConst(100.f)
 	,_widthDist(250.f)
 	,_heightDist(800.f)
 {
@@ -27,21 +27,23 @@ bool FollowCamera::Process() {
 
 	CameraComponent::Process();
 
+	float dampening = 2.0f * sqrt(_springConst);
+
 	Vector3 idealPos = Vector3(sinf(_angle.y), 0.f, cosf(_angle.y)) * (_widthDist * _targetDistMag);
+
 	idealPos.y = _heightDist * _targetDistMag;
 	idealPos += _owner->GetPos();
 
-	float diff = Vector3::Length(idealPos, _pos);
+	Vector3 diff = _pos - idealPos;
 
 	//ma = -Kx	‚Î‚Ë’è”
-	float accele = _springConst * diff;
+	Vector3 accele = Vector3(diff * -_springConst) - Vector3(_velocity * dampening);
 
 	//m = m / (s*s) * (s*s)
-	float speed = (float)(accele * (1.f / 60.f));
-	float scale = (float)(speed * (1.f / 60.f));
+	_velocity += accele * (1.f / 60.f);
 
 	//ˆÚ“®
-	_pos = (_pos + (Vector3(idealPos - _pos) * scale));
+	_pos += _velocity * (1.f / 60.f);
 
 	Vector3 target = _owner->GetPos() - Vector3(idealPos - _pos);
 
