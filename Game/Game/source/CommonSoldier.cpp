@@ -140,6 +140,8 @@ bool CommonSoldier::Terminate() {
 		GetObjectServer()->GetCommonSoldiers().erase(iter);
 	}
 
+
+
 	return true;
 }
 

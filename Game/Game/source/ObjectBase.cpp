@@ -39,7 +39,7 @@ ObjectBase::~ObjectBase() {
 	_deleteComponents.clear();
 	_components.clear();
 
-	ResourceServer::MV1DeleteModel(_handle);
+
 
 	MV1TerminateCollInfo(_handle, _attachIndex);
 }
@@ -54,7 +54,7 @@ bool ObjectBase::Initialize() {
 
 bool ObjectBase::Terminate() {
 
-
+	ResourceServer::MV1DeleteModel(_handle);
 	return true;
 }
 

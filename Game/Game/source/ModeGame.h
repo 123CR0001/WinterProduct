@@ -56,6 +56,7 @@ protected:
 	//UI
 	class MyUIServer* _uiServer;
 
+	class SpriteText* _enemyCountBg;
 	class SpriteNumber* _enemyCountText;
 
 	class FPS* _fps;

@@ -35,7 +35,7 @@ constexpr float MAG_HEIGHT = static_cast<float>(SCREEN_HEIGHT) / static_cast<flo
 LightsOut::LightsOut(ModeGame* game) 
 	:_game(game)
 	,_timerBg(NEW SpriteTextFlipAnimation(3,false))
-	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * MAG_WIDTH ,978.f * MAG_HEIGHT)),210))
+	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * MAG_WIDTH ,978.f * MAG_HEIGHT)),100))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
 	,_frameCnt(300)
@@ -64,8 +64,8 @@ LightsOut::LightsOut(ModeGame* game)
 	_timer->SetIsDraw(false);
 
 	//UI‚ð’Ç‰Á
-	_game->GetUIServer()->AddUI(NEW UISpriteText(_noise,50));
-	_game->GetUIServer()->AddUI(NEW UISpriteText(_hud,60));
+	_game->GetUIServer()->AddUI(NEW UISpriteText(_noise,300));
+	_game->GetUIServer()->AddUI(NEW UISpriteText(_hud,310));
 	_game->GetUIServer()->AddUI(NEW UISpriteText(_timerBg,200));
 	_game->GetUIServer()->AddUI(_timer);
 }

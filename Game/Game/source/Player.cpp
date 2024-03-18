@@ -93,16 +93,16 @@ bool Player::Initialize() {
 	_decoyTimesText->SetPos(Vector2(337.f * SCREEN_WIDTH_MAG, 1004.5f * SCREEN_HEIGHT_MAG));
 	_decoyTimesText->SetSize(Vector2(40.f * SCREEN_WIDTH_MAG, 76 * SCREEN_WIDTH_MAG));
 
-	GetObjectServer()->GetGame()->GetUIServer()->AddUI(NEW UISpriteText(_decoyTimesText, 1000));
+	GetObjectServer()->GetGame()->GetUIServer()->AddUI(NEW UISpriteText(_decoyTimesText, 100));
 
-	//
+	_decoyTimesTextBg = NEW SpriteText(
+	ResourceServer::LoadGraph("res/UI/Game/ui_itembg_01.png")
+		, Transform2(Vector2(231.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG))
+		, Vector2(400.f * SCREEN_WIDTH_MAG, 150.f * SCREEN_WIDTH_MAG)
+		);
 	GetObjectServer()->GetGame()->GetUIServer()->AddUI(
 		NEW UISpriteText(
-			NEW SpriteText(
-				ResourceServer::LoadGraph("res/UI/Game/ui_itembg_01.png")
-				, Transform2(Vector2(231.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG))
-				, Vector2(400.f * SCREEN_WIDTH_MAG, 150.f * SCREEN_WIDTH_MAG)
-			)
+			_decoyTimesTextBg
 			, 1000
 		)
 	);
@@ -240,6 +240,10 @@ bool Player::Process() {
 		_damageData = DamageData{};
 	}
 
+	if(_isLightsOut) {
+		_decoyTimesText->SetAlpha(0.f);
+	}
+
 	//UI‚ÌXV
 	_decoyTimesText->SetNumber(_decoyTimes);
 
@@ -250,29 +254,6 @@ bool Player::Render() {
 
 	CharaBase::Render();
 
-	const char* name = nullptr;
-
-	switch (_actionState) {
-	case ACTION_STATE::kIdle:
-		name = "idle";
-		break;
-	case ACTION_STATE::kWalk:
-		name = "kWalk";
-		break;
-	case ACTION_STATE::kAttack:
-		break;
-	case ACTION_STATE::kAttack2:
-		break;
-	case ACTION_STATE::kSilent:
-		name = "kSilent";
-		break;
-	case ACTION_STATE::kSilentWalk:
-		name = "kSilentWalk";
-		break;
-	}
-
-	auto pad = GetObjectServer()->GetGame()->GetPad();
-	DrawFormatString(0, 0, GetColor(255, 0, 0), "%d", _motCom->GetMotionCount());
 	return true;
 }
 

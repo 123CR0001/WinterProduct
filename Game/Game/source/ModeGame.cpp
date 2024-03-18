@@ -97,22 +97,24 @@ bool ModeGame::Initialize() {
 	_enemyCountText->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
 	_enemyCountText->SetPos(Vector2(365.f * SCREEN_WIDTH_MAG,858.f*SCREEN_HEIGHT_MAG));
 	_enemyCountText->SetSize(Vector2(46.f * SCREEN_WIDTH_MAG, 70.f * SCREEN_HEIGHT_MAG));
+	_enemyCountText->SetAlpha(0.f);
 
 	//上記の背景
 	{
-		auto text = NEW SpriteText(
+		_enemyCountBg = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Game/CommonSoldierTimes.png"),
 			Transform2(Vector2(224.f * SCREEN_WIDTH_MAG, 847.f * SCREEN_HEIGHT_MAG)),
 			Vector2(160.f * SCREEN_WIDTH_MAG, 120.f * SCREEN_HEIGHT_MAG)
 		);
-
-		_uiServer->AddUI(NEW UISpriteText(text,100));
+		_enemyCountBg->SetAlpha(0.f);
+		_uiServer->AddUI(NEW UISpriteText(_enemyCountBg,100));
 	}
+	_uiServer->AddUI(NEW UISpriteText(_enemyCountText, 50));
 
 	_uiServer->AddUI(NEW UIDetectionLevel(_objServer,100));
 	_uiServer->AddUI(NEW UIVision(_objServer,1000));
 	_uiServer->AddUI(NEW UIMiniMap(this,100));
-	_uiServer->AddUI(NEW UISpriteText(_enemyCountText,50));
+
 
 	gGlobal._sndServer.Play("BGM_01");
 	return true;
@@ -141,11 +143,7 @@ bool ModeGame::Process() {
 	// fpsの更新
 	_fps->Update();	
 	
-
 	if (_debug->Process()) { return true; }
-
-
-
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
 
@@ -155,6 +153,8 @@ bool ModeGame::Process() {
 		&& _energyCount == 0
 		) {
 		_lightsOut->Use();
+		_enemyCountBg->SetAlpha(1.f);
+		_enemyCountText->SetAlpha(1.f);
 	}
 
 	//Pauseモードを追加

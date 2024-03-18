@@ -56,6 +56,8 @@ protected:
 	float _moveSpeedMag;
 
 	int _decoyTimes;
+
+	class SpriteText* _decoyTimesTextBg;
 	class SpriteNumber* _decoyTimesText;
 };
 
