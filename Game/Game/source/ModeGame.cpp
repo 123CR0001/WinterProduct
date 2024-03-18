@@ -118,7 +118,7 @@ bool ModeGame::Initialize() {
 	_uiServer->AddUI(NEW UIMiniMap(this,100));
 
 
-	gGlobal._sndServer.Play("BGM_01");
+	gGlobal._sndServer.Play("BGM_03");
 	return true;
 }
 

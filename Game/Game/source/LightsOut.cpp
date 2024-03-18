@@ -116,7 +116,7 @@ bool LightsOut::Process() {
 		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
 
 		//BGM‚ÌÄ¶
-		gGlobal._sndServer.Play("BGM_02");
+		gGlobal._sndServer.Play("BGM_06");
 
 		//“G•º‚Ì—ÖŠsü‚ð•`‰æ
 		for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {
@@ -176,7 +176,7 @@ bool LightsOut::Process() {
 		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 1.f, 60);
 
 		//BGM‚ÌÄ¶
-		gGlobal._sndServer.Play("BGM_01");
+		gGlobal._sndServer.Play("BGM_03");
 
 		//“G•º‚Ì—ÖŠsü‚ð•`‰æ‚µ‚È‚¢
 		for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {

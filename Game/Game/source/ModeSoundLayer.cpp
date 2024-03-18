@@ -16,8 +16,8 @@ bool ModeSoundLayer::Initialize() {
 	_asyncLoadTimeMs = 0;
 
 	//// 音データファイルを読み込む
-	gGlobal._sndServer.Add("BGM_01", new SoundItemBGM("res/Sound/bgm/stageselect_01.wav"));
-	gGlobal._sndServer.Add("BGM_02", new SoundItemBGM("res/Sound/bgm/title_01.wav"));
+	gGlobal._sndServer.Add("BGM_01", new SoundItemBGM("res/Sound/bgm/title_01.wav"));
+	gGlobal._sndServer.Add("BGM_02", new SoundItemBGM("res/Sound/bgm/stageselect_01.wav"));
 	gGlobal._sndServer.Add("BGM_03", new SoundItemBGM("res/Sound/bgm/mainstage_01.wav"));
 	gGlobal._sndServer.Add("BGM_04", new SoundItemBGM("res/Sound/bgm/mainstage_02.wav"));
 	gGlobal._sndServer.Add("BGM_05", new SoundItemBGM("res/Sound/bgm/mainstage_03.wav"));
