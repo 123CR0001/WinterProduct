@@ -16,8 +16,15 @@ bool ModeSoundLayer::Initialize() {
 	_asyncLoadTimeMs = 0;
 
 	//// 音データファイルを読み込む
-	gGlobal._sndServer.Add("BGM_01", new SoundItemBGM("res/Sound/bgm/mainstage_01.wav"));
-	gGlobal._sndServer.Add("BGM_02", new SoundItemBGM("res/Sound/bgm/lightsout_01.wav"));
+	gGlobal._sndServer.Add("BGM_01", new SoundItemBGM("res/Sound/bgm/stageselect_01.wav"));
+	gGlobal._sndServer.Add("BGM_02", new SoundItemBGM("res/Sound/bgm/title_01.wav"));
+	gGlobal._sndServer.Add("BGM_03", new SoundItemBGM("res/Sound/bgm/mainstage_01.wav"));
+	gGlobal._sndServer.Add("BGM_04", new SoundItemBGM("res/Sound/bgm/mainstage_02.wav"));
+	gGlobal._sndServer.Add("BGM_05", new SoundItemBGM("res/Sound/bgm/mainstage_03.wav"));
+	gGlobal._sndServer.Add("BGM_06", new SoundItemBGM("res/Sound/bgm/lightsout_01.wav"));
+	gGlobal._sndServer.Add("BGM_07", new SoundItemBGM("res/Sound/bgm/gameover_01.wav"));
+	gGlobal._sndServer.Add("BGM_08", new SoundItemBGM("res/Sound/bgm/result_01.wav"));
+
 
 	gGlobal._sndServer.Add("SE_01", new SoundItemSE("res/Sound/se/footsteps_01.wav"));
 	gGlobal._sndServer.Add("SE_02", new SoundItemSE("res/Sound/se/knifeattack_01.wav"));

@@ -1,5 +1,6 @@
 
 #include "ApplicationMain.h"
+#include"ApplicationGlobal.h"
 #include "ModeSelect.h"
 
 #include "UIServer.h"
@@ -25,6 +26,8 @@ bool ModeSelect::Initialize() {
 	_bAddSelect = false;
 
 	SwitchTagWithBg("stage1");
+
+	gGlobal._sndServer.Play("BGM_02");
 
 	return true;
 }

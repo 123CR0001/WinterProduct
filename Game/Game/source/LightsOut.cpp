@@ -62,7 +62,7 @@ LightsOut::LightsOut(ModeGame* game)
 
 	_timerEffect->LoadDivText("res/UI/Game/ui_timerbg_02.png", 5, 1, 5, 200, 200);
 	_timerEffect->SetSize(Vector2(200.f * SCREEN_WIDTH_MAG, 200.f * SCREEN_HEIGHT_MAG));
-	_timerEffect->SetPos(Vector2(521.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG));
+	_timerEffect->SetPos(Vector2(523.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG));
 	_timerEffect->SetAlpha(1.f);
 
 	_timer->SetIsDraw(false);

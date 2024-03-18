@@ -1,6 +1,7 @@
 
 #include "AppFrame.h"
 #include "ApplicationMain.h"
+#include"ApplicationGlobal.h"
 #include "ModeTitle.h"
 #include "ModeGame.h"
 #include"ModeColorOut.h"
@@ -46,6 +47,8 @@ bool ModeTitle::Initialize() {
 	_ui->Search("quit")->_selectNum = 1;
 
 	_select = _ui->Search("start")->_selectNum;
+
+	gGlobal._sndServer.Play("BGM_01");
 
 	return true;
 }

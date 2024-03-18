@@ -42,8 +42,7 @@ ModeClear::ModeClear(std::shared_ptr<ModeGame::ResultData> data)
 }
 
 bool ModeClear::Initialize() {
-	//BGM‚ðŽ~‚ß‚é
-	gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
+	gGlobal._sndServer.Play("BGM_08");
 	return true;
 }
 

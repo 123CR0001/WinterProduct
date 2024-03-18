@@ -46,8 +46,7 @@ bool ModeGameOver::Initialize() {
 	_frameCnt = 4;
 	_motCnt = 0;
 
-	//BGM‚ðŽ~‚ß‚é
-	gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
+	gGlobal._sndServer.Play("BGM_07");
 	return true;
 }
 
