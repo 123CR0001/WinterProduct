@@ -30,6 +30,7 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 
 	LoadAnimation("Idle", "mo_standbyenemy_01", 0);
 	LoadAnimation("LookAround", "mo_losesight_01", 0);
+
 	_closeMaxTime = 12.f;
 
 }

@@ -89,7 +89,7 @@ void ApplicationGlobal::LoadMotionData() {
 
 	data = MotionDataJson("res/MotionData/CommonSoldier/Dead.json");
 	if (data.IsSuccess()) {
-		_charaMotionData["CommonSoldier"]["Dead"] = data.GetMotionData();
+		_charaMotionData["CommonSoldier"]["Death"] = data.GetMotionData();
 	}
 
 	data = MotionDataJson("res/MotionData/CommonSoldier/BlindWalk.json");
@@ -100,5 +100,10 @@ void ApplicationGlobal::LoadMotionData() {
 	data = MotionDataJson("res/MotionData/CommonSoldier/Panic.json");
 	if(data.IsSuccess()) {
 		_charaMotionData["CommonSoldier"]["Panic"] = data.GetMotionData();
+	}
+
+	data = MotionDataJson("res/MotionData/CommonSoldier/LookAround.json");
+	if(data.IsSuccess()) {
+		_charaMotionData["CommonSoldier"]["LookAround"] = data.GetMotionData();
 	}
 }

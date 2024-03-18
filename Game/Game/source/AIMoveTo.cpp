@@ -14,7 +14,7 @@ AIMoveTo::AIMoveTo(AIComponent* owner)
 }
 AIMoveTo::~AIMoveTo() {}
 void AIMoveTo::OnEnter() {
-	if(_owner->GetPoints(GetName()).empty()) { _owner->ChangeState("LookAround"); return; }
+	if(_owner->GetPoints(GetName()).empty()) { _owner->ChangeState("LoseSight"); return; }
 	//一番最後に追加された座標へ向かう
 	Vector3 checkPoint = _owner->GetPoints(GetName()).back();
 	//昔のルートは捨てる
@@ -28,7 +28,7 @@ void AIMoveTo::OnEnter() {
 	//最短経路
 	navi->BFS(ownerPos, checkPoint, _owner->GetPoints(GetName()));
 	if(_owner->GetPoints(GetName()).empty()) {
-		_owner->ChangeState("LookAround");
+		_owner->ChangeState("LoseSight");
 		return;
 	}
 	_oldCheckPoint = checkPoint;
@@ -40,7 +40,7 @@ bool AIMoveTo::Process() {
 	//何か見かけたか
 	bool isFound = false;
 	if(_owner->GetPoints(GetName()).size() == 0) {
-		_owner->ChangeState("LookAround");
+		_owner->ChangeState("LoseSight");
 	}
 	//移動　最後の座標まで到達したら、巡回経路に戻る
 	if(!_owner->GetPoints(GetName()).back().Equal(_owner->GetOwner()->GetPos(), 20.f)) {
@@ -49,7 +49,7 @@ bool AIMoveTo::Process() {
 	}
 	else {
 		if(!isFound) {
-			_owner->ChangeState("LookAround");
+			_owner->ChangeState("LoseSight");
 		}
 	}
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか
