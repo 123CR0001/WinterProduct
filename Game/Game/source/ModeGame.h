@@ -24,6 +24,8 @@ public:
 
 	void IncrementEnergyCount() { _energyCount++; }
 	void DecremetEnergyCOunt() { _energyCount--; }
+	int GetEnergyCount()const { return _energyCount; }
+
 	void IncrementEnemyCount() { _enemyCount++; }
 	void DecrementEnemyCount();
 

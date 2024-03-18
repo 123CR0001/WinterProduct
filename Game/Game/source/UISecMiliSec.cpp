@@ -1,19 +1,20 @@
 #include"UISecMiliSec.h"
 #include"SpriteNumber.h"
+#include"ApplicationMain.h"
 
 UISecMiliSec::UISecMiliSec(const Transform2& transform, int drawOrder)
 	:UI(drawOrder)
 	, _sec(std::make_unique<SpriteNumber>(1, 2))
 	, _miliSec(std::make_unique<SpriteNumber>(1, 2))
-	, _colon(std::make_unique<SpriteText>(LoadGraph("res/UI/Result/ui_timer_02.png"), transform,Vector2(22.5f,105.f)))
+	, _colon(std::make_unique<SpriteText>(LoadGraph("res/UI/Result/ui_timer_02.png"), transform,Vector2(15.f * SCREEN_WIDTH_MAG,70.f * SCREEN_HEIGHT_MAG)))
 	, _pos(transform.pos)
 	, _isDraw(true)
 	,_frameCnt(0)
 {
 	_sec->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
-	_sec->SetSize(Vector2(69, 105));
+	_sec->SetSize(Vector2(46.f * SCREEN_WIDTH_MAG, 70.f* SCREEN_HEIGHT_MAG));
 	_miliSec->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
-	_miliSec->SetSize(Vector2(69, 105));
+	_miliSec->SetSize(Vector2(46.f * SCREEN_WIDTH_MAG, 70.f * SCREEN_HEIGHT_MAG));
 }
 
 UISecMiliSec::~UISecMiliSec(){}

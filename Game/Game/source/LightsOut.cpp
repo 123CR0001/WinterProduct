@@ -29,13 +29,12 @@
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
 
-constexpr float MAG_WIDTH = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(MAX_SCREEN_WIDTH);
-constexpr float MAG_HEIGHT = static_cast<float>(SCREEN_HEIGHT) / static_cast<float>(MAX_SCREEN_HEIGHT);
 
 LightsOut::LightsOut(ModeGame* game) 
 	:_game(game)
 	,_timerBg(NEW SpriteTextFlipAnimation(3,false))
-	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * MAG_WIDTH ,978.f * MAG_HEIGHT)),100))
+	,_timerEffect(NEW SpriteTextFlipAnimation(3,true))
+	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * SCREEN_WIDTH_MAG,978.f * SCREEN_HEIGHT_MAG)),100))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
 	,_frameCnt(300)
@@ -48,8 +47,8 @@ LightsOut::LightsOut(ModeGame* game)
 
 	_timerBg->Stop();
 	_timerBg->LoadDivText("res/UI/Game/Timer/ui_timerbg_01.png", 5, 1, 5, 500, 150);
-	_timerBg->SetPos(Vector2(359.f * MAG_WIDTH, 978.f * MAG_HEIGHT));
-	_timerBg->SetSize(Vector2(600.f,150.f));
+	_timerBg->SetPos(Vector2(359.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG));
+	_timerBg->SetSize(Vector2(500.f * SCREEN_WIDTH_MAG,150.f* SCREEN_HEIGHT_MAG));
 
 	_noise->LoadDivText("res/Effect/ui_nightscope_1.png", 6, 1, 6, 1920, 1080);
 	_noise->SetSize(Vector2(screenWidth, screenHeight));
@@ -61,12 +60,18 @@ LightsOut::LightsOut(ModeGame* game)
 	_hud->SetPos(Vector2((float)screenWidth / 2, (float)screenHeight / 2));
 	_hud->SetAlpha(0.f);
 
+	_timerEffect->LoadDivText("res/UI/Game/ui_timerbg_02.png", 5, 1, 5, 200, 200);
+	_timerEffect->SetSize(Vector2(200.f * SCREEN_WIDTH_MAG, 200.f * SCREEN_HEIGHT_MAG));
+	_timerEffect->SetPos(Vector2(521.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG));
+	_timerEffect->SetAlpha(1.f);
+
 	_timer->SetIsDraw(false);
 
 	//UI‚ð’Ç‰Á
 	_game->GetUIServer()->AddUI(NEW UISpriteText(_noise,300));
 	_game->GetUIServer()->AddUI(NEW UISpriteText(_hud,310));
 	_game->GetUIServer()->AddUI(NEW UISpriteText(_timerBg,200));
+	_game->GetUIServer()->AddUI(NEW UISpriteText(_timerEffect, 250));
 	_game->GetUIServer()->AddUI(_timer);
 }
 
@@ -183,6 +188,13 @@ bool LightsOut::Process() {
 		break;
 	}
 	
+	}
+
+	if(_useTimes > 0 && _game->GetEnergyCount() == 0) {
+		_timerEffect->SetAlpha(1.f);
+	}
+	else {
+		_timerEffect->SetAlpha(0.f);
 	}
 
 	return true;

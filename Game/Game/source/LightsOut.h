@@ -16,6 +16,7 @@ public:
 private:
 	class SpriteTextFlipAnimation* _timerBg;
 	class SpriteTextFlipAnimation* _noise;
+	class SpriteTextFlipAnimation* _timerEffect;
 	class SpriteText* _hud;
 	class UISecMiliSec* _timer;
 	class ModeGame* _game;
