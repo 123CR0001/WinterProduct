@@ -33,7 +33,24 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 
 	_commandFuncMap["PLAY_SOUND"] = [this](const MOTION_DATA_ITEM& item) {//SEÇÃçƒê∂
 	
-		gGlobal._sndServer.Play(item.soundPlayName);
+		std::string name = item.soundPlayName;
+
+		std::vector<std::string> names;
+
+		int frontNum = 0;
+
+		while(frontNum != -1) {
+
+			frontNum = name.find_first_of(",");
+
+			std::cout << frontNum << std::endl;
+
+			names.emplace_back(name.substr(0, frontNum));
+
+			name = name.substr(frontNum + 1, name.size());
+		}
+
+		gGlobal._sndServer.Play(names[rand() % names.size()]);
 
 		_motCnt++;
 	};

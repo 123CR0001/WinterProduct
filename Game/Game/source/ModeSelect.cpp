@@ -90,7 +90,7 @@ bool ModeSelect::Process() {
 			SwitchTagWithBg(name);
 			AdjustItemPos(name);
 			_ui->SelectPosAdjustment(name, "Get", 0, -5);	// 選択中の項目にカーソルを重ねる	
-			if (trg & INPUT_A) {
+			if (trg & INPUT_A && !ModeServer::GetInstance()->IsAdd("Out")) {
 				ui->Selected();
 				if (_bSelected) { _bSelected = false; }
 				else if(!_bSelected && _ui->Search("toTitle")) { _bSelected = true; }

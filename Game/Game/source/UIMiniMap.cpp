@@ -20,7 +20,6 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 	std::string area = _game->GetStage().substr(2, 1);
 	std::string str = "res/stage/stage" + stage + "/" + area + "/mapstage.png";
 	_mapTextHandle = ResourceServer::LoadGraph(str.c_str());
-
 	{
 		auto& frames = _game->GetObjectServer()->GetPhysWorld()->GetFrameComponent();
 
