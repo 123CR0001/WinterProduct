@@ -81,6 +81,7 @@ public:
 		int maxCombo;
 		float clearSecondTime;
 		float maxDetectionLevel;
+		std::string _stageName;
 
 		const char* GetRank() {
 			int point = 0;

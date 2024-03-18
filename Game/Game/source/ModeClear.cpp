@@ -94,10 +94,10 @@ void ModeClear::SetUI() {
 	{
 		auto text = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_scorebg_02.png"),
-			Transform2(Vector2(3000.f * rateW, 896.f * rateH)),
-			Vector2(896.f * rateW, 232.f * rateH)
+			Transform2(Vector2(3000.f * rateW, 859.f * rateH)),
+			Vector2(896.f * rateW, 160.f * rateH)
 		);
-		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(1344.f * rateW, 896.f * rateH))));
+		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(1344.f * rateW, 859.f * rateH))));
 		_uiServer->AddUI(NEW UISpriteText(text));
 	}
 
@@ -186,39 +186,11 @@ void ModeClear::SetButton() {
 		targetUI->SetAlpha(1.f);
 		targetUI->AddAnimation(NEW OpacityAnimation(targetUI, -120, 0.6f));
 	}
-	{
-		//‰æ‘œ‚ÌÝ’è
-		SpriteText* titleButton = NEW SpriteText(
-			ResourceServer::LoadGraph("res/UI/Result/ui_stageselection_01.png"),
-			Transform2(Vector2(Vector2(3000.f * rateW, 900.f * rateH))),
-			Vector2(384.f * rateW, 64.f * rateH)
-		);
-		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÝ’è
-		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(1344.f * rateW, 900.f * rateH))));
 
-		_buttonServer->AddButton(
-			NEW Button(
-				_buttonServer,
-
-				[this]() {
-					auto func = [this]() {
-						// ƒ‚[ƒh‚Ìíœ
-						ModeServer::GetInstance()->Del(this);
-						// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
-						ModeServer::GetInstance()->Add(NEW ModeTitle(), 1, "title");
-					};
-					// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
-					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
-					ModeServer::GetInstance()->Add(mode, 100, "Out");
-				},
-				titleButton
-					)
-		);
-	}
 	{
 		SpriteText* button = NEW SpriteText(
-			ResourceServer::LoadGraph("res/UI/Result/ui_nextstage_01.png"),
-			Transform2(Vector2(3000.f * rateW, 828.f * rateH)), 
+			ResourceServer::LoadGraph("res/UI/Result/ui_stageselection_01.png"),
+			Transform2(Vector2(3000.f * rateW, 828.f * rateH)),
 			Vector2(384.f * rateW, 64.f * rateH)
 		);
 		button->AddAnimation(NEW TransformAnimation(button, 60.f, Transform2(Vector2(1344.f * rateW, 828.f * rateH))));
@@ -233,15 +205,45 @@ void ModeClear::SetButton() {
 						ModeServer::GetInstance()->Del(this);
 						// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
 						ModeServer::GetInstance()->Add(NEW ModeSelect(), 100, "select");
-					};
+						};
 					// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
 					ModeServer::GetInstance()->Add(mode, 100, "Out");
 				},
 				button
-					)
+			)
 		);
 
 	}
+	{
+		//‰æ‘œ‚ÌÝ’è
+		SpriteText* titleButton = NEW SpriteText(
+			ResourceServer::LoadGraph("res/UI/Result/ui_playagain_01.png"),
+			Transform2(Vector2(Vector2(3000.f * rateW, 900.f * rateH))),
+			Vector2(384.f * rateW, 64.f * rateH)
+		);
+		//ƒAƒjƒ[ƒVƒ‡ƒ“‚ÌÝ’è
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(1344.f * rateW, 910.f * rateH))));
+
+		_buttonServer->AddButton(
+			NEW Button(
+				_buttonServer,
+
+				[this]() {
+					auto func = [this]() {
+						// ƒ‚[ƒh‚Ìíœ
+						ModeServer::GetInstance()->Del(this);
+						// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
+						ModeServer::GetInstance()->Add(NEW ModeGame(_resultData->_stageName), 1, "game");
+					};
+					// ŽŸ‚Ìƒ‚[ƒh‚ð“o˜^
+					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
+					ModeServer::GetInstance()->Add(mode, 100, "Out");
+				},
+				titleButton
+					)
+		);
+	}
+	
 }
 

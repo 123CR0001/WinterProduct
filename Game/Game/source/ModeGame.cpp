@@ -68,6 +68,8 @@ ModeGame::ModeGame(std::string stageNum)
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
 	_debug->Initialize();
+
+	_resultData->_stageName = stageNum;
 }
 
 ModeGame::~ModeGame() {
