@@ -12,7 +12,7 @@ SoundComponent::SoundComponent(ObjectBase* owner, float volumeSize)
 	_owner->GetObjectServer()->GetPhysWorld()->GetSoundComponent().emplace_back(this);
 }
 
-SoundComponent::SoundComponent(ObjectBase* owner,const Vector3D& pos, float volumeSize)
+SoundComponent::SoundComponent(ObjectBase* owner,const Vector3& pos, float volumeSize)
 	:Component(owner)
 	, _volumeSize(volumeSize)
 	, _pos(pos)
@@ -37,9 +37,9 @@ bool SoundComponent::Process() {
 	return true;
 }
 
-bool SoundComponent::IsHear(const Vector3D& pos) {
+bool SoundComponent::IsHear(const Vector3& pos) {
 	//_volumeSize‚æ‚è‹——£‚ª’Z‚¯‚ê‚ÎAtrue‚ğ•Ô‚·
-	if (Vector3D::LengthSquare(pos, _pos) < _volumeSize * _volumeSize) {
+	if (Vector3::LengthSquare(pos, _pos) < _volumeSize * _volumeSize) {
 		return true;
 	}
 	

@@ -53,9 +53,10 @@ protected:
 	//ƒ^ƒCƒ€ƒ‰ƒCƒ“
 	class TimeLine* _timeLine;
 
-
 	//UI
 	class MyUIServer* _uiServer;
+
+	class SpriteNumber* _enemyCountText;
 
 	class FPS* _fps;
 
@@ -132,4 +133,6 @@ public:
 	std::shared_ptr<ResultData> GetResultData() const { return _resultData; }
 private:
 	std::shared_ptr<ResultData>_resultData;
+
+	int _pTime;
 }; 

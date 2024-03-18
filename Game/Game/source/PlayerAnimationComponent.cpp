@@ -5,16 +5,6 @@ PlayerAnimationComponent::PlayerAnimationComponent(Player* owner, int order)
 	:AnimationComponent(owner, order)
 	, _pOwner(owner)
 {
-	_pOwner->LoadModel("res/Chara/Owl_toDX/Owl.mv1");
-
-	LoadAnimation("Idle", "mo_standby_01", 0);
-	LoadAnimation("run", "mo_move_01", 0);
-	LoadAnimation("StealthWalk", "mo_stealthwalk_01", 0);
-	LoadAnimation("Attack", "mo_attack_01", 1);
-	LoadAnimation("Attack2", "mo_attack_02", 1);
-	LoadAnimation("Attack3", "mo_attack_03", 1);
-	LoadAnimation("Dead", "mo_death_01", 1);
-	LoadAnimation("Clear", "mo_standby_01", 0);
 
 	_closeMaxTime = 3.0f;
 }
@@ -47,7 +37,7 @@ bool PlayerAnimationComponent::Process() {
 	case Player::ACTION_STATE::kSilentWalk:
 		ChangeAnimation("StealthWalk");
 		break;
-	case Player::ACTION_STATE::kDead:
+	case Player::ACTION_STATE::kDeath:
 		ChangeAnimation("Dead");
 		break;
 	case Player::ACTION_STATE::kClear:

@@ -8,9 +8,5 @@ public:
 
 	bool Initialize()override;
 	bool Process()override;
-	bool Render()override;
-};
-
-class Bullet :public WeaponBase {
 
 };

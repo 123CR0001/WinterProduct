@@ -5,6 +5,7 @@
 #include "ModeColorIn.h"
 #include"ModeColorOut.h"
 #include"ModeSelect.h"
+#include"ModeStageSelect.h"
 
 UIGameStart::UIGameStart() {
 	

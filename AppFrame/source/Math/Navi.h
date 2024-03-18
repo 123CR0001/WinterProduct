@@ -6,7 +6,7 @@
 
 struct Node {
 	Polygon3D* neighborPoly = nullptr;
-	Vector3D pos;
+	Vector3 pos;
 
 	bool operator == (const Node& right) {
 		return neighborPoly == right.neighborPoly;
@@ -24,9 +24,9 @@ public:
 
 	//É|ÉäÉSÉìèoÇÃç≈íZåoòH
 	bool BFS(
-		const Vector3D& goalPos,
-		const Vector3D& startPos,
-		std::vector<Vector3D>& route,
+		const Vector3& goalPos,
+		const Vector3& startPos,
+		std::vector<Vector3>& route,
 		std::vector<Polygon3D*>* routePolygon = nullptr
 	); 
 
@@ -38,7 +38,7 @@ public:
 	void GetConectPolygonMap();
 
 
-	Polygon3D* GetHitPolygon(Vector3D pos);
+	Polygon3D* GetHitPolygon(Vector3 pos);
 
 	int LoadModel(const char* fileName, const char* attachName) {
 		_handle = MV1LoadModel(fileName);

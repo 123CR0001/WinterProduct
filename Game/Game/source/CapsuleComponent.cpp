@@ -23,28 +23,54 @@ CapsuleComponent::~CapsuleComponent() {
 }
 
 bool CapsuleComponent::Process() {
+	{
+		auto physWorld = _owner->GetObjectServer()->GetPhysWorld();
+
+		for (auto iter = physWorld->GetFrameComponent().begin(); iter != physWorld->GetFrameComponent().end(); ++iter) {
+
+			if ((*iter)->GetOwner() == _owner) { continue; }//自分とは判定をしない 
+			//登録されいている名前なら、スキップ
+			if (std::find(_skipNames.begin(), _skipNames.end(), (*iter)->GetOwner()->GetName()) != _skipNames.end()) { continue; }
+
+			auto  hitObj = MV1CollCheck_Line(
+				(*iter)->GetOwner()->GetHandle(),
+				(*iter)->GetOwner()->GetAttachIndex(),
+				DxConverter::VecToDx(_owner->GetPos()),
+				DxConverter::VecToDx(_owner->GetPos() - Vector3(0.f, 1000.f, 0.f))
+			);
+
+			if (hitObj.HitFlag) {
+				_owner->SetPos(DxConverter::DxToVec(hitObj.HitPosition));
+			}
+		}
+	}
 
 
 	//オブジェクトとの押出処理
 	int i = 0;
 
-	//一度空にする
+	_oldResult = _result;
+
 	_result = PhysWorld::CollisionDetectionResult{};
 
 	while (1) {
-		PhysWorld::CollisionDetectionResult result = GetOverlapResult();
 
+		PhysWorld::CollisionDetectionResult result = GetOverlapResult();
+		
 		if (result.isHit) {
 			_owner->AddPos(result.item.pushVec);
 			_result = result;
 		}
-		else { break; }
+		else { 
+			break;
+		}
 		i++;
 		//20回以上判定をしたら、break
 		if (i > 20) {
 			break;
 		}
 	}
+
 	return true;
 }
 
@@ -67,17 +93,17 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 		if (Collision::Intersection(otherCap, thisCap, &resultSeg)) {
 
 			//押し出す距離が長いのが、最初にぶつかったカプセル
-			if (result.item.pushDistanceSqaure < thisCap.radius + otherCap.radius) {
+			if (result.item.pushDistanceSquare < (otherCap.radius + thisCap.radius) - resultSeg.Length()) {
 				result.isHit = true;
 
-				Vector3D pushVec(Vector3D(resultSeg.start + (resultSeg.Vector().Normalize() * (thisCap.radius + otherCap.radius))) - resultSeg.end);
+				Vector3 pushVec(Vector3(resultSeg.start + (resultSeg.Vector().Normalize() * (thisCap.radius + otherCap.radius))) - resultSeg.end);
 
 				PhysWorld::CollisionDetectionItem item =
 				{
-					Vector3D(resultSeg.start + (resultSeg.Vector().Normalize() * (thisCap.radius + otherCap.radius + 0.1f))) - resultSeg.end,
+					Vector3(resultSeg.start + (resultSeg.Vector().Normalize() * (thisCap.radius + otherCap.radius + 0.1f))) - resultSeg.end,
 					pushVec.LengthSquare(),
 					(*iter)->GetOwner(),
-					Vector3D(0.f,0.f,0.f),
+					Vector3(0.f,0.f,0.f),
 					pushVec.Normalize()
 				};
 				result.item = item;
@@ -111,13 +137,13 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 			Segment capsuleSeg(GetCapsule().seg);
 
 			//ポリゴン(面)上の最近点
-			Vector3D polyLatestPoint;
+			Vector3 polyLatestPoint;
 
 			//線分上の最近点
-			Vector3D segLatestPoint;
+			Vector3 segLatestPoint;
 
 			//ぶつかったポリゴンの法線ベクトル
-			Vector3D normal;
+			Vector3 normal;
 
 			//ぶつかったポリゴンの数だけ繰り返す
 			for (int a = 0; a < hitObj.HitNum; a++) {
@@ -143,10 +169,10 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 			}
 
 			//最近点同士でのベクトル
-			Vector3D latestVec(segLatestPoint - polyLatestPoint);
+			Vector3 latestVec(segLatestPoint - polyLatestPoint);
 
 			//押し出す向きベクトル
-			Vector3D push = latestVec.Normalize();
+			Vector3 push = latestVec.Normalize();
 
 			//押し出すベクトルの最大値
 			push *= (_radius + 0.5f);
@@ -157,13 +183,13 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 
 			//カプセル同士での押し出すベクトルの長さより、短いか
 			//短いとカプセルよりも先にぶつかったことになる
-			if (result.item.pushDistanceSqaure < Vector3D(push).LengthSquare()) {
+			if (result.item.pushDistanceSquare < Vector3(push).LengthSquare()) {
 				PhysWorld::CollisionDetectionItem item =
 				{
-					Vector3D(push),
-					Vector3D(push).LengthSquare(),
+					Vector3(push),
+					Vector3(push).LengthSquare(),
 					(*iter)->GetOwner(),
-					Vector3D(0.f,0.f,0.f),
+					Vector3(0.f,0.f,0.f),
 					normal
 				};
 				result.item = item;
@@ -180,15 +206,15 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 Capsule CapsuleComponent::GetCapsule()const {
 	//キャラクターの位置は基本的に足元から
 //そのため、
-	Vector3D diff(_diff);
+	Vector3 diff(_diff);
 	diff.y += _radius;
 
-	Vector3D capPos(_owner->GetPos() + diff);
+	Vector3 capPos(_owner->GetPos() + diff);
 
 	//カプセルコリジョンの始点から終点をY軸成分だけでしか表現できない
 	return Capsule(
 		capPos,
-		capPos + Vector3D(Vector3D(0.f, 1.f, 0.f) * _length),
+		capPos + Vector3(Vector3(0.f, 1.f, 0.f) * _length),
 		_radius
 	);
 }

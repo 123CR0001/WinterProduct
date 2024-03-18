@@ -23,26 +23,6 @@ typedef std::vector<MOTION_DATA_ITEM> MOTION_DATA_ITEMS;
 //全てのモーションデータ
 typedef std::unordered_map<std::string/*モーション名*/, MOTION_DATA_ITEMS> MOTION_DATA;
 
-//モーションデータ用キャラクターの種類
-namespace MotionType {
-	constexpr auto PLAYER = "player";
-	constexpr auto ENEMY = "enemy";
-}
-
-//モーションデータ用実行コマンド
-namespace MotionCommand {
-
-	constexpr unsigned int ATTACK_ON =				0;
-	constexpr unsigned int ATTACK_OFF =				1;
-	constexpr unsigned int PLAY_EFFECT =			2;
-	constexpr unsigned int PLAY_EFFECT_3DFRAME =	3;
-	constexpr unsigned int PLAY_SOUND =				4;
-	constexpr unsigned int LOOP =					5;
-	constexpr unsigned int CHANGE_MOTION =			6;
-	constexpr unsigned int MOVE =					7;
-
-}
-
 //モーションデータの読み込み用クラス(.Json)
 class MotionDataJson :public Json {
 public:
@@ -80,15 +60,4 @@ public:
 
 	MOTION_DATA_ITEMS _motionData;
 
-private:
-	std::unordered_map<std::string, unsigned int>ConvertCommand{
-		{"ATTACK_ON",MotionCommand::ATTACK_ON},
-		{"ATTACK_OFF",MotionCommand::ATTACK_OFF},
-		{"PLAY_EFFECT",MotionCommand::PLAY_EFFECT},
-		{"PLAY_EFFECT_3DFRAME",MotionCommand::PLAY_EFFECT_3DFRAME},
-		{"PLAY_SOUND",MotionCommand::PLAY_SOUND},
-		{"LOOP",MotionCommand::LOOP},
-		{"CHANGE_MOTION",MotionCommand::CHANGE_MOTION},
-		{"MOVE",MotionCommand::MOVE}
-	};
 };

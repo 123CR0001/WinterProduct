@@ -1,8 +1,8 @@
 #include"UISecMiliSec.h"
 #include"SpriteNumber.h"
 
-UISecMiliSec::UISecMiliSec(const Transform2& transform)
-	:UI()
+UISecMiliSec::UISecMiliSec(const Transform2& transform, int drawOrder)
+	:UI(drawOrder)
 	, _sec(std::make_unique<SpriteNumber>(1, 2))
 	, _miliSec(std::make_unique<SpriteNumber>(1, 2))
 	, _colon(std::make_unique<SpriteText>(LoadGraph("res/UI/Result/ui_timer_02.png"), transform,Vector2(22.5f,105.f)))

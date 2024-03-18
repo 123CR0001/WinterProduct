@@ -11,11 +11,11 @@ public:
 
 	//当たり判定結果データ
 	struct CollisionDetectionItem {
-		Vector3D pushVec;		//
-		float pushDistanceSqaure = 0.f;			//押し出す長さ
+		Vector3 pushVec;		//
+		float pushDistanceSquare = 0.f;			//押し出す長さ
 		class ObjectBase* _object = nullptr;	//重なったオブジェクトのアドレス
-		Vector3D hitPosition;
-		Vector3D normal;
+		Vector3 hitPosition;
+		Vector3 normal;
 	};
 	
 	struct CollisionDetectionResult {
@@ -23,7 +23,7 @@ public:
 		CollisionDetectionItem item;
 	};
 
-	bool IsHear(class ObjectBase* object,Vector3D* pos = nullptr);
+	bool IsHear(class ObjectBase* object,Vector3* pos = nullptr);
 
 	std::vector<class CapsuleComponent*>& GetCapsuleComponent() { return _capsules; }
 	std::vector<class FrameComponent*>& GetFrameComponent() { return _frames; }

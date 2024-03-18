@@ -109,6 +109,12 @@
     <Filter Include="ソース ファイル\MYUI">
       <UniqueIdentifier>{637f2d21-6669-40c7-9584-03ab5ef53c47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ヘッダー ファイル\Object\EventBox">
+      <UniqueIdentifier>{01ce9c46-788b-4bc3-a812-f4c26dee8967}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object\EventBox">
+      <UniqueIdentifier>{d8ab590b-17db-4850-970b-8e5c935d0907}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\ApplicationMain.cpp">
@@ -452,6 +458,24 @@
     </ClCompile>
     <ClCompile Include="source\AIAttack.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EventBox.cpp">
+      <Filter>ソース ファイル\Object\EventBox</Filter>
+    </ClCompile>
+    <ClCompile Include="source\TutorialBox.cpp">
+      <Filter>ソース ファイル\Object\EventBox</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeTutorial.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Gun.cpp">
+      <Filter>ソース ファイル\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AILoseSight.cpp">
+      <Filter>ソース ファイル\Component\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModeStageSelect.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -802,6 +826,24 @@
     </ClInclude>
     <ClInclude Include="source\AIAttack.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\EventBox.h">
+      <Filter>ヘッダー ファイル\Object\EventBox</Filter>
+    </ClInclude>
+    <ClInclude Include="source\TutorialBox.h">
+      <Filter>ヘッダー ファイル\Object\EventBox</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeTutorial.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Gun.h">
+      <Filter>ヘッダー ファイル\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="source\AILoseSight.h">
+      <Filter>ヘッダー ファイル\Component\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ModeStageSelect.h">
+      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

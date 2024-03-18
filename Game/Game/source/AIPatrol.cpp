@@ -49,7 +49,7 @@ bool AIPatrol::Process() {
 
 	//‰¹‚ª•·‚±‚¦‚½‚©H
 	{
-		Vector3D p;
+		Vector3 p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			isChangeState = true;
 			_owner->AddPoint("MoveTo", p);

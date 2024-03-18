@@ -1,8 +1,9 @@
 #include"UISpriteText.h"
 #include"SpriteText.h"
 
-UISpriteText::UISpriteText(SpriteText* text)
-	:_text(text)
+UISpriteText::UISpriteText(SpriteText* text, int drawOrder)
+	:UI(drawOrder)
+	,_text(text)
 {
 
 }

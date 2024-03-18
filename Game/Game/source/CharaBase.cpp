@@ -26,7 +26,6 @@ bool CharaBase::ChangeState(std::string stateName) {
 bool CharaBase::Initialize() {
 	ObjectBase::Initialize();
 
-	_isStand = false;
 
 	return true;
 }

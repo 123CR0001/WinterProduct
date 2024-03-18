@@ -10,6 +10,8 @@
 #include"Tracer.h"
 #include"TracerSpawner.h"
 #include"Energy.h"
+#include"EventBox.h"
+#include"TutorialBox.h"
 
 #include"MyUIServer.h"
 #include"UIDetectionLevel.h"
@@ -149,21 +151,33 @@ bool ObjectServer::ProcessInit() {
 bool ObjectServer::LoadData(std::string stageName) {
 	std::string stage = stageName.substr(0, 1);
 	std::string area = stageName.substr(2, 1);
-	nlohmann::json j;
-	std::string str = "res/stage/stage" + stage + "/" + area + "/StageData.json";
-	std::ifstream file(str);
+	nlohmann::json layoutJson;
+	std::string str = "res/stage/stage" + stage + "/" + area + "/Layout.json";
 
-	if(!file) { return false; }
-	file >> j;
+	std::string strPath = "res/stage/stage" + stage + "/" + area + "/";
+
+	std::ifstream layoutFile(str);
+
+	if(!layoutFile) { return false; }
+	layoutFile >> layoutJson;
+
+	//ステージごとに異なるデータ(流すBGMやパラメーター)
+	STAGE_DATA_ITEM item;
+	{
+		StageDataJson data(strPath + "StageData.json");
+		if (data.IsSuccess()) {
+			item = data.GetStageData();
+		}
+	}
 
 	//プレイヤーの読み込み
-	for(auto&& object : j.at("player")) {
+	for(auto&& object : layoutJson.at("player")) {
 		std::string name = object.at("objectName");
 		if(name == "marker1") {
-			Player* p = NEW Player(this);
-			p->SetJsonDataUE(object);
+			Player* player = NEW Player(this);
+			player->SetJsonDataUE(object);
+			player->SetDecoyTimes(item.decoyTimes);
 		}
-
 	}
 
 	//エネミーの読み込み
@@ -177,10 +191,10 @@ bool ObjectServer::LoadData(std::string stageName) {
 		snprintf(num, 8, "%d", count);
 		enemyName += num;
 
-		if(j.find(enemyName.c_str()) != j.end()) {
+		if(layoutJson.find(enemyName.c_str()) != layoutJson.end()) {
 
 			ObjectBase* p = NEW CommonSoldier(this);
-			p->SetJsonDataUE(j.at(enemyName.c_str()));
+			p->SetJsonDataUE(layoutJson.at(enemyName.c_str()));
 
 			enemyName = "enemy_file/commonsoldier";
 			count++;
@@ -201,13 +215,12 @@ bool ObjectServer::LoadData(std::string stageName) {
 		[this](const char* path, const char* frameName) {
 		ObjectBase* p = NEW ObjectBase(this, true);
 		p->LoadModel(path, frameName);
-		MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());
 		return p;
 		};
 
 	std::unordered_map<std::string, ModelData>map;
 
-	std::string strPath = "res/stage/stage" + stage + "/" + area + "/";
+
 
 	std::string filePath = strPath + "model/StageObject.mv1";
 	std::string attachFrameName = "UCX_StageObject";
@@ -228,10 +241,30 @@ bool ObjectServer::LoadData(std::string stageName) {
 	map["energy"].attachFrameName = "UCX_siren1";
 	map["energy"].func = [this](const char* path, const char* frameName) {return NEW Energy(this); };
 
+	map["tr_decoy"].filePath = "";
+	map["tr_decoy"].attachFrameName = "";
+	map["tr_decoy"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_decoy"); };
+
+	map["tr_enemy"].filePath = "";
+	map["tr_enemy"].attachFrameName = "";
+	map["tr_enemy"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_enemy"); };
+
+	map["tr_siren"].filePath = "";
+	map["tr_siren"].attachFrameName = "";
+	map["tr_siren"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_siren"); };
+
+	map["tr_lightout"].filePath = "";
+	map["tr_lightout"].attachFrameName = "";
+	map["tr_lightout"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_lightout"); };
+
+	map["tr_energy"].filePath = "";
+	map["tr_energy"].attachFrameName = "";
+	map["tr_energy"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_energy"); };
+
 	{
 		//ナビゲーション
-		if(j.find("navmesh") != j.end()) {
-			for(auto&& navMesh : j.at("navmesh")) {
+		if(layoutJson.find("navmesh") != layoutJson.end()) {
+			for(auto&& navMesh : layoutJson.at("navmesh")) {
 				std::string name = navMesh.at("objectName");
 				if(map.find(name) != map.end()) {
 
@@ -249,11 +282,8 @@ bool ObjectServer::LoadData(std::string stageName) {
 		}
 	}
 
-	//Spawner
-	//NEW TracerSpawner(this);
-
 	//オブジェクトの配置
-	for(auto&& object : j.at("object")) {
+	for(auto&& object : layoutJson.at("object")) {
 		std::string name = object.at("objectName");
 
 		//オブジェクト名＋数字		例：Enemy1
@@ -271,11 +301,10 @@ bool ObjectServer::LoadData(std::string stageName) {
 		if(map.find(name) != map.end()) {
 			ObjectBase* p = map[name].func(map[name].filePath, map[name].attachFrameName);
 			p->SetJsonDataUE(object);
-			p->AddEulerAngle(Vector3D(DegToRad(90.f), DegToRad(180.f), 0.f));
+			p->AddEulerAngle(Vector3(DegToRad(90.f), DegToRad(180.f), 0.f));
 			MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());
 		}
 	}
-
 
 	return true;
 }

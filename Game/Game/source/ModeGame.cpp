@@ -47,6 +47,9 @@
 #include"UIDetectionLevel.h"
 #include"UIVision.h"
 #include"UIMiniMap.h"
+#include"SpriteNumber.h"
+#include"UISpriteText.h"
+#include"SoundItem.h"
 
 ModeGame::ModeGame(std::string stageNum) 
 	:_objServer(NEW ObjectServer(this))
@@ -58,6 +61,7 @@ ModeGame::ModeGame(std::string stageNum)
 	,_timeLine(NEW TimeLine())
 	,_uiServer(NEW MyUIServer())
 	,_enemyCount(0)
+	,_enemyCountText(NEW SpriteNumber(_enemyCount,2))
 {
 	_fps = NEW FPS();
 
@@ -78,20 +82,37 @@ ModeGame::~ModeGame() {
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 
-
 	_objServer->LoadData(_stage);
 
 	// シャドウマップの生成
 	_handleShadowMap = MakeShadowMap(2048, 2048);
 
-
+	//背景
 	_bg = ResourceServer::LoadGraph("res/gamemain_bg.png");
 
+	//ライツアウト
 	_lightsOut = NEW LightsOut(this);
 
-	_uiServer->AddUI(NEW UIDetectionLevel(_objServer));
-	_uiServer->AddUI(NEW UIVision(_objServer));
-	_uiServer->AddUI(NEW UIMiniMap(this));
+	//残りの敵の数を描画で使用する画像の設定
+	_enemyCountText->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
+	_enemyCountText->SetPos(Vector2(365.f * SCREEN_WIDTH_MAG,858.f*SCREEN_HEIGHT_MAG));
+	_enemyCountText->SetSize(Vector2(46.f * SCREEN_WIDTH_MAG, 70.f * SCREEN_HEIGHT_MAG));
+
+	//上記の背景
+	{
+		auto text = NEW SpriteText(
+			ResourceServer::LoadGraph("res/UI/Game/CommonSoldierTimes.png"),
+			Transform2(Vector2(224.f * SCREEN_WIDTH_MAG, 847.f * SCREEN_HEIGHT_MAG)),
+			Vector2(160.f * SCREEN_WIDTH_MAG, 120.f * SCREEN_HEIGHT_MAG)
+		);
+
+		_uiServer->AddUI(NEW UISpriteText(text,100));
+	}
+
+	_uiServer->AddUI(NEW UIDetectionLevel(_objServer,100));
+	_uiServer->AddUI(NEW UIVision(_objServer,1000));
+	_uiServer->AddUI(NEW UIMiniMap(this,100));
+	_uiServer->AddUI(NEW UISpriteText(_enemyCountText,50));
 
 	gGlobal._sndServer.Play("BGM_01");
 	return true;
@@ -104,9 +125,8 @@ bool ModeGame::Terminate() {
 	DeleteShadowMap(_handleShadowMap);
 	_objServer->Terminate();
 
-	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get("ui"));
-	ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
-	ModeServer::GetInstance()->Del(this);
+	//BGMを止める
+	gGlobal._sndServer.StopType(SoundItemBase::TYPE::BGM);
 
 	return true;
 }
@@ -124,7 +144,8 @@ bool ModeGame::Process() {
 
 	if (_debug->Process()) { return true; }
 
-	//オブジェクトサーバーの処理
+
+
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
 
@@ -140,6 +161,9 @@ bool ModeGame::Process() {
 	if (GetPad()->GetTrgButton() & INPUT_START && !ModeServer::GetInstance()->IsAdd("Pause")) {
 		ModeServer::GetInstance()->Add(NEW ModePause(), 100, "Pause");
 	}
+
+	//描画する数字の更新
+	_enemyCountText->SetNumber(_enemyCount);
 
 	return true;
 }
@@ -222,7 +246,8 @@ void ModeGame::SwitchOverOrClear() {
 		{
 			auto timeLineFunc = [=]()mutable {
 				auto func = [this]() {
-					// モードの削除
+					// モードの削除	
+					ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
 					ModeServer::GetInstance()->Del(this);
 					// 次のモードを登録
 					ModeServer::GetInstance()->Add(NEW ModeClear(_resultData), 100, "GameClear");
@@ -242,6 +267,7 @@ void ModeGame::SwitchOverOrClear() {
 		{
 			auto timeLineFunc = [=]()mutable {
 				auto func = [this]() {
+					ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
 					ModeServer::GetInstance()->Del(this);
 					ModeServer::GetInstance()->Add(NEW ModeGameOver(this), 100, "GameOver");
 					};

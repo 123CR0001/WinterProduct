@@ -13,7 +13,7 @@ PhysWorld::~PhysWorld() {
 
 }
 
-bool PhysWorld::IsHear(ObjectBase* object,Vector3D* pos) {
+bool PhysWorld::IsHear(ObjectBase* object,Vector3* pos) {
 	for (auto iter = _sounds.begin(); iter != _sounds.end(); ++iter) {
 		if ((*iter)->IsHear(object->GetPos())) {
 			if (pos) { *pos = (*iter)->GetPos(); }

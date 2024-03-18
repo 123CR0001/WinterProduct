@@ -16,5 +16,6 @@ public:
 	bool Process()override;
 
 private:
-	std::unique_ptr<Vector3D>_ownerEulerAngle;
+	Vector3 _ownerForward;
+	bool _isSetForward;
 };

@@ -1,10 +1,10 @@
 #pragma once
-#include"Vector3D.h"
+#include"Vector3.h"
 #include"Segment.h"
 
 class Polygon3D {
 	public:
-		Polygon3D(const Vector3D& v1,const Vector3D& v2,const Vector3D& v3) {
+		Polygon3D(const Vector3& v1,const Vector3& v2,const Vector3& v3) {
 			ver1 = v1;
 			ver2 = v2;
 			ver3 = v3;
@@ -15,20 +15,20 @@ class Polygon3D {
 		}*/
 		
 		//法線ベクトル
-		const Vector3D& NormalVector() {
-			return Vector3D(Vector3D::Cross((ver2 - ver1), (ver3 - ver1))).Normalize();
+		const Vector3& NormalVector() {
+			return Vector3(Vector3::Cross((ver2 - ver1), (ver3 - ver1))).Normalize();
 		}
 
 		//重点
-		Vector3D Emphasis() {
-			return Vector3D::Emphasis(ver1, ver2, ver3);
+		Vector3 Emphasis() {
+			return Vector3::Emphasis(ver1, ver2, ver3);
 		}
 
 		void SetScale(const float& t) {
-			Vector3D emphasis(this->Emphasis());
-			ver1 = Vector3D::LineInter(ver1, emphasis, t);
-			ver2 = Vector3D::LineInter(ver2, emphasis, t);
-			ver3 = Vector3D::LineInter(ver3, emphasis, t);
+			Vector3 emphasis(this->Emphasis());
+			ver1 = Vector3::LineInter(ver1, emphasis, t);
+			ver2 = Vector3::LineInter(ver2, emphasis, t);
+			ver3 = Vector3::LineInter(ver3, emphasis, t);
 		}
 
 		bool IsConect(Polygon3D& other, Segment* side = nullptr) {
@@ -114,7 +114,7 @@ class Polygon3D {
 			return false;
 		}
 
-		Vector3D ver1;
-		Vector3D ver2;
-		Vector3D ver3;
+		Vector3 ver1;
+		Vector3 ver2;
+		Vector3 ver3;
 };

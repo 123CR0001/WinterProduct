@@ -68,8 +68,6 @@ bool ModeClear::Render() {
 
 	_uiServer->Draw();
 	_buttonServer->Draw();
-	
-	DrawFormatString(0, 0, GetColor(0, 255, 0), "select Num %d", _buttonServer->GetSelectNum());
 
 	return true;
 }
@@ -161,6 +159,15 @@ void ModeClear::SetUI() {
 		};
 
 		_timeLine->AddLine(240, func);
+	}
+
+	{
+		SpriteText* text = NEW SpriteText();
+		text->SetHandle(ResourceServer::LoadGraph("res/UI/Result/ui_resultbg_01.png"));
+		text->SetSize(Vector2(static_cast<float>(SCREEN_WIDTH),static_cast<float>(SCREEN_HEIGHT)));
+		text->SetPos(Vector2(static_cast<float>(SCREEN_WIDTH / 2), static_cast<float>(SCREEN_HEIGHT / 2)));
+
+		_uiServer->AddUI(NEW UISpriteText(text, 1000));
 	}
 }
 

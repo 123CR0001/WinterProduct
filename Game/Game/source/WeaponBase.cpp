@@ -7,8 +7,6 @@
 #include"CapsuleComponent.h"
 #include"FrameComponent.h"
 
-bool WeaponBase::_isAttackCollisionView = false;
-
 WeaponBase::WeaponBase(CharaBase* chara)
 	:ObjectBase(chara->GetObjectServer())
 	,_equippedChara(chara)
@@ -37,25 +35,5 @@ bool WeaponBase::Render() {
 
 	MV1DrawModel(_handle);
 
-	if (_isAttack) {
-		//モデルに含まれる情報を持ってくる
-		MV1_REF_POLYGONLIST list = MV1GetReferenceMesh(_handle, _attachIndex, TRUE);
-
-		//頂点のインデックス
-		MV1_REF_POLYGON* poly = list.Polygons;
-		//頂点の位置情報
-		MV1_REF_VERTEX* ver = list.Vertexs;
-
-		//ポリゴン場を構築
-		for (int a = 0; a < list.PolygonNum; a++) {
-			DrawTriangle3D(
-				ver[poly[a].VIndex[0]].Position,
-				ver[poly[a].VIndex[1]].Position,
-				ver[poly[a].VIndex[2]].Position,
-				GetColor(255, 0, 0),
-				FALSE
-			);
-		}
-	}
 	return true;
 }

@@ -26,12 +26,16 @@ public:
 
 	void Turn() { _isTurn = !_isTurn; }
 
+	void Reverse();
+
 	virtual void Draw(MATRIX mView = MGetIdent());
 
 	void AddAnimation(class Animation* anim);
 	void DeleteAnimation(class Animation* anim);
 
 	std::vector<class Animation*> GetAnimations()& { return _anims; }
+
+	bool IsAllAnimationEnd()const { return _isAllAniamtionEnd; }
 
 private:
 	//画像のハンドル
@@ -51,6 +55,9 @@ private:
 
 	//_animsが巡回中か
 	bool _isPlayAnims;
+
+	//保持するアニメーションが全て終わったか
+	bool _isAllAniamtionEnd;
 
 	std::vector<class Animation*>_addAnims;
 	std::vector<class Animation*>_deleteAnims;

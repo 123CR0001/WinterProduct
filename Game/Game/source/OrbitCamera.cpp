@@ -41,7 +41,7 @@ bool OrbitCamera::Process() {
 		_angle.x += DegToRad(1);
 	}
 
-	Vector3D diff(
+	Vector3 diff(
 		_dist * sinf(_angle.x) * cosf(_angle.y-PI/2.f),
 		_dist * cosf(_angle.x),
 		_dist * sinf(_angle.y-PI/2.f) * sinf(_angle.x)

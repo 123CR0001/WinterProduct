@@ -62,7 +62,7 @@ bool Tracer::Initialize() {
 	//AI‚Ì‹Šo‚Ìƒƒ“ƒo‚ğİ’è
 	_AI->SetViewAngle(120.f);
 	_AI->SetViewDist(500.f);
-	_AI->SetView(Vector3D(0.f, 100.f, 0.f));
+	_AI->SetView(Vector3(0.f, 100.f, 0.f));
 
 	return true;
 }
@@ -100,11 +100,11 @@ bool Tracer::Process() {
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
 			"Blood01",
 			_damageData.item.hitPosition,
-			Vector3D(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
+			Vector3(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
 		);
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
 			"Blood02",
-			_pos + Vector3D(0.f, 10.f, 0.f),
+			_pos + Vector3(0.f, 10.f, 0.f),
 			_eulerAngle
 		);
 		//ƒJƒƒ‰‚Ì—h‚ê

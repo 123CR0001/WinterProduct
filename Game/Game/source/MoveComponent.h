@@ -12,11 +12,14 @@ public:
 	void SetMoveSpeed(const float& set) { _moveSpeed = set; }
 	void SetRotateSpeed(const float& set) { _rotateSpeed = set; }
 
-	float GetSpeed();
+	float GetSpeed()const;
+	Vector3 GetRatateSpeed()const;
+	
 private:
 
 	float _rotateSpeed;
 	float _moveSpeed;
 
-	Vector3D _oldPos;
+	Vector3 _oldPos;
+	Vector3 _oldEulerAngle;
 };

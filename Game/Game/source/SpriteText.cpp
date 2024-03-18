@@ -7,6 +7,7 @@ SpriteText::SpriteText()
 	, _isTurn(false)
 	,_alpha(1.f)
 	,_isPlayAnims(false)
+	,_isAllAniamtionEnd(true)
 {
 
 }
@@ -52,9 +53,18 @@ void SpriteText::Draw(MATRIX mView) {
 		_deleteAnims.clear();
 	}
 
+	//アニメーションを更新する
 	_isPlayAnims = true;
+
+	//判定のために、最初は終わっている判定にする
+	_isAllAniamtionEnd = true;
 	for (int a = 0; a < _anims.size(); a++) {
 		_anims[a]->Process();
+
+		//アニメーションが終わっている判定なら、更新する
+		if (_isAllAniamtionEnd) {
+			_isAllAniamtionEnd = _anims[a]->IsEnd();
+		}
 	}
 	_isPlayAnims = false;
 
@@ -152,4 +162,11 @@ void SpriteText::DeleteAnimation(Animation* anim) {
 		_deleteAnims.emplace_back(anim);
 	}
 
+}
+
+void SpriteText::Reverse() {
+	for (auto&& anim : _anims) {
+		anim->Reverse();
+	}
+	_isAllAniamtionEnd = false;
 }

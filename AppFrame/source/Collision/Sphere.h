@@ -1,8 +1,8 @@
 #pragma once
-#include"Vector3D.h"
+#include"Vector3.h"
 class Sphere {
 public:
-	Sphere(const Vector3D& center, const float radius)
+	Sphere(const Vector3& center, const float radius)
 	{
 		this->center = center;
 		this->radius = radius;
@@ -10,6 +10,6 @@ public:
 
 	~Sphere(){}
 
-	Vector3D center;
+	Vector3 center;
 	float radius;
 };

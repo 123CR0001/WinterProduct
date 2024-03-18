@@ -1,6 +1,8 @@
 #include"MyUIServer.h"
 #include"UI.h"
 #include<algorithm>
+#include<utility>
+#include<iostream>
 #include"appframe.h"
 
 MyUIServer::MyUIServer() 
@@ -21,6 +23,18 @@ bool MyUIServer::Process() {
 			_UIs.emplace_back(_addUIs[a]);
 		}
 		_addUIs.clear();
+
+		for (int a = 0; a < _UIs.size(); a++) {
+			for (int b = a; b < _UIs.size(); b++) {
+				//ƒ\[ƒg
+				if (_UIs[a]->GetDrawOrder() < _UIs[b]->GetDrawOrder()) {
+					auto temp = _UIs[a];
+					_UIs[a] = _UIs[b];
+					_UIs[b] = temp;
+				}
+			}
+		}
+
 	}
 
 	if (!_deleteUIs.empty()) {

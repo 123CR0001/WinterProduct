@@ -31,7 +31,7 @@ bool AIAttack::Process() {
 	auto playerToOwner = playerPos - _owner->GetOwner()->GetPos();
 	playerToOwner.Normalized();
 
-	_angle = Vector3D::CrossAngleXZ(forward, playerToOwner);
+	_angle = Vector3::CrossAngleXZ(forward, playerToOwner);
 
 	auto ownerAngle = _owner->GetOwner()->GetEulerAngle();
 

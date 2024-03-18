@@ -52,6 +52,8 @@ bool ModeSoundLayer::Initialize() {
 
 	gGlobal._sndServer.Add("SE_28", new SoundItemSE("res/Sound/se/energy_01.wav"));
 
+	gGlobal._sndServer.Add("SE_29", new SoundItemSE("res/Sound/se/owlclear_01.wav"));
+
 	//gGlobal._sndServer.Add("VOICE_01", new SoundItemVOICE("res/voice/「あとちょっとだったね」.mp3"));
 	//gGlobal._sndServer.Add("VOICE_02", new SoundItemVOICE("res/voice/「おめでとう」.mp3"));
 	//gGlobal._sndServer.Add("VOICE_03", new SoundItemVOICE("res/voice/「おめでとうございます」.mp3"));

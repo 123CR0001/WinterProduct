@@ -1,13 +1,13 @@
 #pragma once
-#include"Vector3D.h"
+#include"Vector3.h"
 
 class Segment {
 public:
 	Segment() {
-		start = Vector3D(0, 0, 0);
-		end = Vector3D(0, 0, 0);
+		start = Vector3(0, 0, 0);
+		end = Vector3(0, 0, 0);
 	}
-	Segment(const Vector3D& s ,const Vector3D& e){
+	Segment(const Vector3& s ,const Vector3& e){
 		start = s;
 		end = e;
 	}
@@ -15,11 +15,11 @@ public:
 		*this = seg;
 	}
 
-	Vector3D start;
-	Vector3D end;
+	Vector3 start;
+	Vector3 end;
 
 	//線分のベクトル
-	Vector3D Vector() {
+	Vector3 Vector() {
 		return end - start;
 	}
 
@@ -34,8 +34,8 @@ public:
 	}
 
 	/*線形補完　0.0 ~ 1.0 百分率*/
-	Vector3D LinearInterpolation(const float& t) {
-		return start + Vector3D(end - start) * t;
+	Vector3 LinearInterpolation(const float& t) {
+		return start + Vector3(end - start) * t;
 	}
 
 	static bool  IsSame(Segment s1, Segment s2) {
@@ -50,7 +50,7 @@ public:
 	}
 
 	static bool  IsOverLap(Segment s1, Segment s2) {
-		if ((int)Vector3D::LengthSquare(s1.start, s1.end) == (int)Vector3D::LengthSquare(s2.start, s2.end)) {
+		if ((int)Vector3::LengthSquare(s1.start, s1.end) == (int)Vector3::LengthSquare(s2.start, s2.end)) {
 			if (s1.start == s2.start || s1.start == s2.end) {
 				if (s1.end == s2.start || s1.end == s2.end) {
 					return true;

@@ -10,7 +10,7 @@ TransformAnimation::TransformAnimation(SpriteText* text,int frame, const Transfo
 
 }
 
-TransformAnimation::TransformAnimation(SpriteText* text, const int frame, const Transform2& endTransform) 
+TransformAnimation::TransformAnimation(SpriteText* text,int frame, const Transform2& endTransform) 
 	:Animation(text,frame)
 	, _startTransform(text->GetTransform())
 	, _endTransform(endTransform)

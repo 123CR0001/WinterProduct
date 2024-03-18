@@ -14,8 +14,9 @@
 
 constexpr int SIDE_NUM = 100;
 
-UIVision::UIVision(ObjectServer* server)
-	:_server(server)
+UIVision::UIVision(ObjectServer* server, int drawOrder)
+	:UI(drawOrder)
+	,_server(server)
 	,_handle(LoadGraph("res/UI/Game/visualrange_01.png"))
 {
 	for(int a = 0; a < SIDE_NUM; a++) {
@@ -45,10 +46,10 @@ bool UIVision::Draw() {
 		_vers.clear();
 
 		//床と重ならないように、足元よりちょっと上に位置を調整
-		Vector3D pos = soldier->GetPos() + Vector3D(0.f, 1.f, 0.f);
+		Vector3 pos = soldier->GetPos() + Vector3(0.f, 1.f, 0.f);
 
-		COLOR_U8 dif = GetColorU8(128,128,128,128);
-		COLOR_U8 spc = GetColorU8(128,128,128,128);
+		COLOR_U8 dif = GetColorU8(64,64,64,190);
+		COLOR_U8 spc = GetColorU8(64, 64, 64, 190);
 
 		if(soldier->GetAIComponent()->IsFound(_server->GetPlayer())) {
 			dif = GetColorU8(128,128,128, 255);
@@ -58,7 +59,7 @@ bool UIVision::Draw() {
 		//中心点
 		_vers.emplace_back(
 			VERTEX3D{
-				DxConverter::VecToDx(Vector3D(pos)),
+				DxConverter::VecToDx(Vector3(pos)),
 				VGet(0.f,1.f,0.f),
 				dif,
 				spc,
@@ -71,7 +72,7 @@ bool UIVision::Draw() {
 
 		for(int a = 0; a <= SIDE_NUM; a++) {
 
-			Vector3D viewPos = pos + Vector3D(sinf(rot), 0.f, cosf(rot)) * soldier->GetAIComponent()->GetViewDist();
+			Vector3 viewPos = pos + Vector3(sinf(rot), 0.f, cosf(rot)) * soldier->GetAIComponent()->GetViewDist();
 
 			for(auto&& frame : _server->GetPhysWorld()->GetFrameComponent()) {
 				MV1_COLL_RESULT_POLY result =
@@ -104,7 +105,7 @@ bool UIVision::Draw() {
 
 
 		SetUseLighting(FALSE);
-		DrawPolygonIndexed3D(_vers.data(), _vers.size(), _versNums.data(), _versNums.size() / 3, _handle, FALSE);
+		DrawPolygonIndexed3D(_vers.data(), _vers.size(), _versNums.data(), _versNums.size() / 3, _handle, TRUE);
 		SetUseLighting(TRUE);
 	}
 	return true;

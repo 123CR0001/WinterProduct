@@ -5,18 +5,18 @@
 class SoundComponent:public Component {
 public:
 	SoundComponent(class ObjectBase* owner, float volumeSize = 10.f);
-	SoundComponent(class ObjectBase* owner,const Vector3D& pos,float volumeSize = 10.f);
+	SoundComponent(class ObjectBase* owner,const Vector3& pos,float volumeSize = 10.f);
 	~SoundComponent();
 
 	bool Process()override;
 
-	const Vector3D& GetPos() const{ return _pos; }
+	const Vector3& GetPos() const{ return _pos; }
 	float GetVolumeSize() const{ return _volumeSize; }
 
-	bool IsHear(const Vector3D& pos);
+	bool IsHear(const Vector3& pos);
 
 protected:
 	float _volumeSize;
-	Vector3D _pos;
+	Vector3 _pos;
 
 };

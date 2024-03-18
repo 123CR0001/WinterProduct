@@ -14,6 +14,6 @@ public:
 	const char* GetName()override { return "MoveTo"; }
 private:
 	int _pointsNum;
-	Vector3D _oldCheckPoint;
+	Vector3 _oldCheckPoint;
 	int _frameCnt;
 };

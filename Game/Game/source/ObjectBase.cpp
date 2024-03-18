@@ -47,7 +47,7 @@ ObjectBase::~ObjectBase() {
 bool ObjectBase::Initialize() {
 
 
-	_scale = Vector3D(1.f, 1.f, 1.f);
+	_scale = Vector3(1.f, 1.f, 1.f);
 
 	return true;
 }
@@ -112,9 +112,9 @@ bool ObjectBase::Render() {
 }
 
 void ObjectBase::SetJsonDataUE(nlohmann::json j) {
-	SetPos(Vector3D(j.at("translate").at("x"), j.at("translate").at("z"), -1 * j.at("translate").at("y")));
-	SetEulerAngleDeg(Vector3D(j.at("rotate").at("x"), j.at("rotate").at("z"), j.at("rotate").at("y")));
-	SetScale(Vector3D(j.at("scale").at("x"), j.at("scale").at("z"), j.at("scale").at("y")));
+	SetPos(Vector3(j.at("translate").at("x"), j.at("translate").at("z"), -1 * j.at("translate").at("y")));
+	SetEulerAngleDeg(Vector3(j.at("rotate").at("x"), j.at("rotate").at("z"), j.at("rotate").at("y")));
+	SetScale(Vector3(j.at("scale").at("x"), j.at("scale").at("z"), j.at("scale").at("y")));
 	ModelMatrixSetUp();
 }
 

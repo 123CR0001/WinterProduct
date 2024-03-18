@@ -67,11 +67,11 @@ void AIComponent::RegisterState(AIState* state) {
 	_stateMap.emplace(state->GetName(), state);
 }
 
-void AIComponent::AddPoint(const std::string& name, const Vector3D& point) {
+void AIComponent::AddPoint(const std::string& name, const Vector3& point) {
 	_points[name].emplace_back(point);
 }
 
-void AIComponent::InsertPoint(const std::string& name, const Vector3D& point,const int num) {
+void AIComponent::InsertPoint(const std::string& name, const Vector3& point,const int num) {
 	_points[name].insert(_points[name].begin() + num, point);
 }
 
@@ -89,12 +89,12 @@ bool AIComponent::IsFound(ObjectBase* target){
 
 	auto targetPos = target->GetPos();
 
-	Vector3D angle = GetOwner()->GetEulerAngle();
-	Vector3D pos = GetOwner()->GetPos();
+	Vector3 angle = GetOwner()->GetEulerAngle();
+	Vector3 pos = GetOwner()->GetPos();
 
-	Vector3D targetToMe(targetPos - pos);
+	Vector3 targetToMe(targetPos - pos);
 
-	Vector3D forwardVec(sin(angle.y), 0, cos(angle.y));
+	Vector3 forwardVec(sin(angle.y), 0, cos(angle.y));
 
 	forwardVec = pos + forwardVec * 50.f;
 
@@ -102,7 +102,7 @@ bool AIComponent::IsFound(ObjectBase* target){
 	if (targetToMe.LengthSquare() <= _viewDist * _viewDist) {
 
 		//視野角は正面ベクトルとの差分が視野角の半分だったら視界に入っている
-		if (Vector3D::DotAngle(pos - targetPos, pos - forwardVec, true) < _viewAngle / 2) {
+		if (Vector3::DotAngle(pos - targetPos, pos - forwardVec, true) < _viewAngle / 2) {
 
 			Segment seg(targetPos, _owner->GetPos() + _view);
 
@@ -127,7 +127,7 @@ bool AIComponent::IsFound(ObjectBase* target){
 	return false;
 }
 
-bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
+bool AIComponent::MoveTo(std::vector<Vector3>& points, int& num) {
 	//pointsのサイズが移動したい番号以下だった場合、巡回は終わっている
 	//下でも同じ処理をしているが、こちらはエラーを出さないための処理
 	if (points.size() <= num) {
@@ -135,22 +135,22 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 	}
 
 	//現在の位置座標 Y軸成分を抜く
-	Vector3D notYPos(_owner->GetPos());
+	Vector3 notYPos(_owner->GetPos());
 	notYPos.y = 0.f;
 
 	//オーナーの角度
-	Vector3D angle = _owner->GetEulerAngle();
+	Vector3 angle = _owner->GetEulerAngle();
 
 	//XZ成分だけの正面ベクトル	
-	Vector3D forwardVec(sinf(angle.y), 0, cosf(angle.y));
+	Vector3 forwardVec(sinf(angle.y), 0, cosf(angle.y));
 	forwardVec = forwardVec * 50.f;
 
 	//移動したい座標 Y軸成分を抜く
-	Vector3D arrowPoint(points[num]);
+	Vector3 arrowPoint(points[num]);
 	arrowPoint.y = 0;
 
 	//差があるか
-	Vector3D GoalToMe(notYPos - arrowPoint);
+	Vector3 GoalToMe(notYPos - arrowPoint);
 	GoalToMe.Normalized();
 
 	float diff = atan2(GoalToMe.x, GoalToMe.z) + DegToRad(180.0f);
@@ -168,7 +168,7 @@ bool AIComponent::MoveTo(std::vector<Vector3D>& points, int& num) {
 	else {
 		if (fabs(diff) > 0.0) {
 			//左右判定
-			float crossAngle = Vector3D::CrossAngleXZ(notYPos - (notYPos + forwardVec), notYPos - arrowPoint);
+			float crossAngle = Vector3::CrossAngleXZ(notYPos - (notYPos + forwardVec), notYPos - arrowPoint);
 
 			//回転スピード
 			float moveAngle = DegToRad(6);

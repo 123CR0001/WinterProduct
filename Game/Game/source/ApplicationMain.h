@@ -12,6 +12,9 @@ constexpr int SCREEN_WIDTH = 1920;
 constexpr int SCREEN_HEIGHT = 1080;
 #endif
 
+constexpr float SCREEN_WIDTH_MAG = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(MAX_SCREEN_WIDTH);
+constexpr float SCREEN_HEIGHT_MAG = static_cast<float>(SCREEN_HEIGHT) / static_cast<float>(MAX_SCREEN_HEIGHT);
+
 
 class ApplicationMain : public ApplicationBase
 {

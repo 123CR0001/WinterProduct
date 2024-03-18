@@ -25,10 +25,10 @@ void AIBackPatrol::OnEnter() {
 	}
 
 	//自キャラの位置
-	const Vector3D pos = _owner->GetOwner()->GetPos();
+	const Vector3 pos = _owner->GetOwner()->GetPos();
 
 	//目的地
-	Vector3D goal = _owner->GetPoints("BackPatrolGoal").front();
+	Vector3 goal = _owner->GetPoints("BackPatrolGoal").front();
 
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 

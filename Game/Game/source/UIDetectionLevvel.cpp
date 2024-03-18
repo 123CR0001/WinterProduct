@@ -8,8 +8,8 @@
 #include"LightsOut.h"
 #include"ModeGame.h"
 
-UIDetectionLevel::UIDetectionLevel(ObjectServer* server)
-	:UI()
+UIDetectionLevel::UIDetectionLevel(ObjectServer* server,int drawOrder)
+	:UI(drawOrder)
 	,_gaugeHandle(ResourceServer::LoadGraph("res/UI/Game/cir.png"))
 	,_gaugeBgHandle(ResourceServer::LoadGraph("res/UI/Game/black.png"))
 	,_text(NEW SpriteText())
@@ -44,7 +44,7 @@ bool UIDetectionLevel::Draw() {
 
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, static_cast<int>(255.f * alpha));
 
-		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetPos() + Vector3D(50.f, 170.f, 0.f)));
+		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetPos() + Vector3(50.f, 170.f, 0.f)));
 
 		double level = static_cast<double>((*iter)->GetDetectionLevel() * 100.f);
 

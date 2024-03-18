@@ -18,25 +18,27 @@ bool Knife::Initialize() {
 
 	WeaponBase::Initialize();
 
-	LoadModel("res/Object/Knife_toDX/Knife.mv1");
+	LoadModel("res/Object/Knife_toDX/knife.mv1", "AttackCollision");
 	_attachIndex = MV1SearchFrame(_handle, "AttackCollision");
 	MV1SetupCollInfo(_handle, _attachIndex, 8, 8, 8);
 
-	MV1SetFrameVisible(_handle, _attachIndex, FALSE);
-
-	_scale = Vector3D(1.f, 0.5f, 1.f);
-	_eulerAngle = Vector3D(PI,0.f,0.f);
+	_scale = Vector3(1.f, 1.f, 1.f);
+	_eulerAngle = Vector3(2.38f,6.14f,1.79f);
+	_pos = Vector3(-12.79f, 1.42f, 8.51f);
 	return true;
 }
 
 bool Knife::Process() {
+	WeaponBase::Process();
 	int FrameIndex;
 	_matrix = MGetIdent();
 	// フレーム名からフレーム番号を取得する
-	FrameIndex = MV1SearchFrame(_equippedChara->GetHandle(), "Owl_RightHandThumb1");
+	FrameIndex = MV1SearchFrame(_equippedChara->GetHandle(), "Owl_RightHand");
 	_matrix = MGetScale(DxConverter::VecToDx(_scale));
 	_matrix = MMult(_matrix, MGetRotX(_eulerAngle.x));
+	_matrix = MMult(_matrix, MGetRotX(_eulerAngle.y));
 	_matrix = MMult(_matrix, MGetRotZ(_eulerAngle.z));
+	_matrix = MMult(_matrix, MGetTranslate(DxConverter::VecToDx(_pos)));
 	_matrix = MMult(_matrix, MV1GetFrameLocalWorldMatrix(_equippedChara->GetHandle(), FrameIndex));
 	MV1SetMatrix(_handle, _matrix);
 
@@ -59,37 +61,6 @@ bool Knife::Process() {
 			NEW SoundComponent(result.item._object, 300.f);
 
 			gGlobal._sndServer.Get("SE_03")->Play();
-		}
-	}
-
-	return true;
-}
-
-bool Knife::Render() {
-
-	WeaponBase::Render();
-
-	if (_isAttack) {
-		//メッシュ情報を更新
-		MV1SetupReferenceMesh(_handle, _attachIndex, TRUE);
-
-		//モデルに含まれる情報を持ってくる
-		MV1_REF_POLYGONLIST list = MV1GetReferenceMesh(_handle, _attachIndex, TRUE);
-
-		//頂点のインデックス
-		MV1_REF_POLYGON* poly = list.Polygons;
-		//頂点の位置情報
-		MV1_REF_VERTEX* ver = list.Vertexs;
-
-		//ポリゴン場を構築
-		for (int a = 0; a < list.PolygonNum; a++) {
-			DrawTriangle3D(
-				ver[poly[a].VIndex[0]].Position,
-				ver[poly[a].VIndex[1]].Position,
-				ver[poly[a].VIndex[2]].Position,
-				GetColor(255, 0, 0),
-				FALSE
-			);
 		}
 	}
 

@@ -27,6 +27,7 @@
 #include"CameraComponent.h"
 
 #include"ObjectServer.h"
+#include"CommonSoldier.h"
 
 constexpr float MAG_WIDTH = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(MAX_SCREEN_WIDTH);
 constexpr float MAG_HEIGHT = static_cast<float>(SCREEN_HEIGHT) / static_cast<float>(MAX_SCREEN_HEIGHT);
@@ -34,7 +35,7 @@ constexpr float MAG_HEIGHT = static_cast<float>(SCREEN_HEIGHT) / static_cast<flo
 LightsOut::LightsOut(ModeGame* game) 
 	:_game(game)
 	,_timerBg(NEW SpriteTextFlipAnimation(3,false))
-	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * MAG_WIDTH ,978.f * MAG_HEIGHT))))
+	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * MAG_WIDTH ,978.f * MAG_HEIGHT)),210))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
 	,_frameCnt(300)
@@ -63,9 +64,9 @@ LightsOut::LightsOut(ModeGame* game)
 	_timer->SetIsDraw(false);
 
 	//UI‚ð’Ç‰Á
-	_game->GetUIServer()->AddUI(NEW UISpriteText(_noise));
-	_game->GetUIServer()->AddUI(NEW UISpriteText(_hud));
-	_game->GetUIServer()->AddUI(NEW UISpriteText(_timerBg));
+	_game->GetUIServer()->AddUI(NEW UISpriteText(_noise,50));
+	_game->GetUIServer()->AddUI(NEW UISpriteText(_hud,60));
+	_game->GetUIServer()->AddUI(NEW UISpriteText(_timerBg,200));
 	_game->GetUIServer()->AddUI(_timer);
 }
 
@@ -79,6 +80,8 @@ bool LightsOut::Process() {
 	case STATE::kNone:
 		break;
 	case STATE::kStart: {
+
+		int c = GetNowCount();
 
 		//ƒ^ƒCƒ}[‚Ì”wŒi‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ðŽn‚ß‚é
 		_timerBg->Play();
@@ -110,7 +113,16 @@ bool LightsOut::Process() {
 		//BGM‚ÌÄ¶
 		gGlobal._sndServer.Play("BGM_02");
 
+		//“G•º‚Ì—ÖŠsü‚ð•`‰æ
+		for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {
+			for (int a = 0; a < MV1GetMaterialNum(soldier->GetHandle()); a++) {
+				MV1SetMaterialOutLineWidth(soldier->GetHandle(), a, 0.5f);
+			}
+		}
+
 		_state = STATE::kProcess;
+
+		c = (GetNowCount() - c) ;
 		break;
 	}
 
@@ -160,6 +172,13 @@ bool LightsOut::Process() {
 
 		//BGM‚ÌÄ¶
 		gGlobal._sndServer.Play("BGM_01");
+
+		//“G•º‚Ì—ÖŠsü‚ð•`‰æ‚µ‚È‚¢
+		for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {
+			for (int a = 0; a < MV1GetMaterialNum(soldier->GetHandle()); a++) {
+				MV1SetMaterialOutLineWidth(soldier->GetHandle(), a, 0.f);
+			}
+		}
 		_state = STATE::kNone;
 		break;
 	}

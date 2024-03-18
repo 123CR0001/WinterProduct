@@ -10,8 +10,6 @@ public :
 	bool Terminate()override;
 	bool Render()override;
 
-	ObjectBase* GetOnObject()const { return _onObj; }
-
 	class MoveComponent* GetMoveComponent()const { return _moveCom; }
 
 	//あらかじめ決めておいたstring型で派生先のキャラクタークラスの状態を変更する
@@ -20,11 +18,7 @@ public :
 
 protected:
 
-	bool	_isStand;		//オブジェクトの上に立っているか
-
 	class MoveComponent* _moveCom;
 
-	//乗っているオブジェクトのアドレスを格納 乗っているオブジェクトが移動して一緒に移動するときに
-	ObjectBase* _onObj;
 };
 

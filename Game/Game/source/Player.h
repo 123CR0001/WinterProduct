@@ -1,5 +1,6 @@
 #pragma once
 #include"CharaBase.h"
+#include<memory>
 
 class Player :public CharaBase {
 public:
@@ -27,7 +28,7 @@ public:
 		kAttack3,
 		kSilent,
 		kSilentWalk,
-		kDead,
+		kDeath,
 		kClear
 	};
 
@@ -35,6 +36,7 @@ public:
 	void SetCamera(class CameraComponent* camera) { _cameraCom = camera; }
 
 	void SetIsLightsOut(bool isLightsOut) { _isLightsOut = isLightsOut; }
+	void SetDecoyTimes(int times) { _decoyTimes = times; }
 
 	ACTION_STATE GetState()const { return _actionState; }
 protected:
@@ -52,5 +54,8 @@ protected:
 	bool _isLightsOut;
 
 	float _moveSpeedMag;
+
+	int _decoyTimes;
+	class SpriteNumber* _decoyTimesText;
 };
 

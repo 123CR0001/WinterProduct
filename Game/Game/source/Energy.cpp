@@ -43,7 +43,7 @@ bool Energy::Process() {
 bool Energy::Render() {
 
 	DrawBillboard3D(
-		DxConverter::VecToDx(_pos + Vector3D(0.f,10.f,0.f)),
+		DxConverter::VecToDx(_pos + Vector3(0.f,10.f,0.f)),
 		0.5f,
 		0.5f,
 		100.f,

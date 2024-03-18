@@ -38,7 +38,7 @@ bool AILookAround::Process() {
 
 	//‰¹‚ª•·‚±‚¦‚½‚©H
 	{
-		Vector3D p;
+		Vector3 p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			_owner->AddPoint("MoveTo", p);
 			_owner->ChangeState("Discovery");

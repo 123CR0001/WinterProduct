@@ -1,8 +1,8 @@
 #include"Collision.h"
 
-float Collision::PolyToPointDist(Vector3D A, Vector3D P, Vector3D N) {
+float Collision::PolyToPointDist(Vector3 A, Vector3 P, Vector3 N) {
 	//PAƒxƒNƒgƒ‹(A-P)
-	Vector3D PA(A - P);
+	Vector3 PA(A - P);
 	return abs(PA.Dot(N.Normalize()));
 }
 

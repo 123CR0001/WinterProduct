@@ -111,7 +111,7 @@ public:
 		auto* player = _menu->GetGame()->GetObjectServer()->GetPlayer();
 		_menu->GetGame()->GetModeEffekseer()->Play(
 			_effectName,
-			player->GetPos()+Vector3D(0.f,180.f,0.f), 
+			player->GetPos()+Vector3(0.f,180.f,0.f), 
 			player->GetEulerAngle()
 		);
 	}
@@ -273,7 +273,7 @@ bool ModeDebugMenu::Render() {
 		DrawFormatString(FONT_SIZE,( _selectNum - _start)* FONT_SIZE, GetColor(0, 0, 255), "Å®");
 
 		for (int a = _start; a < _start + _drawNum; a++) {
-			auto pos = Vector3D(50.f, (float)FONT_SIZE * (a - _start), 0.f);
+			auto pos = Vector3(50.f, (float)FONT_SIZE * (a - _start), 0.f);
 			DrawFormatString((int)pos.x, (int)pos.y, GetColor(0, 0, 255), "%s", _debugMenus[a]->GetText());
 		}
 		SetFontSize(GetFontSize());
@@ -308,7 +308,7 @@ void ModeDebugMenu::RenderEnemyRoot() {
 
 	for (auto iter = _debugAIs.begin(); iter != _debugAIs.end(); ++iter) {
 
-		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetOwner()->GetPos() + Vector3D(0, 180, 0)));
+		VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetOwner()->GetPos() + Vector3(0, 180, 0)));
 
 		auto AI = (*iter);
 
@@ -317,7 +317,7 @@ void ModeDebugMenu::RenderEnemyRoot() {
 		for (auto&& route : AI->GetPoints(AI->GetCurrentState()->GetName())) {
 			num++;
 			DrawSphere3D(
-				DxConverter::VecToDx(route + Vector3D(0, 30, 0)),
+				DxConverter::VecToDx(route + Vector3(0, 30, 0)),
 				30,
 				10,
 				GetColor(0, 255, 0),
@@ -357,42 +357,42 @@ void ModeDebugMenu::RenderViewCollision() {
 
 		float angle = _eulerAngle.y + DegToRad(_visionAngle / 2);
 
-		Vector3D vDir(0, 0, 0);
+		Vector3 vDir(0, 0, 0);
 
 		vDir.x = sin(angle) * _visionDist;
 		vDir.z = cos(angle) * _visionDist;
 
-		Vector3D right(vDir + _pos);
+		Vector3 right(vDir + _pos);
 
 		angle = _eulerAngle.y - DegToRad(_visionAngle / 2);
 
 		vDir.x = sin(angle) * _visionDist;
 		vDir.z = cos(angle) * _visionDist;
 
-		Vector3D left(vDir + _pos);
+		Vector3 left(vDir + _pos);
 
 		vDir.x = sin(_eulerAngle.y) * _visionDist;
 		vDir.z = cos(_eulerAngle.y) * _visionDist;
 
-		Vector3D forward(_pos + vDir);
+		Vector3 forward(_pos + vDir);
 
 		DrawTriangle3D(
-			DxConverter::VecToDx(_pos + Vector3D(0.f, 0.1f, 0.f)),
-			DxConverter::VecToDx(forward + Vector3D(0.f, 0.1f, 0.f)),
-			DxConverter::VecToDx(right + Vector3D(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(_pos + Vector3(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(forward + Vector3(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(right + Vector3(0.f, 0.1f, 0.f)),
 			color,
 			TRUE
 		);
 		DrawTriangle3D(
-			DxConverter::VecToDx(_pos + Vector3D(0.f, 0.1f, 0.f)),
-			DxConverter::VecToDx(left + Vector3D(0.f, 0.1f, 0.f)),
-			DxConverter::VecToDx(forward + Vector3D(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(_pos + Vector3(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(left + Vector3(0.f, 0.1f, 0.f)),
+			DxConverter::VecToDx(forward + Vector3(0.f, 0.1f, 0.f)),
 			color,
 			TRUE
 		);
 
 		DrawSphere3D(
-			DxConverter::VecToDx(_pos + Vector3D(0, 100, 0)),
+			DxConverter::VecToDx(_pos + Vector3(0, 100, 0)),
 			30,
 			10,
 			color,
@@ -413,7 +413,7 @@ void ModeDebugMenu::RenderEnemyAIName() {
 	for (auto iter = _debugAIs.begin(); iter != _debugAIs.end(); ++iter) {
 		auto _AI = (*iter);
 		if (_AI) {
-			VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetOwner()->GetPos() + Vector3D(0, 180, 0)));
+			VECTOR pos = ConvWorldPosToScreenPos(DxConverter::VecToDx((*iter)->GetOwner()->GetPos() + Vector3(0, 180, 0)));
 			DrawFormatString((int)pos.x, (int)pos.y, GetColor(0, 255, 0), "%s ", _AI->GetCurrentState()->GetName());
 		}
 	}

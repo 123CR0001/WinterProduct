@@ -27,6 +27,7 @@
 #include"AIStay.h"
 #include"AIDiscovery.h"
 #include"AIAttack.h"
+#include"AILoseSight.h"
 
 #include"CommonSoldierAnimaitonComponent.h"
 #include"CountKillComboComponent.h"
@@ -38,7 +39,7 @@
 #include"MyUIServer.h"
 #include"UI.h"
 
-constexpr int SIDE_NUM = 100;
+#include"Gun.h"
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server,"CommonSoldier")
@@ -47,6 +48,7 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	,_anim(NEW CommonSoldierAnimationComponent(this,1000))
 	,_detectionLevel(0.f)
 	,_isAttack(false)
+	,_gun(NEW Gun(this))
 {
 	NEW CountKillComboComponent(this);
 
@@ -61,24 +63,31 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AIStay(_AI));
 	_AI->RegisterState(NEW AIDiscovery(_AI));
 	_AI->RegisterState(NEW AIAttack(_AI));
+	_AI->RegisterState(NEW AILoseSight(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
 	server->GetEnemys().emplace_back(this);
 
-	for(int a = 0; a < SIDE_NUM; a++) {
-		_versNums.emplace_back(0);
-		_versNums.emplace_back(a + 1);
-		_versNums.emplace_back(a + 2);
-	}
-
-	_visionHandleRed = ResourceServer::LoadGraph("res/UI/visualrange_01.png");
-	_visionHandleBlue = ResourceServer::LoadGraph("res/UI/visualrange_02.png");
-
 	_capsule->AddSkipName("CommonSoldier");
 
-	NEW MotionComponent(_anim, 10000);
+	auto motion = NEW MotionComponent(_anim, 10000);
+
+	{
+		auto func = [=](const MOTION_DATA_ITEM&) {
+			_gun->OnAttack();
+			motion->IncrementMotionCount();
+		};
+
+		motion->RegisterCustomCommand("ATTACK_ON", func);
+	}
 
 	server->GetGame()->IncrementEnemyCount();
+
+	//最初は輪郭線を描画しない
+	for (int a = 0; a < MV1GetMaterialNum(_handle); a++) {
+		MV1SetMaterialOutLineWidth(_handle, a, 0.f);
+	}
+
 }
 
 CommonSoldier::~CommonSoldier(){
@@ -91,7 +100,6 @@ bool CommonSoldier::Initialize() {
 	_attachIndex = 0;
 	// アタッチしたアニメーションの総再生時間を取得する
 
-	_isStand = true;
 
 	//カプセルのメンバを設定
 	_capsule->SetMember(180.f, 30.f);
@@ -99,7 +107,7 @@ bool CommonSoldier::Initialize() {
 	//AIの視覚のメンバを設定
 	_AI->SetViewAngle(120.f);
 	_AI->SetViewDist(500.f);
-	_AI->SetView(Vector3D(0.f, 100.f, 0.f));
+	_AI->SetView(Vector3(0.f, 100.f, 0.f));
 
 	_detectionLevel = 0.f;
 
@@ -107,6 +115,19 @@ bool CommonSoldier::Initialize() {
 	_AI->ChangeState("Patrol");
 
 	_capsule->AddSkipName("Decoy");
+
+
+	//アニメーションを登録
+
+	LoadModel("res/Chara/Soldier_fix/soldier_2_4_IK_A_05.mv1");
+
+	_anim->LoadAnimation("Walk", "mo_moveenemy_01", 0);
+	_anim->LoadAnimation("Death", "mo_deathenemy_01", 1);
+	_anim->LoadAnimation("LookAround", "mo_losesight_01", 0);
+	_anim->LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
+	_anim->LoadAnimation("Idle", "mo_standbyenemy_01", 0);
+	_anim->LoadAnimation("Discovery", "mo_discovery_01", 0);
+	_anim->LoadAnimation("LoseSight", "mo_losesight_01", 0);
 
 	return true;
 }
@@ -201,11 +222,11 @@ bool CommonSoldier::Process() {
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
 			"Blood01",
 			_damageData.item.hitPosition,
-			Vector3D(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
+			Vector3(0.f, atan2f(_damageData.item.pushVec.x, _damageData.item.pushVec.z), 0.f)
 		);
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(
 			"Blood02",
-			_pos + Vector3D(0.f, 1.f, 0.f),
+			_pos + Vector3(0.f, 1.f, 0.f),
 			_eulerAngle
 		);
 		//カメラの揺れ
@@ -336,13 +357,13 @@ void CommonSoldier::SetJsonDataUE(nlohmann::json data) {
 			if(num != -1) { name = name.substr(0, num); break; }
 		}
 
-		const Vector3D pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
+		const Vector3 pos(marker.at("translate").at("x"), marker.at("translate").at("z"), -1 * marker.at("translate").at("y"));
 		_AI->AddPoint(state->GetName(), pos);
 		
 	}
 	if (_AI->GetPoints(state->GetName()).size() > 0) {
 		SetPos(_AI->GetPoints(state->GetName()).front());
-		const Vector3D deg = Vector3D(data.front().at("rotate").at("x"), data.front().at("rotate").at("z"), data.front().at("rotate").at("y"));
+		const Vector3 deg = Vector3(data.front().at("rotate").at("x"), data.front().at("rotate").at("z"), data.front().at("rotate").at("y"));
 		SetEulerAngleDeg(deg);
 	}
 

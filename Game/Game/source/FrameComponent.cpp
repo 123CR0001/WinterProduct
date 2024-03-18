@@ -15,6 +15,14 @@ FrameComponent::~FrameComponent() {
 	DeletePhysWorldThis();
 }
 
+bool FrameComponent::Process() {
+
+	_oldResult = _result;
+	_result = GetOverlapResult();
+
+	return true;
+}
+
 PhysWorld::CollisionDetectionResult FrameComponent::GetOverlapResult() {
 
 	auto physWorld = _owner->GetObjectServer()->GetPhysWorld();
@@ -36,8 +44,8 @@ PhysWorld::CollisionDetectionResult FrameComponent::GetOverlapResult() {
 			result.isHit = true;
 			result.item._object = (*iter)->GetOwner();
 
-			Vector3D polyLatestPoint(0.f, 0.f, 0.f);
-			Vector3D segLatestPoint(0.f, 0.f, 0.f);
+			Vector3 polyLatestPoint(0.f, 0.f, 0.f);
+			Vector3 segLatestPoint(0.f, 0.f, 0.f);
 
 			Polygon3D detection = Polygon3D(
 				DxConverter::DxToVec(hit.Dim[0].Position[0]),
@@ -51,7 +59,7 @@ PhysWorld::CollisionDetectionResult FrameComponent::GetOverlapResult() {
 			segLatestPoint = DxConverter::DxToVec(seGTriresult.Seg_MinDist_Pos);
 
 			result.item.hitPosition = segLatestPoint;
-			result.item.pushVec = Vector3D(segLatestPoint - polyLatestPoint).Normalize();
+			result.item.pushVec = Vector3(segLatestPoint - polyLatestPoint).Normalize();
 		}
 
 		MV1CollResultPolyDimTerminate(hit);

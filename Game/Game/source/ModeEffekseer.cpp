@@ -16,6 +16,7 @@ bool ModeEffekseer::Initialize() {
 	_effectHandle["GetEnergy"] = LoadEffekseerEffect("res/effekseer/ef_item_01/ef_item_01.efkefc", 30.f);
 	_effectHandle["bikkuri"] = LoadEffekseerEffect("res/effekseer/bikkuri/bikkuri.efkefc", 100.f);
 	_effectHandle["question_mark"] = LoadEffekseerEffect("res/effekseer/question_mark/question mark.efkefc", 100.f);
+	_effectHandle["MuzzleFlash"] = LoadEffekseerEffect("res/effekseer/ef_muzzleflash_01/ef_muzzleflash.efkefc", 10.f);
 	return true;
 }
 
@@ -68,13 +69,13 @@ bool ModeEffekseer::Render() {
 	return true;
 }
 
-int ModeEffekseer::Play(std::string name, const Vector3D& pos, const Vector3D& angle) {
+int ModeEffekseer::Play(std::string name, const Vector3& pos, const Vector3& angle) {
 	if (_effectHandle.find(name) != _effectHandle.end()) {
 		int play = PlayEffekseer3DEffect(_effectHandle[name]);
 
 		SetPosPlayingEffekseer3DEffect(play, pos.x, pos.y, pos.z);
 
-		SetRotationPlayingEffekseer3DEffect(play, angle.x, angle.y, angle.z);
+		SetRotationPlayingEffekseer3DEffect(play, angle.x, angle.y + PI , angle.z);
 
 		_playingEffectHandles.emplace_back(play);
 

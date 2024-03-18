@@ -17,20 +17,20 @@ public:
 	virtual bool LoadModel(std::string fileName, std::string attachFrameName = "");
 
 	VECTOR GetDxPos()const{ return DxConverter::VecToDx(_pos); }
-	Vector3D GetPos() const{ return _pos; }
-	Vector3D GetEulerAngle() const{ return _eulerAngle; }
-	Vector3D GetScale()const { return _scale; }
+	Vector3 GetPos() const{ return _pos; }
+	Vector3 GetEulerAngle() const{ return _eulerAngle; }
+	Vector3 GetScale()const { return _scale; }
 
 	//
-	void SetPos(const Vector3D& pos) { _pos = pos; }
-	void SetEulerAngle(const Vector3D& set) { _eulerAngle = set; }
-	void SetEulerAngleDeg(const Vector3D& set) { _eulerAngle = Vector3D(DegToRad(set.x), DegToRad(set.y),DegToRad(set.z)); }
-	void SetScale(const Vector3D& set) { _scale = set; }
+	void SetPos(const Vector3& pos) { _pos = pos; }
+	void SetEulerAngle(const Vector3& set) { _eulerAngle = set; }
+	void SetEulerAngleDeg(const Vector3& set) { _eulerAngle = Vector3(DegToRad(set.x), DegToRad(set.y),DegToRad(set.z)); }
+	void SetScale(const Vector3& set) { _scale = set; }
 
-	void AddPos(const Vector3D& vector) { _pos += vector; }
-	void AddEulerAngle(const Vector3D& add) { _eulerAngle += add; }
+	void AddPos(const Vector3& vector) { _pos += vector; }
+	void AddEulerAngle(const Vector3& add) { _eulerAngle += add; }
 	//XZ平面での前方ベクトル
-	Vector3D GetForward()const { return Vector3D(sinf(_eulerAngle.y), 0.f, cosf(_eulerAngle.y)); }
+	Vector3 GetForward()const { return Vector3(sinf(_eulerAngle.y), 0.f, cosf(_eulerAngle.y)); }
 
 	int GetHandle()& { return _handle; }
 	int GetAttachIndex()const { return _attachIndex;}
@@ -79,18 +79,18 @@ protected:
 	int _attachIndex;
 
 	//位置情報
-	Vector3D _pos;
+	Vector3 _pos;
 
 	//角度
-	Vector3D _eulerAngle;
+	Vector3 _eulerAngle;
 
 	//拡縮
-	Vector3D _scale;
+	Vector3 _scale;
 
 	//
 	MATRIX _matrix;
 
-	const std::string _name;
+	std::string _name;
 
 	DamageData _damageData;
 

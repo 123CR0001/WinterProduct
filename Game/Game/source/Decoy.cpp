@@ -54,7 +54,7 @@ bool Decoy::Process() {
 
 	//Ç»Ç…Ç©Ç∆Ç‘Ç¬Ç©Ç¡ÇΩÇÁÅAîΩéÀÇ∑ÇÈ
 	if (event.isHit) {
-		const Vector3D ref = Vector3D::Reflect(GetForward(), event.item.normal);
+		const Vector3 ref = Vector3::Reflect(GetForward(), event.item.normal);
 		_eulerAngle.y = atan2f(ref.x, ref.z);
 	}
 

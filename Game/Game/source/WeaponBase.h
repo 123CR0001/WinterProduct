@@ -24,7 +24,4 @@ protected:
 	//フレームの当たり判定を行うコンポーネント
 	class FrameComponent* _frame;
 
-	//デバッグ系
-	static bool _isAttackCollisionView;
-
 };

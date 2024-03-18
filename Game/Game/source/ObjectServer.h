@@ -61,3 +61,37 @@ private:
 	class ModeGame* _game;
 
 };
+
+struct STAGE_DATA_ITEM {
+	int decoyTimes = 0;
+};
+
+class StageDataJson :public Json {
+public:
+	StageDataJson(std::string fileName) {
+		if (LoadData(fileName)) {
+			_success = true;
+			return;
+		}
+		_success = false;
+	}
+	virtual ~StageDataJson() {}
+
+	bool LoadData(std::string file_name)override {
+		if (!Json::LoadData(file_name)) { return false; }
+
+		for (auto& data : _jsonData) {
+			STAGE_DATA_ITEM item = {
+				data.at("DecoyTimes")
+			};
+
+			_stageDataItem = item;
+		}
+
+		return true;
+	}
+
+	STAGE_DATA_ITEM GetStageData()const { return _stageDataItem; }
+
+	STAGE_DATA_ITEM _stageDataItem;
+};

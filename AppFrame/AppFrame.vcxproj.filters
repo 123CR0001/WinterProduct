@@ -39,7 +39,7 @@
     <ClCompile Include="source\Math\mymath.cpp">
       <Filter>Util</Filter>
     </ClCompile>
-    <ClCompile Include="source\Collision\Vector3D.cpp">
+    <ClCompile Include="source\Collision\Vector3.cpp">
       <Filter>Collision</Filter>
     </ClCompile>
     <ClCompile Include="source\Collision\Collision.cpp">
@@ -84,7 +84,7 @@
     <ClInclude Include="source\Collision\Segment.h">
       <Filter>Collision</Filter>
     </ClInclude>
-    <ClInclude Include="source\Collision\Vector3D.h">
+    <ClInclude Include="source\Collision\Vector3.h">
       <Filter>Collision</Filter>
     </ClInclude>
     <ClInclude Include="source\Math\Json.h">

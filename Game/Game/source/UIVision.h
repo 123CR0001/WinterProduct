@@ -5,7 +5,7 @@
 
 class UIVision :public UI {
 public:
-	UIVision(class ObjectServer* server);
+	UIVision(class ObjectServer* server, int drawOrder = 100);
 	~UIVision();
 
 	const char* GetName()override { return "Vision"; }

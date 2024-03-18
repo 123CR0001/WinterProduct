@@ -5,7 +5,7 @@
 
 class UISecMiliSec :public UI {
 public:
-	UISecMiliSec(const Transform2& transform);
+	UISecMiliSec(const Transform2& transform, int drawOrder = 100);
 	~UISecMiliSec();
 
 	const char* GetName()override { return "SecMiliSec"; }

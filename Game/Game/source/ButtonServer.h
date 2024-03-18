@@ -18,8 +18,20 @@ public:
 	int GetRelSelectNum()const { return _relSelectNum; }
 
 	class SpriteText* GetSelectUI()const { return _selectUI; }
+
+	std::vector<class Button*>& GetButtons() { return _buttons; }
+
+	void SetSelectNum(int num) { _selectNum = num; }
+	void SetSelectLimitNum(int num) { _selectLimitNum = num; }
+
+
+	enum class STEP {
+		kAnimation,
+		kProcess,
+	};
 private:
 	int _selectNum;
+	int _selectLimitNum;
 
 	//ボタンから離れた時の処理とボタンに触れた時の処理をするかの比較用変数
 
@@ -32,14 +44,15 @@ private:
 	int _trgSelectNum;
 	int _relSelectNum;
 
+	bool _isProcess;
 	std::vector<class Button*>_buttons;
+	std::vector<class Button*>_addButtons;
+	std::vector<class Button*>_deleteButtons;
 
 	class SpriteText* _selectUI;
 
-	enum class STEP {
-		kIntroduct,
-		kProcess,
-		kConclude
-	}_step;
+	STEP _step;
 
+public:
+	STEP GetStep()const { return _step; }
 };

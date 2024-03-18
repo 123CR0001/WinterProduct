@@ -55,7 +55,7 @@ bool AIBlindWalk::Process() {
 
 	//回転
 	if (_rotateAngle > 0) { 
-		const Vector3D addAngle(0.f, DegToRad(static_cast<float>(_rotateSpeed)), 0.f);
+		const Vector3 addAngle(0.f, DegToRad(static_cast<float>(_rotateSpeed)), 0.f);
 		_owner->GetOwner()->AddEulerAngle(addAngle);
 	}
 	//回転したら、回転量を減らす
@@ -69,7 +69,7 @@ bool AIBlindWalk::Process() {
 	//移動距離が0になった
 	if (_moveDist < 0.001f) { _owner->ChangeState(GetName()); }
 
-	////オブジェクトにぶつかったら、一定時間止まる。その後、90度回転して、別方向に進む
+	//////オブジェクトにぶつかったら、一定時間止まる。その後、90度回転して、別方向に進む
 	//if ((*iter)->GetCapsuleComponent()->GetOverlapResult().isHit && _rotateAngle <= 0) {
 	//	_rotateAngle = 90;
 	//	_waitCnt = 60;

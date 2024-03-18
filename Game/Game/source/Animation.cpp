@@ -8,6 +8,7 @@ Animation::Animation(SpriteText* text, int frame)
 	, _rate(0.f)
 	, _isReverse(false)
 	,_isEnd(false)
+	,_func(nullptr)
 {
 
 }
@@ -26,6 +27,7 @@ bool Animation::Process() {
 			//アニメーションの終了
 			if (_frameCnt == _frame) {
 				_isEnd = true;
+				if (_func) { _func(); }
 			}
 		}
 		//_isReverseがtrueなら、逆再生
@@ -35,6 +37,7 @@ bool Animation::Process() {
 			//アニメーションの終了
 			if (_frameCnt == 0) {
 				_isEnd = true;
+				if (_func) { _func(); }
 			}
 		}
 	}

@@ -8,7 +8,7 @@
 
 AIStay::AIStay(AIComponent* owner)
 	:AIState(owner)
-	,_ownerEulerAngle(nullptr)
+	,_isSetForward(false)
 {
 
 }
@@ -16,7 +16,7 @@ AIStay::AIStay(AIComponent* owner)
 AIStay::~AIStay(){}
 
 void AIStay::OnEnter() {
-	if(!_ownerEulerAngle)_ownerEulerAngle = std::make_unique<Vector3D>(_owner->GetOwner()->GetEulerAngle());
+	if (!_isSetForward) { _ownerForward = _owner->GetOwner()->GetForward(); _isSetForward = true; }
 }
 
 void AIStay::OnExist() {
@@ -27,7 +27,7 @@ bool AIStay::Process() {
 
 	//‰¹‚ª•·‚±‚¦‚½‚©H
 	{
-		Vector3D p;
+		Vector3 p;
 		if(_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			_owner->AddPoint("MoveTo", p);
 			_owner->ChangeState("Discovery");
@@ -70,18 +70,16 @@ bool AIStay::Process() {
 		_owner->ChangeState("BlindWalk");
 	}
 
-	_owner->GetOwner()->SetEulerAngle(*_ownerEulerAngle);
+	float angle = Vector3::CrossAngleXZ(_owner->GetOwner()->GetForward(), _ownerForward);
 
-	//const Vector3D vCross = Vector3D::Cross(_owner->GetOwner()->GetForward(), *_ownerForward);
+	if(fabsf(angle) < DegToRad(3)) { return true; }
 
-	//if(fabsf(sinf(vCross.z)) < DegToRad(3)) { return true; }
-
-	//if(vCross.z < 0.f) {
-	//	_owner->GetOwner()->AddEulerAngle(Vector3D(0.f, -DegToRad(1), 0.f));
-	//}
-	//else {
-	//	_owner->GetOwner()->AddEulerAngle(Vector3D(0.f, DegToRad(1), 0.f));
-	//}
+	if(angle < 0.f) {
+		_owner->GetOwner()->AddEulerAngle(Vector3(0.f, DegToRad(1), 0.f));
+	}
+	else {
+		_owner->GetOwner()->AddEulerAngle(Vector3(0.f, -DegToRad(1), 0.f));
+	}
 
 	return true;
 }

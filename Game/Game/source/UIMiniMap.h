@@ -4,7 +4,7 @@
 
 class UIMiniMap :public UI {
 public:
-	UIMiniMap(class ModeGame* game);
+	UIMiniMap(class ModeGame* game, int drawOrder = 100);
 	~UIMiniMap();
 
 	const char* GetName()override { return "MiniMap"; }
@@ -20,13 +20,13 @@ private:
 	float _mag;
 
 	//全てのモデルの最大頂点のx,y,zの値から、最も大きいx値、y値、z値を参照して、マップ全体での最小頂点を算出する
-	Vector3D _maxPos;
+	Vector3 _maxPos;
 
 	//全てのモデルの最小頂点のx,y,zの値から、最も小さいx値、y値、z値を参照して、マップ全体での最小頂点を算出する
-	Vector3D _minPos;
+	Vector3 _minPos;
 
 	//_maxPosと_mixPosを直線で結んだ際、その中間座標
-	Vector3D _middlePos;
+	Vector3 _middlePos;
 
 	//ミニマップを画面上に描画する位置
 	int _x, _y;
@@ -50,7 +50,7 @@ private:
 	int _mixScreen;
 
 	//ミニマップ上のプレイヤーの座標　この値を基準に描画位置を揃える
-	Vector3D _mapPlayerPos;
+	Vector3 _mapPlayerPos;
 
 
 

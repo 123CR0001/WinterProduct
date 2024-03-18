@@ -16,8 +16,8 @@
 
 ModeMiniMap::ModeMiniMap(ModeGame* game)
 	:_game(game)
-	, _maxPos(Vector3D(-9999999.f, 0.f, -9999999.f))
-	, _minPos(Vector3D(9999999.f, 0.f, 9999999.f))
+	, _maxPos(Vector3(-9999999.f, 0.f, -9999999.f))
+	, _minPos(Vector3(9999999.f, 0.f, 9999999.f))
 {
 	_mapTextHandle = ResourceServer::LoadGraph("res/MiniMap/mapstage1.png");
 }
@@ -53,7 +53,7 @@ bool ModeMiniMap::Initialize() {
 			if(_minPos.z > result.MinPosition.z) { _minPos.z = result.MinPosition.y; }
 		}
 		//最大頂点から最小頂点のちょうど半分の位置
-		_middlePos = Vector3D::LineInter(_maxPos, _minPos, 0.5f);
+		_middlePos = Vector3::LineInter(_maxPos, _minPos, 0.5f);
 	}
 
 	//画像の描画位置
@@ -90,12 +90,12 @@ bool ModeMiniMap::Process() {
 
 	//_middlePos(マップの中心手)からプレイヤーへのベクトルを線形補完で、_mag倍したベクトル　= _middlePosから見て、方向をそのままに、近づけたプレイヤーの位置(ワールド座標)
 	//そこから、_middlePosを引くと、マップの中心からプレイヤーへのベクトル(ローカル座標)
-	auto vecMapPlayerMiddle = Vector3D::LineInter(_middlePos, playerPos, _mag) - _middlePos;
+	auto vecMapPlayerMiddle = Vector3::LineInter(_middlePos, playerPos, _mag) - _middlePos;
 
 	vecMapPlayerMiddle.z *= -1.f;
 
 	//ミニマップは原点(0,0)に描画するので、サイズ/2がミニマップの中心座標になる
-	_mapPlayerPos = Vector3D((float)_w / 2, 0.f, (float)_h / 2) + vecMapPlayerMiddle;
+	_mapPlayerPos = Vector3((float)_w / 2, 0.f, (float)_h / 2) + vecMapPlayerMiddle;
 
 	// 一時画像を描画対象に設定してクリア
 	SetDrawScreen(_mapScreen);
@@ -127,11 +127,11 @@ bool ModeMiniMap::Process() {
 		
 		auto pos = obj->GetPos();
 
-		auto vecMapObjMiddle = Vector3D::LineInter(_middlePos, pos, _mag) - _middlePos;
+		auto vecMapObjMiddle = Vector3::LineInter(_middlePos, pos, _mag) - _middlePos;
 
 		vecMapObjMiddle.z *= -1.f;
 
-		auto mapPos = Vector3D((float)_w / 2, 0.f, (float)_h / 2) + vecMapObjMiddle;
+		auto mapPos = Vector3((float)_w / 2, 0.f, (float)_h / 2) + vecMapObjMiddle;
 
 		DrawCircleAA(mapPos.x, mapPos.z, 3.f, 40, GetColor(255, 0, 0), TRUE);
 

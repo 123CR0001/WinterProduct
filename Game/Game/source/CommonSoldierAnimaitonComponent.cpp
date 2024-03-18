@@ -8,16 +8,7 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 	:AnimationComponent(owner, order)
 	, _csOwner(owner)
 {
-	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ð“o˜^
 
-	_csOwner->LoadModel("res/Chara/soldier_2_4_IK_A.mv1");
-
-	LoadAnimation("Walk","mo_moveenemy_01",0);
-	LoadAnimation("Death", "mo_deathenemy_01", 1);
-	LoadAnimation("LookAround", "mo_losesight_01", 0);
-	LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
-	LoadAnimation("Idle", "mo_standbyenemy_01", 0);
-	LoadAnimation("Discovery", "mo_discovery_01", 0);
 
 	_closeMaxTime = 12.f;
 
@@ -43,10 +34,11 @@ bool CommonSoldierAnimationComponent::Process() {
 	else if(name == "LookAround") {
 		ChangeAnimation("LookAround");
 	}
+	else if(name == "LoseSight"){ ChangeAnimation("LoseSight"); }
 	else if(name == "Panic") { ChangeAnimation("Shoot"); }
 	else if(name == "Death") { ChangeAnimation("Death"); }
 	else if(name == "Discovery") { ChangeAnimation("Discovery"); }
-	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f) {
+	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f || _csOwner->GetMoveComponent()->GetRatateSpeed().Length() > 0.01f) {
 		ChangeAnimation("Walk");
 	}
 	else {

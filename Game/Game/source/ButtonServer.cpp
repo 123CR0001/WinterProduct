@@ -7,11 +7,13 @@
 #include<algorithm>
 ButtonServer::ButtonServer() 
 	:_selectNum(0)
+	,_selectLimitNum(-1)
 	,_oldSelectNum(0)
 	,_trgSelectNum(0)
 	,_relSelectNum(0)
 	,_selectUI(NEW SpriteText())
-	,_step(STEP::kIntroduct)
+	,_step(STEP::kAnimation)
+	,_isProcess(false)
 {
 }
 
@@ -29,8 +31,39 @@ ButtonServer::~ButtonServer(){
 
 bool ButtonServer::Process() {
 
+	_isProcess = true;
+
+	if (!_addButtons.empty()) {
+		for (auto&& button : _addButtons) {
+			_buttons.emplace_back(button);
+		}
+		_addButtons.clear();
+	}
+
+	if (!_deleteButtons.empty()) {
+		for (auto&& button : _deleteButtons) {
+			auto iter = std::find(_buttons.begin(), _buttons.end(), button);
+
+			if (iter != _buttons.end()) {
+				delete (*iter);
+				_buttons.erase(iter);
+			}
+		}
+		_deleteButtons.clear();
+	}
+
+	//サイズを超えていたら、修正
+	if (_selectNum >= _buttons.size()) { _selectNum = _buttons.size() - 1; }
+
+	if (_selectLimitNum != -1 && _selectNum > _selectLimitNum - 1) {
+		_selectNum = _selectLimitNum;
+	}
+
+	//空だったら処理をしない
+	if (_buttons.empty()) { return true; }
+
 	switch(_step) {
-	case STEP::kIntroduct:
+	case STEP::kAnimation:
 	{
 		bool isPlayAnimation = false;
 		for(auto&& button : _buttons) {
@@ -59,12 +92,13 @@ bool ButtonServer::Process() {
 
 		//選択ボタンの変更
 		if(trg & INPUT_DPAD_DOWN) {
-			_selectNum--;
-		}
-		else if(trg & INPUT_DPAD_UP) {
 			_selectNum++;
 		}
-		_selectNum %= _buttons.size();
+		else if(trg & INPUT_DPAD_UP) {
+			_selectNum--;
+			if (_selectNum < 0)_selectNum = _buttons.size() - 1;
+		}
+		_selectNum = _selectNum % _buttons.size();
 
 		//
 		if ((_selectNum ^ _oldSelectNum) & ~_oldSelectNum) {
@@ -77,21 +111,31 @@ bool ButtonServer::Process() {
 		//ボタンが押された時の処理
 		if (trg & INPUT_A) {
 			_buttons[_selectNum]->SelectFunc();
-
-			_step = STEP::kConclude;
 		}
 
-		break;
-	}
-	case STEP::kConclude:
-	{
+		bool isPlayAnimation = false;
+		for (auto&& button : _buttons) {
+
+			for (auto&& anim : button->GetSpriteText()->GetAnimations()) {
+				if (!anim->IsEnd()) {
+					isPlayAnimation = true; break;
+				}
+			}
+
+		}
+
+		if (isPlayAnimation) {
+			_step = STEP::kAnimation;
+		}
 
 		break;
 	}
 	}
 
 	_selectUI->SetTransform(_buttons[_selectNum]->GetSpriteText()->GetTransform());
+	_selectUI->SetSize(_buttons[_selectNum]->GetSpriteText()->GetSize());
 
+	_isProcess = false;
 	return true;
 }
 
@@ -104,18 +148,35 @@ bool ButtonServer::Draw() {
 }
 
 void ButtonServer::AddButton(Button* button) {
-	_buttons.emplace_back(button);
+	auto iter = std::find(_buttons.begin(), _buttons.end(), button);
+
+	if (iter != _buttons.end())return;
+
+	iter = std::find(_addButtons.begin(), _addButtons.end(), button);
+
+	if (iter != _addButtons.end())return;
+
+	if (!_isProcess) {
+		_buttons.emplace_back(button);
+		return;
+	}
+
+	_addButtons.emplace_back(button);
 }
 
 void ButtonServer::DeleteButton(Button* button) {
 
 	auto iter = std::find(_buttons.begin(), _buttons.end(), button);
 
-	if(iter != _buttons.end()) {
-		delete button;
-		_buttons.erase(iter);
+	if(iter == _buttons.end()) {
+		return;
 	}
 
+	if (!_isProcess) {
+		_buttons.erase(iter);
+		return;
+	}
 
+	_deleteButtons.emplace_back(button);
 
 }

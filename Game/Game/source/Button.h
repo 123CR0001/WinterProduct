@@ -14,7 +14,8 @@ public:
 	bool Process();
 	bool Draw();
 
-	void SelectFunc() { _selectFunc(); }
+	void SelectFunc() { if(_selectFunc)_selectFunc(); }
+	void SetFunc(std::function<void()>func) { _selectFunc = func; }
 
 	SpriteText* GetSpriteText() { return _text; }
 

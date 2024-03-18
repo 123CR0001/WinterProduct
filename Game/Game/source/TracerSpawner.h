@@ -11,13 +11,13 @@ public:
 	bool Process()override;
 	bool Render()override;
 
-	std::vector<Vector3D>& GetPoints() { return _playerPoints; }
+	std::vector<Vector3>& GetPoints() { return _playerPoints; }
 
 private:
 	unsigned int _elapsedTime;
 	unsigned int _spawnTime;
 
-	std::vector<Vector3D>_playerPoints;
+	std::vector<Vector3>_playerPoints;
 
 	unsigned int _frameCnt;
 	const unsigned int _interval;

@@ -25,16 +25,16 @@ bool AIRush::Process() {
 		if (_owner->IsFound(object)) { _rushPos = object->GetPos(); }
 	}
 
-	Vector3D toObject = _rushPos - _owner->GetOwner()->GetPos();
+	Vector3 toObject = _rushPos - _owner->GetOwner()->GetPos();
 
 	//移動する座標に、モデルの向きを変更
-	_owner->GetOwner()->SetEulerAngle(Vector3D(0.f, atan2f(toObject.x, toObject.z), 0.f));
+	_owner->GetOwner()->SetEulerAngle(Vector3(0.f, atan2f(toObject.x, toObject.z), 0.f));
 
 	//移動
 	_owner->GetOwner()->AddPos(toObject.Normalize() * 4.f);
 
 	//突進したが、キャラがいない
-	if (Vector3D::LengthSquare(_rushPos, _owner->GetOwner()->GetPos()) < 10.f) {
+	if (Vector3::LengthSquare(_rushPos, _owner->GetOwner()->GetPos()) < 10.f) {
 		_owner->ChangeState("Trace");
 	}
 

@@ -3,7 +3,7 @@
 
 class UIDetectionLevel :public UI {
 public:
-	UIDetectionLevel(class ObjectServer* server);
+	UIDetectionLevel(class ObjectServer* server,int drawOrder = 100);
 	~UIDetectionLevel();
 
 	const char* GetName()override { return "DetectionLavel"; }

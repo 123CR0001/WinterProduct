@@ -7,9 +7,9 @@
 
 
 bool Navi::BFS(
-	const Vector3D& goalPos,
-	const Vector3D& startPos,
-	std::vector<Vector3D>& route,
+	const Vector3& goalPos,
+	const Vector3& startPos,
+	std::vector<Vector3>& route,
 	std::vector<Polygon3D*>* routePolygon
 ) {
 	bool pathFound = false;
@@ -27,7 +27,7 @@ bool Navi::BFS(
 	//初期化
 	route.clear();
 
-	GetHitPolygon(Vector3D(0, 0, 0));
+	GetHitPolygon(Vector3(0, 0, 0));
 
 	std::queue<Polygon3D*> data;
 
@@ -108,7 +108,7 @@ void Navi::GetConectPolygonMap() {
 		for(auto&& poly2 : _polys) {
 			if(&poly1 == &poly2) { continue; }
 
-			std::vector<Vector3D>vers;
+			std::vector<Vector3>vers;
 
 			if(Collision::SegPointDistSq(poly2.ver1, Segment(poly1.ver1, poly1.ver2)) < 0.01) {
 				vers.emplace_back(poly2.ver1);
@@ -180,17 +180,17 @@ void Navi::GetConectPolygonMap() {
 			if(vers.size() < 2) { continue; }
 
 			//頂点情報は、順番に並んでいるため、最初と最後の頂点情報は走査だと調べられない。ので、走査前にやっておく
-			float longestDistSq = Vector3D::LengthSquare(vers.front(), vers.back());
+			float longestDistSq = Vector3::LengthSquare(vers.front(), vers.back());
 
-			Vector3D pos = Vector3D::LineInter(vers.front(), vers.back(), 0.5f);
+			Vector3 pos = Vector3::LineInter(vers.front(), vers.back(), 0.5f);
 
 			for(int a = 0; a < vers.size() - 1; a++) {
 
-				float distSq = Vector3D::LengthSquare(vers[a], vers[a + 1]);
+				float distSq = Vector3::LengthSquare(vers[a], vers[a + 1]);
 
 				if(distSq > longestDistSq) {
 					longestDistSq = distSq;
-					pos = Vector3D::LineInter(vers[a], vers[a + 1], 0.5f);
+					pos = Vector3::LineInter(vers[a], vers[a + 1], 0.5f);
 				}
 
 			}
@@ -214,12 +214,12 @@ void Navi::GetConectPolygonMap() {
 
 }
 
-Polygon3D* Navi::GetHitPolygon(Vector3D pos) {
+Polygon3D* Navi::GetHitPolygon(Vector3 pos) {
 
 	for (auto&& poly : _polys) {
 		if (HitCheck_Line_Triangle(
-			DxConverter::VecToDx(pos - Vector3D(0.f, 1000.f, 0.f)),
-			DxConverter::VecToDx(pos + Vector3D(0.f, 40.f, 0.f)),
+			DxConverter::VecToDx(pos - Vector3(0.f, 1000.f, 0.f)),
+			DxConverter::VecToDx(pos + Vector3(0.f, 40.f, 0.f)),
 			DxConverter::VecToDx(poly.ver1),
 			DxConverter::VecToDx(poly.ver2),
 			DxConverter::VecToDx(poly.ver3)

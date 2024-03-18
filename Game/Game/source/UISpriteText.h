@@ -7,7 +7,7 @@
 
 class UISpriteText :public UI {
 public:
-	UISpriteText(class SpriteText* text);
+	UISpriteText(class SpriteText* text, int drawOrder = 100);
 	virtual ~UISpriteText();
 
 	const char* GetName() { return "SpriteText"; }

@@ -16,7 +16,7 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 		
 		float rad = DegToRad(item.vector) + _anim->GetOwner()->GetEulerAngle().y;
 
-		Vector3D v(sin(rad), 0, cos(rad));
+		Vector3 v(sin(rad), 0, cos(rad));
 		v.Normalized();
 
 		_anim->GetOwner()->AddPos( v * item.vectorScale);
@@ -51,12 +51,12 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 
 			ModeEffekseer* effect = _anim->GetOwner()->GetObjectServer()->GetGame()->GetModeEffekseer();
 
-			Vector3D angle = _anim->GetOwner()->GetEulerAngle();
+			Vector3 angle = _anim->GetOwner()->GetEulerAngle();
 
 			effect->Play(
 				item.effectPlayName,
-				Vector3D(FrameMatrix.m[3][0], FrameMatrix.m[3][1], FrameMatrix.m[3][2]),
-				Vector3D(angle.x, angle.y + PI, angle.z)
+				Vector3(FrameMatrix.m[3][0], FrameMatrix.m[3][1], FrameMatrix.m[3][2]),
+				Vector3(angle.x, angle.y + PI, angle.z)
 			);
 		}
 

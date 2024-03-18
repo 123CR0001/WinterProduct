@@ -17,8 +17,7 @@ Siren::Siren(ObjectServer* server)
 	,_SEName("SE_07")
 	,_volumeSize(1000.f)
 {
-	LoadModel("res/Object/siren/siren.mv1");
-	MV1SetFrameVisible(_handle, MV1SearchFrame(_handle,"UCX_Keihouki"),FALSE);
+
 }
 
 Siren::~Siren(){}
@@ -28,7 +27,10 @@ bool Siren::Initialize() {
 
 	GetObjectServer()->GetSirens().emplace_back(this);
 
-	_scale = Vector3D(2.0, 2.0, 2.0);
+	_scale = Vector3(2.0, 2.0, 2.0);
+
+	LoadModel("res/Object/siren/siren.mv1");
+	MV1SetFrameVisible(_handle, MV1SearchFrame(_handle, "UCX_Keihouki"), FALSE);
 
 	return true;
 }
@@ -54,13 +56,13 @@ bool Siren::Process() {
 	}
 
 	if (_interval <= 0 &&
-		Vector3D::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(), _pos) < _playerDist * _playerDist &&
+		Vector3::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(), _pos) < _playerDist * _playerDist &&
 		GetObjectServer()->GetGame()->GetPad()->GetTrgButton() & INPUT_B
 		) {
 
 		_interval = 360;
 
-		Vector3D pos = _pos;
+		Vector3 pos = _pos;
 		pos.y = 0.f;
 
 		pos += GetForward() * 50.f;
