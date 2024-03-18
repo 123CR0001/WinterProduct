@@ -37,6 +37,7 @@ LightsOut::LightsOut(ModeGame* game)
 	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * SCREEN_WIDTH_MAG,978.f * SCREEN_HEIGHT_MAG)),100))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
+	,_afterImageCom(nullptr)
 	,_frameCnt(600)
 	,_useTimes(1)
 	,_state(STATE::kNone)
@@ -110,7 +111,7 @@ bool LightsOut::Process() {
 		_hud->SetAlpha(1.f);
 
 		//プレイヤーから残像を出力するようにする
-		NEW CreateAfterImageComponent(_game->GetObjectServer()->GetPlayer()->GetAnimationComponent());
+		_afterImageCom = NEW CreateAfterImageComponent(_game->GetObjectServer()->GetPlayer()->GetAnimationComponent());
 
 		//Zoomイン
 		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
@@ -184,6 +185,10 @@ bool LightsOut::Process() {
 				MV1SetMaterialOutLineWidth(soldier->GetHandle(), a, 0.f);
 			}
 		}
+
+		_afterImageCom->GetOwner()->DeleteComponent(_afterImageCom);
+		_afterImageCom = nullptr;
+
 		_state = STATE::kNone;
 		break;
 	}

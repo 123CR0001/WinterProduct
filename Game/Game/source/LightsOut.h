@@ -21,6 +21,8 @@ private:
 	class UISecMiliSec* _timer;
 	class ModeGame* _game;
 
+	class CreateAfterImageComponent* _afterImageCom;
+
 	int _frameCnt;
 
 	//g—p‚Å‚«‚é‰ñ”
