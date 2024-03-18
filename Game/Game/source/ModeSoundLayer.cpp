@@ -60,22 +60,23 @@ bool ModeSoundLayer::Initialize() {
 	gGlobal._sndServer.Add("SE_28", new SoundItemSE("res/Sound/se/energy_01.wav"));
 
 	gGlobal._sndServer.Add("SE_29", new SoundItemSE("res/Sound/se/owlclear_01.wav"));
+	gGlobal._sndServer.Add("SE_30", new SoundItemSE("res/Sound/se/a_death_01.wav"));
+	gGlobal._sndServer.Add("SE_31", new SoundItemSE("res/Sound/se/a_death_02.wav"));
+	gGlobal._sndServer.Add("SE_32", new SoundItemSE("res/Sound/se/a_death_03.wav"));
+	gGlobal._sndServer.Add("SE_33", new SoundItemSE("res/Sound/se/b_death_01.wav"));
+	gGlobal._sndServer.Add("SE_34", new SoundItemSE("res/Sound/se/b_death_02.wav"));
+	gGlobal._sndServer.Add("SE_35", new SoundItemSE("res/Sound/se/b_death_03.wav"));
+	gGlobal._sndServer.Add("SE_36", new SoundItemSE("res/Sound/se/c_death_01.wav"));
+	gGlobal._sndServer.Add("SE_37", new SoundItemSE("res/Sound/se/c_death_02.wav"));
+	gGlobal._sndServer.Add("SE_38", new SoundItemSE("res/Sound/se/a_impatience_01.wav"));
+	gGlobal._sndServer.Add("SE_39", new SoundItemSE("res/Sound/se/a_impatience_02.wav"));
+	gGlobal._sndServer.Add("SE_40", new SoundItemSE("res/Sound/se/a_impatience_03.wav"));
+	gGlobal._sndServer.Add("SE_41", new SoundItemSE("res/Sound/se/b_impatience_01.wav"));
+	gGlobal._sndServer.Add("SE_42", new SoundItemSE("res/Sound/se/b_impatience_02.wav"));
+	gGlobal._sndServer.Add("SE_43", new SoundItemSE("res/Sound/se/c_impatience_01.wav"));
+	gGlobal._sndServer.Add("SE_44", new SoundItemSE("res/Sound/se/c_impatience_02.wav"));
+	gGlobal._sndServer.Add("SE_45", new SoundItemSE("res/Sound/se/c_reaction_02.wav"));
 
-	//gGlobal._sndServer.Add("VOICE_01", new SoundItemVOICE("res/voice/「あとちょっとだったね」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_02", new SoundItemVOICE("res/voice/「おめでとう」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_03", new SoundItemVOICE("res/voice/「おめでとうございます」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_04", new SoundItemVOICE("res/voice/「がんばりましょう」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_05", new SoundItemVOICE("res/voice/「すごいすごい」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_06", new SoundItemVOICE("res/voice/「もう一息です」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_07", new SoundItemVOICE("res/voice/「よくできました」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_08", new SoundItemVOICE("res/voice/「エクセレント」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_09", new SoundItemVOICE("res/voice/「グッド」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_10", new SoundItemVOICE("res/voice/「マーベラス」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_11", new SoundItemVOICE("res/voice/「不合格です」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_12", new SoundItemVOICE("res/voice/「合格です」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_13", new SoundItemVOICE("res/voice/「残念」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_14", new SoundItemVOICE("res/voice/「残念でした」.mp3"));
-	//gGlobal._sndServer.Add("VOICE_15", new SoundItemVOICE("res/voice/「頑張ったね」.mp3"));
 
 	// 読み込み時間
 	_loadTimeMs = GetNowCount() - timems;
@@ -114,63 +115,10 @@ bool ModeSoundLayer::Process() {
 	return true;
 }
 
-//
-//void ModeSoundLayer::PrintSoundItem(int x, int y, std::string name, SoundItemBase* snd) {
-//	//int isLoad = 0;
-//	//int isPlay = 0;
-//	//int isOnMemory = 0;
-//	//if (snd->IsLoad()) { isLoad = 1; }
-//	//if (snd->IsPlay()) { isPlay = 1; }
-//	//if (snd->GetSoundHandle() != -1) { isOnMemory = 1; }
-//	//char strIsLoaded[][128] = { "(非同期ロード中)", "" };
-//	//char strIsPlay[][128] = { "", "(再生中)" };
-//	//char strIsOnMemory[][128] = { "", "(オンメモリ)" };
-//	//DrawFormatString(32, y, GetColor(255, 255, 255),
-//	//	"%s  : vol=%d, pan=%d, freq=%d,  %s  %s%s%s"
-//	//	, name.c_str()
-//	//	, snd->GetVolume()
-//	//	, snd->GetPan()
-//	//	, snd->GetFrequency()
-//	//	, snd->GetFileName().c_str()
-//	//	, strIsLoaded[isLoad]
-//	//	, strIsPlay[isPlay]
-//	//	, strIsOnMemory[isOnMemory]
-//	//);
-//}
+
 
 bool ModeSoundLayer::Render() {
 	base::Render();
-
-	//int y = 0, size = 16;
-	//DrawFormatString(0, y, GetColor(255, 0, 0), "ロード時間(ms): %d", _loadTimeMs); y += size;
-	//DrawFormatString(0, y, GetColor(255, 0, 0), "非同期読み込み中ファイル数: %d", GetASyncLoadNum()); y += size;
-	//DrawFormatString(0, y, GetColor(255, 0, 0), "非同期ロード時間(ms): %d", _asyncLoadTimeMs); y += size;
-	//DrawFormatString(0, y, GetColor(255, 255, 255), "msg: %s", _msg.c_str()); y += size;
-
-	//// 選択リスト＆カーソル表示
-	//y = 100;
-	//int n = 0;
-	//for (auto&& e : gGlobal._sndServer.GetVector()) {
-	//	if (n >= _listViewStart && n < _listViewStart + _listViewNum) {
-	//		if (n == _listCur) {
-	//			DrawFormatString(8, y, GetColor(255, 255, 255), "→");
-	//		}
-	//		PrintSoundItem(32, y, e.first, e.second);
-	//		y += size;
-	//	}
-	//	n++;
-	//}
-
-	//// OneShotリスト表示
-	//y += size;
-	//DrawFormatString(0, y, GetColor(255, 0, 0), "--- ONESHOT ---", _loadTimeMs); y += size;
-	//for (auto&& e : gGlobal._sndServer.GetVector()) {
-	//	if(e.second->GetType() == SoundItemBase::TYPE::ONESHOT) {
-	//		PrintSoundItem(32, y, e.first, e.second);
-	//		y += size;
-	//	}
-	//}
-
 	return true;
 }
 

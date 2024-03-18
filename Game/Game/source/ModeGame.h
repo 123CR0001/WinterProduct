@@ -64,10 +64,8 @@ protected:
 
 	std::string _stage;
 
-	//デバッグ用
-	class ModeDebugMenu* _debug;
+
 public:
-	class ModeDebugMenu* GetDebugMenu() { return _debug; }
 
 	class ResultData {
 	public:

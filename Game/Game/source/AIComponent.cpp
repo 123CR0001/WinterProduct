@@ -15,8 +15,6 @@ AIComponent::AIComponent(ObjectBase* owner,int order)
 	,_currentState(nullptr)
 	,_chaseObj(nullptr)
 {
-	//デバッグ用
-	_owner->GetObjectServer()->GetGame()->GetDebugMenu()->GetAIs().emplace_back(this);
 
 }
 
@@ -26,15 +24,6 @@ AIComponent::~AIComponent(){
 	}
 
 	_stateMap.clear();
-
-	//デバッグ
-	auto& ais = _owner->GetObjectServer()->GetGame()->GetDebugMenu()->GetAIs();
-
-	auto iter = std::find(ais.begin(), ais.end(), this);
-
-	if (ais.end() != iter) {
-		ais.erase(iter);
-	}
 
 }
 

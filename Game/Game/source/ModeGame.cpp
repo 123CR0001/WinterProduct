@@ -53,7 +53,6 @@
 
 ModeGame::ModeGame(std::string stageNum) 
 	:_objServer(NEW ObjectServer(this))
-	,_debug(NEW ModeDebugMenu(this))
 	,_modeEffekseer(NEW ModeEffekseer())
 	,_stage(stageNum)
 	,_energyCount(0)
@@ -66,14 +65,12 @@ ModeGame::ModeGame(std::string stageNum)
 
 
 	ModeServer::GetInstance()->Add(_modeEffekseer, 100, MODE_EFFEKSEER_NAME);
-	_debug->Initialize();
 
 	_resultData->_stageName = stageNum;
 }
 
 ModeGame::~ModeGame() {
 	delete _objServer;
-	delete _debug;
 	delete _uiServer;
 	delete _lightsOut;
 	delete _timeLine;
@@ -141,7 +138,6 @@ bool ModeGame::Process() {
 	_lightsOut->Process();
 
 	
-	if (_debug->Process()) { return true; }
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
 
@@ -221,7 +217,6 @@ bool ModeGame::Render() {
 	SetUseShadowMap(0, -1);
 
 	_uiServer->Draw();
-	_debug->Render();
 
 	return true;
 }
