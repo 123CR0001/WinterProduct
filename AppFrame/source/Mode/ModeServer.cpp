@@ -268,13 +268,6 @@ int ModeServer::Render() {
 			(*ite)->Render();
 		}
 	}
-	ite = _vMode.begin();
-	int y = 0;
-
-	for (; ite != _vMode.end(); ++ite) {
-
-		DrawFormatString(1000, y, GetColor(0, 0, 255), "%s", (*ite)->_szName.c_str()); y += 20;
-	}
 	_nowMode = NULL;
 	return 0;
 }
