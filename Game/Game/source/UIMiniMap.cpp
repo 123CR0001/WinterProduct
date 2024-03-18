@@ -51,8 +51,8 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 	}
 
 	//画像の描画位置
-	_x = ApplicationMain::GetInstance()->GetInstance()->DispSizeW() - 225;
-	_y = 160;
+	_x = static_cast<int>(1520.f * SCREEN_WIDTH_MAG);
+	_y = static_cast<int>(200.f * SCREEN_HEIGHT_MAG);
 
 	_mag = 0.2f;
 
@@ -66,7 +66,13 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 	_mixScreen = MakeScreen(_w, _h, TRUE);
 
 	//描画するミニマップの円形上の半径
-	_radius = 100.f;
+	_radius = 150.f * SCREEN_WIDTH_MAG;
+
+
+	_identiColor["player"] = GetColor(0, 0, 255);
+	_identiColor["CommonSoldier"] = GetColor(255, 0, 0);
+	_identiColor["Energy"] = GetColor(255, 0, 255);
+	_identiColor["Siren"] = GetColor(255, 255, 0);
 
 }
 
@@ -100,28 +106,14 @@ bool UIMiniMap::Process() {
 	ClearDrawScreen();
 
 	//ベース生地
-	DrawBox(-10, -10, _w + 10, _h + 10, GetColor(0, 10, 0), TRUE);
+	DrawBox(-10, -10, _w + 10, _h + 10, GetColor(0, 0, 0), TRUE);
 	//ミニマップを描画
 	DrawExtendGraph(0, 0, _w, _h, _mapTextHandle, TRUE);
 
-
-	//ミニマップの上にキャラの位置を描画
-	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, 3.f, 40, GetColor(255, 0, 0), TRUE);
-
-	SetFontSize(12);
 	for(auto&& obj : _game->GetObjectServer()->GetObjects()) {
-		if(obj == player) { continue; }
-
-		bool is = false;
-
-		for(auto&& frame : _game->GetObjectServer()->GetPhysWorld()->GetFrameComponent()) {
-			if(frame->GetOwner() == obj) {
-				is = true;
-				break;
-			}
-		}
-
-		if(is) { continue; }
+		
+		//登録されていなかったら、描画しない
+		if(_identiColor.find(obj->GetName()) == _identiColor.end()) { continue; }
 
 		auto pos = obj->GetPos();
 
@@ -131,21 +123,8 @@ bool UIMiniMap::Process() {
 
 		auto mapPos = Vector3((float)_w / 2, 0.f, (float)_h / 2) + vecMapObjMiddle;
 
-		DrawCircleAA(mapPos.x, mapPos.z, 3.f, 40, GetColor(255, 0, 0), TRUE);
+		DrawCircleAA(mapPos.x, mapPos.z, 3.f, 32, _identiColor[obj->GetName()], TRUE);
 
-		std::string name = obj->GetName();
-		int size = name.size();
-		int centerX = 0;
-		int centerY = 0;
-
-		DrawRotaFormatString(mapPos.x - centerX, mapPos.z - centerY,
-			1.0, 1.0,
-			centerX, centerY,
-			player->GetCamera()->GetAngle().y + PI,
-			GetColor(255, 255, 255), GetColor(255, 255, 255),
-			FALSE,
-			"%s", name.c_str()
-		);
 	}
 
 	/*地図と合成*/

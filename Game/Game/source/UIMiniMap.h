@@ -52,7 +52,9 @@ private:
 	//ミニマップ上のプレイヤーの座標　この値を基準に描画位置を揃える
 	Vector3 _mapPlayerPos;
 
-
-
+	//ミニマップの拡大率
 	float _zoom;
+
+	//ミニマップ上に描画する円の色
+	std::unordered_map<std::string, int>_identiColor;
 };
