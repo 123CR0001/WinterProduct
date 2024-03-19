@@ -186,8 +186,10 @@ bool LightsOut::Process() {
 			}
 		}
 
-		_afterImageCom->GetOwner()->DeleteComponent(_afterImageCom);
-		_afterImageCom = nullptr;
+		if(_afterImageCom) {
+			_afterImageCom->GetOwner()->DeleteComponent(_afterImageCom);
+			_afterImageCom = nullptr;
+		}
 
 		_state = STATE::kNone;
 		break;

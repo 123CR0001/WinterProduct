@@ -267,6 +267,7 @@ void ModeGame::SwitchOverOrClear() {
 			_timeLine->AddLine(180, timeLineFunc); 
 		}
 	}
+	_lightsOut->Stop();
 }
 
 void ModeGame::DecrementEnemyCount() {
