@@ -37,25 +37,25 @@ void XGamePad::Input() {
 		if (a == 10 || a == 11) { continue; }
 
 		if(a == XINPUT_BUTTON_DPAD_UP ) {
-			if(_input.Buttons[a] == 0 && _input.ThumbLY > 30000) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLY > STICK_DEPTH) {
 				_input.Buttons[a] = 1;
 			}
 		}
 
 		if(a == XINPUT_BUTTON_DPAD_DOWN) {
-			if(_input.Buttons[a] == 0 && _input.ThumbLY < -30000) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLY < -STICK_DEPTH) {
 				_input.Buttons[a] = 1;
 			}
 		}
 
 		if(a == XINPUT_BUTTON_DPAD_LEFT) {
-			if(_input.Buttons[a] == 0 && _input.ThumbLX < -30000) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLX < -STICK_DEPTH) {
 				_input.Buttons[a] = 1;
 			}
 		}
 
 		if(a == XINPUT_BUTTON_DPAD_RIGHT) {
-			if(_input.Buttons[a] == 0 && _input.ThumbLX > 30000) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLX > STICK_DEPTH) {
 				_input.Buttons[a] = 1;
 			}
 		}

@@ -38,6 +38,7 @@
 
 #include"CameraZoomComponent.h"
 #include"CameraComponent.h"
+#include"MotionComponent.h"
 
 #include"TimeLine.h"
 

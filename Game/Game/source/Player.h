@@ -18,6 +18,7 @@ public:
 
 	class CapsuleComponent* GetCapsuleComponent() { return _capsule; }
 	class AnimationComponent* GetAnimationComponent()const { return _anim; }
+	class MotionComponent* GetMotionComponent()const { return _motCom; }
 
 	enum class ACTION_STATE :unsigned int{
 		kNone,

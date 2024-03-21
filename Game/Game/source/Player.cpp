@@ -37,7 +37,8 @@
 Player::Player(ObjectServer* server)
 	:CharaBase(server,"player")
 	,_cameraCom(NEW FollowCamera(this,999))
-	,_anim(NEW PlayerAnimationComponent(this,1000))
+	,_motCom(NEW MotionComponent(_anim, 1000))
+	,_anim(NEW PlayerAnimationComponent(this,10000))
 	,_weapon (NEW Knife(this))
 	,_actionState(ACTION_STATE::kIdle)
 	,_capsule(NEW CapsuleComponent(this,1000))
@@ -48,7 +49,6 @@ Player::Player(ObjectServer* server)
 {
 	server->SetPlayer(this);
 
-	_motCom = NEW MotionComponent(_anim,10001);
 
 	//このクラス特有のモーションデータのコマンド処理
 	auto func = [this](const MOTION_DATA_ITEM& item) {_weapon->OnAttack(); _motCom->IncrementMotionCount(); };

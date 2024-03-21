@@ -41,6 +41,9 @@
 
 #include"Gun.h"
 
+constexpr float UP_PERCENT = 0.01f;
+constexpr float DOWN_PERCENT = 0.01f;
+
 CommonSoldier::CommonSoldier(ObjectServer* server) 
 	:CharaBase(server,"CommonSoldier")
 	, _AI(NEW AIComponent(this, 11))
@@ -52,6 +55,16 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 {
 	NEW CountKillComboComponent(this);
 
+	auto motion = NEW MotionComponent(_anim, 10000);
+
+	{
+		auto func = [=](const MOTION_DATA_ITEM&) {
+			_gun->OnAttack();
+			motion->IncrementMotionCount();
+			};
+
+		motion->RegisterCustomCommand("ATTACK_ON", func);
+	}
 	//AStateの登録
 	_AI->RegisterState(NEW AIBackPatrol(_AI));
 	_AI->RegisterState(NEW AIPatrol(_AI));
@@ -69,17 +82,6 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	server->GetEnemys().emplace_back(this);
 
 	_capsule->AddSkipName("CommonSoldier");
-
-	auto motion = NEW MotionComponent(_anim, 10000);
-
-	{
-		auto func = [=](const MOTION_DATA_ITEM&) {
-			_gun->OnAttack();
-			motion->IncrementMotionCount();
-		};
-
-		motion->RegisterCustomCommand("ATTACK_ON", func);
-	}
 
 	server->GetGame()->IncrementEnemyCount();
 
@@ -156,10 +158,10 @@ bool CommonSoldier::Process() {
 		per = -(per - 1);
 
 		//検知度の上昇
-		_detectionLevel += 1.f * 0.01;
+		_detectionLevel += 1.f * UP_PERCENT;
 	}
 	else {
-		_detectionLevel -= 0.01f;
+		_detectionLevel -= DOWN_PERCENT;
 	}
 
 	//検知度が100%になった

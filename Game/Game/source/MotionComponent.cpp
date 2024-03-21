@@ -131,6 +131,10 @@ bool MotionComponent::Process() {
 		_motCnt = 0;
 	}
 
+	if(_motCnt == 61) {
+		int a = 0;
+	}
+
 	//モーションデータで指定された再生時間と一緒か
 	if (playTime == motionData[objectName][animName][_motCnt].playTime) {
 
