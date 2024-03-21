@@ -64,6 +64,7 @@ private:
 
 struct STAGE_DATA_ITEM {
 	int decoyTimes = 0;
+	std::string nextStageName;
 };
 
 class StageDataJson :public Json {
@@ -82,7 +83,8 @@ public:
 
 		for (auto& data : _jsonData) {
 			STAGE_DATA_ITEM item = {
-				data.at("DecoyTimes")
+				data.at("DecoyTimes"),
+				data.at("NextStageName")
 			};
 
 			_stageDataItem = item;

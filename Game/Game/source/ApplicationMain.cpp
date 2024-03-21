@@ -45,3 +45,12 @@ bool ApplicationMain::Render() {
 	return true;
 }
 
+bool ApplicationMain::ApplicationMain::BeforeDXLib_Init() {
+	// 3DSound: XAudioを使用
+	SetEnableXAudioFlag(TRUE);			// 有効にするとパンやリバーブが有効になる
+
+	// 3DSound:１メートルに相当する値を設定する
+	Set3DSoundOneMetre(100.f);
+
+	return true;
+}

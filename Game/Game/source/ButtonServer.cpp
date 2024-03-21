@@ -11,7 +11,6 @@ ButtonServer::ButtonServer()
 	,_oldSelectNum(0)
 	,_selectUI(NEW SpriteText())
 	,_step(STEP::kAnimation)
-	,_isProcess(false)
 {
 }
 
@@ -29,7 +28,6 @@ ButtonServer::~ButtonServer(){
 
 bool ButtonServer::Process() {
 
-	_isProcess = true;
 
 	if (!_addButtons.empty()) {
 		for (auto&& button : _addButtons) {
@@ -123,7 +121,6 @@ bool ButtonServer::Process() {
 	_selectUI->SetTransform(_buttons[_selectNum]->GetSpriteText()->GetTransform());
 	_selectUI->SetSize(_buttons[_selectNum]->GetSpriteText()->GetSize());
 
-	_isProcess = false;
 	return true;
 }
 
@@ -144,11 +141,6 @@ void ButtonServer::AddButton(Button* button) {
 
 	if (iter != _addButtons.end())return;
 
-	if (!_isProcess) {
-		_buttons.emplace_back(button);
-		return;
-	}
-
 	_addButtons.emplace_back(button);
 }
 
@@ -157,11 +149,6 @@ void ButtonServer::DeleteButton(Button* button) {
 	auto iter = std::find(_buttons.begin(), _buttons.end(), button);
 
 	if(iter == _buttons.end()) {
-		return;
-	}
-
-	if (!_isProcess) {
-		_buttons.erase(iter);
 		return;
 	}
 

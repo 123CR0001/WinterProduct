@@ -13,7 +13,8 @@ public:
 		VOICE,		// ストリーミング。１回のみ再生
 		ONESHOT,	// ストリーミング。１回のみ再生。即時再生し、停止したらサーバから削除
 	};
-	SoundItemBase(std::string filename);
+	static const int FLG_3D = 0x0001;		// 3Dサウンドとして読み込む
+	SoundItemBase(std::string filename, int flg);
 	virtual ~SoundItemBase();
 	void SetSoundServer(SoundServer* sndServer) { _sndServer = sndServer; }
 
@@ -39,9 +40,11 @@ public:
 
 protected:
 	virtual void	PlayMem(int flg);
+	virtual int		LoadMem(std::string filename);
 
 	int		_snd;
 	std::string	_filename;
+	int		_flg;
 	int		_volume;
 	int		_pan;
 	int		_frequency;
@@ -52,9 +55,9 @@ class SoundItemStatic : public SoundItemBase
 {
 	typedef	SoundItemBase	base;
 public:
-	SoundItemStatic(std::string filename) : base(filename) {
+	SoundItemStatic(std::string filename, int flg) : base(filename, flg) {
 		SetCreateSoundDataType(DX_SOUNDDATATYPE_MEMNOPRESS);
-		_snd = LoadSoundMem(_filename.c_str());
+		_snd = LoadMem(_filename);
 		if (_frequency == 0) {
 			_frequency = GetFrequencySoundMem(_snd);
 		}
@@ -66,7 +69,7 @@ class SoundItemSE : public SoundItemStatic
 {
 	typedef	SoundItemStatic	base;
 public:
-	SoundItemSE(std::string filename) : base(filename) {
+	SoundItemSE(std::string filename, int flg = 0) : base(filename, flg) {
 	}
 	virtual TYPE	GetType() { return TYPE::SE; }
 	virtual void	Play() {
@@ -81,7 +84,7 @@ class SoundItemStream : public SoundItemBase
 {
 	typedef	SoundItemBase	base;
 public:
-	SoundItemStream(std::string filename) : base(filename) {
+	SoundItemStream(std::string filename, int flg) : base(filename, flg) {
 	}
 	virtual ~SoundItemStream() {}
 	virtual bool	IsLoad() { return true; }	// ストリーム再生のものは、ロードされているものとする
@@ -89,7 +92,7 @@ protected:
 	void	StreamLoad() {
 		if (_snd == -1) {
 			SetCreateSoundDataType(DX_SOUNDDATATYPE_FILE);
-			_snd = LoadSoundMem(_filename.c_str());
+			_snd = LoadMem(_filename);
 			if (_frequency == 0) {
 				_frequency = GetFrequencySoundMem(_snd);
 			}
@@ -108,7 +111,7 @@ class SoundItemBGM : public SoundItemStream
 {
 	typedef	SoundItemStream	base;
 public:
-	SoundItemBGM(std::string filename) : base(filename) {
+	SoundItemBGM(std::string filename, int flg = 0) : base(filename, flg) {
 	}
 	virtual TYPE	GetType() { return TYPE::BGM; }
 	virtual void	Play();
@@ -118,7 +121,7 @@ class SoundItemVOICE : public SoundItemStream
 {
 	typedef	SoundItemStream	base;
 public:
-	SoundItemVOICE(std::string filename) : base(filename) {
+	SoundItemVOICE(std::string filename, int flg = 0) : base(filename, flg) {
 	}
 	virtual TYPE	GetType() { return TYPE::VOICE; }
 	virtual void	Play() {
@@ -133,7 +136,7 @@ class SoundItemOneShot : public SoundItemStream
 {
 	typedef	SoundItemStream	base;
 public:
-	SoundItemOneShot(std::string filename) : base(filename) {
+	SoundItemOneShot(std::string filename, int flg = 0) : base(filename, flg) {
 	}
 	virtual TYPE	GetType() { return TYPE::ONESHOT; }
 	virtual void	Play() {

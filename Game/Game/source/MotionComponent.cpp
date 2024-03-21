@@ -52,6 +52,13 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 
 		gGlobal._sndServer.Play(names[rand() % names.size()]);
 
+		auto snd = gGlobal._sndServer.Get(names[rand() % names.size()]);
+
+		if (snd) {
+			Set3DRadiusSoundMem(300.f, snd->GetSoundHandle());					// •·‚±‚¦‚é‹——£
+			Set3DPositionSoundMem(_owner->GetDxPos(), snd->GetSoundHandle());	// Ä¶ˆÊ’u‚ğƒLƒƒƒ‰ˆÊ’u‚É
+		}
+
 		_motCnt++;
 	};
 

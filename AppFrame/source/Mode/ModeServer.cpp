@@ -268,6 +268,18 @@ int ModeServer::Render() {
 			(*ite)->Render();
 		}
 	}
+
+	ite = _vMode.begin();
+	int dy = 0;
+	for (; ite != _vMode.end(); ++ite) {
+		if (_skipRenderMode && _skipRenderMode != (*ite)) { continue; }
+		_skipRenderMode = NULL;
+
+		DrawFormatString(500, dy, GetColor(255, 0, 0), "%s", (*ite)->_szName.c_str());
+
+		dy += 25;
+	}
+
 	_nowMode = NULL;
 	return 0;
 }

@@ -1,8 +1,9 @@
 #include "SoundItem.h"
 #include "SoundServer.h"
 
-SoundItemBase::SoundItemBase(std::string filename) {
+SoundItemBase::SoundItemBase(std::string filename, int flg) {
 	_filename = filename;
+	_flg = flg;
 	_snd = -1;
 	_volume = 160;
 	_pan = 0;
@@ -77,6 +78,15 @@ void	SoundItemBase::PlayMem(int flg) {
 	SetPan(_pan);
 	SetFrequency(_frequency);
 	PlaySoundMem(_snd, flg, TRUE);
+}
+
+int		SoundItemBase::LoadMem(std::string filename) {
+	if (_flg & FLG_3D) {
+		SetCreate3DSoundFlag(TRUE);
+	}
+	int snd = LoadSoundMem(filename.c_str());
+	SetCreate3DSoundFlag(FALSE);
+	return snd;
 }
 
 

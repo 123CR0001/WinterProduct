@@ -31,7 +31,7 @@ bool ModeSoundLayer::Initialize() {
 	gGlobal._sndServer.Add("SE_03", new SoundItemSE("res/Sound/se/knifehit_01.wav"));
 	gGlobal._sndServer.Add("SE_04", new SoundItemSE("res/Sound/se/falldown_01.wav"));
 	gGlobal._sndServer.Add("SE_05", new SoundItemSE("res/Sound/se/detectionrise_01.wav"));
-	gGlobal._sndServer.Add("SE_06", new SoundItemSE("res/Sound/se/gunshot_01.wav"));
+	gGlobal._sndServer.Add("SE_06", new SoundItemSE("res/Sound/se/gunshot_01.wav", SoundItemBase::FLG_3D));
 	gGlobal._sndServer.Add("SE_07", new SoundItemSE("res/Sound/se/siren_01.wav"));
 	gGlobal._sndServer.Add("SE_08", new SoundItemSE("res/Sound/se/decoy_01.wav"));
 	gGlobal._sndServer.Add("SE_09", new SoundItemSE("res/Sound/se/lightsoutstart_01.wav"));
@@ -42,45 +42,45 @@ bool ModeSoundLayer::Initialize() {
 	gGlobal._sndServer.Add("SE_14", new SoundItemSE("res/Sound/se/pause_01.wav"));
 	gGlobal._sndServer.Add("SE_15", new SoundItemSE("res/Sound/se/timer_01.wav"));
 
-	gGlobal._sndServer.Add("SE_16", new SoundItemSE("res/Sound/se/a_reaction_01.wav"));
-	gGlobal._sndServer.Add("SE_17", new SoundItemSE("res/Sound/se/a_reaction_02.wav"));
-	gGlobal._sndServer.Add("SE_18", new SoundItemSE("res/Sound/se/b_reaction_01.wav"));
-	gGlobal._sndServer.Add("SE_19", new SoundItemSE("res/Sound/se/b_reaction_02.wav"));
-	gGlobal._sndServer.Add("SE_20", new SoundItemSE("res/Sound/se/c_reaction_01.wav"));
+	gGlobal._sndServer.Add("SE_16", new SoundItemSE("res/Sound/se/a_reaction_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_17", new SoundItemSE("res/Sound/se/a_reaction_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_18", new SoundItemSE("res/Sound/se/b_reaction_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_19", new SoundItemSE("res/Sound/se/b_reaction_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_20", new SoundItemSE("res/Sound/se/c_reaction_01.wav",SoundItemBase::FLG_3D));
 
-	gGlobal._sndServer.Add("SE_21", new SoundItemSE("res/Sound/se/a_miss_01.wav"));
-	gGlobal._sndServer.Add("SE_22", new SoundItemSE("res/Sound/se/a_miss_02.wav"));
-	gGlobal._sndServer.Add("SE_23", new SoundItemSE("res/Sound/se/b_miss_01.wav"));
-	gGlobal._sndServer.Add("SE_24", new SoundItemSE("res/Sound/se/b_miss_02.wav"));
-	gGlobal._sndServer.Add("SE_25", new SoundItemSE("res/Sound/se/c_miss_01.wav"));
+	gGlobal._sndServer.Add("SE_21", new SoundItemSE("res/Sound/se/a_miss_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_22", new SoundItemSE("res/Sound/se/a_miss_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_23", new SoundItemSE("res/Sound/se/b_miss_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_24", new SoundItemSE("res/Sound/se/b_miss_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_25", new SoundItemSE("res/Sound/se/c_miss_01.wav",SoundItemBase::FLG_3D));
 
-	gGlobal._sndServer.Add("SE_26", new SoundItemSE("res/Sound/se/enemyfootstep_01.wav"));
+	gGlobal._sndServer.Add("SE_26", new SoundItemSE("res/Sound/se/enemyfootstep_01.wav", SoundItemBase::FLG_3D));
 	gGlobal._sndServer.Add("SE_27", new SoundItemSE("res/Sound/se/owldeath_01.wav"));
 
 	gGlobal._sndServer.Add("SE_28", new SoundItemSE("res/Sound/se/energy_01.wav"));
 
-	gGlobal._sndServer.Add("SE_29", new SoundItemSE("res/Sound/se/owlclear_01.wav"));
-	gGlobal._sndServer.Add("SE_30", new SoundItemSE("res/Sound/se/a_death_01.wav"));
-	gGlobal._sndServer.Add("SE_31", new SoundItemSE("res/Sound/se/a_death_02.wav"));
-	gGlobal._sndServer.Add("SE_32", new SoundItemSE("res/Sound/se/a_death_03.wav"));
-	gGlobal._sndServer.Add("SE_33", new SoundItemSE("res/Sound/se/b_death_01.wav"));
-	gGlobal._sndServer.Add("SE_34", new SoundItemSE("res/Sound/se/b_death_02.wav"));
-	gGlobal._sndServer.Add("SE_35", new SoundItemSE("res/Sound/se/b_death_03.wav"));
-	gGlobal._sndServer.Add("SE_36", new SoundItemSE("res/Sound/se/c_death_01.wav"));
-	gGlobal._sndServer.Add("SE_37", new SoundItemSE("res/Sound/se/c_death_02.wav"));
-	gGlobal._sndServer.Add("SE_38", new SoundItemSE("res/Sound/se/a_impatience_01.wav"));
-	gGlobal._sndServer.Add("SE_39", new SoundItemSE("res/Sound/se/a_impatience_02.wav"));
-	gGlobal._sndServer.Add("SE_40", new SoundItemSE("res/Sound/se/a_impatience_03.wav"));
-	gGlobal._sndServer.Add("SE_41", new SoundItemSE("res/Sound/se/b_impatience_01.wav"));
-	gGlobal._sndServer.Add("SE_42", new SoundItemSE("res/Sound/se/b_impatience_02.wav"));
-	gGlobal._sndServer.Add("SE_43", new SoundItemSE("res/Sound/se/c_impatience_01.wav"));
-	gGlobal._sndServer.Add("SE_44", new SoundItemSE("res/Sound/se/c_impatience_02.wav"));
-	gGlobal._sndServer.Add("SE_45", new SoundItemSE("res/Sound/se/c_reaction_02.wav"));
+	gGlobal._sndServer.Add("SE_29", new SoundItemSE("res/Sound/se/owlclear_01.wav", SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_30", new SoundItemSE("res/Sound/se/a_death_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_31", new SoundItemSE("res/Sound/se/a_death_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_32", new SoundItemSE("res/Sound/se/a_death_03.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_33", new SoundItemSE("res/Sound/se/b_death_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_34", new SoundItemSE("res/Sound/se/b_death_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_35", new SoundItemSE("res/Sound/se/b_death_03.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_36", new SoundItemSE("res/Sound/se/c_death_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_37", new SoundItemSE("res/Sound/se/c_death_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_38", new SoundItemSE("res/Sound/se/a_impatience_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_39", new SoundItemSE("res/Sound/se/a_impatience_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_40", new SoundItemSE("res/Sound/se/a_impatience_03.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_41", new SoundItemSE("res/Sound/se/b_impatience_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_42", new SoundItemSE("res/Sound/se/b_impatience_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_43", new SoundItemSE("res/Sound/se/c_impatience_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_44", new SoundItemSE("res/Sound/se/c_impatience_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_45", new SoundItemSE("res/Sound/se/c_reaction_02.wav", SoundItemBase::FLG_3D));
 
-	gGlobal._sndServer.Add("SE_46", new SoundItemSE("res/Sound/se/a_discovery_01.wav"));
-	gGlobal._sndServer.Add("SE_47", new SoundItemSE("res/Sound/se/a_discovery_02.wav"));
-	gGlobal._sndServer.Add("SE_48", new SoundItemSE("res/Sound/se/b_discovery_01.wav"));
-	gGlobal._sndServer.Add("SE_49", new SoundItemSE("res/Sound/se/c_discovery_01.wav"));
+	gGlobal._sndServer.Add("SE_46", new SoundItemSE("res/Sound/se/a_discovery_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_47", new SoundItemSE("res/Sound/se/a_discovery_02.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_48", new SoundItemSE("res/Sound/se/b_discovery_01.wav",SoundItemBase::FLG_3D));
+	gGlobal._sndServer.Add("SE_49", new SoundItemSE("res/Sound/se/c_discovery_01.wav",SoundItemBase::FLG_3D));
 
 
 	// ì«Ç›çûÇ›éûä‘

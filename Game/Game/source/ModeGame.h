@@ -79,6 +79,7 @@ public:
 		float clearSecondTime;
 		float maxDetectionLevel;
 		std::string _stageName;
+		std::string _nextStageName;
 
 		const char* GetRank() {
 			int point = 0;

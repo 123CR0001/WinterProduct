@@ -165,6 +165,7 @@ bool ObjectServer::LoadData(std::string stageName) {
 		StageDataJson data(strPath + "StageData.json");
 		if (data.IsSuccess()) {
 			item = data.GetStageData();
+			_game->GetResultData()->_nextStageName = item.nextStageName;
 		}
 	}
 

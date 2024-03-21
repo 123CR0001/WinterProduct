@@ -20,6 +20,8 @@ class ApplicationMain : public ApplicationBase
 {
 	typedef ApplicationBase base;
 public:
+	virtual bool BeforeDXLib_Init();
+
 	virtual bool Initialize(HINSTANCE hInstance);
 	virtual bool Terminate();
 	virtual bool Input();

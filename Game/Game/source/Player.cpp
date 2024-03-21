@@ -201,6 +201,11 @@ bool Player::Process() {
 		if (trg & INPUT_A) {
 			_actionState = ACTION_STATE::kIdle;
 		}
+
+		//ライツアウトになったら、状態を戻す
+		if (_isLightsOut) {
+			_actionState = ACTION_STATE::kIdle;
+		}
 		break;
 	}
 
@@ -246,6 +251,8 @@ bool Player::Process() {
 
 	//UIの更新
 	_decoyTimesText->SetNumber(_decoyTimes);
+
+	Set3DSoundListenerPosAndFrontPos_UpVecY(GetDxPos(), DxConverter::VecToDx(_eulerAngle));
 
 	return true;
 }

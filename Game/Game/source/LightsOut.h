@@ -28,6 +28,9 @@ private:
 	//使用できる回数
 	int _useTimes;
 
+	//ライツアウトが使用可能になった時だけしたい処理があるため
+	int _oldEnergyCount;
+
 	enum class STATE {
 		kNone,
 		kStart,

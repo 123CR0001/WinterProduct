@@ -10,7 +10,7 @@ Button::Button(ButtonServer* server, std::function<void()> selectFunc,SpriteText
 }
 
 Button::~Button(){
-	delete _text;
+	if(_text)delete _text;
 }
 
 
@@ -19,6 +19,6 @@ bool Button::Process() {
 }
 
 bool Button::Draw() {
-	_text->Draw();
+	if (_text)_text->Draw();
 	return true;
 }

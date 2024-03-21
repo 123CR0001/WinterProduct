@@ -21,7 +21,7 @@ int UIGameStart::Selected() {
 		ModeServer::GetInstance()->Del(title);
 
 		//ƒQ[ƒ€‚Ì’Ç‰Á
-		ModeServer::GetInstance()->Add(NEW ModeSelect(), 10, "select");
+		ModeServer::GetInstance()->Add(NEW ModeStageSelect(), 10, "select");
 	};
 
 	// Ÿ‚Ìƒ‚[ƒh‚ğ“o˜^

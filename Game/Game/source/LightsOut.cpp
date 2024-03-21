@@ -41,6 +41,7 @@ LightsOut::LightsOut(ModeGame* game)
 	,_frameCnt(600)
 	,_useTimes(1)
 	,_state(STATE::kNone)
+	,_oldEnergyCount(0)
 {
 
 	int screenWidth = ApplicationMain::GetInstance()->DispSizeW();
@@ -160,6 +161,15 @@ bool LightsOut::Process() {
 		//フェードインアウトを利用した演出
 		ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");
 
+		{
+			SpriteTextFlipAnimation* text = NEW SpriteTextFlipAnimation(10, true);
+			text->LoadDivText("res/UI/GameOver/ui_sirenfilter_01.png", 6, 1, 6, 1920, 1080);
+			text->SetSize(Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+			text->SetPos(Vector2(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f));
+			_game->GetUIServer()->AddUI(NEW UISpriteText(text));
+			gGlobal._sndServer.Play("SE_07");
+		}
+
 		if (_useTimes == 0) {
 			//120フレーム後にゲームオーバーかゲームクリアを決める
 			auto func = [this]() {
@@ -197,11 +207,13 @@ bool LightsOut::Process() {
 	
 	}
 
-	if(_useTimes > 0 && _game->GetEnergyCount() == 0) {
+	if(_useTimes > 0 && _game->GetEnergyCount() == 0 && _oldEnergyCount != _game->GetEnergyCount()) {
 		_timerEffect->SetAlpha(1.f);
+		gGlobal._sndServer.Play("SE_09");
 	}
 	else {
 		_timerEffect->SetAlpha(0.f);
+		_oldEnergyCount = _game->GetEnergyCount();
 	}
 
 	return true;

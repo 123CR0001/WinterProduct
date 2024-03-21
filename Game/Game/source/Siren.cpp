@@ -69,8 +69,16 @@ bool Siren::Process() {
 	
 		new SoundComponent(this, pos, _volumeSize);
 
-		gGlobal._sndServer.Get(_SEName)->Play();
-		
+		auto snd = gGlobal._sndServer.Get(_SEName);
+		if(snd) {
+			if(!snd->IsPlay()) {
+				snd->Play();
+			}
+		}
+
 	}
+
+
+
 	return true;
 }

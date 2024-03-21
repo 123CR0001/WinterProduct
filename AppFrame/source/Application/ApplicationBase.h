@@ -31,6 +31,8 @@ public:
 	ApplicationBase();
 	virtual ~ApplicationBase();
 
+	virtual bool BeforeDXLib_Init() { return true; }	// DXLib_Init() 実行前に行いたい処理があればオーバーライド
+
 	virtual bool Initialize(HINSTANCE hInstance);
 	virtual bool Terminate();
 	virtual bool Input();

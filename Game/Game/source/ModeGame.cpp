@@ -48,6 +48,7 @@
 #include"UIVision.h"
 #include"UIMiniMap.h"
 #include"SpriteNumber.h"
+#include"SpriteTextFlipAnimation.h"
 #include"UISpriteText.h"
 #include"SoundItem.h"
 
@@ -252,7 +253,9 @@ void ModeGame::SwitchOverOrClear() {
 		{
 			_objServer->GetPlayer()->ChangeState("Dead");
 		}
+
 		{
+
 			auto timeLineFunc = [=]()mutable {
 				auto func = [this]() {
 					ModeServer::GetInstance()->Del(ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME));
@@ -267,7 +270,6 @@ void ModeGame::SwitchOverOrClear() {
 			_timeLine->AddLine(180, timeLineFunc); 
 		}
 	}
-	_lightsOut->Stop();
 }
 
 void ModeGame::DecrementEnemyCount() {

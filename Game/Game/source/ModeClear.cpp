@@ -13,7 +13,7 @@
 
 #include"ModeColorIn.h"
 #include"ModeColorOut.h"
-#include"ModeSelect.h"
+#include"ModeStageSelect.h"
 
 #include"ButtonServer.h"
 #include"Button.h"
@@ -178,6 +178,7 @@ void ModeClear::SetButton() {
 		targetUI->AddAnimation(NEW OpacityAnimation(targetUI, -120, 0.6f));
 	}
 
+	//ステージセレクト
 	{
 		SpriteText* button = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_stageselection_01.png"),
@@ -195,7 +196,7 @@ void ModeClear::SetButton() {
 						// モードの削除
 						ModeServer::GetInstance()->Del(this);
 						// 次のモードを登録
-						ModeServer::GetInstance()->Add(NEW ModeSelect(), 100, "select");
+						ModeServer::GetInstance()->Add(NEW ModeStageSelect(), 100, "select");
 						};
 					// 次のモードを登録
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
@@ -228,6 +229,38 @@ void ModeClear::SetButton() {
 						ModeServer::GetInstance()->Del(this);
 						// 次のモードを登録
 						ModeServer::GetInstance()->Add(NEW ModeGame(_resultData->_stageName), 1, "game");
+					};
+					// 次のモードを登録
+					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
+					ModeServer::GetInstance()->Add(mode, 100, "Out");
+
+					_buttonServer->SetStep(ButtonServer::STEP::kConclude);
+				},
+				titleButton
+					)
+		);
+	}
+	if (_resultData->_nextStageName.size() > 0)
+	{
+		//画像の設定
+		SpriteText* titleButton = NEW SpriteText(
+			ResourceServer::LoadGraph("res/UI/Result/ui_nextstage_01.png"),
+			Transform2(Vector2(Vector2(3000.f * SCREEN_WIDTH_MAG, 1000.f * SCREEN_HEIGHT_MAG))),
+			Vector2(384.f * SCREEN_WIDTH_MAG, 64.f * SCREEN_HEIGHT_MAG)
+		);
+		//アニメーションの設定
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 1000.f * SCREEN_HEIGHT_MAG))));
+
+		_buttonServer->AddButton(
+			NEW Button(
+				_buttonServer,
+
+				[this]() {
+					auto func = [this]() {
+						// モードの削除
+						ModeServer::GetInstance()->Del(this);
+						// 次のモードを登録
+						ModeServer::GetInstance()->Add(NEW ModeGame(_resultData->_nextStageName), 1, "game");
 					};
 					// 次のモードを登録
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);

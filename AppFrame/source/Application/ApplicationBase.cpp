@@ -22,6 +22,15 @@ bool ApplicationBase::Initialize(HINSTANCE hInstance) {
 	}
 	SetGraphMode(DispSizeW(), DispSizeH(), 32);
 
+	// DirectX11を使用するようにする。(DirectX9も可、一部機能不可)
+	// Effekseerを使用するには必ず設定する。
+	SetUseDirect3DVersion(DX_DIRECT3D_11);
+
+	// アプリ側でDXLib_Init()前にやりたい処理を呼ぶ
+	if(!BeforeDXLib_Init()) {
+		return false;
+	}
+
 	if (DxLib_Init() == -1)
 	{	// エラーが起きたら直ちに終了
 		return false;

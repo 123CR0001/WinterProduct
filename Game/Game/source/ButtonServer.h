@@ -35,7 +35,6 @@ private:
 	//ボタンから離れた時の処理とボタンに触れた時の処理をするかの比較用変数
 	int _oldSelectNum;
 
-	bool _isProcess;
 	std::vector<class Button*>_buttons;
 	std::vector<class Button*>_addButtons;
 	std::vector<class Button*>_deleteButtons;
