@@ -32,8 +32,8 @@
 namespace {
 	constexpr unsigned short INPUT_DPAD_UP =			0b0000000000000001;		 //1			
 	constexpr unsigned short INPUT_DPAD_DOWN =			0b0000000000000010;		 //2		
-	constexpr unsigned short INPUT__DPAD_LEFT =			0b0000000000000100;		 //4		
-	constexpr unsigned short INPUT__DPAD_RIGHT =		0b0000000000001000;		 //8
+	constexpr unsigned short INPUT_DPAD_LEFT =			0b0000000000000100;		 //4		
+	constexpr unsigned short INPUT_DPAD_RIGHT =			0b0000000000001000;		 //8
 	constexpr unsigned short INPUT_START =				0b0000000000010000;		 //16
 	constexpr unsigned short INPUT_BACK =				0b0000000000100000;		 //32
 	constexpr unsigned short INPUT_LEFT_THUMB =			0b0000000001000000;		 //64

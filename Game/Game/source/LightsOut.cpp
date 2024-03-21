@@ -156,7 +156,6 @@ bool LightsOut::Process() {
 		//アニメーションを逆再生させる
 		_timerBg->Reverse();
 		_timer->SetIsDraw(false);
-	
 
 		//フェードインアウトを利用した演出
 		ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");

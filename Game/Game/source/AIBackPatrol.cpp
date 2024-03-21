@@ -76,6 +76,15 @@ bool AIBackPatrol::Process() {
 		}
 	}
 
+	//‰¹‚ª•·‚±‚¦‚½‚©
+	{
+		Vector3 p;
+		if(_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
+			_owner->AddPoint("MoveTo", p);
+			_owner->ChangeState("Discovery");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
+		}
+	}
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
 	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");

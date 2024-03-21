@@ -58,8 +58,8 @@ bool ModePauseConfirm::Process()
 	_ui->Process();
 
 	// 上下でカーソルを移動する
-	if (trg & INPUT__DPAD_LEFT) { _select--; }
-	if (trg & INPUT__DPAD_RIGHT) { _select++; }
+	if (trg & INPUT_DPAD_LEFT) { _select--; }
+	if (trg & INPUT_DPAD_RIGHT) { _select++; }
 
 	// カーソル位置を上下ループ
 	_select = (_select + MAX_OPTIONS) % MAX_OPTIONS;

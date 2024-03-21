@@ -36,6 +36,30 @@ void XGamePad::Input() {
 		//ただし、2^10と2^11の値は後で使用する
 		if (a == 10 || a == 11) { continue; }
 
+		if(a == XINPUT_BUTTON_DPAD_UP ) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLY > 30000) {
+				_input.Buttons[a] = 1;
+			}
+		}
+
+		if(a == XINPUT_BUTTON_DPAD_DOWN) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLY < -30000) {
+				_input.Buttons[a] = 1;
+			}
+		}
+
+		if(a == XINPUT_BUTTON_DPAD_LEFT) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLX < -30000) {
+				_input.Buttons[a] = 1;
+			}
+		}
+
+		if(a == XINPUT_BUTTON_DPAD_RIGHT) {
+			if(_input.Buttons[a] == 0 && _input.ThumbLX > 30000) {
+				_input.Buttons[a] = 1;
+			}
+		}
+
 		if (_input.Buttons[a]) {
 			_key += 1 << a;
 		}
