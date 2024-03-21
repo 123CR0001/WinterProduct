@@ -41,6 +41,7 @@ bool Energy::Process() {
 }
 
 bool Energy::Render() {
+	SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
 
 	DrawBillboard3D(
 		DxConverter::VecToDx(_pos + Vector3(0.f,10.f,0.f)),
@@ -49,10 +50,11 @@ bool Energy::Render() {
 		100.f,
 		0.f,
 		_text->GetHandle(),
-		TRUE
+		FALSE
 	);
 
 	_text->Draw();
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
 	return true;
 }

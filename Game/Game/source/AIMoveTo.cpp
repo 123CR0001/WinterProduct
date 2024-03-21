@@ -6,6 +6,9 @@
 #include"Player.h"
 #include"ModeGame.h"
 #include"LightsOut.h"
+
+constexpr int INTERVAL = 300;
+
 AIMoveTo::AIMoveTo(AIComponent* owner)
 	:AIState(owner)
 	, _pointsNum(0)
@@ -32,7 +35,7 @@ void AIMoveTo::OnEnter() {
 		return;
 	}
 	_oldCheckPoint = checkPoint;
-	_interval = 120;
+	_interval = INTERVAL;
 }
 void AIMoveTo::OnExist() {
 }
