@@ -90,7 +90,7 @@ void ModeClear::SetUI() {
 		auto text = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_scorebg_02.png"),
 			Transform2(Vector2(3000.f * SCREEN_WIDTH_MAG, 859.f * SCREEN_HEIGHT_MAG)),
-			Vector2(896.f * SCREEN_WIDTH_MAG, 160.f * SCREEN_HEIGHT_MAG)
+			Vector2(896.f * SCREEN_WIDTH_MAG, 232.f * SCREEN_HEIGHT_MAG)
 		);
 		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 859.f * SCREEN_HEIGHT_MAG))));
 		_uiServer->AddUI(NEW UISpriteText(text));

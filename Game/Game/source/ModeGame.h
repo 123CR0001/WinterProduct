@@ -27,6 +27,7 @@ public:
 
 	void IncrementEnemyCount() { _enemyCount++; }
 	void DecrementEnemyCount();
+	int GetEnemyCount()const { return _enemyCount; }
 
 	class TimeLine* GetTimeLine()const { return _timeLine; }
 

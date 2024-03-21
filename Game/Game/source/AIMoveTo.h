@@ -15,5 +15,5 @@ public:
 private:
 	int _pointsNum;
 	Vector3 _oldCheckPoint;
-	int _frameCnt;
+	int _interval;
 };

@@ -9,7 +9,7 @@
 AIMoveTo::AIMoveTo(AIComponent* owner)
 	:AIState(owner)
 	, _pointsNum(0)
-	, _frameCnt(0)
+	, _interval(0)
 {
 }
 AIMoveTo::~AIMoveTo() {}
@@ -32,7 +32,7 @@ void AIMoveTo::OnEnter() {
 		return;
 	}
 	_oldCheckPoint = checkPoint;
-	_frameCnt = 0;
+	_interval = 120;
 }
 void AIMoveTo::OnExist() {
 }
@@ -76,7 +76,7 @@ bool AIMoveTo::Process() {
 		}
 	}
 	//‰¹‚ª•·‚±‚¦‚½‚©H
-	{
+	if(_interval == 0) {
 		Vector3 p;
 		if(_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			_owner->AddPoint("MoveTo", p);
@@ -87,6 +87,10 @@ bool AIMoveTo::Process() {
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
 	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");
+	}
+
+	if(_interval > 0) {
+		_interval--;
 	}
 	return true;
 }

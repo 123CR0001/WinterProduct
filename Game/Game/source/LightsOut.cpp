@@ -161,7 +161,8 @@ bool LightsOut::Process() {
 		//フェードインアウトを利用した演出
 		ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");
 
-		{
+		//エネミーが残ってたら、ゲームオーバーの演出をする
+		if(_game->GetEnemyCount() > 0){
 			SpriteTextFlipAnimation* text = NEW SpriteTextFlipAnimation(10, true);
 			text->LoadDivText("res/UI/GameOver/ui_sirenfilter_01.png", 6, 1, 6, 1920, 1080);
 			text->SetSize(Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
