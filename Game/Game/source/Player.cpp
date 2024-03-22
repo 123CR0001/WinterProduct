@@ -37,7 +37,6 @@
 Player::Player(ObjectServer* server)
 	:CharaBase(server,"player")
 	,_cameraCom(NEW FollowCamera(this,999))
-	,_motCom(NEW MotionComponent(_anim, 1000))
 	,_anim(NEW PlayerAnimationComponent(this,10000))
 	,_weapon (NEW Knife(this))
 	,_actionState(ACTION_STATE::kIdle)
@@ -47,6 +46,9 @@ Player::Player(ObjectServer* server)
 	,_decoyTimes(1)
 	,_decoyTimesText(NEW SpriteNumber(_decoyTimes))
 {
+
+	//
+	_motCom = NEW MotionComponent(_anim, 1000);
 	server->SetPlayer(this);
 
 
@@ -159,11 +161,6 @@ bool Player::Process() {
 		}
 
 		if(trg & INPUT_X && _isLightsOut) {
-			_actionState = ACTION_STATE::kAttack;
-
-			gGlobal._sndServer.Get("SE_02")->Play();
-		}
-		if(trg & INPUT_Y && _isLightsOut) {
 			_actionState = ACTION_STATE::kAttack2;
 
 			gGlobal._sndServer.Get("SE_02")->Play();
@@ -172,10 +169,14 @@ bool Player::Process() {
 			_actionState = ACTION_STATE::kAttack3;
 			gGlobal._sndServer.Get("SE_02")->Play();
 		}
+
+		//デコイの使用
 		if(trg & INPUT_X && !_isLightsOut && _decoyTimes > 0) {
 			NEW Decoy(this, angle);
 			_decoyTimes--;
 		}
+
+		//しゃがみ状態へ
 		if(trg & INPUT_A && !_isLightsOut) {
 			_actionState = ACTION_STATE::kSilent;
 		}

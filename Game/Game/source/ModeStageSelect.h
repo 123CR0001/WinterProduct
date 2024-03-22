@@ -20,5 +20,7 @@ private:
 	//•`‰æ‚·‚é”wŒi‚Ì”Ô†
 	int _bgsNum;
 
+	class SpriteText* _tag;
+
 	int _selectNum;
 };

@@ -41,7 +41,7 @@
 
 #include"Gun.h"
 
-constexpr float UP_PERCENT = 0.01f;
+constexpr float UP_PERCENT = 0.02f;
 constexpr float DOWN_PERCENT = 0.01f;
 
 CommonSoldier::CommonSoldier(ObjectServer* server) 

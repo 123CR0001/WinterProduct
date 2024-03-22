@@ -14,6 +14,4 @@ public:
 private:
 	const float _radius;
 
-	std::unique_ptr<class SpriteTextFlipAnimation>_text;
-
 };

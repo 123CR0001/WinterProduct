@@ -4,9 +4,11 @@
 #include"Button.h"
 #include"TransformAnimation.h"
 #include"ApplicationMain.h"
+#include"ApplicationGlobal.h"
 #include"ModeGame.h"
 #include"ModeTitle.h"
-
+#include"ModeColorIn.h"
+#include"ModeColorOut.h"
 constexpr float GAP_Y = 27.f;
 
 ModeStageSelect::ModeStageSelect()
@@ -19,7 +21,7 @@ ModeStageSelect::ModeStageSelect()
 	{
 		auto targetUI = _buttonServer->GetSelectUI();
 
-		targetUI->SetHandle(ResourceServer::LoadGraph("res/UI/Result/ui_target_01.png"));
+		targetUI->SetHandle(ResourceServer::LoadGraph("res/UI/StageSelect/ui_targetframe_01.png"));
 		targetUI->SetSize(Vector2(384.f * SCREEN_WIDTH_MAG, 64.f * SCREEN_HEIGHT_MAG));
 		targetUI->SetAlpha(1.f);
 	}
@@ -42,6 +44,15 @@ ModeStageSelect::ModeStageSelect()
 		_bgs[a] = text;
 
 	}
+
+	{
+		_tag = NEW SpriteText();
+		_tag->SetHandle(ResourceServer::LoadGraph("res/UI/StageSelect/ui_stageselection_01.png"));
+		_tag->SetSize(Vector2(650.f*SCREEN_WIDTH_MAG,120.f*SCREEN_HEIGHT_MAG));
+		_tag->SetPos(Vector2(-2000.f * SCREEN_WIDTH_MAG, 45.f * SCREEN_HEIGHT_MAG));
+
+		_tag->AddAnimation(NEW TransformAnimation(_tag, 30, Transform2(Vector2(322.f * SCREEN_WIDTH_MAG, 45.f * SCREEN_HEIGHT_MAG))));
+	}
 }
 
 ModeStageSelect::~ModeStageSelect() {
@@ -52,6 +63,8 @@ ModeStageSelect::~ModeStageSelect() {
 }
 
 bool ModeStageSelect::Initialize() {
+
+	gGlobal._sndServer.Play("BGM_02");
 
 	for(int stageTypeNum = 1; stageTypeNum < 4; stageTypeNum++) {
 
@@ -80,7 +93,7 @@ bool ModeStageSelect::Initialize() {
 				30,
 				Transform2(
 					Vector2(
-						600.f * SCREEN_WIDTH_MAG,
+						331.5f * SCREEN_WIDTH_MAG,
 						300.f * SCREEN_HEIGHT_MAG + ((100.f + GAP_Y) * SCREEN_HEIGHT_MAG) * stageTypeNum)
 					)
 				)
@@ -125,7 +138,7 @@ bool ModeStageSelect::Initialize() {
 						30,
 						Transform2(
 							Vector2(
-								600.f * SCREEN_WIDTH_MAG,
+								331.5f * SCREEN_WIDTH_MAG,
 								300.f * SCREEN_HEIGHT_MAG + ((100.f + GAP_Y) * SCREEN_HEIGHT_MAG) * stageNum)
 						)
 					)
@@ -136,10 +149,15 @@ bool ModeStageSelect::Initialize() {
 						//
 						auto mode = ModeServer::GetInstance();
 
-						mode->Del(this);
 
-						std::string stageName = std::to_string(stageTypeNum) + "_" + std::to_string(stageNum);
-						mode->Add(NEW ModeGame(stageName), 1, "game");
+						auto fadeFunc = [=]()mutable {
+							mode->Del(this);
+							std::string stageName = std::to_string(stageTypeNum) + "_" + std::to_string(stageNum); 
+							mode->Add(NEW ModeGame(stageName), 1, "game");
+						};
+
+							mode->Add(NEW ModeColorOut(NEW ModeColorIn(60,true), fadeFunc, 60), 100, "Out");
+
 					
 					};
 
@@ -158,7 +176,7 @@ bool ModeStageSelect::Initialize() {
 						backButtoText,
 						30,
 						Transform2(
-							Vector2(286.f * SCREEN_WIDTH_MAG, 975.f * SCREEN_HEIGHT_MAG)
+							Vector2(300.f * SCREEN_WIDTH_MAG, 975.f * SCREEN_HEIGHT_MAG)
 						)
 					)
 					);
@@ -202,7 +220,7 @@ bool ModeStageSelect::Initialize() {
 			backTitleButtoText,
 			30,
 			Transform2(
-				Vector2(286.f * SCREEN_WIDTH_MAG, 975.f * SCREEN_HEIGHT_MAG)
+				Vector2(300.f * SCREEN_WIDTH_MAG, 975.f * SCREEN_HEIGHT_MAG)
 			)
 		)
 		);
@@ -211,9 +229,13 @@ bool ModeStageSelect::Initialize() {
 
 			auto mode = ModeServer::GetInstance();
 
-			mode->Del(this);
-			mode->Add(NEW ModeTitle(), 1, "title");
 
+			auto fadeFunc = [=]()mutable {				
+				mode->Del(this);
+				mode->Add(NEW ModeTitle(), 1, "title");
+			};
+
+			mode->Add(NEW ModeColorOut(NEW ModeColorIn(60,true), fadeFunc, 60), 100, "Out");
 
 		};
 		_buttonServer->AddButton(NEW Button(_buttonServer, backTitleButtonFunc, backTitleButtoText));
@@ -243,21 +265,9 @@ bool ModeStageSelect::Process() {
 
 bool ModeStageSelect::Render() {
 	_bgs[_bgsNum]->Draw();
+	_tag->Draw();
 	_buttonServer->Draw();
 
-	int dy = 0;
-
-	DrawFormatString(0, dy, GetColor(255, 0, 0), "ボタンの数:%d", _buttonServer->GetButtons().size()); dy += 25;
-	DrawFormatString(0, dy, GetColor(255, 0, 0), "選択:%d", _buttonServer->GetSelectNum()); dy += 25;
-
-	switch (_buttonServer->GetStep()) {
-	case ButtonServer::STEP::kAnimation:
-		DrawFormatString(0, dy, GetColor(255, 0, 0), "アニメーション"); dy += 25;
-		break;
-	case ButtonServer::STEP::kProcess:
-		DrawFormatString(0, dy, GetColor(255, 0, 0), "ボタンの処理"); dy += 25;
-		break;
-	}
 	return true;
 }
 

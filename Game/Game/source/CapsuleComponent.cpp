@@ -40,7 +40,7 @@ bool CapsuleComponent::Process() {
 			);
 
 			if (hitObj.HitFlag) {
-				_owner->SetPos(DxConverter::DxToVec(hitObj.HitPosition));
+				_owner->SetPos(DxConverter::DxToVec(hitObj.HitPosition) + Vector3(0.f,1.f,0.f));
 			}
 		}
 	}
@@ -164,7 +164,7 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 					dist = distSqaure;
 					polyLatestPoint = DxConverter::DxToVec(result.Tri_MinDist_Pos);
 					segLatestPoint = DxConverter::DxToVec(result.Seg_MinDist_Pos);
-					normal = DxConverter::DxToVec(hitObj.Dim[a].Normal);
+					normal = DxConverter::DxToVec(VSub(result.Tri_MinDist_Pos, result.Seg_MinDist_Pos)).Normalize();
 				}
 			}
 
