@@ -301,7 +301,6 @@ bool ObjectServer::LoadData(std::string stageName) {
 			ObjectBase* p = map[name].func(map[name].filePath, map[name].attachFrameName);
 			p->SetJsonDataUE(object);
 			p->AddEulerAngle(Vector3(DegToRad(90.f), DegToRad(180.f), 0.f));
-			MV1RefreshCollInfo(p->GetHandle(), p->GetAttachIndex());
 		}
 	}
 

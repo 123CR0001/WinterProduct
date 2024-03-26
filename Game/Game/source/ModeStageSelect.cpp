@@ -57,6 +57,7 @@ ModeStageSelect::ModeStageSelect()
 
 ModeStageSelect::~ModeStageSelect() {
 	delete _buttonServer;
+	delete _tag;
 	for (auto&& bg : _bgs) {
 		delete bg;
 	}
