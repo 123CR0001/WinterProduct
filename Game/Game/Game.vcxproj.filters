@@ -318,7 +318,7 @@
     <ClCompile Include="source\Tracer.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="source\AITracer.cpp">
+    <ClCompile Include="source\AITrace.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
     <ClCompile Include="source\AIRush.cpp">

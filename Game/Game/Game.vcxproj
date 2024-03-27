@@ -170,7 +170,7 @@
     <ClCompile Include="source\AIState.cpp" />
     <ClCompile Include="source\AIStay.cpp" />
     <ClCompile Include="source\AIDiscovery.cpp" />
-    <ClCompile Include="source\AITracer.cpp" />
+    <ClCompile Include="source\AITrace.cpp" />
     <ClCompile Include="source\Animation.cpp" />
     <ClCompile Include="source\AnimationComponent.cpp" />
     <ClCompile Include="source\ApplicationGlobal.cpp" />
