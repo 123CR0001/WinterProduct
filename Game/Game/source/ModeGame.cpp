@@ -13,7 +13,6 @@
 #include"ModePause.h"
 #include"ModeGameOver.h"
 #include"ModeClear.h"
-#include"ModeMiniMap.h"
 
 #include"ObjectServer.h"
 #include"CommonSoldier.h"
@@ -26,15 +25,9 @@
 #include"PhysWorld.h"
 
 #include"CreateAfterImageComponent.h"
-#include"FPS.h"
 #include"AnimationComponent.h"
 
 #include"UIServer.h"
-#include"UILightsTimer.h"
-#include "UIRemainingUses.h"
-
-#include"FPS.h"
-#include"Timer.h"
 
 #include"CameraZoomComponent.h"
 #include"CameraComponent.h"
@@ -52,6 +45,8 @@
 #include"SpriteTextFlipAnimation.h"
 #include"UISpriteText.h"
 #include"SoundItem.h"
+
+#include"ResultData.h"
 
 ModeGame::ModeGame(std::string stageNum) 
 	:_objServer(NEW ObjectServer(this))

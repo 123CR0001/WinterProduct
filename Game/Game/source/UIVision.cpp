@@ -19,6 +19,7 @@ UIVision::UIVision(ObjectServer* server, int drawOrder)
 	,_server(server)
 	,_handle(LoadGraph("res/UI/Game/visualrange_01.png"))
 {
+	//描画する扇のポリゴンインデックスを辺(円周)の分だけ、生成する
 	for(int a = 0; a < SIDE_NUM; a++) {
 		_versNums.emplace_back(0);
 		_versNums.emplace_back(a + 1);
@@ -70,10 +71,12 @@ bool UIVision::Draw() {
 			}
 		);
 
+		//扇の辺(円周)の頂点を生成
 		for(int a = 0; a <= SIDE_NUM; a++) {
 
 			Vector3 viewPos = pos + Vector3(sinf(rot), 0.f, cosf(rot)) * soldier->GetAIComponent()->GetViewDist();
 
+			//キャラクターの位置から、上記の座標までにオブジェクト(押し出し処理のする)に遮られているか
 			for(auto&& frame : _server->GetPhysWorld()->GetFrameComponent()) {
 				MV1_COLL_RESULT_POLY result =
 					MV1CollCheck_Line(
@@ -82,10 +85,11 @@ bool UIVision::Draw() {
 						DxConverter::VecToDx(pos),
 						DxConverter::VecToDx(viewPos)
 					);
-
+				//遮られていたら、頂点の座標をぶつかった座標にする
 				if(result.HitFlag) { viewPos = DxConverter::DxToVec(result.HitPosition); }
 			}
 
+			//頂点
 			VERTEX3D ver = {
 				DxConverter::VecToDx(viewPos),
 				VGet(0.f,1.f,0.f),
@@ -97,13 +101,15 @@ bool UIVision::Draw() {
 				0.f
 			};
 
+			//追加
 			_vers.emplace_back(ver);
 
+			//角度
 			rot += DegToRad(soldier->GetAIComponent()->GetViewAngle()) / SIDE_NUM;
 
 		}
 
-
+		//
 		SetUseLighting(FALSE);
 		DrawPolygonIndexed3D(_vers.data(), _vers.size(), _versNums.data(), _versNums.size() / 3, _handle, TRUE);
 		SetUseLighting(TRUE);

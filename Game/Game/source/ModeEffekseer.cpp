@@ -8,7 +8,7 @@ bool ModeEffekseer::Initialize() {
 	if (!base::Initialize()) { return false; }
 
 	// エフェクトリソースを読み込む。
-	// 読み込む時に大きさを指定する。ef_blood_02
+	// 読み込む時に大きさを指定する
 	_effectHandle["Laser"] = LoadEffekseerEffect("res/effekseer/Laser01.efkefc", 10.0f);
 	_effectHandle["Blood01"] = LoadEffekseerEffect("res/effekseer/ef_blood_01/ef_blood_01.efkefc", 50.f);
 	_effectHandle["Blood02"] = LoadEffekseerEffect("res/effekseer/ef_blood_pool/ef_blood_pool.efkefc", 150.f);
@@ -23,9 +23,7 @@ bool ModeEffekseer::Initialize() {
 bool ModeEffekseer::Terminate() {
 	base::Terminate();
 
-	// エフェクトリソースを削除する。
-	/*DeleteEffekseerEffect(_effectResourceHandle);*/
-
+	// エフェクトリソースを削除する
 	for (auto&& handle : _effectHandle) {
 		DeleteEffekseerEffect(handle.second);
 	}
@@ -64,23 +62,28 @@ bool ModeEffekseer::Render() {
 	// Effekseerにより再生中のエフェクトを描画する。
 	DrawEffekseer3D();
 
-
-
 	return true;
 }
 
 int ModeEffekseer::Play(std::string name, const Vector3& pos, const Vector3& angle) {
+
+	//読み込んだエフェクトの中に、指定の名前があるか？
 	if (_effectHandle.find(name) != _effectHandle.end()) {
 		int play = PlayEffekseer3DEffect(_effectHandle[name]);
 
+		//位置情報
 		SetPosPlayingEffekseer3DEffect(play, pos.x, pos.y, pos.z);
 
+		//角度
 		SetRotationPlayingEffekseer3DEffect(play, angle.x, angle.y + PI , angle.z);
 
+		//再生中エフェクトに追加
 		_playingEffectHandles.emplace_back(play);
 
+		//成功
 		return play;
 	}
+
 	//失敗
 	return -1;
 }

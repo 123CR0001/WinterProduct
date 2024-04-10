@@ -100,17 +100,13 @@ bool ObjectBase::Process() {
 
 bool ObjectBase::Render() {
 
-	//ポリゴンの裏面を描画しない
-	MV1SetMeshBackCulling(_handle, 0, FALSE);
-
-	ModelMatrixSetUp();
-
 	// モデルを描画する
 	MV1DrawModel(_handle);
 
 	return true;
 }
 
+//座標などの読み込み
 void ObjectBase::SetJsonDataUE(nlohmann::json j) {
 	SetPos(Vector3(j.at("translate").at("x"), j.at("translate").at("z"), -1 * j.at("translate").at("y")));
 	SetEulerAngleDeg(Vector3(j.at("rotate").at("x"), j.at("rotate").at("z"), j.at("rotate").at("y")));
@@ -120,17 +116,18 @@ void ObjectBase::SetJsonDataUE(nlohmann::json j) {
 
 //モデルに角度と移動値を反映させる
 void ObjectBase::ModelMatrixSetUp() {
-	_matrix = MGetIdent();
-	_matrix = MMult(_matrix, MGetScale(DxConverter::VecToDx(_scale)));
-	_matrix = MMult(_matrix, MGetRotX(_eulerAngle.x));
-	_matrix = MMult(_matrix, MGetRotZ(_eulerAngle.z));
-	_matrix = MMult(_matrix, MGetRotY(_eulerAngle.y + PI));
-	_matrix = MMult(_matrix, MGetTranslate(DxConverter::VecToDx(_pos)));
-	MV1SetMatrix(_handle, _matrix);
+	MATRIX matrix = MGetIdent();
+	matrix = MMult(matrix, MGetScale(DxConverter::VecToDx(_scale)));
+	matrix = MMult(matrix, MGetRotX(_eulerAngle.x));
+	matrix = MMult(matrix, MGetRotZ(_eulerAngle.z));
+	matrix = MMult(matrix, MGetRotY(_eulerAngle.y + PI));
+	matrix = MMult(matrix, MGetTranslate(DxConverter::VecToDx(_pos)));
+	MV1SetMatrix(_handle, matrix);
 
 	MV1RefreshCollInfo(_handle, _attachIndex);
 }
 
+//モデルの読み込み
 bool ObjectBase::LoadModel(std::string FileName ,std::string attachFrameName) {
 
 	_handle = ResourceServer::MV1LoadModel(FileName.c_str());
@@ -146,6 +143,7 @@ bool ObjectBase::LoadModel(std::string FileName ,std::string attachFrameName) {
 	return true;
 }
 
+//コンポーネントの追加
 void ObjectBase::AddComponent(Component* component) {
 
 	//既に追加されてないか
@@ -164,6 +162,7 @@ void ObjectBase::AddComponent(Component* component) {
 	_addComponents.emplace_back(component);
 }
 
+//コンポーネントの削除
 void ObjectBase::DeleteComponent(Component* component) {
 	//まだ、削除予約されていなかったら、削除予約する
 	auto iter = std::find(_deleteComponents.begin(), _deleteComponents.end(), component);
@@ -172,6 +171,7 @@ void ObjectBase::DeleteComponent(Component* component) {
 	}
 }
 
+//ダメージ
 void ObjectBase::ApplyDamage(const DamageData& data) {
 	_damageData = data;
 }

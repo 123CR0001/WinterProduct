@@ -47,10 +47,11 @@ Player::Player(ObjectServer* server)
 	,_decoyTimesText(NEW SpriteNumber(_decoyTimes))
 {
 
-	//
+	//モーションデータを参照してする処理
 	_motCom = NEW MotionComponent(_anim, 1000);
+	
+	//オブジェクトサーバーにプレイヤークラス登録用ポインタ変数に自身のアドレスを登録
 	server->SetPlayer(this);
-
 
 	//このクラス特有のモーションデータのコマンド処理
 	auto func = [this](const MOTION_DATA_ITEM& item) {_weapon->OnAttack(); _motCom->IncrementMotionCount(); };
@@ -65,8 +66,7 @@ Player::Player(ObjectServer* server)
 	//リザルトのクリアタイムを集計
 	NEW CountClearTimeComponent(this);
 
-
-
+	_weapon->SetFrameName("Owl_RightHand");
 }
 
 Player::~Player() {
@@ -77,11 +77,14 @@ bool Player::Initialize() {
 	// モデルデータのロード（テクスチャも読み込まれる）
 	CharaBase::Initialize();
 
+	//カメラの初期化
 	_cameraCom->Initialize();
 
+	//カプセルの設定
 	_capsule->SetMember(40.f, 30.f);
 	_capsule->AddSkipName("Decoy");
 
+	//状態を”kIdle”に、アニメーションも同様
 	_actionState = ACTION_STATE::kIdle;
 	_anim->ChangeAnimation("Idle");
 
@@ -97,6 +100,7 @@ bool Player::Initialize() {
 
 	GetObjectServer()->GetGame()->GetUIServer()->AddUI(NEW UISpriteText(_decoyTimesText, 100));
 
+	//上記の背景
 	_decoyTimesTextBg = NEW SpriteText(
 	ResourceServer::LoadGraph("res/UI/Game/ui_itembg_01.png")
 		, Transform2(Vector2(231.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG))
@@ -109,17 +113,7 @@ bool Player::Initialize() {
 		)
 	);
 
-	LoadModel("res/Chara/Owl_toDX/Owl.mv1");
-
-	_anim->LoadAnimation("Idle", "mo_standby_01", 0);
-	_anim->LoadAnimation("run", "mo_move_01", 0);
-	_anim->LoadAnimation("StealthWalk", "mo_stealthwalk_01", 0);
-	_anim->LoadAnimation("Attack", "mo_attack_01", 1);
-	_anim->LoadAnimation("Attack2", "mo_attack_02", 1);
-	_anim->LoadAnimation("Attack3", "mo_attack_03", 1);
-	_anim->LoadAnimation("Dead", "mo_death_01", 1);
-	_anim->LoadAnimation("Clear", "mo_standby_01", 0);
-
+	//モデルに今の設定を反映
 	ModelMatrixSetUp();
 
 	return true;
@@ -127,15 +121,21 @@ bool Player::Initialize() {
 
 bool Player::Terminate() {
 	CharaBase::Terminate();
+
+	//オブジェクトサーバーにプレイヤークラス登録用ポインタ変数をnullptrにする
 	GetObjectServer()->SetPlayer(nullptr);
 	return true;
 }
 
 bool Player::Process() {
 
+	//ゲームパッドの入力値
 	auto pad = GetObjectServer()->GetGame()->GetPad();
+
+	//トリガー値
 	auto trg = pad->GetTrgButton();
 
+	//移動スピード
 	const float moveSpeed = 5.f * _moveSpeedMag;
 
 	//入力処理
@@ -152,19 +152,22 @@ bool Player::Process() {
 			//プレイヤーからカメラのY軸の角度を反転
 			_eulerAngle.y = -_cameraCom->GetAngle().y;
 
-
+			//移動速度、角度を登録
 			_moveCom->SetRotateSpeed(angle);
 			_moveCom->SetMoveSpeed(moveSpeed);
 
+			//状態を”kWalk”に
 			_actionState = ACTION_STATE::kWalk;
 
 		}
 
+		//攻撃(パターン2)
 		if(trg & INPUT_X && _isLightsOut) {
 			_actionState = ACTION_STATE::kAttack2;
 
 			gGlobal._sndServer.Get("SE_02")->Play();
 		}
+		//攻撃(パターン3)
 		if(trg & INPUT_A && _isLightsOut) {
 			_actionState = ACTION_STATE::kAttack3;
 			gGlobal._sndServer.Get("SE_02")->Play();
@@ -176,7 +179,7 @@ bool Player::Process() {
 			_decoyTimes--;
 		}
 
-		//しゃがみ状態へ
+		//状態を”kSilent”に
 		if(trg & INPUT_A && !_isLightsOut) {
 			_actionState = ACTION_STATE::kSilent;
 		}
@@ -186,6 +189,7 @@ bool Player::Process() {
 	case ACTION_STATE::kSilentWalk:
 		_actionState = ACTION_STATE::kSilent;
 
+		//”kIdle”状態の移動と処理は同じ
 		if (pad->IsInputLeftStick()) {
 
 			_eulerAngle.y = -_cameraCom->GetAngle().y;
@@ -193,12 +197,15 @@ bool Player::Process() {
 			float angle = atan2f((float)pad->GetLeftStick().x, (float)pad->GetLeftStick().y);
 
 			_moveCom->SetRotateSpeed(angle);
+
+			//移動速度が半減
 			_moveCom->SetMoveSpeed(moveSpeed / 2.f);
 
 			_actionState = ACTION_STATE::kSilentWalk;
 
 		}
 
+		//状態を”kIdle”に
 		if (trg & INPUT_A) {
 			_actionState = ACTION_STATE::kIdle;
 		}
@@ -240,12 +247,16 @@ bool Player::Process() {
 		new SoundComponent(this, 200.f);
 	}	
 
+	//ダメージを受けた
 	if(_damageData.isDamage) {
+		//状態を”kDead”に
 		_state = STATE::kDead;
 
+		//空にする
 		_damageData = DamageData{};
 	}
 
+	//ライツアウトを使用しているなら、デコイの使用回数を描画するUIを非表示に
 	if(_isLightsOut) {
 		_decoyTimesText->SetAlpha(0.f);
 	}
@@ -253,6 +264,7 @@ bool Player::Process() {
 	//UIの更新
 	_decoyTimesText->SetNumber(_decoyTimes);
 
+	//3Dサウンドの情報を更新
 	Set3DSoundListenerPosAndFrontPos_UpVecY(GetDxPos(), DxConverter::VecToDx(_eulerAngle));
 
 	return true;

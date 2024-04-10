@@ -8,8 +8,10 @@ EventBox::EventBox(ObjectServer* server)
 	:ObjectBase(server)
 	,_frameCom(NEW FrameComponent(this))
 {
+	//押し出すフレームから削除
 	_frameCom->DeletePhysWorldThis();
 
+	//モデルの読み込み
 	LoadModel("res/Object/box.mv1");
 }
 

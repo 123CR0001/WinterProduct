@@ -27,9 +27,7 @@ AfterImage::AfterImage(AnimationComponent* anim)
 	//ƒ‚ƒfƒ‹‚ÌYŽ²‚ð180“x‰ñ“]
 	_eulerAngle.y += PI;
 	MV1SetRotationXYZ(_handle, DxConverter::VecToDx(_eulerAngle));
-
 	MV1SetScale(_handle, DxConverter::VecToDx(_scale));
-
 }
 
 AfterImage::~AfterImage() {

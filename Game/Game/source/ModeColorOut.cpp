@@ -25,13 +25,16 @@ bool ModeColorOut::Terminate() {
 
 bool ModeColorOut::Process() {
 
+	//処理をしない
 	if (_frameCnt == -1) {
 
 	}
+	//同じ値ならフェードイン
 	else if(_frameCnt == _frameMaxCnt) {
 		ModeServer::GetInstance()->Add(_modeColorIn, 1000, "ColorIn");
 		_frameCnt++;
 	}
+	//自身を削除
 	else if (_frameCnt > _frameMaxCnt) {
 		ModeServer::GetInstance()->Del(this);
 
@@ -40,13 +43,12 @@ bool ModeColorOut::Process() {
 
 		_frameCnt = -1;
 	}
+	//アルファ値を算出
+	//_frameCntを進める
 	else {
 		_alpha = EasingLinear((float)_frameCnt, 0, 255, (float)_frameMaxCnt);
 		_frameCnt++;
 	}
-
-	// このモードより下のレイヤーはProcess()を呼ばない
-//	ModeServer::GetInstance()->SkipProcessUnderLayer();
 	return true;
 }
 

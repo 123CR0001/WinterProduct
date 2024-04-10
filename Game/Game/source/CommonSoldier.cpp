@@ -41,6 +41,8 @@
 
 #include"Gun.h"
 
+#include"ResultData.h"
+
 constexpr float UP_PERCENT = 0.02f;
 constexpr float DOWN_PERCENT = 0.01f;
 
@@ -79,7 +81,6 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AILoseSight(_AI));
 
 	server->GetCommonSoldiers().emplace_back(this);
-	server->GetEnemys().emplace_back(this);
 
 	_capsule->AddSkipName("CommonSoldier");
 
@@ -89,6 +90,8 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	for (int a = 0; a < MV1GetMaterialNum(_handle); a++) {
 		MV1SetMaterialOutLineWidth(_handle, a, 0.f);
 	}
+
+	_gun->SetFrameName("Soldier1_RightHand");
 
 }
 
@@ -154,7 +157,7 @@ bool CommonSoldier::Process() {
 		//ここに書いているのは走り書き
 		const float dist = _AI->GetViewDist();
 
-		float per = 100.f;// Vector3D::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(), _pos) / dist * dist;
+		float per = 100.f;
 		per = -(per - 1);
 
 		//検知度の上昇
@@ -204,12 +207,6 @@ bool CommonSoldier::Process() {
 
 		//死亡
 		_AI->ChangeState("Death");
-
-		auto iter2 = std::find(GetObjectServer()->GetEnemys().begin(), GetObjectServer()->GetEnemys().end(), this);
-	
-		if (iter2 != GetObjectServer()->GetEnemys().end()){
-			GetObjectServer()->GetEnemys().erase(iter2);
-		}
 
 		//エフェクト再生
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(

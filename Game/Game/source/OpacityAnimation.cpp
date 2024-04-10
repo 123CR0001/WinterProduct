@@ -4,7 +4,7 @@
 OpacityAnimation::OpacityAnimation(class SpriteText* text, int frame, float startAlpha, float endAlpha)
 	:Animation(text, frame)
 	, _startAlpha(startAlpha)
-	, _endalpha(endAlpha)
+	, _endAlpha(endAlpha)
 {
 
 }
@@ -12,7 +12,7 @@ OpacityAnimation::OpacityAnimation(class SpriteText* text, int frame, float star
 OpacityAnimation::OpacityAnimation(class SpriteText* text, int frame, float endAlpha)
 	:Animation(text, frame)
 	,_startAlpha(text->GetAlpha())
-	,_endalpha(endAlpha)
+	,_endAlpha(endAlpha)
 {
 
 }
@@ -23,7 +23,8 @@ bool OpacityAnimation::Process() {
 
 	Animation::Process();
 
-	float alpha = EasingLinear(_startAlpha, _endalpha, _rate);
+	//アルファ値の算出
+	float alpha = EasingLinear(_startAlpha, _endAlpha, _rate);
 	_text->SetAlpha(alpha);
 
 	return true;

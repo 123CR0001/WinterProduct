@@ -4,6 +4,7 @@
 
 class ModeColorOut :public ModeBase {
 public:
+	//フェードインで使用するモード、
 	ModeColorOut(class ModeColorIn* modeColorIn, std::function<void()>func,int maxCnt = 30);
 	bool Initialize()override;
 	bool Terminate()override;

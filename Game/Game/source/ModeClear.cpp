@@ -6,14 +6,12 @@
 
 #include "UIServer.h"
 #include "UIDisplay.h"
-#include "UIClearTime.h"
-#include "UIClearTimeRank.h"
 #include "UIBlink.h"
-#include "UINextStage.h"
 
 #include"ModeColorIn.h"
 #include"ModeColorOut.h"
 #include"ModeStageSelect.h"
+#include"ModeGame.h"
 
 #include"ButtonServer.h"
 #include"Button.h"
@@ -29,19 +27,24 @@
 #include"UIHrsMinSec.h"
 #include"UISpriteText.h"
 
-ModeClear::ModeClear(std::shared_ptr<ModeGame::ResultData> data)
+#include"ResultData.h"
+
+ModeClear::ModeClear(std::shared_ptr<ResultData> data)
 	:_resultData(data)
 	,_uiServer(NEW MyUIServer())
 	,_buttonServer(NEW ButtonServer())
 	,_timeLine(NEW TimeLine())
 {
-	
+	//UIのセット
 	SetUI();
+
+	//ボタンのセット
 	SetButton();
 
 }
 
 bool ModeClear::Initialize() {
+	//BGMの再生
 	gGlobal._sndServer.Play("BGM_08");
 	return true;
 }
@@ -56,9 +59,11 @@ bool ModeClear::Terminate() {
 bool ModeClear::Process() {
 	base::Process();
 
+	//更新
 	_uiServer->Process();
 	_buttonServer->Process();
 	_timeLine->Process();
+
 	return true;
 }
 
@@ -74,7 +79,7 @@ bool ModeClear::Render() {
 void ModeClear::SetUI() {
 
 
-	//データ枠
+	//データ外枠
 	{
 		auto text = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Result/ui_scorebg_01.png"),
@@ -100,10 +105,15 @@ void ModeClear::SetUI() {
 	{
 		auto func = [=]()mutable {
 			_uiServer->AddUI(
-				NEW UIHrsMinSec(30, _resultData->clearSecondTime,Transform2(Vector2(1766.f * SCREEN_WIDTH_MAG,192.5f * SCREEN_HEIGHT_MAG)),Vector2(46.f,70.f))
+				NEW UIHrsMinSec(
+					30,
+					_resultData->clearSecondTime,
+					Transform2(Vector2(1766.f * SCREEN_WIDTH_MAG,192.5f * SCREEN_HEIGHT_MAG)),
+					Vector2(46.f * SCREEN_WIDTH_MAG,70.f * SCREEN_HEIGHT_MAG)
+				)
 			);
 		};
-		//MyUIServerのProcess()が70回呼ばれたら、処理する
+		//この関数が呼び出されてから、MyUIServerのProcess()が70回呼ばれたら、処理する
 		_timeLine->AddLine(70, func);
 	}
 
@@ -118,6 +128,7 @@ void ModeClear::SetUI() {
 			_uiServer->AddUI(NEW UISpriteText(number));
 		};
 
+		//この関数が呼び出されてから、MyUIServerのProcess()が120回呼ばれたら、処理する
 		_timeLine->AddLine(120, func);
 	}
 
@@ -132,6 +143,7 @@ void ModeClear::SetUI() {
 			_uiServer->AddUI(NEW UISpriteText(number));
 		};
 
+		//この関数が呼び出されてから、MyUIServerのProcess()が180回呼ばれたら、処理する
 		_timeLine->AddLine(180, func);
 	}
 
@@ -153,9 +165,11 @@ void ModeClear::SetUI() {
 			_uiServer->AddUI(NEW UISpriteText(text));
 		};
 
+		//この関数が呼び出されてから、MyUIServerのProcess()が240回呼ばれたら、処理する
 		_timeLine->AddLine(240, func);
 	}
 
+	//背景
 	{
 		SpriteText* text = NEW SpriteText();
 		text->SetHandle(ResourceServer::LoadGraph("res/UI/Result/ui_resultbg_01.png"));
@@ -168,7 +182,7 @@ void ModeClear::SetUI() {
 
 void ModeClear::SetButton() {
 
-
+	//ボタン選択のUI 
 	{
 		auto targetUI = _buttonServer->GetSelectUI();
 
@@ -178,6 +192,8 @@ void ModeClear::SetButton() {
 		targetUI->AddAnimation(NEW OpacityAnimation(targetUI, -120, 0.6f));
 	}
 
+	//次のステージがあるなら
+	//次のステージへ移行するボタン
 	if(_resultData->_nextStageName.size() > 0)
 	{
 		//画像の設定
@@ -204,12 +220,15 @@ void ModeClear::SetButton() {
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
 					ModeServer::GetInstance()->Add(mode, 100, "Out");
 
+					//何度も処理をしないよう、ボタンサーバーの処理をしない設定にする
 					_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 				},
 				titleButton
 					)
 		);
 	}
+	//ないなら
+	//タイトルへ移行するボタン
 	else {
 		//画像の設定
 		SpriteText* titleButton = NEW SpriteText(
@@ -235,12 +254,15 @@ void ModeClear::SetButton() {
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
 					ModeServer::GetInstance()->Add(mode, 100, "Out");
 
+					//何度も処理をしないよう、ボタンサーバーの処理をしない設定にする
 					_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 				},
 				titleButton
 					)
 		);
 	}
+
+	//同じステージをリプレイするボタン
 	{
 		//画像の設定
 		SpriteText* titleButton = NEW SpriteText(
@@ -266,6 +288,7 @@ void ModeClear::SetButton() {
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
 					ModeServer::GetInstance()->Add(mode, 100, "Out");
 
+					//何度も処理をしないよう、ボタンサーバーの処理をしない設定にする
 					_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 				},
 				titleButton
@@ -296,6 +319,7 @@ void ModeClear::SetButton() {
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
 					ModeServer::GetInstance()->Add(mode, 100, "Out");
 
+					//何度も処理をしないよう、ボタンサーバーの処理をしない設定にする
 					_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 				},
 				button

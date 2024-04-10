@@ -16,14 +16,9 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 
 	LoadAnimation("Walk", "mo_moveenemy_01", 0);
 	LoadAnimation("BlindWalk", "mo_enemyrun_01", 0);
-
 	LoadAnimation("Death", "mo_deathenemy_01", 1);
-
 	LoadAnimation("Panic", "mo_shootingenemy_01", 0);
 	LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
-
-
-
 	LoadAnimation("Discovery", "mo_discovery_01", 0);
 
 	LoadAnimation("LoseSight", "mo_losesight_01", 0);

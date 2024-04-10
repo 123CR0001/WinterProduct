@@ -1,12 +1,11 @@
 #pragma once
 #include "appframe.h"
-#include "ModeGame.h"
 
 class ModeClear :public ModeBase {
 	typedef ModeBase base;
 	typedef ResourceServer res;
 public:
-	ModeClear(std::shared_ptr<ModeGame::ResultData> data);
+	ModeClear(std::shared_ptr<class ResultData> data);
 
 	virtual bool Initialize();
 	virtual bool Terminate();
@@ -18,12 +17,15 @@ private:
 	void SetUI();
 	void SetButton();
 
-	std::shared_ptr<ModeGame::ResultData> _resultData;
+	//リザルトデータ
+	std::shared_ptr<class ResultData> _resultData;
 
+	//ボタンサーバー
 	class ButtonServer* _buttonServer;
 
-	//UI
+	//UIサーバー
 	class MyUIServer* _uiServer;
 
+	//時間経過によって登録されたラムダ式を処理する
 	class TimeLine* _timeLine;
 };

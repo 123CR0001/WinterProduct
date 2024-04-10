@@ -150,9 +150,6 @@
     <ClCompile Include="source\ModeGameOver.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeMiniMap.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="source\ModeSoundLayer.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
@@ -222,19 +219,10 @@
     <ClCompile Include="source\ModeColorIn.cpp">
       <Filter>ソース ファイル\Mode\SceneSwitch</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIAudio.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIBackToTitle.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="source\UIBase.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\UIBlink.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIContorl.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\UIDisplay.cpp">
@@ -252,9 +240,6 @@
     <ClCompile Include="source\UIQuit.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="source\UIResume.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="source\UIRetry.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
@@ -262,21 +247,6 @@
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\UISlide.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIToTitle.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeEndConfirm.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModePauseConfirm.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModePause.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIGetSlide.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\SoundComponent.cpp">
@@ -287,9 +257,6 @@
     </ClCompile>
     <ClCompile Include="source\Siren.cpp">
       <Filter>ソース ファイル\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIDetection.cpp">
-      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\AfterImage.cpp">
       <Filter>ソース ファイル\Object</Filter>
@@ -327,36 +294,6 @@
     <ClCompile Include="source\TracerSpawner.cpp">
       <Filter>ソース ファイル\Object</Filter>
     </ClCompile>
-    <ClCompile Include="source\UISelectController.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UISelectMap.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UITitle.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIToConfirm.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeGameUI.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\FPS.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="source\ModeSelect.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Timer.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIRemainingUses.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UILightsTimer.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
     <ClCompile Include="source\TracerAnimationComponent.cpp">
       <Filter>ソース ファイル\Component\Animation</Filter>
     </ClCompile>
@@ -365,18 +302,6 @@
     </ClCompile>
     <ClCompile Include="source\AIStay.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\Result.cpp">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIClearTime.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UIClearTimeRank.cpp">
-      <Filter>ソース ファイル\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="source\UINextStage.cpp">
-      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
     <ClCompile Include="source\UIOverToTitle.cpp">
       <Filter>ヘッダー ファイル\UI</Filter>
@@ -477,6 +402,9 @@
     <ClCompile Include="source\ModeStageSelect.cpp">
       <Filter>ソース ファイル\Mode</Filter>
     </ClCompile>
+    <ClCompile Include="source\ModeEndConfirm.cpp">
+      <Filter>ソース ファイル\Mode</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\ApplicationMain.h">
@@ -513,9 +441,6 @@
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeGameOver.h">
-      <Filter>ヘッダー ファイル\Mode</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeMiniMap.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeSoundLayer.h">
@@ -584,19 +509,10 @@
     <ClInclude Include="source\ModeColorOut.h">
       <Filter>ヘッダー ファイル\Mode\SceneSwitch</Filter>
     </ClInclude>
-    <ClInclude Include="source\UIAudio.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIBackToTitle.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
     <ClInclude Include="source\UIBase.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIBlink.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIContorl.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIDisplay.h">
@@ -608,22 +524,13 @@
     <ClInclude Include="source\UIGameStart.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="source\UIGetSlide.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
     <ClInclude Include="source\UIQuit.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIResume.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIRetry.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIServer.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIToTitle.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeEndConfirm.h">
@@ -647,9 +554,6 @@
     <ClInclude Include="source\Siren.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
-    <ClInclude Include="source\UIDetection.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
     <ClInclude Include="source\AfterImage.h">
       <Filter>ヘッダー ファイル\Object</Filter>
     </ClInclude>
@@ -668,28 +572,13 @@
     <ClInclude Include="source\AILookAround.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
     </ClInclude>
-    <ClInclude Include="source\FPS.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\AnimationComponent.h">
       <Filter>ヘッダー ファイル\Component\Animation</Filter>
     </ClInclude>
     <ClInclude Include="source\UINo.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="source\UISelectController.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
     <ClInclude Include="source\UISlide.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UISelectMap.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UITitle.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIToConfirm.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\AIDeath.h">
@@ -706,15 +595,6 @@
     </ClInclude>
     <ClInclude Include="source\TracerSpawner.h">
       <Filter>ヘッダー ファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Timer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIRemainingUses.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UILightsTimer.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\ModeSelect.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
@@ -733,18 +613,6 @@
     </ClInclude>
     <ClInclude Include="source\MiniSiren.h">
       <Filter>ヘッダー ファイル\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="source\Result.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIClearTime.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UIClearTimeRank.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\UINextStage.h">
-      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIOverToTitle.h">
       <Filter>ヘッダー ファイル\UI</Filter>
@@ -844,6 +712,9 @@
     </ClInclude>
     <ClInclude Include="source\ModeStageSelect.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
+    </ClInclude>
+    <ClInclude Include="source\ResultData.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

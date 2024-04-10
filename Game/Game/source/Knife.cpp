@@ -30,19 +30,6 @@ bool Knife::Initialize() {
 
 bool Knife::Process() {
 	WeaponBase::Process();
-	int FrameIndex;
-	_matrix = MGetIdent();
-	// フレーム名からフレーム番号を取得する
-	FrameIndex = MV1SearchFrame(_equippedChara->GetHandle(), "Owl_RightHand");
-	_matrix = MGetScale(DxConverter::VecToDx(_scale));
-	_matrix = MMult(_matrix, MGetRotX(_eulerAngle.x));
-	_matrix = MMult(_matrix, MGetRotX(_eulerAngle.y));
-	_matrix = MMult(_matrix, MGetRotZ(_eulerAngle.z));
-	_matrix = MMult(_matrix, MGetTranslate(DxConverter::VecToDx(_pos)));
-	_matrix = MMult(_matrix, MV1GetFrameLocalWorldMatrix(_equippedChara->GetHandle(), FrameIndex));
-	MV1SetMatrix(_handle, _matrix);
-
-	MV1RefreshCollInfo(_handle, _attachIndex);
 
 	if (_isAttack) {
 		PhysWorld::CollisionDetectionResult result = _frame->GetOverlapResult();

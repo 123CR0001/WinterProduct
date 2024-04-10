@@ -78,7 +78,5 @@ bool AILoseSight::Process() {
 		_owner->ChangeState("BlindWalk");
 	}
 
-
-
 	return true;
 }

@@ -22,10 +22,11 @@ public:
 
 	void Draw(MATRIX mView = MGetIdent())override;
 
-
+	//
 	void Play() { _isPlayAnimation = true; }
 	void Stop() { _isPlayAnimation = false; }
 
+	//アニメーションが再生されている
 	bool IsPlay() { return _isPlayAnimation; }
 
 private:

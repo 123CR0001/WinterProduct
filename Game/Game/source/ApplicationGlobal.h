@@ -1,7 +1,6 @@
 #include "appframe.h"
 #include"MotionData.h"
 #include "SoundServer.h"
-#include "Result.h"
 
 class ApplicationGlobal
 {

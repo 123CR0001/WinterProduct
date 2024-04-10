@@ -43,8 +43,6 @@ Tracer::Tracer(TracerSpawner* spawner)
 	//最初の座標に移動
 	_pos = _AI->GetPoints("Trace").front();
 
-	GetObjectServer()->GetEnemys().emplace_back(this);
-
 	//_enemyCoutを増やす
 	spawner->GetObjectServer()->GetGame()->IncrementEnemyCount();
 
@@ -89,12 +87,6 @@ bool Tracer::Process() {
 
 		//死亡
 		_AI->ChangeState("Death");
-
-		auto iter2 = std::find(GetObjectServer()->GetEnemys().begin(), GetObjectServer()->GetEnemys().end(), this);
-
-		if (iter2 != GetObjectServer()->GetEnemys().end()) {
-			GetObjectServer()->GetEnemys().erase(iter2);
-		}
 
 		//エフェクト再生
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play(

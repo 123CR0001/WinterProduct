@@ -17,7 +17,7 @@ ModeStageSelect::ModeStageSelect()
 	,_bgsNum(0)
 	,_selectNum(0)
 {
-
+	//選択UIの画像をセット
 	{
 		auto targetUI = _buttonServer->GetSelectUI();
 
@@ -26,6 +26,7 @@ ModeStageSelect::ModeStageSelect()
 		targetUI->SetAlpha(1.f);
 	}
 
+	//背景
 	for (int a = 0; a < 3; a++) {
 		std::string fileName = "res/UI/StageSelect/ui_stagebg_0";
 		fileName += std::to_string(a+1);
@@ -41,10 +42,12 @@ ModeStageSelect::ModeStageSelect()
 		)
 		);
 
+		//選択しているステージの種類によって、
 		_bgs[a] = text;
 
 	}
 
+	//画面の飾り
 	{
 		_tag = NEW SpriteText();
 		_tag->SetHandle(ResourceServer::LoadGraph("res/UI/StageSelect/ui_stageselection_01.png"));
@@ -65,10 +68,12 @@ ModeStageSelect::~ModeStageSelect() {
 
 bool ModeStageSelect::Initialize() {
 
+	//BGMの再生
 	gGlobal._sndServer.Play("BGM_02");
 
 	for(int stageTypeNum = 1; stageTypeNum < 4; stageTypeNum++) {
 
+		//読み込むファイルパス名
 		std::string filePath = "res/UI/StageSelect/stage";
 		filePath += std::to_string(stageTypeNum);
 		filePath += "/";
@@ -77,9 +82,9 @@ bool ModeStageSelect::Initialize() {
 			//ステージ選択用ボタン
 			std::string stageTypeFilePath = filePath + "ui_stage0";
 			stageTypeFilePath += std::to_string(stageTypeNum);
-
 			stageTypeFilePath += ".png";
 
+			//使用する画像の描画用クラス
 			SpriteText* stageTypeText = NEW SpriteText();
 			stageTypeText->SetHandle(ResourceServer::LoadGraph(stageTypeFilePath.c_str()));
 			stageTypeText->SetSize(Vector2(600.f * SCREEN_WIDTH_MAG, 100.f * SCREEN_HEIGHT_MAG));
@@ -100,13 +105,15 @@ bool ModeStageSelect::Initialize() {
 				)
 			);
 
+			//選択したときの処理
 			auto stageTypefunc = [=]()mutable {
 
 				//ステージ選択用ボタンを画面外へ移動
 				for (auto&& button : _buttonServer->GetButtons()) {
+					//保持しているアニメーションを全て逆再生
 					button->GetSpriteText()->Reverse();
 
-
+					//一番最初のアニメーションにアニメーションが終了した際の処理をセット
 					button->GetSpriteText()->GetAnimations().front()->SetFunc(
 						[=]()mutable {
 						_buttonServer->DeleteButton(button);
@@ -145,23 +152,22 @@ bool ModeStageSelect::Initialize() {
 					)
 					);
 
-					//押された時の処理
+					//選択された時の処理
 					auto func = [=]()mutable {
-						//
+
+						//インスタンスを取得
 						auto mode = ModeServer::GetInstance();
 
-
+						//このモードを削除して、ゲーム本編を開始
 						auto fadeFunc = [=]()mutable {
 							mode->Del(this);
 							std::string stageName = std::to_string(stageTypeNum) + "_" + std::to_string(stageNum); 
 							mode->Add(NEW ModeGame(stageName), 1, "game");
 						};
-
-							mode->Add(NEW ModeColorOut(NEW ModeColorIn(60,true), fadeFunc, 60), 100, "Out");
-
-					
+						mode->Add(NEW ModeColorOut(NEW ModeColorIn(60,true), fadeFunc, 60), 100, "Out");
 					};
 
+					//ボタンサーバーに追加
 					_buttonServer->AddButton(NEW Button(_buttonServer, func, text));
 
 				}
@@ -251,10 +257,15 @@ bool ModeStageSelect::Terminate() {
 }
 
 bool ModeStageSelect::Process() {
+	//ボタンの処理
 	_buttonServer->Process();
+
+	//選択したか
 	if (ApplicationMain::GetInstance()->GetPad()->GetTrgButton() & INPUT_A) {
 		_isSelect = !_isSelect;
 	}
+
+	//選択しいてるボタンの番号を取得し、描画する背景番号と選択しているボンタンの番号を更新
 	if (!_isSelect && 3 > _buttonServer->GetSelectNum()) {
 		_bgsNum = _buttonServer->GetSelectNum();
 		_selectNum = _buttonServer->GetSelectNum();

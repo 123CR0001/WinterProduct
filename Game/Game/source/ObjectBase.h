@@ -32,7 +32,7 @@ public:
 	//XZ平面での前方ベクトル
 	Vector3 GetForward()const { return Vector3(sinf(_eulerAngle.y), 0.f, cosf(_eulerAngle.y)); }
 
-	int GetHandle()& { return _handle; }
+	int GetHandle() { return _handle; }
 	int GetAttachIndex()const { return _attachIndex;}
 
 	std::string GetName()const { return _name; }
@@ -43,7 +43,7 @@ public:
 	//回転縮小平行移動を計算し、モデルに適用する
 	void ModelMatrixSetUp();
 
-	//
+	//オーナーの取得
 	class ObjectServer* GetObjectServer()const { return _server; }
 
 	//コンポーネントの追加/削除
@@ -57,9 +57,8 @@ public:
 		bool isDamage = false;
 		//誰がダメージを与えたか
 		ObjectBase* object = nullptr;
-
+		//アイテム
 		PhysWorld::CollisionDetectionItem item;
-
 	};
 	void ApplyDamage(const DamageData& data);
 	DamageData GetDamageData()const {return _damageData;}
@@ -87,9 +86,7 @@ protected:
 	//拡縮
 	Vector3 _scale;
 
-	//
-	MATRIX _matrix;
-
+	//名前
 	std::string _name;
 
 	DamageData _damageData;

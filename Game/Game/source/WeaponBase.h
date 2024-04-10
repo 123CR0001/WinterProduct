@@ -13,6 +13,8 @@ public:
 	void OnAttack() { _isAttack = true; }
 	void OffAttack() { _isAttack = false; }
 
+	void SetFrameName(const std::string name) { _frameName = name; }
+
 protected:
 
 	//攻撃処理をするか
@@ -20,6 +22,9 @@ protected:
 
 	//自分を装備しているキャラ
 	class CharaBase* _equippedChara;
+
+	//装備しているキャラのどのフレームに、移動するか
+	std::string _frameName;
 
 	//フレームの当たり判定を行うコンポーネント
 	class FrameComponent* _frame;

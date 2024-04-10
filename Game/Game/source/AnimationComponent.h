@@ -31,7 +31,6 @@ public:
 	};
 
 	//モーションでの処理の際に、再生時間を参照したい。
-	//
 	//参照するのは新しいAnimationなので、_vAnimの末尾の_playTimeを参照する。
 	float GetPlayTime() const{ 
 		if (_vAnim.size() > 0) {
@@ -63,7 +62,9 @@ protected:
 	//再生中のアニメーションの名前
 	const char* _playAnimationName;
 
+	//ブレンド率100%~0%になるまでの処理時間
 	float _closeMaxTime;
 
+	//ブレンド率
 	float _rate;
 };

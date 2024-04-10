@@ -2,6 +2,7 @@
 #include"ObjectBase.h"
 #include"ObjectServer.h"
 #include"ModeGame.h"
+#include"ResultData.h"
 
 int CountKillComboComponent::_frameCnt = 0;
 int CountKillComboComponent::_comboCnt = 0;

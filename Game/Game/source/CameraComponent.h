@@ -12,6 +12,7 @@ public:
 
 	Vector3 GetPos()const { return _pos; }	
 	Vector3 GetAngle()const { return _angle; }
+
 	void Swap() { _swapWidth = rand() % 30 + 30; _swapHeight = rand() % 30 + 30; }
 
 	void SetTargetDistmag(const float mag) { _targetDistMag = mag; }
@@ -23,5 +24,6 @@ protected:
 	//ターゲットとの距離の倍率
 	float _targetDistMag;
 
+	//カメラの焦点をずらして、揺れを表現する
 	int _swapWidth, _swapHeight;
 };

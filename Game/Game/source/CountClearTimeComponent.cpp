@@ -2,7 +2,7 @@
 #include"ObjectBase.h"
 #include"ModeGame.h"
 #include"ObjectServer.h"
-
+#include"ResultData.h"
 CountClearTimeComponent::CountClearTimeComponent(ObjectBase* owner)
 	:Component(owner)
 	,_frameCnt(0)

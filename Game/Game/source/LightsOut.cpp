@@ -33,7 +33,7 @@
 LightsOut::LightsOut(ModeGame* game) 
 	:_game(game)
 	,_timerBg(NEW SpriteTextFlipAnimation(3,false))
-	,_timerEffect(NEW SpriteTextFlipAnimation(3,true))
+	,_isUseLightsOut(NEW SpriteTextFlipAnimation(3,true))
 	,_timer(NEW UISecMiliSec(Transform2(Vector2(359.f * SCREEN_WIDTH_MAG,978.f * SCREEN_HEIGHT_MAG)),100))
 	,_noise(NEW SpriteTextFlipAnimation(8, true))
 	,_hud(NEW SpriteText())
@@ -62,10 +62,10 @@ LightsOut::LightsOut(ModeGame* game)
 	_hud->SetPos(Vector2((float)screenWidth / 2, (float)screenHeight / 2));
 	_hud->SetAlpha(0.f);
 
-	_timerEffect->LoadDivText("res/UI/Game/ui_timerbg_02.png", 5, 1, 5, 200, 200);
-	_timerEffect->SetSize(Vector2(200.f * SCREEN_WIDTH_MAG, 200.f * SCREEN_HEIGHT_MAG));
-	_timerEffect->SetPos(Vector2(523.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG));
-	_timerEffect->SetAlpha(1.f);
+	_isUseLightsOut->LoadDivText("res/UI/Game/ui_timerbg_02.png", 5, 1, 5, 200, 200);
+	_isUseLightsOut->SetSize(Vector2(200.f * SCREEN_WIDTH_MAG, 200.f * SCREEN_HEIGHT_MAG));
+	_isUseLightsOut->SetPos(Vector2(523.f * SCREEN_WIDTH_MAG, 978.f * SCREEN_HEIGHT_MAG));
+	_isUseLightsOut->SetAlpha(1.f);
 
 	_timer->SetIsDraw(false);
 
@@ -73,7 +73,7 @@ LightsOut::LightsOut(ModeGame* game)
 	_game->GetUIServer()->AddUI(NEW UISpriteText(_noise,300));
 	_game->GetUIServer()->AddUI(NEW UISpriteText(_hud,310));
 	_game->GetUIServer()->AddUI(NEW UISpriteText(_timerBg,200));
-	_game->GetUIServer()->AddUI(NEW UISpriteText(_timerEffect, 250));
+	_game->GetUIServer()->AddUI(NEW UISpriteText(_isUseLightsOut, 250));
 	_game->GetUIServer()->AddUI(_timer);
 }
 
@@ -88,8 +88,6 @@ bool LightsOut::Process() {
 		break;
 	case STATE::kStart: {
 
-		int c = GetNowCount();
-
 		//タイマーの背景のアニメーションを始める
 		_timerBg->Play();
 
@@ -102,6 +100,7 @@ bool LightsOut::Process() {
 		};
 		_game->GetTimeLine()->AddLine(30, func);
 
+		//ライツアウトを使用していることをプレイヤークラスに伝える
 		_game->GetObjectServer()->GetPlayer()->SetIsLightsOut(true);
 
 		//フェードインアウトを利用した演出
@@ -129,20 +128,21 @@ bool LightsOut::Process() {
 
 		_state = STATE::kProcess;
 
-		c = (GetNowCount() - c) ;
 		break;
 	}
 
 	case STATE::kProcess: {
-		_frameCnt--;
 
+		//残り時間を減らす
+		_frameCnt--;
+		_timer->SetFrameCount(_frameCnt);
+
+		//残り時間が0未満になったら、終了処理へ入る
 		if (_frameCnt < 0) {
-			
 			_state = STATE::kEnd;
 		}
 
-		_timer->SetFrameCount(_frameCnt);
-
+		//一秒経ったら、SEを流す
 		if (_frameCnt % 60 == 0) {
 			//SE
 			gGlobal._sndServer.Get("SE_15")->Play();
@@ -150,11 +150,12 @@ bool LightsOut::Process() {
 
 		break;
 	}
-
 	case STATE::kEnd: {
 		
 		//アニメーションを逆再生させる
 		_timerBg->Reverse();
+
+		//非表示
 		_timer->SetIsDraw(false);
 
 		//フェードインアウトを利用した演出
@@ -170,6 +171,7 @@ bool LightsOut::Process() {
 			gGlobal._sndServer.Play("SE_07");
 		}
 
+		//残り使用回数が0だったら
 		if (_useTimes == 0) {
 			//120フレーム後にゲームオーバーかゲームクリアを決める
 			auto func = [this]() {
@@ -178,8 +180,11 @@ bool LightsOut::Process() {
 
 			_game->GetTimeLine()->AddLine(120, func);
 		}
+
+		//ライツアウトの使用しなくなったことをプレイヤーに伝える
 		_game->GetObjectServer()->GetPlayer()->SetIsLightsOut(false);
 
+		//ライツアウト中は描画しない
 		_noise->SetAlpha(0.f);
 		_hud->SetAlpha(0.f);
 
@@ -196,6 +201,7 @@ bool LightsOut::Process() {
 			}
 		}
 
+		//プレイヤーから削除
 		if(_afterImageCom) {
 			_afterImageCom->GetOwner()->DeleteComponent(_afterImageCom);
 			_afterImageCom = nullptr;
@@ -204,15 +210,17 @@ bool LightsOut::Process() {
 		_state = STATE::kNone;
 		break;
 	}
-	
 	}
 
+	//ライツアウトが使用可能になったら、UIを表示。そして、SEを流す
 	if(_useTimes > 0 && _game->GetEnergyCount() == 0 && _oldEnergyCount != _game->GetEnergyCount()) {
-		_timerEffect->SetAlpha(1.f);
+		_isUseLightsOut->SetAlpha(1.f);
 		gGlobal._sndServer.Play("SE_09");
 	}
+	//UIを非表示
+	//_oldEnergyCountを更新
 	else {
-		_timerEffect->SetAlpha(0.f);
+		_isUseLightsOut->SetAlpha(0.f);
 		_oldEnergyCount = _game->GetEnergyCount();
 	}
 
