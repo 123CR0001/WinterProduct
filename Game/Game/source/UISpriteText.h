@@ -16,6 +16,5 @@ public:
 	bool Draw()override;
 
 private:
-	class SpriteText* _text;
-
+	class SpriteText* _text;			//描画するテキスト
 };

@@ -109,9 +109,9 @@ bool UIVision::Draw() {
 
 		}
 
-		//
+		//UIなので、ライティングを無効にして描画
 		SetUseLighting(FALSE);
-		DrawPolygonIndexed3D(_vers.data(), _vers.size(), _versNums.data(), _versNums.size() / 3, _handle, TRUE);
+		DrawPolygonIndexed3D(_vers.data(), static_cast<int>(_vers.size()), _versNums.data(), static_cast<float>(_versNums.size() / 3), _handle, TRUE);
 		SetUseLighting(TRUE);
 	}
 	return true;

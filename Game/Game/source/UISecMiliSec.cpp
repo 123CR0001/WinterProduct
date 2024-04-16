@@ -22,7 +22,6 @@ UISecMiliSec::~UISecMiliSec(){}
 bool UISecMiliSec::Process() {
 
 	//描画する値の更新
-
 	int sec = _frameCnt / 60;
 
 	//2桁までしか描画しないため、繰り上げは2桁しか行わない

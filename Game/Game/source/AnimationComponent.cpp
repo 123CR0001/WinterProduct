@@ -7,6 +7,7 @@ AnimationComponent::AnimationComponent(ObjectBase* owner ,int order)
 	,_playAnimationName(nullptr)
 	,_rate(0.f)
 {
+	// アニメーションの閉じ時間
 	_closeMaxTime = 6.f;
 }
 

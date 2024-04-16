@@ -12,7 +12,6 @@ UIDetectionLevel::UIDetectionLevel(ObjectServer* server,int drawOrder)
 	:UI(drawOrder)
 	,_gaugeHandle(ResourceServer::LoadGraph("res/UI/Game/cir.png"))
 	,_gaugeBgHandle(ResourceServer::LoadGraph("res/UI/Game/black.png"))
-	,_text(NEW SpriteText())
 	,_server(server)
 {
 
@@ -20,7 +19,6 @@ UIDetectionLevel::UIDetectionLevel(ObjectServer* server,int drawOrder)
 
 UIDetectionLevel::~UIDetectionLevel(){
 
-	delete _text;
 }
 
 bool UIDetectionLevel::Process() {

@@ -12,6 +12,7 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 	, _anim(owner)
 	, _motCnt(0) 
 {
+	//移動コマンド
 	_commandFuncMap["MOVE"] = [this](const MOTION_DATA_ITEM& item) {
 		
 		float rad = DegToRad(item.vector) + _anim->GetOwner()->GetEulerAngle().y;
@@ -24,13 +25,10 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 		_motCnt++; 
 	};
 
+	//モーションをループするコマンド
 	_commandFuncMap["LOOP"] = [this](const MOTION_DATA_ITEM& item) {_motCnt = 0; };
 
-	//_commandFuncMap["CHANGE_MOTION"] = [this](const MOTION_DATA_ITEM& item) {
-	//	_chara->GetAnimationComponent()->ChangeAnimation(item.ChangeMotion.c_str());
-	//	_motCnt;
-	//};
-
+	//SEを流すコマンド
 	_commandFuncMap["PLAY_SOUND"] = [this](const MOTION_DATA_ITEM& item) {//SEの再生
 	
 		std::string name = item.soundPlayName;
@@ -39,9 +37,10 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 
 		int frontNum = 0;
 
+		//カンマ区切りで名前を取得
 		while(frontNum != -1) {
 
-			frontNum = name.find_first_of(",");
+			frontNum = static_cast<int>(name.find_first_of(","));
 
 			std::cout << frontNum << std::endl;
 
@@ -50,6 +49,7 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 			name = name.substr(frontNum + 1, name.size());
 		}
 
+		//取得した複数の名前からランダムで再生
 		gGlobal._sndServer.Play(names[rand() % names.size()]);
 
 		auto snd = gGlobal._sndServer.Get(names[rand() % names.size()]);
@@ -59,9 +59,11 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 			Set3DPositionSoundMem(_owner->GetDxPos(), snd->GetSoundHandle());	// 再生位置をキャラ位置に
 		}
 
+		//モーションカウントを進める
 		_motCnt++;
 	};
 
+	//エフェクトを再生するコマンド
 	_commandFuncMap["PLAY_EFFECT_3DFRAME"] = [this](const MOTION_DATA_ITEM& item) {
 		//エフェクトの再生
 		void* mode = ModeServer::GetInstance()->Get(MODE_EFFEKSEER_NAME);
@@ -73,9 +75,9 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 			// フレームの現在のワールドでの状態を示す行列を取得する
 			MATRIX FrameMatrix = MV1GetFrameLocalWorldMatrix(_anim->GetOwner()->GetHandle(), FrameIndex);
 
-			ModeEffekseer* effect = _anim->GetOwner()->GetObjectServer()->GetGame()->GetModeEffekseer();
+			ModeEffekseer* effect = _owner->GetObjectServer()->GetGame()->GetModeEffekseer();
 
-			Vector3 angle = _anim->GetOwner()->GetEulerAngle();
+			Vector3 angle = _owner->GetEulerAngle();
 
 			effect->Play(
 				item.effectPlayName,
@@ -86,14 +88,7 @@ MotionComponent::MotionComponent(AnimationComponent* owner,int order)
 
 		_motCnt++;
 	};
-		/*		{"ATTACK_ON",MotionCommand::ATTACK_ON},
-		{"ATTACK_OFF",MotionCommand::ATTACK_OFF},
-		{"PLAY_EFFECT",MotionCommand::PLAY_EFFECT},
-		{"PLAY_EFFECT_3DFRAME",MotionCommand::PLAY_EFFECT_3DFRAME},
-		{"PLAY_SOUND",MotionCommand::PLAY_SOUND},
-		{"LOOP",MotionCommand::LOOP},
-		{"CHANGE_MOTION",MotionCommand::CHANGE_MOTION},
-		{"MOVE",MotionCommand::MOVE}*/
+
 }
 
 MotionComponent::~MotionComponent(){}

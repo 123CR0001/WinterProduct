@@ -14,7 +14,10 @@ public:
 	bool Process();
 	bool Draw();
 
+	//選択時に呼び出す関数を実行
 	void SelectFunc() { if(_selectFunc)_selectFunc(); }
+
+	//選択時に呼び出す関数を設定
 	void SetFunc(std::function<void()>func) { _selectFunc = func; }
 
 	SpriteText* GetSpriteText() { return _text; }
@@ -22,11 +25,9 @@ public:
 	class ButtonServer* GetServer()const { return _server; }
 
 private:
-	SpriteText* _text;
+	SpriteText* _text;					//選択しているボタンのテキスト
 
-	class ButtonServer* _server;
+	class ButtonServer* _server;		//ボタンサーバー
 
-	//選択されたときの処理
-	std::function<void()>_selectFunc;
-
+	std::function<void()>_selectFunc;	//選択時に呼び出す関数
 };

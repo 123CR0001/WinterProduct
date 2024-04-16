@@ -60,7 +60,7 @@ bool Tracer::Initialize() {
 	//AI‚ÌŽ‹Šo‚Ìƒƒ“ƒo‚ðÝ’è
 	_AI->SetViewAngle(120.f);
 	_AI->SetViewDist(500.f);
-	_AI->SetView(Vector3(0.f, 100.f, 0.f));
+	_AI->SetViewLocalPos(Vector3(0.f, 100.f, 0.f));
 
 	return true;
 }

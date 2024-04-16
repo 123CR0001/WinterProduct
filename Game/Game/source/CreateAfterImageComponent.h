@@ -9,11 +9,10 @@ public:
 	bool Process()override;
 
 private:
-	//残像を生成する間隔
-	const int _maxCnt;
 
-	//フレームをカウントする変数
-	int _frameCnt;
+	const int _maxCnt;					//残像を生成する間隔
 
-	class AnimationComponent* _anim;
+	int _frameCnt;						//残像を生成する間隔のカウント
+
+	class AnimationComponent* _anim;	//アニメーションコンポーネント
 };

@@ -17,15 +17,11 @@ private:
 	void SetUI();
 	void SetButton();
 
-	//リザルトデータ
-	std::shared_ptr<class ResultData> _resultData;
+	std::shared_ptr<class ResultData> _resultData;			//リザルトデータ
 
-	//ボタンサーバー
-	class ButtonServer* _buttonServer;
+	class ButtonServer* _buttonServer;						//ボタンサーバー	
 
-	//UIサーバー
-	class MyUIServer* _uiServer;
+	class UIScreen* _uiServer;							//UIサーバー
 
-	//時間経過によって登録されたラムダ式を処理する
-	class TimeLine* _timeLine;
+	class TimeLine* _timeLine;								//時間経過によって登録されたラムダ式を処理するクラス
 };

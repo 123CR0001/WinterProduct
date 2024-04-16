@@ -60,7 +60,11 @@ public:
 		//アイテム
 		PhysWorld::CollisionDetectionItem item;
 	};
+
+	//ダメージを与える
 	void ApplyDamage(const DamageData& data);
+
+	//ダメージデータの取得
 	DamageData GetDamageData()const {return _damageData;}
 
 	enum class STATE {
@@ -77,24 +81,20 @@ protected:
 	//モデルの当たり判定用フレームのアタッチ番号
 	int _attachIndex;
 
-	//位置情報
-	Vector3 _pos;
+	Vector3 _pos;				//ワールド座標
 
-	//角度
-	Vector3 _eulerAngle;
+	Vector3 _eulerAngle;		//角度
 
-	//拡縮
-	Vector3 _scale;
+	Vector3 _scale;				//拡縮
 
-	//名前
-	std::string _name;
+	std::string _name;			//名前
 
-	DamageData _damageData;
+	DamageData _damageData;		//ダメージデータ
 
-	STATE _state;
+	STATE _state;				//状態
 
 private:
-	class ObjectServer* _server;
+	class ObjectServer* _server;					//オーナー
 
 	std::vector<class Component*>_components;
 	std::vector<class Component*>_addComponents;

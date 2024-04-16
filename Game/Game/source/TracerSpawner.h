@@ -14,11 +14,12 @@ public:
 	std::vector<Vector3>& GetPoints() { return _playerPoints; }
 
 private:
-	unsigned int _elapsedTime;
-	unsigned int _spawnTime;
+	unsigned int _elapsedTime;				//経過時間
+	unsigned int _spawnTime;				//トレーサーの生成時間
 
 	std::vector<Vector3>_playerPoints;
 
-	unsigned int _frameCnt;
-	const unsigned int _interval;
+	//プレイヤーの座標を記録する間隔
+	unsigned int _frameCnt;					//フレームカウント
+	const unsigned int _interval;			//間隔	
 };

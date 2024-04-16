@@ -23,6 +23,6 @@ public:
 
 protected:
 
-	std::unordered_map<std::string,int>_effectHandle;
-	std::vector<int>_playingEffectHandles;
+	std::unordered_map<std::string,int>_effectHandle;			//エフェクトハンドル
+	std::vector<int>_playingEffectHandles;						//再生中のエフェクトハンドル	
 }; 

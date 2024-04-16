@@ -19,6 +19,7 @@ AIBackPatrol::~AIBackPatrol(){}
 
 void AIBackPatrol::OnEnter() {
 
+	//BackPatrolGoalが空ならPatrolに切り替え
 	if(_owner->GetPoints("BackPatrolGoal").empty()) { 
 		_owner->ChangeState("Patrol"); 
 		return; 
@@ -30,6 +31,7 @@ void AIBackPatrol::OnEnter() {
 	//目的地
 	Vector3 goal = _owner->GetPoints("BackPatrolGoal").front();
 
+	//Naviクラスを取得
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
 	//最短経路
@@ -37,7 +39,9 @@ void AIBackPatrol::OnEnter() {
 	
 }
 void AIBackPatrol::OnExist() {
+	//目標地点の番号を初期化
 	_pointsNum = 0;
+	//目標地点をクリア
 	_owner->GetPoints(GetName()).clear();
 }
 
@@ -45,34 +49,22 @@ bool AIBackPatrol::Process() {
 
 	//プレイヤーを見つけずに目標地点についたら巡回ルートに戻るPatrolに切り替え
 	if (_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum)) {
+		//パニック状態に変更
 		_owner->ChangeState("Patrol");
+		//目標地点をクリア
 		_owner->GetPoints("BackPatrolGoal").clear();
 		return true;
 	}
 
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか
 	{
-		auto objects = _owner->GetOwner()->GetObjectServer()->GetObjects();
-		std::vector<std::string>names;
+		auto object = _owner->IsFound();
 
-		names.emplace_back("player");
-		names.emplace_back("Decoy");
-
-		for (int a = 0; a < objects.size(); a++) {
-
-			//視界に入っていない
-			if (!_owner->IsFound(objects[a])) { continue; }
-
-			for (int b = 0; b < names.size(); b++) {
-				if (objects[a]->GetName() == names[b]) {
-					//追いかけるオブジェクトのアドレスを登録
-					_owner->SetChaseObject(objects[a]);
-					//AIStateを変更
-					_owner->AddPoint("MoveTo", objects[a]->GetPos());
-					_owner->ChangeState("Discovery");
-					break;
-				}
-			}
+		if (object) {
+			//AIStateを変更
+			_owner->AddPoint("MoveTo", object->GetPos());
+			_owner->ChangeState("Discovery");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
 
@@ -85,6 +77,7 @@ bool AIBackPatrol::Process() {
 			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
+
 	//LightsOutになったら,AIBlindWalkに変更
 	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");

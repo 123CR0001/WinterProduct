@@ -47,18 +47,18 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 			if(_minPos.z > result.MinPosition.z) { _minPos.z = result.MinPosition.y; }
 		}
 		//最大頂点から最小頂点のちょうど半分の位置
-		_middlePos = Vector3::LineInter(_maxPos, _minPos, 0.5f);
+		_centerPos = Vector3::Lerp(_maxPos, _minPos, 0.5f);
 	}
 
 	//画像の描画位置
-	_x = static_cast<int>(1520.f * SCREEN_WIDTH_MAG);
-	_y = static_cast<int>(200.f * SCREEN_HEIGHT_MAG);
+	_x = 1520.f * SCREEN_WIDTH_MAG;
+	_y = 200.f * SCREEN_HEIGHT_MAG;
 
 	_mag = 0.2f;
 
 	//画像の描画サイズを拡大縮小率に合わせる
-	_w = static_cast<int>(fabsf(_maxPos.x - _minPos.x) * _mag);
-	_h = static_cast<int>(fabsf(_maxPos.z - _minPos.z) * _mag);
+	_w = fabsf(_maxPos.x - _minPos.x) * _mag;
+	_h = fabsf(_maxPos.z - _minPos.z) * _mag;
 
 	// 同期読み込み設定
 	_mapScreen = MakeScreen(_w, _h, TRUE);
@@ -94,8 +94,9 @@ bool UIMiniMap::Process() {
 
 	//_middlePos(マップの中心手)からプレイヤーへのベクトルを線形補完で、_mag倍したベクトル　= _middlePosから見て、方向をそのままに、近づけたプレイヤーの位置(ワールド座標)
 	//そこから、_middlePosを引くと、マップの中心からプレイヤーへのベクトル(ローカル座標)
-	auto vecMapPlayerMiddle = Vector3::LineInter(_middlePos, playerPos, _mag) - _middlePos;
+	auto vecMapPlayerMiddle = Vector3::Lerp(_centerPos, playerPos, _mag) - _centerPos;
 
+	//z成分を反転
 	vecMapPlayerMiddle.z *= -1.f;
 
 	//ミニマップは原点(0,0)に描画するので、サイズ/2がミニマップの中心座標になる
@@ -117,8 +118,10 @@ bool UIMiniMap::Process() {
 
 		auto pos = obj->GetPos();
 
-		auto vecMapObjMiddle = Vector3::LineInter(_middlePos, pos, _mag) - _middlePos;
+		//中心地点から見たオブジェクトのベクトル
+		auto vecMapObjMiddle = Vector3::Lerp(_centerPos, pos, _mag) - _centerPos;
 
+		//z成分を反転
 		vecMapObjMiddle.z *= -1.f;
 
 		auto mapPos = Vector3((float)_w / 2, 0.f, (float)_h / 2) + vecMapObjMiddle;
@@ -127,7 +130,7 @@ bool UIMiniMap::Process() {
 
 	}
 
-	/*地図と合成*/
+	//地図と合成
 	SetDrawScreen(_clipScreen);
 	ClearDrawScreen();
 
@@ -153,12 +156,13 @@ bool UIMiniMap::Process() {
 }
 
 bool UIMiniMap::Draw() {
-	//// 画面に合成した画像を描画する
-	const float diffX = (float)_x - _mapPlayerPos.x * 2;
-	const float diffY = (float)_y - _mapPlayerPos.z * 2;
+	//画面に合成した画像を描画する
+	const float diffX = _x - _mapPlayerPos.x * 2;
+	const float diffY = _y - _mapPlayerPos.z * 2;
 
 	const float angle = _game->GetObjectServer()->GetPlayer()->GetCamera()->GetAngle().y;
 
+	//プレイヤーが中心に来るように、画像を描画
 	VECTOR pos[4] = {
 		//左上
 		VGet(0 - _mapPlayerPos.x,	0 - _mapPlayerPos.z,0),

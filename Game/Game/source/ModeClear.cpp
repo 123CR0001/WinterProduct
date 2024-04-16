@@ -22,7 +22,7 @@
 #include"OpacityAnimation.h"
 #include"EasingNumber.h"
 
-#include"MyUIServer.h"
+#include"UIScreen.h"
 #include"TimeLine.h"
 #include"UIHrsMinSec.h"
 #include"UISpriteText.h"
@@ -31,7 +31,7 @@
 
 ModeClear::ModeClear(std::shared_ptr<ResultData> data)
 	:_resultData(data)
-	,_uiServer(NEW MyUIServer())
+	,_uiServer(NEW UIScreen())
 	,_buttonServer(NEW ButtonServer())
 	,_timeLine(NEW TimeLine())
 {
@@ -86,7 +86,7 @@ void ModeClear::SetUI() {
 			Transform2(Vector2(3000.f * SCREEN_WIDTH_MAG, 244.f * SCREEN_HEIGHT_MAG)),
 			Vector2(896.f * SCREEN_WIDTH_MAG, 366.f * SCREEN_HEIGHT_MAG)
 		);
-		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 244.f * SCREEN_HEIGHT_MAG))));
+		text->AddAnimation(NEW TransformAnimation(text, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 244.f * SCREEN_HEIGHT_MAG))));
 		_uiServer->AddUI(NEW UISpriteText(text));
 	}
 
@@ -97,7 +97,7 @@ void ModeClear::SetUI() {
 			Transform2(Vector2(3000.f * SCREEN_WIDTH_MAG, 896.f * SCREEN_HEIGHT_MAG)),
 			Vector2(896.f * SCREEN_WIDTH_MAG, 232.f * SCREEN_HEIGHT_MAG)
 		);
-		text->AddAnimation(NEW TransformAnimation(text, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 896.f * SCREEN_HEIGHT_MAG))));
+		text->AddAnimation(NEW TransformAnimation(text, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 896.f * SCREEN_HEIGHT_MAG))));
 		_uiServer->AddUI(NEW UISpriteText(text));
 	}
 
@@ -203,7 +203,7 @@ void ModeClear::SetButton() {
 			Vector2(384.f * SCREEN_WIDTH_MAG, 64.f * SCREEN_HEIGHT_MAG)
 		);
 		//アニメーションの設定
-		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 824.f * SCREEN_HEIGHT_MAG))));
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60., Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 824.f * SCREEN_HEIGHT_MAG))));
 
 		_buttonServer->AddButton(
 			NEW Button(
@@ -237,7 +237,7 @@ void ModeClear::SetButton() {
 			Vector2(384.f * SCREEN_WIDTH_MAG, 64.f * SCREEN_HEIGHT_MAG)
 		);
 		//アニメーションの設定
-		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 824.f * SCREEN_HEIGHT_MAG))));
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 824.f * SCREEN_HEIGHT_MAG))));
 
 		_buttonServer->AddButton(
 			NEW Button(
@@ -271,7 +271,7 @@ void ModeClear::SetButton() {
 			Vector2(384.f * SCREEN_WIDTH_MAG, 64.f * SCREEN_HEIGHT_MAG)
 		);
 		//アニメーションの設定
-		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 896.f * SCREEN_HEIGHT_MAG))));
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 896.f * SCREEN_HEIGHT_MAG))));
 
 		_buttonServer->AddButton(
 			NEW Button(
@@ -302,7 +302,7 @@ void ModeClear::SetButton() {
 			Transform2(Vector2(3000.f * SCREEN_WIDTH_MAG, 970.f * SCREEN_HEIGHT_MAG)),
 			Vector2(384.f * SCREEN_WIDTH_MAG, 64.f * SCREEN_HEIGHT_MAG)
 		);
-		button->AddAnimation(NEW TransformAnimation(button, 60.f, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 970.f * SCREEN_HEIGHT_MAG))));
+		button->AddAnimation(NEW TransformAnimation(button, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 970.f * SCREEN_HEIGHT_MAG))));
 
 		_buttonServer->AddButton(
 			NEW Button(

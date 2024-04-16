@@ -10,5 +10,5 @@ public:
 	bool Process()override;
 
 private:
-	float _dist;
+	float _dist;		//ƒJƒƒ‰‚Æ’‹“_‚Ì‹——£
 };

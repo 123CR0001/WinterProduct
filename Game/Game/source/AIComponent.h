@@ -20,27 +20,50 @@ public:
 		else { return nullptr; }
 	}
 
+	//AIStateを変更する
 	bool ChangeState(const std::string& name);
 
+	//AIStateを登録する
 	void RegisterState(class AIState* state);
 
+	//経路の座標を返す
 	std::vector<Vector3>&GetPoints(const std::string& name) { return _points[name]; }
+
+	//経路の座標を登録
 	void AddPoint(const std::string& name, const Vector3& point);
+
+	//経路の座標を挿入
 	void InsertPoint(const std::string& name, const Vector3& point, const int num);
+
+	//経路の座標を削除
 	void DeletePoint(const std::string& name, int num = -1);
 
+	//視界の設定
 	void SetViewAngle(const float angle) { _viewAngle = angle; }
 	void SetViewDist(const float dist) { _viewDist = dist; }
-	void SetView(const Vector3& view) { _view = view; }
+	void SetViewLocalPos(const Vector3& viewLocalPos) { _viewLoacalPos = viewLocalPos; }
 
-	float GetViewAngle()const { return _viewAngle; }
-	float GetViewDist()const { return _viewDist; }
-	Vector3 GetView()const { return _view; }
+	//視界の取得
+	float GetViewAngle()const { return _viewAngle; }				
+	float GetViewDist()const { return _viewDist; }					
+	Vector3 GetViewLoaclaPos()const { return _viewLoacalPos; }		
 
+	//オブジェクトが視界に入っているか
 	bool IsFound(class ObjectBase* target);
+
+	//オブジェクトが視界に入っているか(_chaseObjectNameから)
+	ObjectBase* IsFound();
+
+	//追跡するオブジェクトを設定
 	void SetChaseObject(class ObjectBase* target) { _chaseObj = target; }
+
+	//追跡するオブジェクトを取得
 	class ObjectBase* GetChaseObject()const { return _chaseObj; }
 
+	//追跡するオブジェクトの名前リストを取得
+	std::vector<std::string>& GetChaseObjectName() { return _chaseObjectName; }
+
+	//経路を移動する
 	bool MoveTo(std::vector<Vector3>& points, int& num);
 
 protected:
@@ -56,10 +79,11 @@ protected:
 	std::unordered_map<std::string, std::vector<Vector3>>_points;
 
 	//視界範囲
-	float _viewAngle;
-	float _viewDist;
-	Vector3 _view;
+	float _viewAngle;												//視界角度
+	float _viewDist;												//視界距離
+	Vector3 _viewLoacalPos;								//視界のローカル位置
 
-	//視認したキャラ
-	class ObjectBase* _chaseObj;
+	class ObjectBase* _chaseObj;						//追跡するオブジェクト
+
+	std::vector<std::string>_chaseObjectName;	//追跡するオブジェクトの名前
 };

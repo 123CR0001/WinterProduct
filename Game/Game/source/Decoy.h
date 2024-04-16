@@ -12,12 +12,11 @@ public:
 	bool Render()override;
 
 protected:
-	class CapsuleComponent* _capsule;
+	class CapsuleComponent* _capsule;	//カプセルコンポーネント
 
-	//時間経過で削除するためのカウント変数と時間経過の目安
-	int _elapsedFrame;
+	int _elapsedFrameCnt;		//時間経過でデコイを削除するためのカウント変数
 
-	const int _maxFrame;
+	const int _maxFrame;		//上記のカウント変数がこの値に達したらデコイを削除する
 
-	int _frameCnt;
+	int _frameCnt;				//フレームカウント
 };

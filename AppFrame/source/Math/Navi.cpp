@@ -182,7 +182,7 @@ void Navi::GetConectPolygonMap() {
 			//頂点情報は、順番に並んでいるため、最初と最後の頂点情報は走査だと調べられない。ので、走査前にやっておく
 			float longestDistSq = Vector3::LengthSquare(vers.front(), vers.back());
 
-			Vector3 pos = Vector3::LineInter(vers.front(), vers.back(), 0.5f);
+			Vector3 pos = Vector3::Lerp(vers.front(), vers.back(), 0.5f);
 
 			for(int a = 0; a < vers.size() - 1; a++) {
 
@@ -190,7 +190,7 @@ void Navi::GetConectPolygonMap() {
 
 				if(distSq > longestDistSq) {
 					longestDistSq = distSq;
-					pos = Vector3::LineInter(vers[a], vers[a + 1], 0.5f);
+					pos = Vector3::Lerp(vers[a], vers[a + 1], 0.5f);
 				}
 
 			}

@@ -402,7 +402,7 @@ void ModeDebugMenu::RenderViewCollision() {
 
 		DrawLine3D(
 			DxConverter::VecToDx(_game->GetObjectServer()->GetPlayer()->GetPos()),
-			DxConverter::VecToDx(_pos + (*iter)->GetAIComponent()->GetView()),
+			DxConverter::VecToDx(_pos + (*iter)->GetAIComponent()->GetViewLoaclaPos()),
 			GetColor(255, 0, 0)
 		);
 	}
@@ -470,6 +470,6 @@ void ModeDebugMenu::RenderDetectionInfo() {
 	for (auto iter = objServer->GetCommonSoldiers().begin(); iter != objServer->GetCommonSoldiers().end(); ++iter) {
 		VECTOR pos = ConvWorldPosToScreenPos((*iter)->GetDxPos());
 
-		DrawFormatString(pos.x, pos.y + 20, GetColor(255, 0, 0), "検知度 %f%", (*iter)->GetDetectionLevel());
+		DrawFormatStringF(pos.x, pos.y + 20.f, GetColor(255, 0, 0), "検知度 %f%", (*iter)->GetDetectionLevel());
 	}
 }

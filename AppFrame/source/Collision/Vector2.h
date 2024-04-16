@@ -38,25 +38,25 @@ public:
 		return Vector2(left.x / scale, left.y / scale);
 	}
 
-	const Vector2& operator+=(const Vector2& right) {
+	Vector2& operator+=(const Vector2& right) {
 		x += right.x;
 		y += right.y;
 		return *this;
 	}
 
-	const Vector2& operator-=(const Vector2& right) {
+	Vector2& operator-=(const Vector2& right) {
 		x -= right.x;
 		y -= right.y;
 		return *this;
 	}
 
-	const Vector2& operator*=(const float scale) {
+	Vector2& operator*=(const float scale) {
 		x *= scale;
 		y *= scale;
 		return *this;
 	}
 
-	const Vector2& operator/=(const float scale) {
+	Vector2& operator/=(const float scale) {
 		x /= scale;
 		y /= scale;
 		return *this;

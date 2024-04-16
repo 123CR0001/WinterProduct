@@ -16,6 +16,6 @@ public:
 	bool Process()override;
 
 private:
-	Vector3 _ownerForward;
-	bool _isSetForward;
+	Vector3 _ownerForward;		//オーナーの向き
+	bool _isSetForward;			//向きを設定したか
 };

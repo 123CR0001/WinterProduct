@@ -9,5 +9,5 @@ public:
 	bool Process()override;
 
 private:
-	int _frameCnt;
+	int _frameCnt;		//クリアタイム(フレームカウント)
 };

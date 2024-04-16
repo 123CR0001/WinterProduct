@@ -41,6 +41,4 @@ bool MoveComponent::Process() {
 
 float MoveComponent::GetSpeed() const{ return Vector3::Length(_oldPos,_owner->GetPos()); }
 
-Vector3 MoveComponent::GetRatateSpeed()const { 
-	return _owner->GetEulerAngle() - _oldEulerAngle;
-} 
+Vector3 MoveComponent::GetRotateSpeed()const { return _owner->GetEulerAngle() - _oldEulerAngle; } 

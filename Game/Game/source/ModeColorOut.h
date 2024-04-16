@@ -13,16 +13,16 @@ public:
 
 protected:
 
-	int _frameCnt;
-	const int _frameMaxCnt;
+	int _frameCnt;				//フレームカウント
+	const int _frameMaxCnt;		//最大フレームカウント
 
-	int _alpha;
+	int _alpha;					//アルファ値
 
-	int _red;
-	int _green;
-	int _blue;
+	int _red;					//赤
+	int _green;					//緑		
+	int _blue;					//青
 
-	class ModeColorIn* _modeColorIn;
+	class ModeColorIn* _modeColorIn;		//フェードインで使用するモード
 
-	std::function<void()>_func;
+	std::function<void()>_func;			//フェードアウト後に呼び出す関数
 };

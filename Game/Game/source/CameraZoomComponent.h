@@ -10,17 +10,11 @@ public:
 
 private:
 
-	//どの倍率にするか
-	float _changeMag;
+	float _changeMag;						//変更する倍率
+	float _mag;								//元の倍率
 
-	//変更前の値
-	float _mag;
+	int _maxFrameCnt;						//何フレームでズームするか
+	int _frameCnt;							//何フレーム経ったか記録する
 
-	//何フレームでズームが終わるか
-	int _maxFrameCnt;
-	//何フレーム経ったか記録する
-	int _frameCnt;
-
-	//ズームをするカメラ
-	class CameraComponent* _camera;
+	class CameraComponent* _camera;			//ズームをするカメラ
 };

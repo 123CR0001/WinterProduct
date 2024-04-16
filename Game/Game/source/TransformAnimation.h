@@ -11,9 +11,8 @@ public:
 	bool Process()override;
 
 private:
-	//最初のトランスフォーム
-	Transform2 _startTransform;
 
-	//目指すトランスフォーム
-	Transform2 _endTransform;
+	Transform2 _startTransform;				//最初のトランスフォーム
+
+	Transform2 _endTransform;				//目指すトランスフォーム
 };

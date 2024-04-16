@@ -15,5 +15,5 @@ public:
 	bool Process()override;
 
 private:
-	Vector3 _rushPos;
+	Vector3 _rushPos;		//“Ëi‚·‚éÀ•W
 };

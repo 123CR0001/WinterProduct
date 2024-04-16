@@ -46,7 +46,7 @@ bool AIMoveTo::Process() {
 		_owner->ChangeState("LoseSight");
 	}
 	//移動　最後の座標まで到達したら、巡回経路に戻る
-	if(!_owner->GetPoints(GetName()).back().Equal(_owner->GetOwner()->GetPos(), 20.f)) {
+	if(!Vector3::Equal(_owner->GetPoints(GetName()).back(),_owner->GetOwner()->GetPos(), 20.f)) {
 		//移動
 		_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum);
 	}
@@ -55,35 +55,31 @@ bool AIMoveTo::Process() {
 			_owner->ChangeState("LoseSight");
 		}
 	}
+
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか
 	{
-		auto objects = _owner->GetOwner()->GetObjectServer()->GetObjects();
-		std::vector<std::string>names;
-		names.emplace_back("player");
-		names.emplace_back("Decoy");
-		for(int a = 0; a < objects.size(); a++) {
-			//視界に入っていない
-			if(!_owner->IsFound(objects[a])) { continue; }
-			for(int b = 0; b < names.size(); b++) {
-				if(objects[a]->GetName() == names[b]) {
-					//目的地を更新
-					if(_oldCheckPoint != objects[a]->GetPos()) {
-						_oldCheckPoint = _owner->GetPoints(GetName()).back();
-						_owner->AddPoint(GetName(), objects[a]->GetPos());
-						_owner->ChangeState(GetName());
-					}
-					isFound = true;
-					break;
-				}
-			}
+		auto object = _owner->IsFound();
+
+		if (object) {
+			//AIStateを変更
+			_owner->AddPoint("MoveTo", object->GetPos());
+			_owner->ChangeState("Discovery");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
-	//音が聞こえたか？
+
+	//一定時間経過したら、音が聞こえたかを確認
 	if(_interval == 0) {
 		Vector3 p;
+		//音が聞こえたか？
 		if(_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
+			//音の発生源の座標を登録
 			_owner->AddPoint("MoveTo", p);
+
+			//音が聞こえたら、Discoveryに変更
 			_owner->ChangeState("Discovery");
+
+			//今いる座標を戻る座標として登録
 			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
@@ -92,6 +88,7 @@ bool AIMoveTo::Process() {
 		_owner->ChangeState("BlindWalk");
 	}
 
+	//インターバルの更新
 	if(_interval > 0) {
 		_interval--;
 	}

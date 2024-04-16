@@ -17,6 +17,5 @@ public:
 	int GetPointsNum()const { return _pointsNum; }
 
 private:
-	int _pointsNum;
-
+	int _pointsNum;		//Ÿ‚ÉŒü‚©‚¤À•W‚Ì”Ô†	
 };

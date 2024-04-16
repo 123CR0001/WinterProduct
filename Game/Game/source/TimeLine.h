@@ -7,10 +7,11 @@ public:
 	TimeLine();
 	~TimeLine();
 
+	//フレーム数に対応した関数を追加
 	void AddLine(int frameCnt, std::function<void()> func) { _funcs.emplace(_frameCnt + frameCnt, func); }
 
-	bool Process();
+	void Process();
 private:
-	std::unordered_map<int, std::function<void()>>_funcs;
-	int _frameCnt;
+	std::unordered_map<int, std::function<void()>>_funcs;		//フレーム数に対応した関数
+	int _frameCnt;												//フレーム数	
 };

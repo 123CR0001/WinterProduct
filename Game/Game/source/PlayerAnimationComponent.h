@@ -9,5 +9,5 @@ public:
 	bool Process()override;
 
 private:
-	class Player* _pOwner;
+	class Player* _pOwner;		//オーナー
 };

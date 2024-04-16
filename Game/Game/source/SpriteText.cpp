@@ -85,20 +85,20 @@ void SpriteText::Draw(MATRIX mView) {
 	// 描画する画像の4つの頂点座標
 	VECTOR _pos[4] = {
 		// 通常用（左上から右回り）
-		VGet(-width / 2.0, -height / 2.0, 0),	// 左上
-		VGet(width / 2.0, -height / 2.0 ,0),	// 右上
-		VGet(width / 2.0,  height / 2.0 ,0),	// 右下
-		VGet(-width / 2.0,  height / 2.0 ,0),	// 左下
+		VGet(-width / 2.0f, -height / 2.0f, 0),	// 左上
+		VGet(width / 2.0f, -height / 2.0f,0),	// 右上
+		VGet(width / 2.0f,  height / 2.0f ,0),	// 右下
+		VGet(-width / 2.0f,  height / 2.0f ,0),	// 左下
 	};
 
 	if(_isTurn) {
 		// 反転用
 		VECTOR posTurn[4] = {
 			// 反転用（右上から左回り）
-			VGet(width / 2.0, -height / 2.0 ,0),	// 右上
-			VGet(-width / 2.0, -height / 2.0, 0),	// 左上
-			VGet(-width / 2.0,  height / 2.0 ,0),	// 左下
-			VGet(width / 2.0,  height / 2.0 ,0),	// 右下
+			VGet(width / 2.0f, -height / 2.0f ,0),	// 右上
+			VGet(-width / 2.0f, -height / 2.0f, 0),	// 左上
+			VGet(-width / 2.0f,  height / 2.0f ,0),	// 左下
+			VGet(width / 2.0f,  height / 2.0f ,0),	// 右下
 		};
 		for(int i = 0; i < 4; i++) {
 			_pos[i] = posTurn[i];

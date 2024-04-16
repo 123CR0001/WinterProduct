@@ -9,5 +9,5 @@ public:
 	bool Process()override;
 
 private:
-	class CommonSoldier* _csOwner;
+	class CommonSoldier* _csOwner;		//オーナー
 };

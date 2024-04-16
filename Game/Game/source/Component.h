@@ -11,6 +11,6 @@ public:
 	int GetOrder()const { return _order; }
 
 protected:
-	class ObjectBase* _owner;
-	int _order;
+	class ObjectBase* _owner;			//オーナーオブジェクト
+	int _order;							//処理順	
 };

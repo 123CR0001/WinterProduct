@@ -93,9 +93,9 @@ bool AIComponent::IsFound(ObjectBase* target){
 		//視野角は正面ベクトルとの差分が視野角の半分だったら視界に入っている
 		if (Vector3::DotAngle(pos - targetPos, pos - forwardVec, true) < _viewAngle / 2) {
 
-			Segment seg(targetPos, _owner->GetPos() + _view);
+			Segment seg(targetPos, _owner->GetPos() + _viewLoacalPos);
 
-			//オブジェクトに遮られたら、動作しない
+			//オブジェクトに遮られたら、見えていない
 			for (auto&& obj : GetOwner()->GetObjectServer()->GetPhysWorld()->GetFrameComponent()) {
 
 				auto owner = obj->GetOwner();
@@ -114,6 +114,25 @@ bool AIComponent::IsFound(ObjectBase* target){
 		}
 	}
 	return false;
+}
+
+ObjectBase* AIComponent::IsFound() {
+
+	for (int a = 0; a < (int)_owner->GetObjectServer()->GetObjects().size(); ++a) {
+
+		auto object = _owner->GetObjectServer()->GetObjects()[a];
+
+		for (int b = 0; b < (int)_chaseObjectName.size(); ++b) {
+			
+			if (object->GetName() != _chaseObjectName[b]) { continue; }
+
+			if (IsFound(object)) {
+				return object;
+			}
+		}
+	}
+
+	return nullptr;
 }
 
 bool AIComponent::MoveTo(std::vector<Vector3>& points, int& num) {
@@ -150,7 +169,7 @@ bool AIComponent::MoveTo(std::vector<Vector3>& points, int& num) {
 	float moveSpeed = 2.f;
 
 	//目的地に着いた
-	if (arrowPoint.Equal(notYPos,10.f)) {
+	if (Vector3::Equal(arrowPoint,notYPos,10.f)) {
 		num++;
 		//moveSpeed = Vector3D::Length(arrowPoint, notYPos);
 	}
@@ -163,6 +182,7 @@ bool AIComponent::MoveTo(std::vector<Vector3>& points, int& num) {
 			float moveAngle = DegToRad(6);
 
 			//crossAngleがの正負で、右回転か左回転化を判定する
+			//fabs(diff) < moveAngleの判定は、回転角度がmoveAngleより小さかったら、その角度に合わせる
 			if (crossAngle > 0.0f) {
 				if (fabs(diff) < moveAngle) {
 					angle.y += diff;
@@ -172,7 +192,7 @@ bool AIComponent::MoveTo(std::vector<Vector3>& points, int& num) {
 					moveSpeed /= 3;
 				}
 			}
-			else /*if (crossAngle > 0.0) */ {
+			else {
 				if (fabs(diff) < moveAngle) {
 					angle.y += diff;
 				}

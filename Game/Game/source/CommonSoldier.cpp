@@ -36,7 +36,7 @@
 #include"LightsOut.h"
 #include"TimeLine.h"
 
-#include"MyUIServer.h"
+#include"UIScreen.h"
 #include"UI.h"
 
 #include"Gun.h"
@@ -80,6 +80,10 @@ CommonSoldier::CommonSoldier(ObjectServer* server)
 	_AI->RegisterState(NEW AIAttack(_AI));
 	_AI->RegisterState(NEW AILoseSight(_AI));
 
+	//AIが追いかけるオブジェクトの設定
+	_AI->GetChaseObjectName().emplace_back("Decoy");
+	_AI->GetChaseObjectName().emplace_back("player");
+
 	server->GetCommonSoldiers().emplace_back(this);
 
 	_capsule->AddSkipName("CommonSoldier");
@@ -112,7 +116,7 @@ bool CommonSoldier::Initialize() {
 	//AIの視覚のメンバを設定
 	_AI->SetViewAngle(120.f);
 	_AI->SetViewDist(500.f);
-	_AI->SetView(Vector3(0.f, 100.f, 0.f));
+	_AI->SetViewLocalPos(Vector3(0.f, 100.f, 0.f));
 
 	_detectionLevel = 0.f;
 
@@ -233,7 +237,7 @@ bool CommonSoldier::Process() {
 		GetObjectServer()->GetPlayer()->AddMoveSpeedMag(0.2f);
 
 		//ライツアウトの制限時間を伸ばす
-		GetObjectServer()->GetGame()->GetLightsOut()->AddFrameCount();
+		GetObjectServer()->GetGame()->GetLightsOut()->AddLimitCount();
 
 		//データを空にする
 		_damageData = DamageData{};
@@ -269,7 +273,7 @@ void CommonSoldier::SetJsonDataUE(nlohmann::json data) {
 		//0~9の数字が含まれていれば、それ以降の文字を削除
 		for(int a = 0; a < 10; a++) {
 			//整数をstringに変換　数字を検索
-			int num = name.find(std::to_string(a));
+			int num = static_cast<int>(name.find(std::to_string(a)));
 
 			//findは、検索した文字がなければ、-1を返す
 			if(num != -1) { name = name.substr(0, num); break; }

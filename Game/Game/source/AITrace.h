@@ -13,5 +13,5 @@ public:
 
 	bool Process()override;
 private:
-	int _pointsNum;
+	int _pointsNum;		//Ÿ‚ÉŒü‚©‚¤À•W‚Ì”Ô†
 };

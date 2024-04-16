@@ -14,5 +14,5 @@ public:
 	bool Process()override;
 
 private:
-	float _angle;
+	float _rotateAngle;			//‰ñ“]Šp“x
 };

@@ -8,5 +8,4 @@ public:
 
 	bool Initialize()override;
 	bool Process()override;
-
 };

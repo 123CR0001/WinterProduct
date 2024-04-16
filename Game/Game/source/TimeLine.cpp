@@ -8,9 +8,10 @@ TimeLine::~TimeLine(){
 	_funcs.clear();
 }
 
-bool TimeLine::Process() {
+void TimeLine::Process() {
 
-	if (_funcs.empty()) { return true; }
+	//登録された関数がない場合は何もしない
+	if (_funcs.empty()) { return; }
 
 	auto iter = _funcs.find(_frameCnt);
 
@@ -21,13 +22,12 @@ bool TimeLine::Process() {
 		_funcs.erase(iter);
 	}
 
+	//フレームカウントを進める
 	if (_frameCnt < INT_MAX) {
 		_frameCnt++;
 	}
+	//フレームカウントが最大値に達したら、0に戻す
 	else {
-		return false;
+		_frameCnt = 0;
 	}
-
-	return true;
-
 }

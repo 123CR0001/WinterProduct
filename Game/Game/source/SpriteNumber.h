@@ -18,11 +18,10 @@ public:
 	int GetNumber()const { return _number; }
 
 private:
-	//数字の描画用ハンドル
-	std::array<int, 10>_handles;
 
-	//描画する数字の値
-	int _number;
+	std::array<int, 10>_handles;	//数字の描画用ハンドル
+
+	int _number;					//描画する数字の値
 
 	//描画する桁数
 	//10を4桁で表示したいなど

@@ -1,21 +1,5 @@
 #include"Vector3.h"
 
-const Vector3 Vector3::operator + (const Vector3& right) {
-	return Vector3(*this) += right;
-}
-
-const Vector3 Vector3::operator - (const Vector3& right) {
-	return Vector3(*this) -= right;
-}
-
-const Vector3 Vector3::operator * (const float right) {
-	return Vector3(*this) *= right;
-}
-
-const Vector3 Vector3::operator / (const float right) {
-	return Vector3(*this) /= right;
-}
-
 bool Vector3::operator == (const Vector3& right) {
 	if (fabsf(x - right.x) > 0.01f) { return false; }
 	if (fabsf(y - right.y) > 0.01f) { return false; }
@@ -30,11 +14,11 @@ bool Vector3::operator != (const Vector3& right) {
 	return false;
 }
 
-bool Vector3::operator < ( Vector3 right) {
-	return this->LengthSquare() < right.LengthSquare();
+bool Vector3::operator < (const Vector3& right) {
+	return this->LengthSquare() < LengthSquare(Vector3(),right);
 }
-bool Vector3::operator > (Vector3 right) {
-	return this->LengthSquare() > right.LengthSquare();
+bool Vector3::operator > (const Vector3& right) {
+	return this->LengthSquare() > LengthSquare(Vector3(), right);
 }
 
 const float Vector3::Dot(const Vector3& v1, const Vector3& v2) {
@@ -49,10 +33,10 @@ const float Vector3::Length() {
 	return sqrt(Dot(*this, *this));
 }
 
-float Vector3::Length(Vector3 v1, Vector3 v2) {
+float Vector3::Length(const Vector3& v1, const Vector3& v2) {
 	return Vector3(v1 - v2).Length();
 }
-float Vector3::LengthSquare(Vector3 v1, Vector3 v2) {
+float Vector3::LengthSquare(const Vector3& v1,const Vector3& v2) {
 	return Vector3(v1 - v2).LengthSquare();
 }
 const float Vector3::LengthSquare() {
@@ -117,12 +101,12 @@ float Vector3::CrossAngleXZ(Vector3 A, Vector3 B, bool is_deg) {
 	return sita;
 }
 
-Vector3 Vector3::Emphasis(Vector3 ver1, Vector3 ver2, Vector3 ver3) {
-	return Vector3(ver1 + (ver2 + ver3)) / 3;
+Vector3 Vector3::Emphasis(const Vector3& ver1, const Vector3& ver2, const Vector3& ver3) {
+	return (ver1 + ver2 + ver3) / 3;
 }
 
-Vector3 Vector3::LineInter(Vector3 start, Vector3 end, const float t) {
-	return start + (Vector3(end - start) * t);
+Vector3 Vector3::Lerp(const Vector3& start, const Vector3& end, float t) {
+	return start + (end - start) * t;
 }
 
 Vector3 Vector3::Reflect(Vector3 vec, Vector3 normal) {

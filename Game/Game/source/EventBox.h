@@ -10,5 +10,5 @@ public:
 	bool Process()override;
 
 protected:
-	class FrameComponent* _frameCom;
+	class FrameComponent* _frameCom;		//フレームコンポーネント
 };

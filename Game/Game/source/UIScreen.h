@@ -1,10 +1,10 @@
 #pragma once
 #include<vector>
 
-class MyUIServer {
+class UIScreen {
 public:
-	MyUIServer();
-	~MyUIServer();
+	UIScreen();
+	~UIScreen();
 
 	bool Process();
 	bool Draw();

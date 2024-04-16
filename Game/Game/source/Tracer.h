@@ -13,11 +13,11 @@ public:
 	class AIComponent* GetAI()const { return _AI; }
 	
 private:
-	class AIComponent* _AI;
-	class CapsuleComponent* _capsule;
-	class AnimationComponent* _anim;
+	class AIComponent* _AI;					//AIコンポーネント
+	class CapsuleComponent* _capsule;		//カプセルコンポーネント
+	class AnimationComponent* _anim;		//アニメーションコンポーネント
 
-	unsigned int _frameCnt;
-	const unsigned int _maxFrame;
+	unsigned int _frameCnt;					//フレームカウント	
+	const unsigned int _maxFrame;			//最大フレーム数
 
 };

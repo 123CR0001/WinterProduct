@@ -35,7 +35,7 @@
 
 #include"TimeLine.h"
 
-#include"MyUIServer.h"
+#include"UIScreen.h"
 #include"LightsOut.h"
 
 #include"UIDetectionLevel.h"
@@ -55,7 +55,7 @@ ModeGame::ModeGame(std::string stageNum)
 	,_energyCount(0)
 	,_resultData(std::make_shared<ResultData>())
 	,_timeLine(NEW TimeLine())
-	,_uiServer(NEW MyUIServer())
+	,_UIScreen(NEW UIScreen())
 	,_enemyCount(0)
 	,_enemyCountText(NEW SpriteNumber(_enemyCount,2))
 {
@@ -68,7 +68,7 @@ ModeGame::ModeGame(std::string stageNum)
 
 ModeGame::~ModeGame() {
 	delete _objServer;
-	delete _uiServer;
+	delete _UIScreen;
 	delete _lightsOut;
 	delete _timeLine;
 }
@@ -76,6 +76,7 @@ ModeGame::~ModeGame() {
 bool ModeGame::Initialize() {
 	if (!base::Initialize()) { return false; }
 
+	//ステージの読み込み
 	_objServer->LoadData(_stage);
 
 	// シャドウマップの生成
@@ -93,7 +94,7 @@ bool ModeGame::Initialize() {
 	_enemyCountText->SetSize(Vector2(46.f * SCREEN_WIDTH_MAG, 70.f * SCREEN_HEIGHT_MAG));
 	_enemyCountText->SetAlpha(0.f);
 
-	//上記の背景
+	//_enemyCountTextの背景
 	{
 		_enemyCountBg = NEW SpriteText(
 			ResourceServer::LoadGraph("res/UI/Game/CommonSoldierTimes.png"),
@@ -101,13 +102,14 @@ bool ModeGame::Initialize() {
 			Vector2(160.f * SCREEN_WIDTH_MAG, 120.f * SCREEN_HEIGHT_MAG)
 		);
 		_enemyCountBg->SetAlpha(0.f);
-		_uiServer->AddUI(NEW UISpriteText(_enemyCountBg,100));
+		_UIScreen->AddUI(NEW UISpriteText(_enemyCountBg,100));
 	}
-	_uiServer->AddUI(NEW UISpriteText(_enemyCountText, 50));
 
-	_uiServer->AddUI(NEW UIDetectionLevel(_objServer,100));
-	_uiServer->AddUI(NEW UIVision(_objServer,1000));
-	_uiServer->AddUI(NEW UIMiniMap(this,100));
+	//UIの追加
+	_UIScreen->AddUI(NEW UISpriteText(_enemyCountText, 50));
+	_UIScreen->AddUI(NEW UIDetectionLevel(_objServer,100));
+	_UIScreen->AddUI(NEW UIVision(_objServer,1000));
+	_UIScreen->AddUI(NEW UIMiniMap(this,100));
 
 
 	gGlobal._sndServer.Play("BGM_03");
@@ -118,7 +120,10 @@ bool ModeGame::Terminate() {
 
 	base::Terminate();
 
+	// シャドウマップの削除
 	DeleteShadowMap(_handleShadowMap);
+
+	//オブジェクトサーバーの終了処理
 	_objServer->Terminate();
 
 	//BGMを止める
@@ -130,8 +135,9 @@ bool ModeGame::Terminate() {
 bool ModeGame::Process() {
 	base::Process();
 
+	//更新
 	_timeLine->Process();
-	_uiServer->Process();
+	_UIScreen->Process();
 	_lightsOut->Process();
 
 	
@@ -163,6 +169,7 @@ bool ModeGame::Render() {
 
 	auto instance = ApplicationBase::GetInstance();
 
+	// 背景描画
 	DrawModiGraph(
 		0, 0,
 		instance->DispSizeW(),0,
@@ -177,14 +184,10 @@ bool ModeGame::Render() {
 
 	VECTOR vLightDir = VGet(-1, -1, 0.5f);
 	VECTOR target = _objServer->GetPlayer()->GetDxPos();
-#if 0	// 平行ライト
-	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
-	ChangeLightTypeDir(vLightDir);
-#endif
-#if 1	// ポイントライト
+
+	// ポイントライト
 	SetGlobalAmbientLight(GetColorF(0.f, 0.f, 0.f, 0.f));
 	ChangeLightTypePoint(VAdd(target, VGet(0, 50.f, 0)), 1000.f, 0.f, 0.005f, 0.f);
-#endif
 
 	// シャドウマップが想定するライトの方向もセット
 	SetShadowMapLightDirection(_handleShadowMap, vLightDir);
@@ -213,7 +216,8 @@ bool ModeGame::Render() {
 	// 描画に使用するシャドウマップの設定を解除
 	SetUseShadowMap(0, -1);
 
-	_uiServer->Draw();
+	//UIの描画
+	_UIScreen->Draw();
 
 	return true;
 }
@@ -221,6 +225,7 @@ bool ModeGame::Render() {
 XGamePad* ModeGame::GetPad()const { return ApplicationMain::GetInstance()->GetPad(); }
 
 void ModeGame::SwitchOverOrClear() {
+	//敵の数が0ならクリア
 	if(_enemyCount == 0) {
 		{
 			
@@ -245,6 +250,7 @@ void ModeGame::SwitchOverOrClear() {
 			_timeLine->AddLine(180, timeLineFunc); 
 		}
 	}
+	//敵の数が0でないならゲームオーバー
 	else {
 		{
 			_objServer->GetPlayer()->ChangeState("Dead");
@@ -269,12 +275,16 @@ void ModeGame::SwitchOverOrClear() {
 }
 
 void ModeGame::DecrementEnemyCount() {
+	//敵の数を減らす
 	_enemyCount--;
 
+	//敵の数が0ならクリア処理を行う
 	if(_enemyCount == 0) {
-		auto func = [=]()mutable { SwitchOverOrClear(); };
-		_timeLine->AddLine(60, func);
 
+		//60フレーム後にクリア処理を行う
+		_timeLine->AddLine(60, [=]()mutable { SwitchOverOrClear(); });
+
+		//ライツアウトを使用していたら
 		_lightsOut->Stop();
 	}
 }

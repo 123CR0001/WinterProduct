@@ -15,6 +15,7 @@ Energy::Energy(ObjectServer* server)
 	//_energyCount‚ð‘‚â‚·
 	server->GetGame()->IncrementEnergyCount();
 
+	//ƒ‚ƒfƒ‹‚Ì“Ç‚Ýž‚Ý
 	LoadModel("res/Object/energy/energysphere.mv1");
 
 }
@@ -34,7 +35,6 @@ bool Energy::Process() {
 		GetObjectServer()->GetGame()->GetModeEffekseer()->Play("GetEnergy", _pos, _eulerAngle);
 
 		gGlobal._sndServer.Play("SE_28");
-
 	}
 
 	return true;
@@ -43,7 +43,6 @@ bool Energy::Process() {
 bool Energy::Render() {
 
 	ObjectBase::Render();
-
 
 	return true;
 }

@@ -29,6 +29,6 @@ public:
 
 	void DeletePhysWorldThis();
 protected:
-	PhysWorld::CollisionDetectionResult _result;
-	PhysWorld::CollisionDetectionResult _oldResult;
+	PhysWorld::CollisionDetectionResult _result;		//Õ“Ë”»’èŒ‹‰Ê
+	PhysWorld::CollisionDetectionResult _oldResult;		//‘O‰ñ‚ÌÕ“Ë”»’èŒ‹‰Ê
 };

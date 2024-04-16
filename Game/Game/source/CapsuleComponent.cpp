@@ -7,11 +7,12 @@
 CapsuleComponent::CapsuleComponent(ObjectBase* owner,int order)
 	:Component(owner,order)
 {
+	//物理ワールドに登録
 	owner->GetObjectServer()->GetPhysWorld()->GetCapsuleComponent().emplace_back(this);
-
 }
 
 CapsuleComponent::~CapsuleComponent() {
+	//物理ワールドから削除
 	auto world = _owner->GetObjectServer()->GetPhysWorld();
 	auto iter = std::find(
 		world->GetCapsuleComponent().begin(),
@@ -24,14 +25,19 @@ CapsuleComponent::~CapsuleComponent() {
 
 bool CapsuleComponent::Process() {
 	{
+		//オブジェクトとの押出処理
 		auto physWorld = _owner->GetObjectServer()->GetPhysWorld();
 
+		//フレームとの押出処理
 		for (auto iter = physWorld->GetFrameComponent().begin(); iter != physWorld->GetFrameComponent().end(); ++iter) {
 
 			if ((*iter)->GetOwner() == _owner) { continue; }//自分とは判定をしない 
+
 			//登録されいている名前なら、スキップ
 			if (std::find(_skipNames.begin(), _skipNames.end(), (*iter)->GetOwner()->GetName()) != _skipNames.end()) { continue; }
 
+			//床から離れないように、足元に線分を作成
+			//その線分とフレームとの当たり判定
 			auto  hitObj = MV1CollCheck_Line(
 				(*iter)->GetOwner()->GetHandle(),
 				(*iter)->GetOwner()->GetAttachIndex(),
@@ -39,6 +45,7 @@ bool CapsuleComponent::Process() {
 				DxConverter::VecToDx(_owner->GetPos() - Vector3(0.f, 1000.f, 0.f))
 			);
 
+			//ぶつかったか
 			if (hitObj.HitFlag) {
 				_owner->SetPos(DxConverter::DxToVec(hitObj.HitPosition) + Vector3(0.f,1.f,0.f));
 			}
@@ -49,16 +56,21 @@ bool CapsuleComponent::Process() {
 	//オブジェクトとの押出処理
 	int i = 0;
 
+	//前回の結果を保存
 	_oldResult = _result;
 
+	//リザルトを空に
 	_result = PhysWorld::CollisionDetectionResult{};
 
 	while (1) {
 
 		PhysWorld::CollisionDetectionResult result = GetOverlapResult();
 		
+		//ぶつかったら、押し出す
 		if (result.isHit) {
 			_owner->AddPos(result.item.pushVec);
+
+			//リザルトを更新
 			_result = result;
 		}
 		else { 
@@ -81,6 +93,7 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 	PhysWorld::CollisionDetectionResult result;
 	result.isHit = false;
 
+	//自分と他のカプセルとの当たり判定
 	for (auto iter = capComs.begin(); iter != capComs.end(); ++iter) {
 		if ((*iter)->GetOwner() == _owner) { continue; }//自分とは判定をしない 
 
@@ -112,6 +125,7 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 		}
 	}
 
+	//自分とフレームとの当たり判定
 	for (auto iter = physWorld->GetFrameComponent().begin(); iter != physWorld->GetFrameComponent().end(); ++iter) {
 
 		if ((*iter)->GetOwner() == _owner) { continue; }//自分とは判定をしない 
@@ -205,7 +219,6 @@ PhysWorld::CollisionDetectionResult CapsuleComponent::GetOverlapResult() {
 
 Capsule CapsuleComponent::GetCapsule()const {
 	//キャラクターの位置は基本的に足元から
-//そのため、
 	Vector3 diff(_diff);
 	diff.y += _radius;
 

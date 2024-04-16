@@ -43,22 +43,22 @@ public:
 protected:
 
 
-	ACTION_STATE _actionState;
+	ACTION_STATE _actionState;				//行動状態
 
-	class WeaponBase* _weapon;
+	class WeaponBase* _weapon;				//武器
 
-	class CameraComponent* _cameraCom;
-	class MotionComponent* _motCom;
-	class CapsuleComponent* _capsule;
-	class AnimationComponent* _anim;
+	class CameraComponent* _cameraCom;		//カメラ
+	class MotionComponent* _motCom;			//モーション	
+	class CapsuleComponent* _capsule;		//カプセル
+	class AnimationComponent* _anim;		//アニメーション
 
-	bool _isLightsOut;
+	bool _isLightsOut;						//ライトアウト中か
 
-	float _moveSpeedMag;
+	float _moveSpeedMag;					//移動速度倍率	
 
-	int _decoyTimes;
+	int _decoyTimes;						//デコイの残り回数
 
-	class SpriteText* _decoyTimesTextBg;
-	class SpriteNumber* _decoyTimesText;
+	class SpriteText* _decoyTimesTextBg;	//デコイの残り回数の背景
+	class SpriteNumber* _decoyTimesText;	//デコイの残り回数のUIテキスト
 };
 

@@ -13,7 +13,7 @@
 #include"EventBox.h"
 #include"TutorialBox.h"
 
-#include"MyUIServer.h"
+#include"UIScreen.h"
 #include"UIDetectionLevel.h"
 
 #include<fstream>

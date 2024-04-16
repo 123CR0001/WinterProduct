@@ -9,15 +9,19 @@ public:
 
 	virtual bool Process();
 
+	//アニメーションを逆再生
 	void Reverse() {
 		_isEnd = false; _isReverse = true;
 	}
 
+	//アニメーションが終了したら、する処理を設定
 	void SetFunc(std::function<void()>func) { _func = func; }
 
+	//アニメーションが終了したか
 	bool IsEnd()const { return _isEnd; }
 
-	void End() {
+	//アニメーションを終了
+	void SkipEnd() {
 
 		if (!_isReverse) {
 			_frameCnt = _frame;
@@ -29,27 +33,18 @@ public:
 	}
 
 protected:
-	class SpriteText* _text;
+	class SpriteText* _text;		//アニメーションをするSpriteText
 
-	//カウント
-	int _frameCnt;
+	int _frameCnt;					//フレームカウント
 
-	//何カウントか
-	const int _frame;
+	const int _frame;				//アニメーションの最大フレーム
 
-	//アニメーションの再生割合
-	float _rate;
+	float _rate;					//アニメーションの進行度
 
-	//アニメーションを逆再生
-	bool _isReverse;
+	bool _isReverse;				//逆再生か	
 
-	//アニメーションが終了したか
-	bool _isEnd;
+	bool _isEnd;					//アニメーションが終了したか
 
-	//アニメーションが終わったら、SpriteTextから削除するかの変数も欲しいかも？
-	//bool _isEndDelete;
-
-	//アニメーションが終わったら、する処理
-	std::function<void()>_func;
+	std::function<void()>_func;		//アニメーションが終了したら、する処理
 
 };

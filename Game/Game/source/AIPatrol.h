@@ -15,8 +15,8 @@ public:
 
 	const char* GetName()override { return "Patrol"; }
 
-	int GetPatrolPointsNum()const { return _patrolPointsNum; }
+	int GetPointsNum()const { return _pointsNum; }
 
 private:
-	int _patrolPointsNum;
+	int _pointsNum;		//Ÿ‚ÉŒü‚©‚¤À•W‚Ì”Ô†
 };

@@ -23,7 +23,7 @@ void AIDeath::OnExist() {
 bool AIDeath::Process() {
 
 	_frameCnt--;
-
+	//ƒtƒŒ[ƒ€”‚ª0ˆÈ‰º‚É‚È‚Á‚½‚ç
 	if (_frameCnt <= 0) {
 		//íœ
 		_owner->GetOwner()->GetObjectServer()->DeleteObject(_owner->GetOwner());

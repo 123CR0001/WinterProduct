@@ -26,9 +26,9 @@ class Polygon3D {
 
 		void SetScale(const float& t) {
 			Vector3 emphasis(this->Emphasis());
-			ver1 = Vector3::LineInter(ver1, emphasis, t);
-			ver2 = Vector3::LineInter(ver2, emphasis, t);
-			ver3 = Vector3::LineInter(ver3, emphasis, t);
+			ver1 = Vector3::Lerp(ver1, emphasis, t);
+			ver2 = Vector3::Lerp(ver2, emphasis, t);
+			ver3 = Vector3::Lerp(ver3, emphasis, t);
 		}
 
 		bool IsConect(Polygon3D& other, Segment* side = nullptr) {

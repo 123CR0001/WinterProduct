@@ -33,6 +33,6 @@ protected:
 	std::map<std::string, SoundItemBase*> _vAdd;
 	std::map<std::string, SoundItemBase*> _vDel;
 
-	int		_cntOneShot;
+	int		_cntOneShot;							//ワンショットのカウント
 };
 

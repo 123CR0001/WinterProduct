@@ -12,6 +12,7 @@ ModeColorOut::ModeColorOut(ModeColorIn* modeColorIn, std::function<void()>func,i
 bool ModeColorOut::Initialize() {
 	_frameCnt = 0;
 	_alpha = 0;
+
 	_red = 0;
 	_green = 0;
 	_blue = 0;

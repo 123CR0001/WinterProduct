@@ -10,9 +10,13 @@ ModeColorIn::ModeColorIn(int maxCnt,bool isBlack)
 bool ModeColorIn::Initialize() {
 	_frameCnt = 0;
 	_alpha = 0;
+
+	// 白の場合はRGBを255にする
 	_red = 255;
 	_green = 255;
 	_blue = 255;
+
+	// 黒の場合はRGBを0にする
 	if (_isBlack) {
 		_red = 0;
 		_green = 0;
@@ -28,17 +32,18 @@ bool ModeColorIn::Terminate() {
 
 bool ModeColorIn::Process() {
 
-
+	// フレームカウントが最大値に達したら、自身を削除する
 	if (_frameCnt >= _frameMaxCnt) {
 		ModeServer::GetInstance()->Del(this);
 	}
 	else {
-		_alpha = EasingLinear((float)_frameCnt, 255, 0, (float)_frameMaxCnt);
+		//アルファ値を計算
+		_alpha = static_cast<int>(EasingLinear((float)_frameCnt, 255, 0, (float)_frameMaxCnt));
+
+		//フレームカウントを進める
 		_frameCnt++;
 	}
 
-	// このモードより下のレイヤーはProcess()を呼ばない
-//	ModeServer::GetInstance()->SkipProcessUnderLayer();
 	return true;
 }
 

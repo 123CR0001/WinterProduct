@@ -3,7 +3,6 @@
 #include "ApplicationMain.h"
 #include "ModeTitle.h"
 #include "ModeSoundLayer.h"
-#include "ModeSelect.h"
 #include"ApplicationGlobal.h"
 // ŽÀ‘Ì
 ApplicationMain				g_oApplicationMain;

@@ -27,9 +27,13 @@ bool Siren::Initialize() {
 
 	GetObjectServer()->GetSirens().emplace_back(this);
 
+	//拡大
 	_scale = Vector3(2.0, 2.0, 2.0);
 
+	//モデルの読み込み
 	LoadModel("res/Object/siren/siren.mv1");
+
+	//当たり判定用のフレームは描画しない
 	MV1SetFrameVisible(_handle, MV1SearchFrame(_handle, "UCX_Keihouki"), FALSE);
 
 	return true;
@@ -50,25 +54,32 @@ bool Siren::Terminate() {
 bool Siren::Process() {
 	ObjectBase::Process();
 
+	//インターバルを減らす
 	if (_interval > 0)
 	{
 		_interval--;
 	}
 
+	//プレイヤーが近くにいて、ボタンが押されたら
 	if (_interval <= 0 &&
 		Vector3::LengthSquare(GetObjectServer()->GetPlayer()->GetPos(), _pos) < _playerDist * _playerDist &&
 		GetObjectServer()->GetGame()->GetPad()->GetTrgButton() & INPUT_B
 		) {
 
+		//インターバルを設定
 		_interval = 360;
 
 		Vector3 pos = _pos;
+
+		//y成分を0にする
 		pos.y = 0.f;
 
 		pos += GetForward() * 50.f;
 	
+		//サウンドコンポーネントを追加
 		new SoundComponent(this, pos, _volumeSize);
 
+		//SEを再生
 		auto snd = gGlobal._sndServer.Get(_SEName);
 		if(snd) {
 			if(!snd->IsPlay()) {

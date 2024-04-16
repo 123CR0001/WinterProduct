@@ -12,12 +12,10 @@ public:
 	bool Process()override;
 
 private:
-	//使用するイージングの関数
-	std::function<float(float ,float ,float ,float)>_func;
 
-	//描画するテキスト
-	class SpriteNumber* _spriteNumber;
+	std::function<float(float ,float ,float ,float)>_func;				//使用するイージングの関数
 
-	//描画する数値
-	int _number;
+	class SpriteNumber* _spriteNumber;									//イージングするSpriteNumber	
+
+	int _number;														//イージングする数字	
 };

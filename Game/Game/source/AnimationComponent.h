@@ -59,12 +59,9 @@ protected:
 	std::unordered_map<const char*, int>_animation;
 	std::unordered_map<const char*, int>_animLoop;
 
-	//再生中のアニメーションの名前
-	const char* _playAnimationName;
+	const char* _playAnimationName;			//再生中のアニメーションの名前
 
-	//ブレンド率100%~0%になるまでの処理時間
-	float _closeMaxTime;
+	float _closeMaxTime;					//モーションブレンドの最大時間
 
-	//ブレンド率
-	float _rate;
+	float _rate;							//モーションのブレンド率
 };

@@ -13,7 +13,7 @@
 
 AIPatrol::AIPatrol(AIComponent* owner)
 	:AIState(owner)
-	,_patrolPointsNum(1)
+	,_pointsNum(1)
 {}
 
 AIPatrol::~AIPatrol(){}
@@ -35,11 +35,12 @@ bool AIPatrol::Process() {
 
 	//経路を巡回
 	{
-		int oldNum = _patrolPointsNum;
-		_owner->MoveTo(_owner->GetPoints(GetName()), _patrolPointsNum);
+		//目標座標に変化がないか
+		int oldNum = _pointsNum;
+		_owner->MoveTo(_owner->GetPoints(GetName()), _pointsNum);
 
 		//ポイントに到着
-		if (oldNum != _patrolPointsNum) {
+		if (oldNum != _pointsNum) {
 			_owner->ChangeState("LookAround");
 		}
 	}
@@ -52,6 +53,8 @@ bool AIPatrol::Process() {
 		Vector3 p;
 		if (_owner->GetOwner()->GetObjectServer()->GetPhysWorld()->IsHear(_owner->GetOwner(), &p)) {
 			isChangeState = true;
+
+			//
 			_owner->AddPoint("MoveTo", p);
 			_owner->ChangeState("Discovery");
 			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
@@ -59,35 +62,17 @@ bool AIPatrol::Process() {
 	}
 
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか
-	
-		auto objects = _owner->GetOwner()->GetObjectServer()->GetObjects();
-		std::vector<std::string>names;
+	{
+		auto object = _owner->IsFound();
 
-		names.emplace_back("player");
-		names.emplace_back("Decoy");
-
-		for (int a = 0; a < objects.size(); a++) {
-
-			for (int b = 0; b < names.size(); b++) {
-
-				//登録した名前か
-				if (objects[a]->GetName() != names[b]) { continue; }
-
-				//視界に入っているか
-				if (_owner->IsFound(objects[a])) { 
-
-					isChangeState = true;
-					//追いかけるオブジェクトのアドレスを登録
-					_owner->SetChaseObject(objects[a]);
-					//AIStateを変更
-					_owner->AddPoint("MoveTo", objects[a]->GetPos());
-					_owner->ChangeState("Discovery");
-					_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
-					return true;
-				
-				}
-			}
+		if (object) {
+			//AIStateを変更
+			_owner->SetChaseObject(object);
+			_owner->AddPoint("MoveTo", object->GetPos());
+			_owner->ChangeState("Discovery");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
+	}
 	
 
 	//LightsOutになったら,AIBlindWalkに変更

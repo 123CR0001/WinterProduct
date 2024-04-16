@@ -12,7 +12,7 @@
 Decoy::Decoy(Player* player, float rad)
 	:ObjectBase(player->GetObjectServer(),false,"Decoy")
 	,_capsule(NEW CapsuleComponent(this,1000))
-	,_elapsedFrame(0)
+	,_elapsedFrameCnt(0)
 	,_frameCnt(0)
 	,_maxFrame(300)
 {
@@ -73,10 +73,11 @@ bool Decoy::Process() {
 
 	_frameCnt++;
 
-	if(_elapsedFrame == _maxFrame) {
+	//ˆê’èŽžŠÔŒo‰ß‚ÅÁ–Å
+	if(_elapsedFrameCnt == _maxFrame) {
 		GetObjectServer()->DeleteObject(this);
 	}
-	_elapsedFrame++;
+	_elapsedFrameCnt++;
 
 	return true;
 }

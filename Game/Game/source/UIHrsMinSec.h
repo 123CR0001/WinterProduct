@@ -19,12 +19,11 @@ private:
 	std::array<class SpriteNumber*, 3>_spriteTimes;
 	class SpriteText* _spriteColon;
 
-	//
-	int _secondTime;
+	int _secondTime;		//秒数
 
 	//イージング用
-	int _frameCnt;
-	const int _frame;
+	int _frameCnt;			//フレームカウント
+	const int _frame;		//イージングにかけるフレーム数
 
-	bool _isDraw;
+	bool _isDraw;			//描画するかどうか
 };

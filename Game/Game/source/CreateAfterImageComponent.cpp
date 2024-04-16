@@ -19,11 +19,13 @@ CreateAfterImageComponent::~CreateAfterImageComponent() {
 
 bool CreateAfterImageComponent::Process() {
 
+	// アニメーションの再生時間が一定のフレーム経過したら、アフターイメージを生成する
 	if (_frameCnt == _maxCnt) {
 		NEW AfterImage(_anim);
 		_frameCnt = 0;
 	}
 
+	// フレームカウントを進める
 	_frameCnt++;
 
 	return true;

@@ -22,9 +22,9 @@ private:
 	class std::unique_ptr<class SpriteNumber> _miliSec;
 	class std::unique_ptr<class SpriteText>_colon;
 
-	int _frameCnt;
+	int _frameCnt;			//•`‰æ‚·‚éŠÔ‚ÌƒtƒŒ[ƒ€”
 
-	Vector2 _pos;
+	Vector2 _pos;			//•`‰æˆÊ’u
 
-	bool _isDraw;
+	bool _isDraw;			//•`‰æ‚·‚é‚©‚Ç‚¤‚©
 };

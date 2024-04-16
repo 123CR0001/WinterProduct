@@ -165,6 +165,8 @@ bool ModeStageSelect::Initialize() {
 							mode->Add(NEW ModeGame(stageName), 1, "game");
 						};
 						mode->Add(NEW ModeColorOut(NEW ModeColorIn(60,true), fadeFunc, 60), 100, "Out");
+
+						_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 					};
 
 					//ボタンサーバーに追加
@@ -243,6 +245,7 @@ bool ModeStageSelect::Initialize() {
 			};
 
 			mode->Add(NEW ModeColorOut(NEW ModeColorIn(60,true), fadeFunc, 60), 100, "Out");
+			_buttonServer->SetStep(ButtonServer::STEP::kConclude);
 
 		};
 		_buttonServer->AddButton(NEW Button(_buttonServer, backTitleButtonFunc, backTitleButtoText));

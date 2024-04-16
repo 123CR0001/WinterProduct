@@ -10,6 +10,9 @@
 #include"FrameComponent.h"
 #include"CapsuleComponent.h"
 
+/*
+‹¤’Ê‰»‚Å‚«‚»‚¤‚Èˆ—‚ÍAˆÏ÷Œ^‚Å‘Î‰‚·‚é
+*/
 
 ObjectBase::ObjectBase(ObjectServer* server, bool isFrame, std::string name)
 	:_server(server)
@@ -39,9 +42,6 @@ ObjectBase::~ObjectBase() {
 	_deleteComponents.clear();
 	_components.clear();
 
-
-
-	MV1TerminateCollInfo(_handle, _attachIndex);
 }
 
 bool ObjectBase::Initialize() {
@@ -94,6 +94,7 @@ bool ObjectBase::Process() {
 		(*iter)->Process();
 	}
 
+	//¡‚Ìî•ñ‚ğƒ‚ƒfƒ‹‚É”½‰f‚³‚¹‚é
 	ModelMatrixSetUp();
 	return true;
 }

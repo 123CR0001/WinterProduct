@@ -58,6 +58,6 @@ public:
 
 	MOTION_DATA_ITEMS GetMotionData()const { return _motionData; }
 
-	MOTION_DATA_ITEMS _motionData;
+	MOTION_DATA_ITEMS _motionData;			//モーションデータ
 
 };

@@ -26,13 +26,13 @@ private:
 	Vector3 _minPos;
 
 	//_maxPosと_mixPosを直線で結んだ際、その中間座標
-	Vector3 _middlePos;
+	Vector3 _centerPos;
 
 	//ミニマップを画面上に描画する位置
-	int _x, _y;
+	float _x, _y;
 
 	//_mapScreenに描画するミニマップの大きさ
-	int  _w, _h;
+	float  _w, _h;
 
 	//画面に描画する円形上のマップの半径
 	float _radius;

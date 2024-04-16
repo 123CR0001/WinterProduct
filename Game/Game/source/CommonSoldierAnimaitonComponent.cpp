@@ -11,7 +11,6 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 
 
 	//ƒAƒjƒ[ƒVƒ‡ƒ“‚ð“o˜^
-
 	_csOwner->LoadModel("res/Chara/Soldier_fix/soldier_2_4_IK_A_05.mv1");
 
 	LoadAnimation("Walk", "mo_moveenemy_01", 0);
@@ -20,9 +19,7 @@ CommonSoldierAnimationComponent::CommonSoldierAnimationComponent(CommonSoldier* 
 	LoadAnimation("Panic", "mo_shootingenemy_01", 0);
 	LoadAnimation("Shoot", "mo_shootingenemy_01", 0);
 	LoadAnimation("Discovery", "mo_discovery_01", 0);
-
 	LoadAnimation("LoseSight", "mo_losesight_01", 0);
-
 	LoadAnimation("Idle", "mo_standbyenemy_01", 0);
 	LoadAnimation("LookAround", "mo_losesight_01", 0);
 
@@ -53,7 +50,7 @@ bool CommonSoldierAnimationComponent::Process() {
 	else if(name == "BlindWalk" ) {
 		ChangeAnimation("BlindWalk");
 	}
-	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f || _csOwner->GetMoveComponent()->GetRatateSpeed().Length() > 0.01f) {
+	else if(_csOwner->GetMoveComponent()->GetSpeed() > 0.01f || _csOwner->GetMoveComponent()->GetRotateSpeed().Length() > 0.01f) {
 		ChangeAnimation("Walk");
 	}
 	else {

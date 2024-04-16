@@ -16,5 +16,5 @@ public:
 	virtual const char* GetName() = 0;
 
 protected:
-	class AIComponent* _owner;
+	class AIComponent* _owner;		//オーナー
 };

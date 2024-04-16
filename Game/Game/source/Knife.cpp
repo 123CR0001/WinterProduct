@@ -42,6 +42,7 @@ bool Knife::Process() {
 
 			CharaBase::DamageData damageData = { true,this,result.item };
 
+			//ƒ_ƒ[ƒW‚ğ—^‚¦‚é
 			result.item._object->ApplyDamage(damageData);
 
 			//‰¹‚ğ¶¬

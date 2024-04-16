@@ -18,19 +18,21 @@ public:
 		Vector3 normal;
 	};
 	
+	//当たり判定結果
 	struct CollisionDetectionResult {
 		bool isHit = false;
 		CollisionDetectionItem item;
 	};
 
+	//SoundComponentとの当たり判定
 	bool IsHear(class ObjectBase* object,Vector3* pos = nullptr);
 
 	std::vector<class CapsuleComponent*>& GetCapsuleComponent() { return _capsules; }
 	std::vector<class FrameComponent*>& GetFrameComponent() { return _frames; }
 	std::vector<class SoundComponent*>& GetSoundComponent() { return _sounds; }
 protected:
-	class ObjectServer* _server;
-	std::vector<class CapsuleComponent*>_capsules;	//カプセル
-	std::vector<class FrameComponent*>_frames;			//モデルのフレーム
-	std::vector<class SoundComponent*>_sounds;			//ゲーム世界での音(判定は球)
+	class ObjectServer* _server;											//オブジェクトサーバー(オーナー)	
+	std::vector<class CapsuleComponent*>_capsules;		//カプセル
+	std::vector<class FrameComponent*>_frames;				//モデルのフレーム
+	std::vector<class SoundComponent*>_sounds;				//ゲーム世界での音(判定は球)
 };

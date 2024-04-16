@@ -18,7 +18,7 @@ public :
 
 protected:
 
-	class MoveComponent* _moveCom;
+	class MoveComponent* _moveCom;		//移動コンポーネント	
 
 };
 

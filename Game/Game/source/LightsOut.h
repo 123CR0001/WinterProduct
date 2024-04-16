@@ -16,27 +16,22 @@ public:
 	bool IsUse() { return _state == STATE::kNone && _useTimes > 0; }
 
 	//制限時間を加算
-	void AddFrameCount() { _frameCnt += 120; }
+	void AddLimitCount() { _limitCnt += 120; }
 
 private:
-	class SpriteTextFlipAnimation* _timerBg;		//秒数の背景
-	class SpriteTextFlipAnimation* _noise;			//エフェクト
-	class SpriteTextFlipAnimation* _isUseLightsOut;	//ライツアウトが使用可能になったかを表示するUI 
-	class SpriteText* _hud;							//HUD
-	class UISecMiliSec* _timer;						//制限時間表示UI
+	class SpriteTextFlipAnimation*	_timerBg;			//秒数の背景
+	class SpriteTextFlipAnimation*	_noise;				//エフェクト
+	class SpriteTextFlipAnimation*	_isUseLightsOut;	//ライツアウトが使用可能になったかを表示するUI 
+	class SpriteText*				_hud;				//HUD
+	class UISecMiliSec*				_timer;				//制限時間表示UI
 
-	class ModeGame* _game;		//オーナー
+	class ModeGame*					_game;				//オーナー
 
 	class CreateAfterImageComponent* _afterImageCom;	//プレイヤーに追加するコンポーネントのアドレスを保持する
 
-	//ライツアウトの制限時間
-	int _frameCnt;
-
-	//使用できる回数
-	int _useTimes;
-
-	//ライツアウトが使用可能になった時だけしたい処理があるため、それをエナジーの数の変化を比較して、判断する
-	int _oldEnergyCount;
+	int _limitCnt;										//制限時間	
+	int _useTimes;										//ライツアウトの使用回数	
+	int _oldEnergyCount;								//前フレームのエネルギーの値
 
 	//処理ステップ
 	enum class STATE {

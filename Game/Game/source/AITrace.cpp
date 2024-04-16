@@ -18,7 +18,9 @@ void AITrace::OnEnter() {
 }
 
 void AITrace::OnExist(){
+	//“o˜^‚µ‚½À•W‚ğíœ
 	_owner->DeletePoint("Trace");
+	//À•W‚Ì”‚ğ‰Šú‰»
 	_pointsNum = 0;
 }
 

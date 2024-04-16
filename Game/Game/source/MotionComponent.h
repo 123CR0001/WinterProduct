@@ -21,9 +21,9 @@ public:
 
 	int GetMotionCount()const { return _motCnt; }
 private:
-	class AnimationComponent* _anim;
-	int _motCnt;
-	std::string _oldAnimName;
+	class AnimationComponent* _anim;	//アニメーションコンポーネント
+	int _motCnt;						//モーションカウント(参照するデータ配列の番号)
+	std::string _oldAnimName;			//前回のアニメーション名
 
 	//全キャラ共通のコマンド
 	std::unordered_map<std::string, std::function<void(const MOTION_DATA_ITEM&)>>_commandFuncMap;

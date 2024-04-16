@@ -28,11 +28,12 @@ bool CountKillComboComponent::Process() {
 		}
 	}
 
+	//コンボのカウントが終了
 	if(_frameCnt <= 0) {
-
 		_comboCnt = 0;
 	}
 
+	//カウントを減らす
 	_frameCnt--;
 	
 

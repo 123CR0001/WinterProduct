@@ -13,13 +13,13 @@ public:
 	void SetRotateSpeed(const float& set) { _rotateSpeed = set; }
 
 	float GetSpeed()const;
-	Vector3 GetRatateSpeed()const;
+	Vector3 GetRotateSpeed()const;
 	
 private:
 
-	float _rotateSpeed;
-	float _moveSpeed;
+	float _rotateSpeed;			//回転速度
+	float _moveSpeed;			//移動速度		
 
-	Vector3 _oldPos;
-	Vector3 _oldEulerAngle;
+	Vector3 _oldPos;			//前フレームの座標
+	Vector3 _oldEulerAngle;		//前フレームの角度
 };

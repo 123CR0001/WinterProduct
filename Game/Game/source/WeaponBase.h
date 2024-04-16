@@ -17,16 +17,12 @@ public:
 
 protected:
 
-	//攻撃処理をするか
-	bool _isAttack;
+	bool _isAttack;							//攻撃中かどうか	
 
-	//自分を装備しているキャラ
-	class CharaBase* _equippedChara;
+	class CharaBase* _equippedChara;		//装備しているキャラ
 
-	//装備しているキャラのどのフレームに、移動するか
-	std::string _frameName;
+	std::string _frameName;					//装備しているキャラのどのフレームに、移動するか
 
-	//フレームの当たり判定を行うコンポーネント
-	class FrameComponent* _frame;
+	class FrameComponent* _frame;			//フレームの当たり判定を行うコンポーネント
 
 };

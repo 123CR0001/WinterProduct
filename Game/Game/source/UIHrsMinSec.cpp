@@ -20,11 +20,6 @@ UIHrsMinSec::UIHrsMinSec(int frame, int secondTime,const Transform2& transform ,
 	, _frameCnt(0)
 	, _isDraw(true)
 {
-
-
-	int screenWidth = ApplicationMain::GetInstance()->DispSizeW();
-	int screenHeight = ApplicationMain::GetInstance()->DispSizeH();
-
 	//画面が最大サイズの時の描画サイズ * 上記の比率 = 画面の大きさに適した描画サイズにする
 
 	_spriteColon->SetHandle(ResourceServer::LoadGraph("res/UI/Result/ui_timer_02.png"));
@@ -38,10 +33,10 @@ UIHrsMinSec::UIHrsMinSec(int frame, int secondTime,const Transform2& transform ,
 		//描画サイズ
 		_spriteTimes[a]->SetSize(Vector2(size.x, size.y));
 		//描画位置
-		_spriteTimes[a]->SetPos(								//時間と分、秒は２桁ずつ描画する											//コロンは一回だけ
+		_spriteTimes[a]->SetPos(								//時間と分、秒は２桁ずつ描画する	//コロンは一回だけ
 			Vector2(transform.pos.x, transform.pos.y) 
-			- Vector2(size.x  * static_cast<float>(NUMBER_DIGIT), 0.f) * a 
-			- Vector2(COLON_WIDTH , 0.f) * a
+			- Vector2(size.x  * static_cast<float>(NUMBER_DIGIT), 0.f) * static_cast<float>(a) 
+			- Vector2(COLON_WIDTH , 0.f) * static_cast<float>(a)
 		);
 	}
 
@@ -87,12 +82,11 @@ bool UIHrsMinSec::Process() {
 
 bool UIHrsMinSec::Draw() {
 
+	//描画フラグがfalseなら描画しない
 	if (!_isDraw)return true;
 
-	int screenWidth = ApplicationMain::GetInstance()->DispSizeW();
-
 	//画面の最大横幅1920と現在の画面横幅との比率
-	float rateW = static_cast<float>(screenWidth) / static_cast<float>(MAX_SCREEN_WIDTH);
+	float rateW = static_cast<float>(SCREEN_WIDTH) / static_cast<float>(MAX_SCREEN_WIDTH);
 
 	for (int a = 0; a < _spriteTimes.size(); a++) {
 		_spriteTimes[a]->Draw();

@@ -16,5 +16,4 @@ private:
 
 	//“§–¾“x
 	float _alpha;
-	int error;
 };

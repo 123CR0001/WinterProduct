@@ -7,8 +7,6 @@
 #include<algorithm>
 ButtonServer::ButtonServer() 
 	:_selectNum(0)
-	,_selectLimitNum(-1)
-	,_oldSelectNum(0)
 	,_selectUI(NEW SpriteText())
 	,_step(STEP::kAnimation)
 {
@@ -49,10 +47,8 @@ bool ButtonServer::Process() {
 	}
 
 	//サイズを超えていたら、修正
-	if (_selectNum >= _buttons.size()) { _selectNum = _buttons.size() - 1; }
-
-	if (_selectLimitNum != -1 && _selectNum > _selectLimitNum - 1) {
-		_selectNum = _selectLimitNum;
+	if (_selectNum >= static_cast<int>(_buttons.size())) { 
+		_selectNum = static_cast<int>(_buttons.size()) - 1;
 	}
 
 	//空だったら処理をしない
@@ -61,6 +57,7 @@ bool ButtonServer::Process() {
 	switch(_step) {
 	case STEP::kAnimation:
 	{
+		//アニメーションが終了したか
 		bool isPlayAnimation = false;
 		for(auto&& button : _buttons) {
 			
@@ -72,6 +69,7 @@ bool ButtonServer::Process() {
 
 		}
 
+		//アニメーションが終了したら次のステップへ
 		if (!isPlayAnimation) {
 			_step = STEP::kProcess;
 		}
@@ -79,9 +77,8 @@ bool ButtonServer::Process() {
 	}
 	case STEP::kProcess:
 	{
+		//トリガ入力
 		auto trg = ApplicationMain::GetInstance()->GetPad()->GetTrgButton();
-
-		_oldSelectNum = _selectNum;
 
 		//選択ボタンの変更
 		if(trg & INPUT_DPAD_DOWN) {
@@ -99,25 +96,28 @@ bool ButtonServer::Process() {
 			_buttons[_selectNum]->SelectFunc();
 		}
 
-		bool isPlayAnimation = false;
-		for (auto&& button : _buttons) {
+		//アニメーションがさらに再生される場合、アニメーションステップへ
+		{
+			bool isPlayAnimation = false;
+			for (auto&& button : _buttons) {
 
-			for (auto&& anim : button->GetSpriteText()->GetAnimations()) {
-				if (!anim->IsEnd()) {
-					isPlayAnimation = true; break;
+				for (auto&& anim : button->GetSpriteText()->GetAnimations()) {
+					if (!anim->IsEnd()) {
+						isPlayAnimation = true; break;
+					}
 				}
+
 			}
 
+			if (isPlayAnimation) {
+				_step = STEP::kAnimation;
+			}
 		}
-
-		if (isPlayAnimation) {
-			_step = STEP::kAnimation;
-		}
-
 		break;
 	}
 	}
 
+	//選択UIの位置を変更
 	_selectUI->SetTransform(_buttons[_selectNum]->GetSpriteText()->GetTransform());
 	_selectUI->SetSize(_buttons[_selectNum]->GetSpriteText()->GetSize());
 
@@ -133,6 +133,8 @@ bool ButtonServer::Draw() {
 }
 
 void ButtonServer::AddButton(Button* button) {
+
+	//重複登録を防ぐ
 	auto iter = std::find(_buttons.begin(), _buttons.end(), button);
 
 	if (iter != _buttons.end())return;
@@ -146,12 +148,14 @@ void ButtonServer::AddButton(Button* button) {
 
 void ButtonServer::DeleteButton(Button* button) {
 
+	//重複登録を防ぐ
 	auto iter = std::find(_buttons.begin(), _buttons.end(), button);
 
 	if(iter == _buttons.end()) {
 		return;
 	}
 
+	//削除リストに追加
 	_deleteButtons.emplace_back(button);
 
 }

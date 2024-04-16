@@ -30,19 +30,15 @@ public:
 	bool IsPlay() { return _isPlayAnimation; }
 
 private:
-	//アニメーション(画像の切り替え)の間隔
-	int _flipInterval;
+	int _flipInterval;				//アニメーションの切り替え速度
 
-	//逆再生するか
-	bool _isReverse;
+	bool _isReverse;				//アニメーションを逆再生するか
 
-	int _frameCnt;
+	int _frameCnt;					//アニメーションのフレームカウント
 
-	//アニメーションをするか
-	bool _isPlayAnimation;
+	bool _isPlayAnimation;          //アニメーションをするか
 
-	//アニメーションをループさせるか
-	bool _isLoop;
+	bool _isLoop;					//アニメーションをループさせるか
 
-	std::vector<int>_handles;
+	std::vector<int>_handles;		//アニメーション画像のハンドル
 };

@@ -9,9 +9,8 @@ public:
 
 	bool Process()override;
 private:
-	//最初のアルファ値
-	const float _startAlpha;
+	const float _startAlpha;	//最初のアルファ値
 
-	//目指すアルファ値
-	const float _endAlpha;
+	const float _endAlpha;		//最終のアルファ値
+	
 };

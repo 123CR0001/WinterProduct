@@ -212,7 +212,7 @@
     <ClCompile Include="source\MotionComponent.cpp" />
     <ClCompile Include="source\MotionData.cpp" />
     <ClCompile Include="source\MoveComponent.cpp" />
-    <ClCompile Include="source\MyUIServer.cpp" />
+    <ClCompile Include="source\UIScreen.cpp" />
     <ClCompile Include="source\ObjectBase.cpp" />
     <ClCompile Include="source\ObjectServer.cpp" />
     <ClCompile Include="source\OpacityAnimation.cpp" />
@@ -290,7 +290,7 @@
     <ClInclude Include="source\LightsOut.h" />
     <ClInclude Include="source\ModeStageSelect.h" />
     <ClInclude Include="source\ModeTutorial.h" />
-    <ClInclude Include="source\MyUIServer.h" />
+    <ClInclude Include="source\UIScreen.h" />
     <ClInclude Include="source\OpacityAnimation.h" />
     <ClInclude Include="source\ResultData.h" />
     <ClInclude Include="source\SpriteNumber.h" />
@@ -306,7 +306,6 @@
     <ClInclude Include="source\ModeEndConfirm.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="source\ModeGameUI.h" />
     <ClInclude Include="source\ApplicationMain.h" />
     <ClInclude Include="source\CharaBase.h" />
     <ClInclude Include="source\CommonSoldier.h" />
@@ -315,7 +314,6 @@
     <ClInclude Include="source\ModeGameOver.h" />
     <ClInclude Include="source\ModePause.h" />
     <ClInclude Include="source\ModePauseConfirm.h" />
-    <ClInclude Include="source\ModeSelect.h" />
     <ClInclude Include="source\ModeSoundLayer.h" />
     <ClInclude Include="source\ModeTitle.h" />
     <ClInclude Include="source\ModeColorIn.h" />

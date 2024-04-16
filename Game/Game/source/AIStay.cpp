@@ -16,6 +16,7 @@ AIStay::AIStay(AIComponent* owner)
 AIStay::~AIStay(){}
 
 void AIStay::OnEnter() {
+	//一回でも角度を設定したら、その角度がこのステートになる限り、その角度に変化する
 	if (!_isSetForward) { _ownerForward = _owner->GetOwner()->GetForward(); _isSetForward = true; }
 }
 
@@ -37,43 +38,28 @@ bool AIStay::Process() {
 
 	//登録している名前と同じ名前を持つオブジェクトを視界に入れたか
 	{
-		auto objects = _owner->GetOwner()->GetObjectServer()->GetObjects();
-		std::vector<std::string>names;
+		auto object = _owner->IsFound();
 
-		names.emplace_back("player");
-		names.emplace_back("Decoy");
-
-		for(int a = 0; a < objects.size(); a++) {
-
-			for(int b = 0; b < names.size(); b++) {
-
-				//登録した名前か
-				if(objects[a]->GetName() != names[b]) { continue; }
-
-				//視界に入っているか
-				if(_owner->IsFound(objects[a])) {
-					//追いかけるオブジェクトのアドレスを登録
-					_owner->SetChaseObject(objects[a]);
-					//AIStateを変更
-					_owner->AddPoint("MoveTo", objects[a]->GetPos());
-					_owner->ChangeState("Discovery");
-					_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
-					return true;
-
-				}
-			}
+		if (object) {
+			//AIStateを変更
+			_owner->AddPoint("MoveTo", object->GetPos());
+			_owner->ChangeState("Discovery");
+			_owner->AddPoint("BackPatrolGoal", _owner->GetOwner()->GetPos());
 		}
 	}
 
-	//LightsOutになったら,AIBlindWalkに変更
+	//LightsOutになったら、AIBlindWalkに変更
 	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
 		_owner->ChangeState("BlindWalk");
 	}
 
+	//設定されている(_ownerForward)の角度へ少しずつ向く
 	float angle = Vector3::CrossAngleXZ(_owner->GetOwner()->GetForward(), _ownerForward);
 
+	//角度が一定以下になったら、処理を終了
 	if(fabsf(angle) < DegToRad(3)) { return true; }
 
+	//角度がプラスかマイナスかで回転方向を変える
 	if(angle < 0.f) {
 		_owner->GetOwner()->AddEulerAngle(Vector3(0.f, DegToRad(1), 0.f));
 	}

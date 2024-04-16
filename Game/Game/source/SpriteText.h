@@ -7,6 +7,7 @@ public:
 	SpriteText(int handle, const Transform2& tarnsform, const Vector2& size, float alpha = 1.f);
 	virtual ~SpriteText();
 
+	//画像のハンドル、座標、回転、拡大、サイズ、透明度を設定
 	void SetHandle(int handle) { _handle = handle; }
 	void SetTransform(const Transform2& transform) { _transform = transform; }
 	void SetPos(const Vector2& pos) { _transform.pos = pos; }
@@ -15,7 +16,7 @@ public:
 	void SetSize(const Vector2& size) { _size = size;}
 	void SetAlpha(float alpha) { _alpha = alpha; }
 
-
+	//画像のハンドル、座標、回転、拡大、サイズ、透明度を取得
 	int GetHandle()const { return _handle; }
 	const Transform2& GetTransform()const { return _transform; }
 	const Vector2& GetPos()const { return _transform.pos; }
@@ -24,40 +25,41 @@ public:
 	const Vector2& GetSize()const { return _size; }
 	float GetAlpha()const { return _alpha; }
 
+	//画像を反転して描画するか
 	void Turn() { _isTurn = !_isTurn; }
 
+	//アニメーションを全て逆再生する
 	void Reverse();
 
 	virtual void Draw(MATRIX mView = MGetIdent());
 
+	//アニメーションの追加
 	void AddAnimation(class Animation* anim);
+
+	//アニメーションの削除
 	void DeleteAnimation(class Animation* anim);
 
+	//アニメーションのリストを取得
 	std::vector<class Animation*> GetAnimations()& { return _anims; }
 
+	//全てのアニメーションが終わったか
 	bool IsAllAnimationEnd()const { return _isAllAniamtionEnd; }
 
 private:
-	//画像のハンドル
-	int _handle;
 
-	//回転、拡大、座標
-	Transform2 _transform;
+	int _handle;					//画像のハンドル
 
-	//画像の描画サイズ
-	Vector2 _size;
+	Transform2 _transform;			//画像の座標、回転、拡大
 
-	//画像を反転して描画するか
-	bool _isTurn;
+	Vector2 _size;					//画像のサイズ	
 
-	//透明度 0.f~1.f の百分率
-	float _alpha;
+	bool _isTurn;					//画像を反転して描画するか	
 
-	//_animsが巡回中か
-	bool _isPlayAnims;
+	float _alpha;					//画像の透明度	
 
-	//保持するアニメーションが全て終わったか
-	bool _isAllAniamtionEnd;
+	bool _isPlayAnims;				//_animsが巡回中か
+
+	bool _isAllAniamtionEnd;		//保持するアニメーションが全て終わったか
 
 	std::vector<class Animation*>_addAnims;
 	std::vector<class Animation*>_deleteAnims;

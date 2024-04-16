@@ -13,7 +13,7 @@ public:
 
 	const char* GetName()override { return "MoveTo"; }
 private:
-	int _pointsNum;
-	Vector3 _oldCheckPoint;
-	int _interval;
+	int _pointsNum;				//次に向かう座標の番号
+	Vector3 _oldCheckPoint;		//前回の目的地
+	int _interval;				//ステートを変える間隔
 };

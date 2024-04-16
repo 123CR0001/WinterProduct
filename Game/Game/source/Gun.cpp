@@ -11,7 +11,7 @@ Gun::Gun(CharaBase* chara)
 
 	_scale = Vector3(3.8f, 3.8f, 3.8f);
 	_eulerAngle = Vector3(4.62f,0.18f,5.47f);
-	_pos = Vector3(0.f,-8.62f,-1.72);
+	_pos = Vector3(0.f,-8.62f,-1.72f);
 }
 
 Gun::~Gun(){}

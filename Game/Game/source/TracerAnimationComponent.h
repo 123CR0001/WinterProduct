@@ -9,5 +9,5 @@ public:
 	bool Process()override;
 
 private:
-	class Tracer* _tOwner;
+	class Tracer* _tOwner;		//オーナー
 };

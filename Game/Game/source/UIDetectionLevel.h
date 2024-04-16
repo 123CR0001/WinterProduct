@@ -13,8 +13,7 @@ public:
 
 private:
 
-	int _gaugeHandle;
-	int _gaugeBgHandle;
-	class SpriteText* _text;
-	class ObjectServer* _server;
+	int _gaugeHandle;				//ゲージのハンドル
+	int _gaugeBgHandle;				//ゲージの背景のハンドル
+	class ObjectServer* _server;	//オブジェクトサーバー
 };

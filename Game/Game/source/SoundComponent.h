@@ -16,7 +16,7 @@ public:
 	bool IsHear(const Vector3& pos);
 
 protected:
-	float _volumeSize;
-	Vector3 _pos;
+	float _volumeSize;		//‰¹‚ª•·‚±‚¦‚é”ÍˆÍ
+	Vector3 _pos;			//‰¹‚Ì”­¶ˆÊ’u
 
 };

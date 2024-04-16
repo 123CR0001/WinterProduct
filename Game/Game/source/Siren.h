@@ -17,6 +17,6 @@ protected:
 	const char* _SEName;
 	float _volumeSize;
 private:
-	static int _maxInterval;
-	static float _playerDist;
+	static int _maxInterval;		//最大インターバル
+	static float _playerDist;		//プレイヤーとの距離
 };

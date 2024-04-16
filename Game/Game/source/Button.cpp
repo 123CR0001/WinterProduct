@@ -19,6 +19,7 @@ bool Button::Process() {
 }
 
 bool Button::Draw() {
+	//テキストを描画
 	if (_text)_text->Draw();
 	return true;
 }

@@ -30,7 +30,7 @@
 
 #include"SpriteNumber.h"
 #include"UISpritetext.h"
-#include"MyUIServer.h"
+#include"UIScreen.h"
 
 #include"ApplicationMain.h"
 

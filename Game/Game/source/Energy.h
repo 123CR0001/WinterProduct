@@ -9,9 +9,6 @@ public:
 	bool Process()override;
 	bool Render()override;
 
-	//void SetJsonDataUE(nlohmann::json j)override;
-
 private:
-	const float _radius;
-
+	const float _radius;	//”¼Œa
 };

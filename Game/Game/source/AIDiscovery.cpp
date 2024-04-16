@@ -23,7 +23,7 @@ void AIDiscovery::OnExist() {
 bool AIDiscovery::Process() {
 
 	_frameCnt++;
-
+	//60ƒtƒŒ[ƒ€Œo‰ß‚µ‚½‚çŽŸ‚Ìó‘Ô‚Ö
 	if(_frameCnt > 60) {
 		_owner->ChangeState("MoveTo");
 	}

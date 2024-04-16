@@ -30,7 +30,7 @@ public:
 
 	class TimeLine* GetTimeLine()const { return _timeLine; }
 
-	class MyUIServer* GetUIServer()const { return _uiServer; }
+	class UIScreen* GetUIServer()const { return _UIScreen; }
 
 	class LightsOut* GetLightsOut()const { return _lightsOut; }
 
@@ -55,7 +55,7 @@ protected:
 	class TimeLine* _timeLine;
 
 	//UI
-	class MyUIServer* _uiServer;
+	class UIScreen* _UIScreen;
 
 	//_enemyCount‚ð•\Ž¦‚·‚éUI
 	class SpriteText* _enemyCountBg;
@@ -74,5 +74,4 @@ public:
 private:
 	std::shared_ptr<class ResultData>_resultData;
 
-	int _pTime;
 }; 

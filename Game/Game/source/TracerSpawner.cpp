@@ -35,13 +35,16 @@ bool TracerSpawner::Process() {
 		GetObjectServer()->DeleteObject(this);
 	}
 
+	//経過時間をカウント
 	_elapsedTime++;
 
-
+	//プレイヤーの座標を登録
 	if (_frameCnt == _interval) {
 		_frameCnt = 0;
 		_playerPoints.emplace_back(GetObjectServer()->GetPlayer()->GetPos());
 	}
+
+	//フレームカウントを進める
 	_frameCnt++;
 
 

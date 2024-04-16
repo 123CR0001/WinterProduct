@@ -17,7 +17,8 @@ public:
 
 	PhysWorld::CollisionDetectionResult GetOverlapResult();
 	PhysWorld::CollisionDetectionResult GetEventOverlapResult()const { return _result; };
-	//
+
+	//重なり発生時
 	class ObjectBase* GetBeginOverlap() const{
 		if(_oldResult.item._object != _result.item._object) {
 			return _result.item._object;
@@ -26,6 +27,7 @@ public:
 		return nullptr;
 	}
 
+	//重なり終了時
 	class ObjectBase* GetEndOverlap() const{
 		if(_oldResult.item._object != _result.item._object) {
 			return _oldResult.item._object;
@@ -33,12 +35,12 @@ public:
 		return nullptr;
 	}
 protected:
-	float _length;	//カプセルの長さ
-	float _radius;	//カプセルの半径
-	Vector3 _diff;	//オブジェクトの位置からどれだけ離れているか
+	float _length;										//カプセルの長さ
+	float _radius;										//カプセルの半径
+	Vector3 _diff;										//オブジェクトの位置からどれだけ離れているか
 
-	PhysWorld::CollisionDetectionResult _result;
-	PhysWorld::CollisionDetectionResult _oldResult;
+	PhysWorld::CollisionDetectionResult _result;		//衝突判定結果
+	PhysWorld::CollisionDetectionResult _oldResult;		//前回の衝突判定結果
 
 	//押し出し処理をしないキャラの名前を登録
 	std::vector<std::string>_skipNames;

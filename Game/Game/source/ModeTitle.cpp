@@ -6,7 +6,6 @@
 #include "ModeGame.h"
 #include"ModeColorOut.h"
 #include"ModeColorIn.h"
-#include "ModeSelect.h"
 
 #include "UIServer.h"
 #include "UIGameStart.h"

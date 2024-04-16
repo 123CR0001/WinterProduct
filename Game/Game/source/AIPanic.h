@@ -13,5 +13,5 @@ public:
 	const char* GetName()override { return "Panic"; }
 
 private:
-	int _frameCnt;
+	int _frameCnt;		//ƒ‚[ƒVƒ‡ƒ“‚ªI‚í‚é‚Ü‚Å‚ÌŠÔ
 };

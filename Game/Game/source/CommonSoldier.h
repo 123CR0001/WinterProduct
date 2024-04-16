@@ -21,14 +21,14 @@ public:
 	bool GetAttack()const { return _isAttack; }
 protected:
 
-	float _detectionLevel;	//検知度
+	float _detectionLevel;				//検知度
 
-	class AIComponent* _AI;
-	class CapsuleComponent* _capsule;
-	class AnimationComponent* _anim;
+	class AIComponent* _AI;				//AIコンポーネント
+	class CapsuleComponent* _capsule;	//カプセルコンポーネント
+	class AnimationComponent* _anim;	//アニメーションコンポーネント
 
 	//攻撃するか
 	bool _isAttack;
 
-	class Gun* _gun;
+	class Gun* _gun;					//銃(武器オブジェクト)
 };

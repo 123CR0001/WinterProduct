@@ -11,6 +11,7 @@ PlayerAnimationComponent::PlayerAnimationComponent(Player* owner, int order)
 	//モデルの読み込み
 	_owner->LoadModel("res/Chara/Owl_toDX/Owl.mv1");
 
+	//アニメーションの読み込み
 	LoadAnimation("Idle", "mo_standby_01", 0);
 	LoadAnimation("run", "mo_move_01", 0);
 	LoadAnimation("StealthWalk", "mo_stealthwalk_01", 0);
@@ -27,6 +28,7 @@ PlayerAnimationComponent::~PlayerAnimationComponent() {
 
 bool PlayerAnimationComponent::Process() {
 
+	//アニメーションの遷移条件を記述
 	switch(_pOwner->GetState()) {
 	case Player::ACTION_STATE::kIdle:
 		ChangeAnimation("Idle");

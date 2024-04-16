@@ -13,7 +13,7 @@ public:
 
 private:
 
-	class SpriteText* _text;
+	class SpriteText* _text;	//描画するチュートリアルのテキスト
 
 	//このモードを終了するか
 	bool _isEnd;
