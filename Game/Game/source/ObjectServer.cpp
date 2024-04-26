@@ -63,11 +63,24 @@ bool ObjectServer::Process() {
 bool ObjectServer::Renderer() {
 	//オブジェクトを巡回処理
 
+	for (auto&& naviMesh : _navi->GetNavMeshes()) {
+		const auto&& mesh = naviMesh.GetMesh();
+		DrawTriangle3D(
+			DxConverter::VecToDx(mesh.ver1),
+			DxConverter::VecToDx(mesh.ver2),
+			DxConverter::VecToDx(mesh.ver3),
+			GetColor(255, 255, 0),
+			FALSE
+		);
+	}
+
 	for (int a = 0; a < _objects.size(); a++) {
 		if (!_objects[a]->Render()) {
 			return false;
 		}
 	}
+
+	
 
 	return true;
 }
@@ -231,15 +244,13 @@ bool ObjectServer::LoadData(std::string stageName) {
 				std::string name = navMesh.at("objectName");
 				if(map.find(name) != map.end()) {
 
-					_navi->LoadModel(map[name].filePath.c_str(), map[name].attachFrameName.c_str());
+					_navi->LoadModel(map[name].filePath.c_str());
 
 					MV1SetPosition(_navi->GetHandle(), VGet(navMesh.at("translate").at("x"), navMesh.at("translate").at("z"), -1 * navMesh.at("translate").at("y")));
 					MV1SetRotationXYZ(_navi->GetHandle(), VGet(DegToRad(90.f), 0.f, 0.f));
-					MV1RefreshCollInfo(_navi->GetHandle(), _navi->GetAttachIndex());
-					_navi->GetPolygonData();
-					_navi->GetConectPolygonMap();
+					MV1RefreshCollInfo(_navi->GetHandle(),0);
 
-
+					_navi->CreateNavigationMesh();	
 				}
 			}
 		}

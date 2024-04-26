@@ -254,6 +254,19 @@ bool CommonSoldier::Process() {
 
 bool CommonSoldier::Render() {
 	CharaBase::Render();
+
+	int i = 0;
+	for (auto&& v : _AI->GetPoints(_AI->GetCurrentState()->GetName())) {
+		
+		i++;
+
+
+		DrawSphere3D(DxConverter::VecToDx(v), 50.f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
+		VECTOR p = ConvWorldPosToScreenPos(DxConverter::VecToDx(v));
+
+		DrawFormatString(static_cast<int>(p.x), static_cast<int>(p.y), GetColor(255, 255, 255), "%d", i);
+	}
+
 	return true;
 }
 

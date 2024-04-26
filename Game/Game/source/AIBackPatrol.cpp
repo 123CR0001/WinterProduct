@@ -35,7 +35,7 @@ void AIBackPatrol::OnEnter() {
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
 	//Å’ZŒo˜H
-	navi->BFS(pos, goal, _owner->GetPoints(GetName()));
+	navi->FindPath(pos, goal, _owner->GetPoints(GetName()),50.f);
 	
 }
 void AIBackPatrol::OnExist() {

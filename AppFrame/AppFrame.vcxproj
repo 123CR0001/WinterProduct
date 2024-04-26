@@ -167,6 +167,7 @@
     <ClCompile Include="source\Math\Json.cpp" />
     <ClCompile Include="source\Math\mymath.cpp" />
     <ClCompile Include="source\Math\Navi.cpp" />
+    <ClCompile Include="source\Math\NavigationMesh.cpp" />
     <ClCompile Include="source\Mode\ModeBase.cpp" />
     <ClCompile Include="source\Mode\ModeServer.cpp" />
     <ClCompile Include="source\ResourceServer\ResourceServer.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="source\Math\Json.h" />
     <ClInclude Include="source\Math\mymath.h" />
     <ClInclude Include="source\Math\Navi.h" />
+    <ClInclude Include="source\Math\NavigationMesh.h" />
     <ClInclude Include="source\Mode\ModeBase.h" />
     <ClInclude Include="source\Mode\ModeServer.h" />
     <ClInclude Include="source\ResourceServer\ResourceServer.h" />

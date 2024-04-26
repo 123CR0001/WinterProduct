@@ -402,7 +402,7 @@ void ModeDebugMenu::RenderViewCollision() {
 
 		DrawLine3D(
 			DxConverter::VecToDx(_game->GetObjectServer()->GetPlayer()->GetPos()),
-			DxConverter::VecToDx(_pos + (*iter)->GetAIComponent()->GetViewLoaclaPos()),
+			DxConverter::VecToDx(_pos + (*iter)->GetAIComponent()->GetViewLocalPos()),
 			GetColor(255, 0, 0)
 		);
 	}
@@ -420,22 +420,22 @@ void ModeDebugMenu::RenderEnemyAIName() {
 }
 
 void ModeDebugMenu::RenderNavigationPolygons() {
-	auto handle = _game->GetObjectServer()->GetNavi()->GetHandle();
+	//auto handle = _game->GetObjectServer()->GetNavi()->GetHandle();
 
-	if (handle <= 0) { return; }
+	//if (handle <= 0) { return; }
 
-	std::vector<Polygon3D>polygons = _game->GetObjectServer()->GetNavi()->GetPolygon();
+	//std::vector<Polygon3D>polygons = _game->GetObjectServer()->GetNavi()->GetPolygon();
 
-	for (auto iter = polygons.begin(); iter != polygons.end(); ++iter) {
-	
-		DrawTriangle3D(
-			DxConverter::VecToDx((*iter).ver1),
-			DxConverter::VecToDx((*iter).ver2),
-			DxConverter::VecToDx((*iter).ver3),
-			GetColor(255, 255, 0),
-			FALSE
-		);
-	}
+	//for (auto iter = polygons.begin(); iter != polygons.end(); ++iter) {
+	//
+	//	DrawTriangle3D(
+	//		DxConverter::VecToDx((*iter).ver1),
+	//		DxConverter::VecToDx((*iter).ver2),
+	//		DxConverter::VecToDx((*iter).ver3),
+	//		GetColor(255, 255, 0),
+	//		FALSE
+	//	);
+	//}
 }
 
 void ModeDebugMenu::RenerSirenInfo() {

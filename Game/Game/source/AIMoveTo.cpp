@@ -21,7 +21,7 @@ void AIMoveTo::OnEnter() {
 	//一番最後に追加された座標へ向かう
 	Vector3 checkPoint = _owner->GetPoints(GetName()).back();
 	//昔のルートは捨てる
-	_pointsNum = 0;
+	_pointsNum = 1;
 	_owner->GetPoints(GetName()).clear();
 	//このAIStateを所持するAIComponentを所持するObjectBaseが所属するServer
 	auto server = _owner->GetOwner()->GetObjectServer();
@@ -29,7 +29,7 @@ void AIMoveTo::OnEnter() {
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 	auto ownerPos = owner->GetPos();
 	//最短経路
-	navi->BFS(ownerPos, checkPoint, _owner->GetPoints(GetName()));
+	navi->FindPath(ownerPos, checkPoint, _owner->GetPoints(GetName()),50.f);
 	if(_owner->GetPoints(GetName()).empty()) {
 		_owner->ChangeState("LoseSight");
 		return;
@@ -40,11 +40,13 @@ void AIMoveTo::OnEnter() {
 void AIMoveTo::OnExist() {
 }
 bool AIMoveTo::Process() {
+
 	//何か見かけたか
 	bool isFound = false;
 	if(_owner->GetPoints(GetName()).size() == 0) {
 		_owner->ChangeState("LoseSight");
 	}
+
 	//移動　最後の座標まで到達したら、巡回経路に戻る
 	if(!Vector3::Equal(_owner->GetPoints(GetName()).back(),_owner->GetOwner()->GetPos(), 20.f)) {
 		//移動

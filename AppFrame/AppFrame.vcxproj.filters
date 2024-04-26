@@ -54,6 +54,9 @@
     <ClCompile Include="source\Math\Navi.cpp">
       <Filter>Util</Filter>
     </ClCompile>
+    <ClCompile Include="source\Math\NavigationMesh.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Application\ApplicationBase.h">
@@ -107,6 +110,9 @@
     </ClInclude>
     <ClInclude Include="source\Collision\Transform2.h">
       <Filter>Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Math\NavigationMesh.h">
+      <Filter>Util</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

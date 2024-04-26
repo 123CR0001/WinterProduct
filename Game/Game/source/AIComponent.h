@@ -46,7 +46,7 @@ public:
 	//視界の取得
 	float GetViewAngle()const { return _viewAngle; }				
 	float GetViewDist()const { return _viewDist; }					
-	Vector3 GetViewLoaclaPos()const { return _viewLoacalPos; }		
+	Vector3 GetViewLocalPos()const { return _viewLoacalPos; }		
 
 	//オブジェクトが視界に入っているか
 	bool IsFound(class ObjectBase* target);

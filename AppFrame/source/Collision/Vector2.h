@@ -50,35 +50,35 @@ public:
 		return *this;
 	}
 
-	Vector2& operator*=(const float scale) {
+	Vector2& operator*=(float scale) {
 		x *= scale;
 		y *= scale;
 		return *this;
 	}
 
-	Vector2& operator/=(const float scale) {
+	Vector2& operator/=(float scale) {
 		x /= scale;
 		y /= scale;
 		return *this;
 	}
 
-	static Vector2 RadTo(const float rad) {
+	static Vector2 RadTo(float rad) {
 		return Vector2(cosf(rad), sinf(rad));
 	}
 
-	static const float Dot(const Vector2& left,const Vector2& right){
+	static float Dot(const Vector2& left,const Vector2& right){
 		return left.x * right.x + left.y + right.y;
 	}
 
-	const float LengthSquare() { return Dot(*this, *this); }
+	float LengthSquare() { return Dot(*this, *this); }
 
-	static const float LengthSquare(const Vector2& left, const Vector2& right) {
+	static float LengthSquare(const Vector2& left, const Vector2& right) {
 		return Vector2(left - right).LengthSquare();
 	}
 
-	const float Length() { return sqrtf(LengthSquare()); }
+	float Length() { return sqrtf(LengthSquare()); }
 
-	static const float Length(const Vector2& left, const Vector2& right) {
+	static float Length(const Vector2& left, const Vector2& right) {
 		return Vector2(left - right).Length();
 	}
 
