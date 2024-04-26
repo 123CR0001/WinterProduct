@@ -36,7 +36,7 @@
 #include"TimeLine.h"
 
 #include"UIScreen.h"
-#include"LightsOut.h"
+#include"LightsOutComponent.h"
 
 #include"UIDetectionLevel.h"
 #include"UIVision.h"
@@ -48,16 +48,17 @@
 
 #include"ResultData.h"
 
-ModeGame::ModeGame(std::string stageNum) 
+ModeGame::ModeGame(std::string stageNum)
 	:_objServer(NEW ObjectServer(this))
-	,_modeEffekseer(NEW ModeEffekseer())
-	,_stage(stageNum)
-	,_energyCount(0)
-	,_resultData(std::make_shared<ResultData>())
-	,_timeLine(NEW TimeLine())
-	,_UIScreen(NEW UIScreen())
-	,_enemyCount(0)
-	,_enemyCountText(NEW SpriteNumber(_enemyCount,2))
+	, _modeEffekseer(NEW ModeEffekseer())
+	, _stage(stageNum)
+	, _energyCount(0)
+	, _resultData(std::make_shared<ResultData>())
+	, _timeLine(NEW TimeLine())
+	, _UIScreen(NEW UIScreen())
+	, _enemyCount(0)
+	, _enemyCountText(NEW SpriteNumber(_enemyCount, 2))
+	, _isUsingLightsOut(false)
 {
 
 
@@ -69,7 +70,6 @@ ModeGame::ModeGame(std::string stageNum)
 ModeGame::~ModeGame() {
 	delete _objServer;
 	delete _UIScreen;
-	delete _lightsOut;
 	delete _timeLine;
 }
 
@@ -84,9 +84,6 @@ bool ModeGame::Initialize() {
 
 	//背景
 	_bg = ResourceServer::LoadGraph("res/gamemain_bg.png");
-
-	//ライツアウト
-	_lightsOut = NEW LightsOut(this);
 
 	//残りの敵の数を描画で使用する画像の設定
 	_enemyCountText->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
@@ -138,20 +135,15 @@ bool ModeGame::Process() {
 	//更新
 	_timeLine->Process();
 	_UIScreen->Process();
-	_lightsOut->Process();
 
 	
 	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
 
-	//LightsOutモードを追加
-	if (_lightsOut->IsUse()
-		&& GetPad()->GetTrgButton() & INPUT_Y  
-		&& _energyCount == 0
-		) {
-		_lightsOut->Use();
-		_enemyCountBg->SetAlpha(1.f);
-		_enemyCountText->SetAlpha(1.f);
+	//ライツアウトが使用中なら、一部のUIの表示する
+	if (_isUsingLightsOut) {
+		if(_enemyCountBg->GetAlpha() != 1.f)_enemyCountBg->SetAlpha(1.f);
+		if(_enemyCountText->GetAlpha() != 1.f)_enemyCountText->SetAlpha(1.f);
 	}
 
 	//描画する数字の更新
@@ -283,8 +275,5 @@ void ModeGame::DecrementEnemyCount() {
 
 		//60フレーム後にクリア処理を行う
 		_timeLine->AddLine(60, [=]()mutable { SwitchOverOrClear(); });
-
-		//ライツアウトを使用していたら
-		_lightsOut->Stop();
 	}
 }

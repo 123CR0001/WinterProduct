@@ -28,7 +28,7 @@ bool UIDetectionLevel::Process() {
 
 bool UIDetectionLevel::Draw() {
 
-	if(!_server->GetGame()->GetLightsOut()->IsUse())return true;
+	if(!_server->GetGame()->IsUsingLightsOut())return true;
 
 	auto player = _server->GetPlayer();
 

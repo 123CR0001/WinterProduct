@@ -49,6 +49,7 @@ bool Navi::FindPath(const Vector3& startPos, const Vector3& goalPos, std::vector
 	NavigationMesh* start = nullptr;
 	NavigationMesh* goal = nullptr;
 
+	//開始地点とゴール地点が含まれるNavigationMeshを取得
 	for (auto&& navMesh : navMeshes) {
 		if(
 			HitCheck_Line_Triangle(
@@ -90,7 +91,7 @@ bool Navi::FindPath(const Vector3& startPos, const Vector3& goalPos, std::vector
 		node = node->GetParent();
 	}
 
-	//NavigationMesh::FindPathで帰ってきたのはゴール地点なので、開始地点を後ろに追加した後で、逆順する
+	//NavigationMesh::FindPathで帰ってきたのはゴール地点なので、開始地点を後ろに追加した後で、逆順にする
 	path.emplace_back(startPos);
 
 	std::reverse(path.begin(), path.end());

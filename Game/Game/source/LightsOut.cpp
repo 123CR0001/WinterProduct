@@ -80,152 +80,146 @@ LightsOut::~LightsOut(){
 
 bool LightsOut::Process() {
 
-	switch (_state) {
-	case STATE::kNone:
-		break;
-	case STATE::kStart: {
+	//switch (_state) {
+	//case STATE::kNone:
+	//	break;
+	//case STATE::kStart: {
 
-		//タイマーの背景のアニメーションを始める
-		_timerBg->Play();
+	//	//タイマーの背景のアニメーションを始める
+	//	_timerBg->Play();
 
-		//残りの使用回数を減らす
-		_useTimes--;
+	//	//残りの使用回数を減らす
+	//	_useTimes--;
 
-		//タイマーを30フレーム後に描画されるようにする
-		auto func = [this]() {
-			_timer->SetIsDraw(true);
-		};
-		_game->GetTimeLine()->AddLine(30, func);
+	//	//タイマーを30フレーム後に描画されるようにする
+	//	auto func = [this]() {
+	//		_timer->SetIsDraw(true);
+	//	};
+	//	_game->GetTimeLine()->AddLine(30, func);
 
-		//ライツアウトを使用していることをプレイヤークラスに伝える
-		_game->GetObjectServer()->GetPlayer()->SetIsLightsOut(true);
+	//	//フェードインアウトを利用した演出
+	//	ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");
 
-		//フェードインアウトを利用した演出
-		ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");
+	//	//ライツアウト中は描画する
+	//	_noise->SetAlpha(1.f);
+	//	_hud->SetAlpha(1.f);
 
-		//ライツアウト中は描画する
-		_noise->SetAlpha(1.f);
-		_hud->SetAlpha(1.f);
+	//	//プレイヤーから残像を出力するようにする
+	//	_afterImageCom = NEW CreateAfterImageComponent(_game->GetObjectServer()->GetPlayer()->GetAnimationComponent());
 
-		//プレイヤーから残像を出力するようにする
-		_afterImageCom = NEW CreateAfterImageComponent(_game->GetObjectServer()->GetPlayer()->GetAnimationComponent());
+	//	//Zoomイン
+	//	NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
 
-		//Zoomイン
-		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 0.6f, 60);
+	//	//BGMの再生
+	//	gGlobal._sndServer.Play("BGM_06");
 
-		//BGMの再生
-		gGlobal._sndServer.Play("BGM_06");
+	//	//敵兵の輪郭線を描画
+	//	for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {
+	//		for (int a = 0; a < MV1GetMaterialNum(soldier->GetHandle()); a++) {
+	//			MV1SetMaterialOutLineWidth(soldier->GetHandle(), a, 0.5f);
+	//		}
+	//	}
 
-		//敵兵の輪郭線を描画
-		for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {
-			for (int a = 0; a < MV1GetMaterialNum(soldier->GetHandle()); a++) {
-				MV1SetMaterialOutLineWidth(soldier->GetHandle(), a, 0.5f);
-			}
-		}
+	//	//状態をProcessに変更
+	//	_state = STATE::kProcess;
 
-		//状態をProcessに変更
-		_state = STATE::kProcess;
+	//	break;
+	//}
 
-		break;
-	}
+	//case STATE::kProcess: {
 
-	case STATE::kProcess: {
+	//	//残り時間を減らす
+	//	_limitCnt--;
+	//	_timer->SetFrameCount(_limitCnt);
 
-		//残り時間を減らす
-		_limitCnt--;
-		_timer->SetFrameCount(_limitCnt);
+	//	//残り時間が0未満になったら、終了処理へ入る
+	//	if (_limitCnt < 0) {
+	//		_state = STATE::kEnd;
+	//	}
 
-		//残り時間が0未満になったら、終了処理へ入る
-		if (_limitCnt < 0) {
-			_state = STATE::kEnd;
-		}
+	//	//一秒経ったら、SEを流す
+	//	if (_limitCnt % 60 == 0) {
+	//		//SE
+	//		gGlobal._sndServer.Get("SE_15")->Play();
+	//	}
 
-		//一秒経ったら、SEを流す
-		if (_limitCnt % 60 == 0) {
-			//SE
-			gGlobal._sndServer.Get("SE_15")->Play();
-		}
+	//	break;
+	//}
+	//case STATE::kEnd: {
+	//	
+	//	//アニメーションを逆再生させる
+	//	_timerBg->Reverse();
 
-		break;
-	}
-	case STATE::kEnd: {
-		
-		//アニメーションを逆再生させる
-		_timerBg->Reverse();
+	//	//非表示
+	//	_timer->SetIsDraw(false);
 
-		//非表示
-		_timer->SetIsDraw(false);
+	//	//フェードインアウトを利用した演出
+	//	ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");
 
-		//フェードインアウトを利用した演出
-		ModeServer::GetInstance()->Add(NEW ModeColorOut(NEW ModeColorIn(10, true), nullptr, 10), 100, "Out");
+	//	//エネミーが残ってたら、ゲームオーバーの演出をする
+	//	if(_game->GetEnemyCount() > 0){
+	//		SpriteTextFlipAnimation* text = NEW SpriteTextFlipAnimation(10, true);
+	//		text->LoadDivText("res/UI/GameOver/ui_sirenfilter_01.png", 6, 1, 6, 1920, 1080);
+	//		text->SetSize(Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
+	//		text->SetPos(Vector2(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f));
+	//		_game->GetUIServer()->AddUI(NEW UISpriteText(text));
+	//		gGlobal._sndServer.Play("SE_07");
+	//	}
 
-		//エネミーが残ってたら、ゲームオーバーの演出をする
-		if(_game->GetEnemyCount() > 0){
-			SpriteTextFlipAnimation* text = NEW SpriteTextFlipAnimation(10, true);
-			text->LoadDivText("res/UI/GameOver/ui_sirenfilter_01.png", 6, 1, 6, 1920, 1080);
-			text->SetSize(Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
-			text->SetPos(Vector2(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f));
-			_game->GetUIServer()->AddUI(NEW UISpriteText(text));
-			gGlobal._sndServer.Play("SE_07");
-		}
+	//	//残り使用回数が0だったら
+	//	if (_useTimes == 0) {
+	//		//120フレーム後にゲームオーバーかゲームクリアを決める
+	//		auto func = [this]() {
+	//			_game->SwitchOverOrClear();
+	//		};
 
-		//残り使用回数が0だったら
-		if (_useTimes == 0) {
-			//120フレーム後にゲームオーバーかゲームクリアを決める
-			auto func = [this]() {
-				_game->SwitchOverOrClear();
-			};
+	//		_game->GetTimeLine()->AddLine(120, func);
+	//	}
 
-			_game->GetTimeLine()->AddLine(120, func);
-		}
+	//	//ライツアウト中は描画しない
+	//	_noise->SetAlpha(0.f);
+	//	_hud->SetAlpha(0.f);
 
-		//ライツアウトを使用しなくなったことをプレイヤーに伝える
-		_game->GetObjectServer()->GetPlayer()->SetIsLightsOut(false);
+	//	//Zoomアウト
+	//	NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 1.f, 60);
 
-		//ライツアウト中は描画しない
-		_noise->SetAlpha(0.f);
-		_hud->SetAlpha(0.f);
+	//	//BGMの再生
+	//	gGlobal._sndServer.Play("BGM_03");
 
-		//Zoomアウト
-		NEW CameraZoomComponent(_game->GetObjectServer()->GetPlayer()->GetCamera(), 1.f, 60);
+	//	//敵兵の輪郭線を描画しない
+	//	for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {
+	//		for (int a = 0; a < MV1GetMaterialNum(soldier->GetHandle()); a++) {
+	//			MV1SetMaterialOutLineWidth(soldier->GetHandle(), a, 0.f);
+	//		}
+	//	}
 
-		//BGMの再生
-		gGlobal._sndServer.Play("BGM_03");
+	//	//プレイヤーから削除
+	//	if(_afterImageCom) {
+	//		_afterImageCom->GetOwner()->DeleteComponent(_afterImageCom);
+	//		_afterImageCom = nullptr;
+	//	}
 
-		//敵兵の輪郭線を描画しない
-		for (auto&& soldier : _game->GetObjectServer()->GetCommonSoldiers()) {
-			for (int a = 0; a < MV1GetMaterialNum(soldier->GetHandle()); a++) {
-				MV1SetMaterialOutLineWidth(soldier->GetHandle(), a, 0.f);
-			}
-		}
+	//	_state = STATE::kNone;
+	//	break;
+	//}
 
-		//プレイヤーから削除
-		if(_afterImageCom) {
-			_afterImageCom->GetOwner()->DeleteComponent(_afterImageCom);
-			_afterImageCom = nullptr;
-		}
+	//default: {
+	//	//エラー処理
+	//}
+	//}
 
-		_state = STATE::kNone;
-		break;
-	}
+	////ライツアウトが使用可能になったら、UIを表示。そして、SEを流す
+	//if(_useTimes > 0 && _game->GetEnergyCount() == 0 && _oldEnergyCount != _game->GetEnergyCount()) {
+	//	_isUseLightsOut->SetAlpha(1.f);
+	//	gGlobal._sndServer.Play("SE_09");
+	//}
 
-	default: {
-		//エラー処理
-	}
-	}
-
-	//ライツアウトが使用可能になったら、UIを表示。そして、SEを流す
-	if(_useTimes > 0 && _game->GetEnergyCount() == 0 && _oldEnergyCount != _game->GetEnergyCount()) {
-		_isUseLightsOut->SetAlpha(1.f);
-		gGlobal._sndServer.Play("SE_09");
-	}
-
-	//UIを非表示
-	//_oldEnergyCountを更新
-	else {
-		_isUseLightsOut->SetAlpha(0.f);
-		_oldEnergyCount = _game->GetEnergyCount();
-	}
+	////UIを非表示
+	////_oldEnergyCountを更新
+	//else {
+	//	_isUseLightsOut->SetAlpha(0.f);
+	//	_oldEnergyCount = _game->GetEnergyCount();
+	//}
 
 	return true;
 }

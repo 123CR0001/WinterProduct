@@ -79,7 +79,7 @@ bool AIBackPatrol::Process() {
 	}
 
 	//LightsOut‚É‚È‚Á‚½‚ç,AIBlindWalk‚É•ÏX
-	if(!_owner->GetOwner()->GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
+	if(_owner->GetOwner()->GetObjectServer()->GetGame()->IsUsingLightsOut()) {
 		_owner->ChangeState("BlindWalk");
 	}
 

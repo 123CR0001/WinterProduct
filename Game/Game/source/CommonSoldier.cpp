@@ -32,6 +32,7 @@
 #include"CommonSoldierAnimaitonComponent.h"
 #include"CountKillComboComponent.h"
 #include"CameraZoomComponent.h"
+#include"LightsOutComponent.h"
 
 #include"LightsOut.h"
 #include"TimeLine.h"
@@ -156,7 +157,7 @@ bool CommonSoldier::Process() {
 	}
 
 	//検知度の増減(百分率)
-	if (_AI->IsFound(GetObjectServer()->GetPlayer()) && GetObjectServer()->GetGame()->GetLightsOut()->IsUse()) {
+	if (_AI->IsFound(GetObjectServer()->GetPlayer()) && GetObjectServer()->GetGame()->IsUsingLightsOut()) {
 		//AIごとに上昇するかしないかを分けるかもしれない
 		//ここに書いているのは走り書き
 		const float dist = _AI->GetViewDist();
@@ -237,7 +238,7 @@ bool CommonSoldier::Process() {
 		GetObjectServer()->GetPlayer()->AddMoveSpeedMag(0.2f);
 
 		//ライツアウトの制限時間を伸ばす
-		GetObjectServer()->GetGame()->GetLightsOut()->AddLimitCount();
+		GetObjectServer()->GetPlayer()->GetLightsOutComponent()->AddLimitCount();
 
 		//データを空にする
 		_damageData = DamageData{};

@@ -28,6 +28,7 @@ NavigationMesh* NavigationMesh::FindPath(std::vector<NavigationMesh>& list, Navi
 
 	if (!goal || !start) { return nullptr; }
 
+	//最初に調べるナビメッシュ
 	NavigationMesh* current = start;
 	current->_InClosedSet = true;
 
@@ -79,6 +80,7 @@ NavigationMesh* NavigationMesh::FindPath(std::vector<NavigationMesh>& list, Navi
 					float costToGoal = Vector3::Length(adjacent->_position, goal->GetPosition());
 					float newCost = current->_costToMove + costToMove + costToGoal;
 
+					//すでに見積もられたコストよりも、新しい見積コストのほうが小さければ、値を更新する
 					if (adjacent->_cost > newCost) {
 						adjacent->_parent = current;
 						adjacent->_cost = newCost;

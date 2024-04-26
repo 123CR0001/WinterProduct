@@ -19,6 +19,7 @@
 
 #include"CountClearTimeComponent.h"
 #include"CameraZoomComponent.h"
+#include"LightsOutComponent.h"
 
 #include<functional>
 
@@ -41,8 +42,8 @@ Player::Player(ObjectServer* server)
 	,_weapon (NEW Knife(this))
 	,_actionState(ACTION_STATE::kIdle)
 	,_capsule(NEW CapsuleComponent(this,1000))
+	,_lightsOut(NEW LightsOutComponent(this,1000))
 	,_moveSpeedMag(1.f)
-	,_isLightsOut(false)
 	,_decoyTimes(1)
 	,_decoyTimesText(NEW SpriteNumber(_decoyTimes))
 {
@@ -162,25 +163,25 @@ bool Player::Process() {
 		}
 
 		//攻撃(パターン2)
-		if(trg & INPUT_X && _isLightsOut) {
+		if(trg & INPUT_X && _lightsOut->IsUsing()) {
 			_actionState = ACTION_STATE::kAttack2;
 
 			gGlobal._sndServer.Get("SE_02")->Play();
 		}
 		//攻撃(パターン3)
-		if(trg & INPUT_A && _isLightsOut) {
+		if(trg & INPUT_A && _lightsOut->IsUsing()) {
 			_actionState = ACTION_STATE::kAttack3;
 			gGlobal._sndServer.Get("SE_02")->Play();
 		}
 
 		//デコイの使用
-		if(trg & INPUT_X && !_isLightsOut && _decoyTimes > 0) {
+		if(trg & INPUT_X && !_lightsOut->IsUsing() && _decoyTimes > 0) {
 			NEW Decoy(this, angle);
 			_decoyTimes--;
 		}
 
 		//状態を”kSilent”に
-		if(trg & INPUT_A && !_isLightsOut) {
+		if(trg & INPUT_A && !_lightsOut->IsUsing()) {
 			_actionState = ACTION_STATE::kSilent;
 		}
 		break;
@@ -211,10 +212,18 @@ bool Player::Process() {
 		}
 
 		//ライツアウトになったら、状態を戻す
-		if (_isLightsOut) {
+		if (_lightsOut->IsUsing()) {
 			_actionState = ACTION_STATE::kIdle;
 		}
 		break;
+	}
+
+	//ライツアウトの使用
+	if(_lightsOut->IsUse()
+		&& trg & INPUT_Y
+		&& GetObjectServer()->GetGame()->GetEnergyCount() == 0
+		) {
+		_lightsOut->Use();
 	}
 
 	ObjectBase::Process();
@@ -257,7 +266,7 @@ bool Player::Process() {
 	}
 
 	//ライツアウトを使用しているなら、デコイの使用回数を描画するUIを非表示に
-	if(_isLightsOut) {
+	if(_lightsOut->IsUsing()) {
 		_decoyTimesText->SetAlpha(0.f);
 	}
 

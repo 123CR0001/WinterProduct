@@ -32,7 +32,8 @@ public:
 
 	class UIScreen* GetUIServer()const { return _UIScreen; }
 
-	class LightsOut* GetLightsOut()const { return _lightsOut; }
+	void SetIsUseLightsOut(bool isUseLightsOut) { _isUsingLightsOut = isUseLightsOut; }
+	bool IsUsingLightsOut()const { return _isUsingLightsOut; }
 
 	void SwitchOverOrClear();
 protected:
@@ -48,8 +49,8 @@ protected:
 	//倒す敵の数
 	int _enemyCount;
 
-	//ライツアウトのクラス
-	class LightsOut* _lightsOut;
+	//ライツアウトが使用中か
+	bool _isUsingLightsOut;
 
 	//タイムライン
 	class TimeLine* _timeLine;

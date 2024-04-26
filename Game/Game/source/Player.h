@@ -19,6 +19,7 @@ public:
 	class CapsuleComponent* GetCapsuleComponent() { return _capsule; }
 	class AnimationComponent* GetAnimationComponent()const { return _anim; }
 	class MotionComponent* GetMotionComponent()const { return _motCom; }
+	class LightsOutComponent* GetLightsOutComponent()const { return _lightsOut; }
 
 	enum class ACTION_STATE :unsigned int{
 		kNone,
@@ -36,7 +37,6 @@ public:
 	class CameraComponent* GetCamera()const { return _cameraCom; }
 	void SetCamera(class CameraComponent* camera) { _cameraCom = camera; }
 
-	void SetIsLightsOut(bool isLightsOut) { _isLightsOut = isLightsOut; }
 	void SetDecoyTimes(int times) { _decoyTimes = times; }
 
 	ACTION_STATE GetState()const { return _actionState; }
@@ -51,8 +51,7 @@ protected:
 	class MotionComponent* _motCom;			//モーション	
 	class CapsuleComponent* _capsule;		//カプセル
 	class AnimationComponent* _anim;		//アニメーション
-
-	bool _isLightsOut;						//ライトアウト中か
+	class LightsOutComponent* _lightsOut;	//ライトアウト
 
 	float _moveSpeedMag;					//移動速度倍率	
 

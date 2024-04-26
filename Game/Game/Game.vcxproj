@@ -197,6 +197,7 @@
     <ClCompile Include="source\Gun.cpp" />
     <ClCompile Include="source\Knife.cpp" />
     <ClCompile Include="source\LightsOut.cpp" />
+    <ClCompile Include="source\LightsOutComponent.cpp" />
     <ClCompile Include="source\ModeColorOut.cpp" />
     <ClCompile Include="source\ModeClear.cpp" />
     <ClCompile Include="source\ModeColorIn.cpp" />
@@ -288,6 +289,7 @@
     <ClInclude Include="source\EventLine.h" />
     <ClInclude Include="source\Gun.h" />
     <ClInclude Include="source\LightsOut.h" />
+    <ClInclude Include="source\LightsOutComponent.h" />
     <ClInclude Include="source\ModeStageSelect.h" />
     <ClInclude Include="source\ModeTutorial.h" />
     <ClInclude Include="source\UIScreen.h" />
