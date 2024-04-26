@@ -13,7 +13,7 @@ constexpr float GAP_Y = 27.f;
 
 ModeStageSelect::ModeStageSelect()
 	:_buttonServer(NEW ButtonServer())
-	,_isSelect(false)
+	,_isStageTypeSelect(false)
 	,_bgsNum(0)
 	,_selectNum(0)
 {
@@ -200,17 +200,21 @@ bool ModeStageSelect::Initialize() {
 							};
 
 							button->GetSpriteText()->GetAnimations().front()->SetFunc(animFunc);
-
-			
 						}
 
 						Initialize();
 						_buttonServer->SetSelectNum(_selectNum);
 
+						//描画する背景番号と選択しているボンタンの番号を更新するかどうか
+						_isStageTypeSelect = !_isStageTypeSelect;
 					};
 
 					_buttonServer->AddButton(NEW Button(_buttonServer, backButtonFunc, backButtoText));
 				}
+
+				//描画する背景番号と選択しているボンタンの番号を更新するかどうか
+				_isStageTypeSelect = !_isStageTypeSelect;
+
 				_buttonServer->SetSelectNum(0);
 			};
 
@@ -263,13 +267,8 @@ bool ModeStageSelect::Process() {
 	//ボタンの処理
 	_buttonServer->Process();
 
-	//選択したか
-	if (ApplicationMain::GetInstance()->GetPad()->GetTrgButton() & INPUT_A) {
-		_isSelect = !_isSelect;
-	}
-
 	//選択しいてるボタンの番号を取得し、描画する背景番号と選択しているボンタンの番号を更新
-	if (!_isSelect && 3 > _buttonServer->GetSelectNum()) {
+	if (!_isStageTypeSelect && 3 > _buttonServer->GetSelectNum()) {
 		_bgsNum = _buttonServer->GetSelectNum();
 		_selectNum = _buttonServer->GetSelectNum();
 	}

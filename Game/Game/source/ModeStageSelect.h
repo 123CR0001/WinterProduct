@@ -17,7 +17,7 @@ private:
 	class ButtonServer* _buttonServer;
 
 	//ステージの種類を選択したか
-	bool _isSelect;
+	bool _isStageTypeSelect;
 
 	//選択しているステージの種類によって、描画する背景が違う
 	std::array<class SpriteText*, 3>_bgs;
