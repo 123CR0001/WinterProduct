@@ -253,9 +253,7 @@ bool CommonSoldier::Process() {
 }
 
 bool CommonSoldier::Render() {
-	CharaBase::Render();/*
-	auto p = ConvWorldPosToScreenPos(DxConverter::VecToDx(_pos));
-	DrawFormatString(p.x, p.y, GetColor(255, 255, 255), "%s", _AI->GetCurrentState()->GetName());*/
+	CharaBase::Render();
 	return true;
 }
 

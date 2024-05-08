@@ -48,6 +48,28 @@ bool ObjectServer::Terminate() {
 
 bool ObjectServer::Process() {
 
+	//巡回処理をする前にオブジェクトの追加と削除をしておく
+	if(!_addObj.empty()) {
+		for(auto&& addObj : _addObj) {
+			//実際に追加されてから、初期化する
+			addObj->Initialize();
+			_objects.emplace_back(addObj);
+		}
+		_addObj.clear();
+	}
+	
+	if(!_deleteObj.empty()){
+		for(auto&& deleteObj : _deleteObj) {
+			auto iter = std::find(_objects.begin(), _objects.end(), deleteObj);
+			if(iter != _objects.end()) {
+				(*iter)->Terminate();
+				delete (*iter);
+				_objects.erase(iter);
+			}
+		}
+		_deleteObj.clear();
+	}
+
 	//オブジェクトを巡回処理
 	for (auto iter = _objects.begin(); iter != _objects.end();++iter) {
 		if ((*iter)->Process()) {
@@ -62,18 +84,6 @@ bool ObjectServer::Process() {
 
 bool ObjectServer::Renderer() {
 	//オブジェクトを巡回処理
-
-	//for(auto&& naviMesh : _navi->GetNavMeshes()) {
-	//	const auto&& mesh = naviMesh.GetMesh();
-	//	DrawTriangle3D(
-	//		DxConverter::VecToDx(mesh.ver1),
-	//		DxConverter::VecToDx(mesh.ver2),
-	//		DxConverter::VecToDx(mesh.ver3),
-	//		GetColor(255, 255, 0),
-	//		FALSE
-	//	);
-	//}
-
 
 	for (int a = 0; a < _objects.size(); a++) {
 		if (!_objects[a]->Render()) {
@@ -134,28 +144,6 @@ bool ObjectServer::ClearObject() {
 	_addObj.clear();
 
 	_deleteObj.clear();
-	return true;
-}
-
-bool ObjectServer::ProcessInit() {
-	//巡回処理をする前にオブジェクトの追加と削除をしておく
-	for (auto&& addObj : _addObj) {
-		//実際に追加されてから、初期化する
-		addObj->Initialize();
-		_objects.emplace_back(addObj);
-	}
-	_addObj.clear();
-
-	for (auto&& deleteObj : _deleteObj) {
-		auto iter = std::find(_objects.begin(), _objects.end(), deleteObj);
-		if (iter != _objects.end()) {
-			(*iter)->Terminate();
-			delete (*iter);
-			_objects.erase(iter);
-		}
-	}
-	_deleteObj.clear();
-
 	return true;
 }
 

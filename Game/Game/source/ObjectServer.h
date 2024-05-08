@@ -13,7 +13,6 @@ public:
 
 	bool Initialize();		//‰Šú‰»
 	bool Terminate();		//I—¹ˆ—
-	bool ProcessInit();		//ˆ—‚Ìè‘O‚ÉŒÄ‚Ño‚·‰Šú‰»
 	bool Process();			//ˆ—
 	bool Renderer();		//•`‰æ
 

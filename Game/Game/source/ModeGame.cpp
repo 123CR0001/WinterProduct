@@ -135,8 +135,6 @@ bool ModeGame::Process() {
 	_timeLine->Process();
 	_UIScreen->Process();
 
-	
-	if (!_objServer->ProcessInit()) { return false; }
 	if (!_objServer->Process()) { return false; }
 
 	//ライツアウトが使用中なら、一部のUIの表示する
