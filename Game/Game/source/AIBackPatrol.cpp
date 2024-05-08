@@ -6,7 +6,6 @@
 #include"appframe.h"
 #include<algorithm>
 #include"ModeGame.h"
-#include"LightsOut.h"
 
 AIBackPatrol::AIBackPatrol(AIComponent* owner)
 	:AIState(owner)
@@ -35,7 +34,7 @@ void AIBackPatrol::OnEnter() {
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 
 	//Å’ZŒo˜H
-	navi->FindPath(pos, goal, _owner->GetPoints(GetName()),50.f);
+	navi->FindPath(pos, goal, _owner->GetPoints(GetName()),0.f);
 	
 }
 void AIBackPatrol::OnExist() {

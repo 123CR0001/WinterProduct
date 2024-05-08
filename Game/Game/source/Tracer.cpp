@@ -53,6 +53,7 @@ Tracer::~Tracer(){
 }
 
 bool Tracer::Initialize() {
+	ObjectBase::Initialize();
 
 	//カプセルのメンバを設定
 	_capsule->SetMember(180.f, 30.f);

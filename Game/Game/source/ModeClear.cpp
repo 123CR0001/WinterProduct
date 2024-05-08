@@ -27,9 +27,9 @@
 #include"UIHrsMinSec.h"
 #include"UISpriteText.h"
 
-#include"ResultData.h"
+#include"ClearData.h"
 
-ModeClear::ModeClear(std::shared_ptr<ResultData> data)
+ModeClear::ModeClear(std::shared_ptr<ClearData> data)
 	:_resultData(data)
 	,_uiServer(NEW UIScreen())
 	,_buttonServer(NEW ButtonServer())

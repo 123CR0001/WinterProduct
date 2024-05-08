@@ -71,8 +71,8 @@ protected:
 	std::string _stage;
 
 public:
-	std::shared_ptr<class ResultData> GetResultData() const { return _resultData; }
+	std::shared_ptr<class ClearData> GetClearData() const { return _resultData; }
 private:
-	std::shared_ptr<class ResultData>_resultData;
+	std::shared_ptr<class ClearData>_resultData;
 
 }; 

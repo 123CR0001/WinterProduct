@@ -6,7 +6,6 @@
 #include"FrameComponent.h"
 
 #include"ModeGame.h"
-#include"ModeDebugMenu.h"
 
 #include<algorithm>
 

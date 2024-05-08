@@ -28,6 +28,8 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 
 		//全てのオブジェクトのモデルから最大・最小頂点を算出
 		for(int a = 0; a < frames.size(); a++) {
+			frames[a]->GetOwner()->ModelMatrixSetUp();
+
 			//モデルのハンドルを取得
 			const int handle = frames[a]->GetOwner()->GetHandle();
 
@@ -40,11 +42,11 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 
 			//xzの各値が一番大きい物を最大頂点の成分にする
 			if(_maxPos.x < result.MaxPosition.x) { _maxPos.x = result.MaxPosition.x; }
-			if(_maxPos.z < result.MaxPosition.z) { _maxPos.z = result.MaxPosition.y; }
+			if(_maxPos.z < result.MaxPosition.z) { _maxPos.z = result.MaxPosition.z; }
 
 			//xzの各値が一番小さい物を最小頂点の成分にする
 			if(_minPos.x > result.MinPosition.x) { _minPos.x = result.MinPosition.x; }
-			if(_minPos.z > result.MinPosition.z) { _minPos.z = result.MinPosition.y; }
+			if(_minPos.z > result.MinPosition.z) { _minPos.z = result.MinPosition.z; }
 		}
 		//最大頂点から最小頂点のちょうど半分の位置
 		_centerPos = Vector3::Lerp(_maxPos, _minPos, 0.5f);
@@ -74,6 +76,7 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 	_identiColor["Energy"] = GetColor(255, 0, 255);
 	_identiColor["Siren"] = GetColor(255, 255, 0);
 
+
 }
 
 UIMiniMap::~UIMiniMap() {
@@ -83,6 +86,7 @@ UIMiniMap::~UIMiniMap() {
 }
 
 bool UIMiniMap::Process() {
+
 	//プレイヤーのアドレスを取得
 	auto player = _game->GetObjectServer()->GetPlayer();
 
@@ -92,24 +96,28 @@ bool UIMiniMap::Process() {
 	//プレイヤーの位置情報を取得
 	auto playerPos = player->GetPos();
 
-	//_middlePos(マップの中心手)からプレイヤーへのベクトルを線形補完で、_mag倍したベクトル　= _middlePosから見て、方向をそのままに、近づけたプレイヤーの位置(ワールド座標)
-	//そこから、_middlePosを引くと、マップの中心からプレイヤーへのベクトル(ローカル座標)
-	auto vecMapPlayerMiddle = Vector3::Lerp(_centerPos, playerPos, _mag) - _centerPos;
+	//ミニマップの中心地からプレイヤーの位置までのベクトル
+	auto vecMapPlayerCenter = (playerPos - _centerPos) * _mag;
 
 	//z成分を反転
-	vecMapPlayerMiddle.z *= -1.f;
+	vecMapPlayerCenter.z *= -1.f;
 
 	//ミニマップは原点(0,0)に描画するので、サイズ/2がミニマップの中心座標になる
-	_mapPlayerPos = Vector3((float)_w / 2, 0.f, (float)_h / 2) + vecMapPlayerMiddle;
+	_mapPlayerPos = Vector3((float)_w / 2.f, 0.f, (float)_h / 2.f) + vecMapPlayerCenter;
 
 	// 一時画像を描画対象に設定してクリア
 	SetDrawScreen(_mapScreen);
 	ClearDrawScreen();
 
+
+
+
 	//ベース生地
-	DrawBox(-10, -10, _w + 10, _h + 10, GetColor(0, 0, 0), TRUE);
+	DrawBox(-10 , -10  ,  _w + 10, _h + 10, GetColor(125, 125, 125), TRUE);
+
 	//ミニマップを描画
-	DrawExtendGraph(0, 0, _w, _h, _mapTextHandle, TRUE);
+	DrawExtendGraph(0, 0, _w, _h , _mapTextHandle, TRUE);
+
 
 	for(auto&& obj : _game->GetObjectServer()->GetObjects()) {
 		
@@ -119,14 +127,14 @@ bool UIMiniMap::Process() {
 		auto pos = obj->GetPos();
 
 		//中心地点から見たオブジェクトのベクトル
-		auto vecMapObjMiddle = Vector3::Lerp(_centerPos, pos, _mag) - _centerPos;
+		auto vecMapObjMiddle = (pos - _centerPos) * _mag;
 
 		//z成分を反転
 		vecMapObjMiddle.z *= -1.f;
 
-		auto mapPos = Vector3((float)_w / 2, 0.f, (float)_h / 2) + vecMapObjMiddle;
+		auto mapPos = Vector3((float)_w / 2.f, 0.f, (float)_h / 2.f) + vecMapObjMiddle;
 
-		DrawCircleAA(mapPos.x, mapPos.z, 3.f, 32, _identiColor[obj->GetName()], TRUE);
+		DrawCircleAA(mapPos.x , mapPos.z , 3.f, 32, _identiColor[obj->GetName()], TRUE);
 
 	}
 
@@ -135,7 +143,7 @@ bool UIMiniMap::Process() {
 	ClearDrawScreen();
 
 	//ミニマップ上のプレイヤーの位置を中心に、円を描画
-	DrawCircleAA(_mapPlayerPos.x, _mapPlayerPos.z, _radius, 40, GetColor(255, 255, 255), TRUE);
+	DrawCircleAA(_mapPlayerPos.x , _mapPlayerPos.z , _radius, 40, GetColor(255, 255, 255), TRUE);
 
 	GraphBlendBlt(_mapScreen, _clipScreen, _mixScreen, 255,
 		DX_GRAPH_BLEND_RGBA_SELECT_MIX,
@@ -149,18 +157,14 @@ bool UIMiniMap::Process() {
 	// 描画先を裏画面にする
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	// 画面のクリア
-	ClearDrawScreen();
-
 	return true;
 }
 
 bool UIMiniMap::Draw() {
 	//画面に合成した画像を描画する
-	const float diffX = _x - _mapPlayerPos.x * 2;
-	const float diffY = _y - _mapPlayerPos.z * 2;
 
 	const float angle = _game->GetObjectServer()->GetPlayer()->GetCamera()->GetAngle().y;
+
 
 	//プレイヤーが中心に来るように、画像を描画
 	VECTOR pos[4] = {
@@ -180,7 +184,6 @@ bool UIMiniMap::Draw() {
 	for(int a = 0; a < 4; a++) {
 		pos[a] = VTransform(pos[a], m);
 	}
-
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
 	DrawCircleAA(_x, _y, _radius + 3.f, 40, GetColor(255, 255, 0), TRUE);

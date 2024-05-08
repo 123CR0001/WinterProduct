@@ -5,7 +5,7 @@ class ModeClear :public ModeBase {
 	typedef ModeBase base;
 	typedef ResourceServer res;
 public:
-	ModeClear(std::shared_ptr<class ResultData> data);
+	ModeClear(std::shared_ptr<class ClearData> data);
 
 	virtual bool Initialize();
 	virtual bool Terminate();
@@ -17,7 +17,7 @@ private:
 	void SetUI();
 	void SetButton();
 
-	std::shared_ptr<class ResultData> _resultData;			//リザルトデータ
+	std::shared_ptr<class ClearData> _resultData;			//リザルトデータ
 
 	class ButtonServer* _buttonServer;						//ボタンサーバー	
 

@@ -49,27 +49,36 @@ bool Navi::FindPath(const Vector3& startPos, const Vector3& goalPos, std::vector
 	NavigationMesh* start = nullptr;
 	NavigationMesh* goal = nullptr;
 
+	Vector3 beginPos;
+	Vector3 endPos;
+
 	//開始地点とゴール地点が含まれるNavigationMeshを取得
 	for (auto&& navMesh : navMeshes) {
-		if(
-			HitCheck_Line_Triangle(
-				DxConverter::VecToDx(startPos + Vector3(0.f, 1.f, 0.f) * 1000.f),
-				DxConverter::VecToDx(startPos + Vector3(0.f, -1.f, 0.f) * 1000.f),
-				DxConverter::VecToDx(navMesh.GetMesh().ver1),
-				DxConverter::VecToDx(navMesh.GetMesh().ver2),
-				DxConverter::VecToDx(navMesh.GetMesh().ver3)).HitFlag == 1
-			) {
+
+		auto result = HitCheck_Line_Triangle(
+			DxConverter::VecToDx(startPos + Vector3(0.f, 1.f, 0.f) * 1000.f),
+			DxConverter::VecToDx(startPos + Vector3(0.f, -1.f, 0.f) * 1000.f),
+			DxConverter::VecToDx(navMesh.GetMesh().ver1),
+			DxConverter::VecToDx(navMesh.GetMesh().ver2),
+			DxConverter::VecToDx(navMesh.GetMesh().ver3)
+		);
+
+		if( result.HitFlag == 1 ) {
 			start = &navMesh;
+			beginPos = DxConverter::DxToVec(result.Position);
 		}
-		if(
-			HitCheck_Line_Triangle(
-				DxConverter::VecToDx(goalPos + Vector3(0.f, 1.f, 0.f) * 1000.f),
-				DxConverter::VecToDx(goalPos + Vector3(0.f, -1.f, 0.f) * 1000.f),
-				DxConverter::VecToDx(navMesh.GetMesh().ver1),
-				DxConverter::VecToDx(navMesh.GetMesh().ver2),
-				DxConverter::VecToDx(navMesh.GetMesh().ver3)).HitFlag == 1
-			) {
+
+		result = HitCheck_Line_Triangle(
+			DxConverter::VecToDx(goalPos + Vector3(0.f, 1.f, 0.f) * 1000.f),
+			DxConverter::VecToDx(goalPos + Vector3(0.f, -1.f, 0.f) * 1000.f),
+			DxConverter::VecToDx(navMesh.GetMesh().ver1),
+			DxConverter::VecToDx(navMesh.GetMesh().ver2),
+			DxConverter::VecToDx(navMesh.GetMesh().ver3)
+		);
+
+		if(result.HitFlag == 1) {
 			goal = &navMesh;
+			endPos = DxConverter::DxToVec(result.Position);
 		}
 
 		if(start && goal) {
@@ -92,11 +101,11 @@ bool Navi::FindPath(const Vector3& startPos, const Vector3& goalPos, std::vector
 	}
 
 	//NavigationMesh::FindPathで帰ってきたのはゴール地点なので、開始地点を後ろに追加した後で、逆順にする
-	path.emplace_back(startPos);
+	path.emplace_back(beginPos);
 
 	std::reverse(path.begin(), path.end());
 
-	path.emplace_back(goalPos);
+	path.emplace_back(endPos);
 
 	return true;
 }

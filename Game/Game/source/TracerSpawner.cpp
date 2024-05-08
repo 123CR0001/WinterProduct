@@ -20,6 +20,7 @@ TracerSpawner::~TracerSpawner() {
 }
 
 bool TracerSpawner::Initialize() {
+	ObjectBase::Initialize();
 	return true;
 }
 

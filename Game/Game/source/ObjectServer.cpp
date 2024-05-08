@@ -19,7 +19,7 @@
 #include<fstream>
 #include<unordered_map>
 
-#include"ResultData.h"
+#include"ClearData.h"
 
 
 ObjectServer::ObjectServer(ModeGame* game)
@@ -63,16 +63,17 @@ bool ObjectServer::Process() {
 bool ObjectServer::Renderer() {
 	//オブジェクトを巡回処理
 
-	for (auto&& naviMesh : _navi->GetNavMeshes()) {
-		const auto&& mesh = naviMesh.GetMesh();
-		DrawTriangle3D(
-			DxConverter::VecToDx(mesh.ver1),
-			DxConverter::VecToDx(mesh.ver2),
-			DxConverter::VecToDx(mesh.ver3),
-			GetColor(255, 255, 0),
-			FALSE
-		);
-	}
+	//for(auto&& naviMesh : _navi->GetNavMeshes()) {
+	//	const auto&& mesh = naviMesh.GetMesh();
+	//	DrawTriangle3D(
+	//		DxConverter::VecToDx(mesh.ver1),
+	//		DxConverter::VecToDx(mesh.ver2),
+	//		DxConverter::VecToDx(mesh.ver3),
+	//		GetColor(255, 255, 0),
+	//		FALSE
+	//	);
+	//}
+
 
 	for (int a = 0; a < _objects.size(); a++) {
 		if (!_objects[a]->Render()) {
@@ -80,7 +81,6 @@ bool ObjectServer::Renderer() {
 		}
 	}
 
-	
 
 	return true;
 }
@@ -182,77 +182,42 @@ bool ObjectServer::LoadData(std::string stageName) {
 		StageDataJson data(filePath + "StageData.json");
 		if (data.IsSuccess()) {
 			item = data.GetStageData();
-			_game->GetResultData()->_nextStageName = item.nextStageName;
+			_game->GetClearData()->_nextStageName = item.nextStageName;
 		}
 	}
 
-	struct ModelData {
-		std::string filePath;
-		std::string attachFrameName;
-		std::function < ObjectBase* (const char*, const char*) > func;
-	};
+	std::unordered_map<std::string, std::function <ObjectBase*()>>map;
 
-	std::function < ObjectBase* (const char*, const char*) > func =
-		[this](const char* path, const char* frameName) {
+
+	map["StageObject"] =
+		[=]()mutable {
 		ObjectBase* p = NEW ObjectBase(this, true);
-		p->LoadModel(path, frameName);
+		p->LoadModel(filePath + "model/StageObject.mv1", "UCX_StageObject");
 		return p;
-	};
+	};;
+	map["siren"] = [this]() {return NEW Siren(this); };
+	map["energy"] = [this]() {return NEW Energy(this); };
+	map["tr_decoy"] = [this]() {return NEW TutorialBox(this, "tr_decoy"); };
+	map["tr_enemy"] = [this]() {return NEW TutorialBox(this, "tr_enemy"); };
+	map["tr_siren"] = [this]() {return NEW TutorialBox(this, "tr_siren"); };
+	map["tr_lightout"] = [this]() {return NEW TutorialBox(this, "tr_lightout"); };
+	map["tr_energy"] = [this]() {return NEW TutorialBox(this, "tr_energy"); };
 
-	std::unordered_map<std::string, ModelData>map;
+	
+	//ナビゲーション
+	if(layoutJson.find("navmesh") != layoutJson.end()) {
+		for(auto&& navMesh : layoutJson.at("navmesh")) {
 
-	map["StageObject"].filePath = filePath + "model/StageObject.mv1";
-	map["StageObject"].attachFrameName = "UCX_StageObject";
-	map["StageObject"].func = func;
+			auto fileName = filePath + "NavigationMesh.mv1";
 
-	map["NavigationMesh"].filePath = filePath + "NavigationMesh.mv1";
-	map["NavigationMesh"].attachFrameName = "NavigationMesh";
-	map["NavigationMesh"].func = func;
+			_navi->LoadModel(fileName.c_str());
 
-	map["siren"].filePath = "res/Object/siren/siren.mv1";
-	map["siren"].attachFrameName = "UCX_siren1";
-	map["siren"].func = [this](const char* path, const char* frameName) {return NEW Siren(this); };
+			MV1SetPosition(_navi->GetHandle(), VGet(navMesh.at("translate").at("x"), navMesh.at("translate").at("z"), -1 * navMesh.at("translate").at("y")));
+			MV1SetRotationXYZ(_navi->GetHandle(), VGet(DegToRad(90.f), 0.f, 0.f));
+			MV1RefreshCollInfo(_navi->GetHandle(),0);
 
-	map["energy"].filePath = "";
-	map["energy"].attachFrameName = "UCX_siren1";
-	map["energy"].func = [this](const char* path, const char* frameName) {return NEW Energy(this); };
-
-	map["tr_decoy"].filePath = "";
-	map["tr_decoy"].attachFrameName = "";
-	map["tr_decoy"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_decoy"); };
-
-	map["tr_enemy"].filePath = "";
-	map["tr_enemy"].attachFrameName = "";
-	map["tr_enemy"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_enemy"); };
-
-	map["tr_siren"].filePath = "";
-	map["tr_siren"].attachFrameName = "";
-	map["tr_siren"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_siren"); };
-
-	map["tr_lightout"].filePath = "";
-	map["tr_lightout"].attachFrameName = "";
-	map["tr_lightout"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_lightout"); };
-
-	map["tr_energy"].filePath = "";
-	map["tr_energy"].attachFrameName = "";
-	map["tr_energy"].func = [this](const char* path, const char* frameName) {return NEW TutorialBox(this, "tr_energy"); };
-
-	{
-		//ナビゲーション
-		if(layoutJson.find("navmesh") != layoutJson.end()) {
-			for(auto&& navMesh : layoutJson.at("navmesh")) {
-				std::string name = navMesh.at("objectName");
-				if(map.find(name) != map.end()) {
-
-					_navi->LoadModel(map[name].filePath.c_str());
-
-					MV1SetPosition(_navi->GetHandle(), VGet(navMesh.at("translate").at("x"), navMesh.at("translate").at("z"), -1 * navMesh.at("translate").at("y")));
-					MV1SetRotationXYZ(_navi->GetHandle(), VGet(DegToRad(90.f), 0.f, 0.f));
-					MV1RefreshCollInfo(_navi->GetHandle(),0);
-
-					_navi->CreateNavigationMesh();	
-				}
-			}
+			_navi->CreateNavigationMesh();	
+			
 		}
 	}
 
@@ -260,7 +225,7 @@ bool ObjectServer::LoadData(std::string stageName) {
 	for(auto&& object : layoutJson.at("object")) {
 		std::string name = object.at("objectName");
 		if(map.find(name) != map.end()) {
-			ObjectBase* p = map[name].func(map[name].filePath.c_str(), map[name].attachFrameName.c_str());
+			auto p = map[name]();
 			p->SetJsonDataUE(object);
 			p->AddEulerAngle(Vector3(DegToRad(90.f), DegToRad(180.f), 0.f));
 		}
@@ -302,5 +267,6 @@ bool ObjectServer::LoadData(std::string stageName) {
 		}
 	}
 
+	
 	return true;
 }

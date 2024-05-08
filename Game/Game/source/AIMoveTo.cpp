@@ -5,7 +5,6 @@
 #include"CommonSoldier.h"
 #include"Player.h"
 #include"ModeGame.h"
-#include"LightsOut.h"
 
 constexpr int INTERVAL = 300;
 
@@ -18,22 +17,27 @@ AIMoveTo::AIMoveTo(AIComponent* owner)
 AIMoveTo::~AIMoveTo() {}
 void AIMoveTo::OnEnter() {
 	if(_owner->GetPoints(GetName()).empty()) { _owner->ChangeState("LoseSight"); return; }
+
 	//ˆê”ÔÅŒã‚É’Ç‰Á‚³‚ê‚½À•W‚ÖŒü‚©‚¤
 	Vector3 checkPoint = _owner->GetPoints(GetName()).back();
+
 	//Ì‚Ìƒ‹[ƒg‚ÍŽÌ‚Ä‚é
 	_pointsNum = 1;
 	_owner->GetPoints(GetName()).clear();
+
 	//‚±‚ÌAIState‚ðŠŽ‚·‚éAIComponent‚ðŠŽ‚·‚éObjectBase‚ªŠ‘®‚·‚éServer
 	auto server = _owner->GetOwner()->GetObjectServer();
 	auto owner = _owner->GetOwner();
 	auto navi = _owner->GetOwner()->GetObjectServer()->GetNavi();
 	auto ownerPos = owner->GetPos();
+
 	//Å’ZŒo˜H
-	navi->FindPath(ownerPos, checkPoint, _owner->GetPoints(GetName()),50.f);
+	navi->FindPath(ownerPos, checkPoint, _owner->GetPoints(GetName()),0.f);
 	if(_owner->GetPoints(GetName()).empty()) {
 		_owner->ChangeState("LoseSight");
 		return;
 	}
+
 	_oldCheckPoint = checkPoint;
 	_interval = INTERVAL;
 }

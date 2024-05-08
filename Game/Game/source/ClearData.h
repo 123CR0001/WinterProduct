@@ -1,14 +1,14 @@
 #pragma once
 #include<string>
 	//クリア画面のリザルトデータ
-class ResultData {
+class ClearData {
 public:
-	ResultData() {
+	ClearData() {
 		maxCombo = 0;
 		clearSecondTime = 0.f;
 		maxDetectionLevel = 0.f;
 	}
-	~ResultData() {}
+	~ClearData() {}
 
 	//最高コンボ数
 	int maxCombo;

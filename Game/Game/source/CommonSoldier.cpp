@@ -34,7 +34,6 @@
 #include"CameraZoomComponent.h"
 #include"LightsOutComponent.h"
 
-#include"LightsOut.h"
 #include"TimeLine.h"
 
 #include"UIScreen.h"
@@ -42,7 +41,7 @@
 
 #include"Gun.h"
 
-#include"ResultData.h"
+#include"ClearData.h"
 
 constexpr float UP_PERCENT = 0.02f;
 constexpr float DOWN_PERCENT = 0.01f;
@@ -126,8 +125,6 @@ bool CommonSoldier::Initialize() {
 
 	_capsule->AddSkipName("Decoy");
 
-
-
 	return true;
 }
 
@@ -156,14 +153,16 @@ bool CommonSoldier::Process() {
 		_eulerAngle.y = 2 * PI;
 	}
 
+	if(_state != STATE::kActive){ return true; }
+
 	//検知度の増減(百分率)
-	if (_AI->IsFound(GetObjectServer()->GetPlayer()) && GetObjectServer()->GetGame()->IsUsingLightsOut()) {
+	if (_AI->IsFound(GetObjectServer()->GetPlayer()) && !GetObjectServer()->GetGame()->IsUsingLightsOut()) {
 		//AIごとに上昇するかしないかを分けるかもしれない
 		//ここに書いているのは走り書き
 		const float dist = _AI->GetViewDist();
 
 		float per = 100.f;
-		per = -(per - 1);
+		per = -(per - 1.f);
 
 		//検知度の上昇
 		_detectionLevel += 1.f * UP_PERCENT;
@@ -245,8 +244,8 @@ bool CommonSoldier::Process() {
 	}
 
 	
-	if(GetObjectServer()->GetGame()->GetResultData()->maxDetectionLevel < _detectionLevel){
-		GetObjectServer()->GetGame()->GetResultData()->maxDetectionLevel = _detectionLevel;
+	if(GetObjectServer()->GetGame()->GetClearData()->maxDetectionLevel < _detectionLevel){
+		GetObjectServer()->GetGame()->GetClearData()->maxDetectionLevel = _detectionLevel;
 	}
 
 
@@ -254,20 +253,9 @@ bool CommonSoldier::Process() {
 }
 
 bool CommonSoldier::Render() {
-	CharaBase::Render();
-
-	int i = 0;
-	for (auto&& v : _AI->GetPoints(_AI->GetCurrentState()->GetName())) {
-		
-		i++;
-
-
-		DrawSphere3D(DxConverter::VecToDx(v), 50.f, 16, GetColor(255, 0, 0), GetColor(255, 0, 0), TRUE);
-		VECTOR p = ConvWorldPosToScreenPos(DxConverter::VecToDx(v));
-
-		DrawFormatString(static_cast<int>(p.x), static_cast<int>(p.y), GetColor(255, 255, 255), "%d", i);
-	}
-
+	CharaBase::Render();/*
+	auto p = ConvWorldPosToScreenPos(DxConverter::VecToDx(_pos));
+	DrawFormatString(p.x, p.y, GetColor(255, 255, 255), "%s", _AI->GetCurrentState()->GetName());*/
 	return true;
 }
 

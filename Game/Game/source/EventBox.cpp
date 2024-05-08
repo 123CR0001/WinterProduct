@@ -20,6 +20,7 @@ EventBox::~EventBox() {
 }
 
 bool EventBox::Initialize() {
+	ObjectBase::Initialize();
 	return true;
 }
 

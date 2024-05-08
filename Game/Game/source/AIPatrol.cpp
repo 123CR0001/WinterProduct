@@ -9,7 +9,6 @@
 #include"Player.h"
 
 #include"ModeGame.h"
-#include"LightsOut.h"
 
 AIPatrol::AIPatrol(AIComponent* owner)
 	:AIState(owner)

@@ -6,7 +6,6 @@
 #include"PhysWorld.h"
 
 #include"ModeGame.h"
-#include"LightsOut.h"
 
 AILookAround::AILookAround(AIComponent* owner)
 	:AIState(owner)

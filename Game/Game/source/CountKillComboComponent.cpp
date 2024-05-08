@@ -2,7 +2,7 @@
 #include"ObjectBase.h"
 #include"ObjectServer.h"
 #include"ModeGame.h"
-#include"ResultData.h"
+#include"ClearData.h"
 
 int CountKillComboComponent::_frameCnt = 0;
 int CountKillComboComponent::_comboCnt = 0;
@@ -23,8 +23,8 @@ bool CountKillComboComponent::Process() {
 	if(_owner->GetDamageData().isDamage) {
 		_frameCnt = 30;
 		_comboCnt++;
-		if(GetOwner()->GetObjectServer()->GetGame()->GetResultData()->maxCombo < _comboCnt) {
-			GetOwner()->GetObjectServer()->GetGame()->GetResultData()->maxCombo = _comboCnt;
+		if(GetOwner()->GetObjectServer()->GetGame()->GetClearData()->maxCombo < _comboCnt) {
+			GetOwner()->GetObjectServer()->GetGame()->GetClearData()->maxCombo = _comboCnt;
 		}
 	}
 

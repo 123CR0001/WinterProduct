@@ -7,7 +7,6 @@
 
 #include "ModeGame.h"
 #include"ModeEffekseer.h"
-#include"ModeDebugMenu.h"
 #include"ModeColorOut.h"
 #include"ModeColorIn.h"
 #include"ModePause.h"
@@ -46,14 +45,14 @@
 #include"UISpriteText.h"
 #include"SoundItem.h"
 
-#include"ResultData.h"
+#include"ClearData.h"
 
 ModeGame::ModeGame(std::string stageNum)
 	:_objServer(NEW ObjectServer(this))
 	, _modeEffekseer(NEW ModeEffekseer())
 	, _stage(stageNum)
 	, _energyCount(0)
-	, _resultData(std::make_shared<ResultData>())
+	, _resultData(std::make_shared<ClearData>())
 	, _timeLine(NEW TimeLine())
 	, _UIScreen(NEW UIScreen())
 	, _enemyCount(0)

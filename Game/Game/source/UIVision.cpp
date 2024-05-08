@@ -10,7 +10,6 @@
 #include"Player.h"
 
 #include"ModeGame.h"
-#include"LightsOut.h"
 
 constexpr int SIDE_NUM = 100;
 
@@ -36,7 +35,7 @@ bool UIVision::Process() {
 bool UIVision::Draw() {
 
 	//ライツアウト中は描画しない
-	if(!_server->GetGame()->IsUsingLightsOut())return true;
+	if(_server->GetGame()->IsUsingLightsOut())return true;
 
 	for(auto&& soldier : _server->GetCommonSoldiers()) {
 

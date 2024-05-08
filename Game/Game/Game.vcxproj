@@ -196,12 +196,10 @@
     <ClCompile Include="source\FrameComponent.cpp" />
     <ClCompile Include="source\Gun.cpp" />
     <ClCompile Include="source\Knife.cpp" />
-    <ClCompile Include="source\LightsOut.cpp" />
     <ClCompile Include="source\LightsOutComponent.cpp" />
     <ClCompile Include="source\ModeColorOut.cpp" />
     <ClCompile Include="source\ModeClear.cpp" />
     <ClCompile Include="source\ModeColorIn.cpp" />
-    <ClCompile Include="source\ModeDebugMenu.cpp" />
     <ClCompile Include="source\ModeEffekseer.cpp" />
     <ClCompile Include="source\ModeEndConfirm.cpp" />
     <ClCompile Include="source\ModeGame.cpp" />
@@ -288,13 +286,12 @@
     <ClInclude Include="source\EventBox.h" />
     <ClInclude Include="source\EventLine.h" />
     <ClInclude Include="source\Gun.h" />
-    <ClInclude Include="source\LightsOut.h" />
     <ClInclude Include="source\LightsOutComponent.h" />
     <ClInclude Include="source\ModeStageSelect.h" />
     <ClInclude Include="source\ModeTutorial.h" />
     <ClInclude Include="source\UIScreen.h" />
     <ClInclude Include="source\OpacityAnimation.h" />
-    <ClInclude Include="source\ResultData.h" />
+    <ClInclude Include="source\ClearData.h" />
     <ClInclude Include="source\SpriteNumber.h" />
     <ClInclude Include="source\SpriteText.h" />
     <ClInclude Include="source\Energy.h" />
@@ -302,7 +299,6 @@
     <ClInclude Include="source\FrameComponent.h" />
     <ClInclude Include="source\Knife.h" />
     <ClInclude Include="source\MiniSiren.h" />
-    <ClInclude Include="source\ModeDebugMenu.h" />
     <ClInclude Include="source\ModeEffekseer.h" />
     <ClInclude Include="source\ModeColorOut.h" />
     <ClInclude Include="source\ModeEndConfirm.h">

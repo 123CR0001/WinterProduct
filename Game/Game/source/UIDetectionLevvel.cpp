@@ -5,7 +5,6 @@
 #include"CommonSoldier.h"
 #include"Player.h"
 
-#include"LightsOut.h"
 #include"ModeGame.h"
 
 UIDetectionLevel::UIDetectionLevel(ObjectServer* server,int drawOrder)
@@ -28,7 +27,7 @@ bool UIDetectionLevel::Process() {
 
 bool UIDetectionLevel::Draw() {
 
-	if(!_server->GetGame()->IsUsingLightsOut())return true;
+	if(_server->GetGame()->IsUsingLightsOut())return true;
 
 	auto player = _server->GetPlayer();
 

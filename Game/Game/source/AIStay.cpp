@@ -4,7 +4,6 @@
 #include"ObjectServer.h"
 
 #include"ModeGame.h"
-#include"LightsOut.h"
 
 AIStay::AIStay(AIComponent* owner)
 	:AIState(owner)

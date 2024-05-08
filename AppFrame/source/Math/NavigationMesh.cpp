@@ -118,7 +118,7 @@ NavigationMesh* NavigationMesh::FindPath(std::vector<NavigationMesh>& list, Navi
 }
 
 void NavigationMesh::CreateList(const std::vector<Polygon3D>& polys, std::vector<NavigationMesh>& outList) {
-
+	//èâä˙âª
 	outList.clear();
 
 	for (auto&& poly : polys) {
@@ -140,7 +140,6 @@ void NavigationMesh::CreateList(const std::vector<Polygon3D>& polys, std::vector
 				vers.emplace_back(polys[b].ver1);
 			}
 
-			//
 			if (Collision::SegPointDistSq(polys[b].ver2, Segment(polys[a].ver1, polys[a].ver2)) < 0.01) {
 				vers.emplace_back(polys[b].ver2);
 			}
@@ -151,7 +150,6 @@ void NavigationMesh::CreateList(const std::vector<Polygon3D>& polys, std::vector
 				vers.emplace_back(polys[b].ver2);
 			}
 
-			//
 			if (Collision::SegPointDistSq(polys[b].ver3, Segment(polys[a].ver1, polys[a].ver2)) < 0.01) {
 				vers.emplace_back(polys[b].ver3);
 			}
@@ -162,7 +160,6 @@ void NavigationMesh::CreateList(const std::vector<Polygon3D>& polys, std::vector
 				vers.emplace_back(polys[b].ver3);
 			}
 
-			/////////////////////
 			if (Collision::SegPointDistSq(polys[a].ver1, Segment(polys[b].ver1, polys[b].ver2)) < 0.01) {
 				vers.emplace_back(polys[a].ver1);
 			}
@@ -173,7 +170,6 @@ void NavigationMesh::CreateList(const std::vector<Polygon3D>& polys, std::vector
 				vers.emplace_back(polys[a].ver1);
 			}
 
-			//
 			if (Collision::SegPointDistSq(polys[a].ver2, Segment(polys[b].ver1, polys[b].ver2)) < 0.01) {
 				vers.emplace_back(polys[a].ver2);
 			}
@@ -184,7 +180,6 @@ void NavigationMesh::CreateList(const std::vector<Polygon3D>& polys, std::vector
 				vers.emplace_back(polys[a].ver2);
 			}
 
-			//
 			if (Collision::SegPointDistSq(polys[a].ver3, Segment(polys[b].ver1, polys[b].ver2)) < 0.01) {
 				vers.emplace_back(polys[a].ver3);
 			}

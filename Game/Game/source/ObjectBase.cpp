@@ -20,6 +20,7 @@ ObjectBase::ObjectBase(ObjectServer* server, bool isFrame, std::string name)
 	,_attachIndex(0)
 	,_name(name)
 	,_state(STATE::kActive)
+	,_scale(Vector3(1.f, 1.f, 1.f))
 {
 	//自分を管理するサーバーを記録する
 	_server->AddObject(this);
@@ -45,10 +46,7 @@ ObjectBase::~ObjectBase() {
 }
 
 bool ObjectBase::Initialize() {
-
-
-	_scale = Vector3(1.f, 1.f, 1.f);
-
+	ModelMatrixSetUp();
 	return true;
 }
 

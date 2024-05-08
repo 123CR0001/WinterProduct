@@ -2,7 +2,7 @@
 #include"ObjectBase.h"
 #include"ModeGame.h"
 #include"ObjectServer.h"
-#include"ResultData.h"
+#include"ClearData.h"
 CountClearTimeComponent::CountClearTimeComponent(ObjectBase* owner)
 	:Component(owner)
 	,_frameCnt(0)
@@ -12,7 +12,7 @@ CountClearTimeComponent::CountClearTimeComponent(ObjectBase* owner)
 
 CountClearTimeComponent::~CountClearTimeComponent() {
 	//ApplicationGlobal ResultData‚ÌclearTime‚É‘ã“ü
-	GetOwner()->GetObjectServer()->GetGame()->GetResultData()->clearSecondTime = static_cast<float>(_frameCnt / 60); //’PˆÊ:•b
+	GetOwner()->GetObjectServer()->GetGame()->GetClearData()->clearSecondTime = static_cast<float>(_frameCnt / 60); //’PˆÊ:•b
 }
 
 bool CountClearTimeComponent::Process() {

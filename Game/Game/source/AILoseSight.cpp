@@ -6,7 +6,6 @@
 #include"PhysWorld.h"
 
 #include"ModeGame.h"
-#include"LightsOut.h"
 
 AILoseSight::AILoseSight(AIComponent* owner)
 	:AIState(owner)

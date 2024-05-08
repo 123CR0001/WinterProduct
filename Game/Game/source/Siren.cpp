@@ -71,9 +71,6 @@ bool Siren::Process() {
 
 		Vector3 pos = _pos;
 
-		//y成分を0にする
-		pos.y = 0.f;
-
 		pos += GetForward() * 50.f;
 	
 		//サウンドコンポーネントを追加
@@ -89,7 +86,17 @@ bool Siren::Process() {
 
 	}
 
+	return true;
+}
 
+bool Siren::Render() {
+	ObjectBase::Render();
+
+	//Vector3 pos = _pos;
+
+	//pos += GetForward() * 50.f;
+
+	//DrawSphere3D(DxConverter::VecToDx(pos), 30.f, 10, GetColor(255, 255, 255), GetColor(255, 255, 255), TRUE);
 
 	return true;
 }

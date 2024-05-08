@@ -25,8 +25,6 @@ bool CharaBase::ChangeState(std::string stateName) {
 
 bool CharaBase::Initialize() {
 	ObjectBase::Initialize();
-
-
 	return true;
 }
 

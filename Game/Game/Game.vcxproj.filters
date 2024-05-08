@@ -183,9 +183,6 @@
     <ClCompile Include="source\AIComponent.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
-    <ClCompile Include="source\ModeDebugMenu.cpp">
-      <Filter>ソース ファイル\Mode</Filter>
-    </ClCompile>
     <ClCompile Include="source\AIPanic.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
     </ClCompile>
@@ -357,9 +354,6 @@
     <ClCompile Include="source\UISpriteText.cpp">
       <Filter>ソース ファイル\MYUI</Filter>
     </ClCompile>
-    <ClCompile Include="source\LightsOut.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="source\UIDetectionLevvel.cpp">
       <Filter>ソース ファイル\MYUI</Filter>
     </ClCompile>
@@ -478,9 +472,6 @@
     </ClInclude>
     <ClInclude Include="source\AIComponent.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
-    </ClInclude>
-    <ClInclude Include="source\ModeDebugMenu.h">
-      <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
     <ClInclude Include="source\AIPanic.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>
@@ -665,9 +656,6 @@
     <ClInclude Include="source\UISpriteText.h">
       <Filter>ヘッダー ファイル\MYUI</Filter>
     </ClInclude>
-    <ClInclude Include="source\LightsOut.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="source\UIDetectionLevel.h">
       <Filter>ヘッダー ファイル\MYUI</Filter>
     </ClInclude>
@@ -710,7 +698,7 @@
     <ClInclude Include="source\ModeStageSelect.h">
       <Filter>ヘッダー ファイル\Mode</Filter>
     </ClInclude>
-    <ClInclude Include="source\ResultData.h">
+    <ClInclude Include="source\ClearData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="source\LightsOutComponent.h">
