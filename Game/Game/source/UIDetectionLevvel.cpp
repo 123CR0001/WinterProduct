@@ -17,11 +17,9 @@ UIDetectionLevel::UIDetectionLevel(ObjectServer* server,int drawOrder)
 }
 
 UIDetectionLevel::~UIDetectionLevel(){
-
 }
 
 bool UIDetectionLevel::Process() {
-
 	return true;
 }
 

@@ -18,18 +18,6 @@ ApplicationGlobal::~ApplicationGlobal() {
 
 bool ApplicationGlobal::Init() {
 	LoadMotionData();
-	// ”ñ“¯Šú“Ç‚İ‚İİ’è
-	SetUseASyncLoadFlag(TRUE);
-	ResourceServer::MV1LoadModel("res/Chara/Tracer/tracer_5.mv1");
-	ResourceServer::MV1LoadModel("res/Chara/mannequin.mv1");
-	ResourceServer::MV1LoadModel("res/Object/siren/siren.mv1");
-	ResourceServer::MV1LoadModel("res/cg_player_girl/cg_player_girl.mv1");
-	ResourceServer::MV1LoadModel("res/Chara/Soldier_fix/soldier_2_4_IK_A_05.mv1");
-	ResourceServer::MV1LoadModel("res/Chara/Owl_toDX/Owl.mv1");
-	ResourceServer::MV1LoadModel("res/Object/Gun/Gun.mv1");
-	ResourceServer::MV1LoadModel("res/Object/Knife_toDX/knife.mv1");
-	// “¯Šú“Ç‚İ‚İİ’è
-	SetUseASyncLoadFlag(FALSE);
 	return true;
 }
 

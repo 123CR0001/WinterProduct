@@ -1,6 +1,9 @@
 #include"EventLine.h"
 
-EventLine::EventLine(){}
+EventLine::EventLine()
+	:_frameCnt(0)
+	,_isProcess(false)
+{}
 
 EventLine::~EventLine(){
 

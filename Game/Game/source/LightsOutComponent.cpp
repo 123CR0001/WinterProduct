@@ -53,7 +53,7 @@ LightsOutComponent::LightsOutComponent(Player* owner, int order)
 	_noise->SetAlpha(0.f);
 
 	//HUD‚ÌÝ’è
-	_hud->SetHandle(ResourceServer::LoadGraph("res/hud_01.png"));
+	_hud->SetHandle(ResourceServer::LoadGraph("res/UI/Game/hud_01.png"));
 	_hud->SetSize(Vector2(SCREEN_WIDTH, SCREEN_HEIGHT));
 	_hud->SetPos(Vector2(SCREEN_WIDTH / 2.f, SCREEN_HEIGHT / 2.f));
 	_hud->SetAlpha(0.f);

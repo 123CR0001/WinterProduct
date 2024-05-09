@@ -30,8 +30,8 @@
 #include"ClearData.h"
 
 ModeClear::ModeClear(std::shared_ptr<ClearData> data)
-	:_resultData(data)
-	,_uiServer(NEW UIScreen())
+	:_clearData(data)
+	,_uiScreen(NEW UIScreen())
 	,_buttonServer(NEW ButtonServer())
 	,_timeLine(NEW TimeLine())
 {
@@ -51,7 +51,7 @@ bool ModeClear::Initialize() {
 
 bool ModeClear::Terminate() {
 	delete _buttonServer;
-	delete _uiServer;
+	delete _uiScreen;
 	delete _timeLine;
 	return true;
 }
@@ -60,7 +60,7 @@ bool ModeClear::Process() {
 	base::Process();
 
 	//更新
-	_uiServer->Process();
+	_uiScreen->Process();
 	_buttonServer->Process();
 	_timeLine->Process();
 
@@ -70,7 +70,7 @@ bool ModeClear::Process() {
 bool ModeClear::Render() {
 	base::Render();
 
-	_uiServer->Draw();
+	_uiScreen->Draw();
 	_buttonServer->Draw();
 
 	return true;
@@ -87,7 +87,7 @@ void ModeClear::SetUI() {
 			Vector2(896.f * SCREEN_WIDTH_MAG, 366.f * SCREEN_HEIGHT_MAG)
 		);
 		text->AddAnimation(NEW TransformAnimation(text, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 244.f * SCREEN_HEIGHT_MAG))));
-		_uiServer->AddUI(NEW UISpriteText(text));
+		_uiScreen->AddUI(NEW UISpriteText(text));
 	}
 
 	//ボタン外枠
@@ -98,16 +98,16 @@ void ModeClear::SetUI() {
 			Vector2(896.f * SCREEN_WIDTH_MAG, 232.f * SCREEN_HEIGHT_MAG)
 		);
 		text->AddAnimation(NEW TransformAnimation(text, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 896.f * SCREEN_HEIGHT_MAG))));
-		_uiServer->AddUI(NEW UISpriteText(text));
+		_uiScreen->AddUI(NEW UISpriteText(text));
 	}
 
 	//クリアタイム
 	{
 		auto func = [=]()mutable {
-			_uiServer->AddUI(
+			_uiScreen->AddUI(
 				NEW UIHrsMinSec(
 					30,
-					_resultData->clearSecondTime,
+					_clearData->clearSecondTime,
 					Transform2(Vector2(1766.f * SCREEN_WIDTH_MAG,192.5f * SCREEN_HEIGHT_MAG)),
 					Vector2(46.f * SCREEN_WIDTH_MAG,70.f * SCREEN_HEIGHT_MAG)
 				)
@@ -120,12 +120,12 @@ void ModeClear::SetUI() {
 	//最高検知度
 	{
 		auto func = [=]() mutable{
-			SpriteNumber* number = NEW SpriteNumber(static_cast<int>(_resultData->maxDetectionLevel * 100.f));
+			SpriteNumber* number = NEW SpriteNumber(static_cast<int>(_clearData->maxDetectionLevel * 100.f));
 			number->AddAnimation(NEW EasingNumber(number, 30)); 
 			number->LoadDivNumber("res/UI/Result/ui_timer_01.png",5,2,46,70);
 			number->SetSize(Vector2(46.f * SCREEN_WIDTH_MAG, 70.f * SCREEN_HEIGHT_MAG));
 			number->SetPos(Vector2(1709.f * SCREEN_WIDTH_MAG, 282.5f * SCREEN_HEIGHT_MAG));
-			_uiServer->AddUI(NEW UISpriteText(number));
+			_uiScreen->AddUI(NEW UISpriteText(number));
 		};
 
 		//この関数が呼び出されてから、MyUIServerのProcess()が120回呼ばれたら、処理する
@@ -135,12 +135,12 @@ void ModeClear::SetUI() {
 	//最高キルコンボ
 	{
 		auto func = [=]() mutable {
-			SpriteNumber* number = NEW SpriteNumber(_resultData->maxCombo);
+			SpriteNumber* number = NEW SpriteNumber(_clearData->maxCombo);
 			number->AddAnimation(NEW EasingNumber(number, 30));
 			number->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
 			number->SetSize(Vector2(46.f * SCREEN_WIDTH_MAG, 70.f * SCREEN_HEIGHT_MAG));
 			number->SetPos(Vector2(1709.f * SCREEN_WIDTH_MAG, 372.5f * SCREEN_HEIGHT_MAG));
-			_uiServer->AddUI(NEW UISpriteText(number));
+			_uiScreen->AddUI(NEW UISpriteText(number));
 		};
 
 		//この関数が呼び出されてから、MyUIServerのProcess()が180回呼ばれたら、処理する
@@ -151,7 +151,7 @@ void ModeClear::SetUI() {
 	{
 		auto func = [=]() mutable {
 			std::string fileName = "res/UI/Result/Emblem/ui_rankemblem_";
-			fileName += _resultData->GetRank();
+			fileName += _clearData->GetRank();
 			fileName += ".png";
 			SpriteText* text = NEW SpriteText(
 				ResourceServer::LoadGraph(fileName.c_str()),
@@ -162,7 +162,7 @@ void ModeClear::SetUI() {
 			);
 			text->AddAnimation(NEW TransformAnimation(text,30,Transform2(0.f, 1.f, Vector2(SCREEN_WIDTH_MAG * 1344.f, SCREEN_HEIGHT_MAG * 589.5f))));
 			text->AddAnimation(NEW OpacityAnimation(text, 30, 1.f));
-			_uiServer->AddUI(NEW UISpriteText(text));
+			_uiScreen->AddUI(NEW UISpriteText(text));
 		};
 
 		//この関数が呼び出されてから、MyUIServerのProcess()が240回呼ばれたら、処理する
@@ -176,7 +176,7 @@ void ModeClear::SetUI() {
 		text->SetSize(Vector2(static_cast<float>(SCREEN_WIDTH),static_cast<float>(SCREEN_HEIGHT)));
 		text->SetPos(Vector2(static_cast<float>(SCREEN_WIDTH / 2), static_cast<float>(SCREEN_HEIGHT / 2)));
 
-		_uiServer->AddUI(NEW UISpriteText(text, 1000));
+		_uiScreen->AddUI(NEW UISpriteText(text, 1000));
 	}
 }
 
@@ -194,7 +194,7 @@ void ModeClear::SetButton() {
 
 	//次のステージがあるなら
 	//次のステージへ移行するボタン
-	if(_resultData->_nextStageName.size() > 0)
+	if(_clearData->_nextStageName.size() > 0)
 	{
 		//画像の設定
 		SpriteText* titleButton = NEW SpriteText(
@@ -203,7 +203,7 @@ void ModeClear::SetButton() {
 			Vector2(384.f * SCREEN_WIDTH_MAG, 64.f * SCREEN_HEIGHT_MAG)
 		);
 		//アニメーションの設定
-		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60., Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 824.f * SCREEN_HEIGHT_MAG))));
+		titleButton->AddAnimation(NEW TransformAnimation(titleButton, 60, Transform2(Vector2(1344.f * SCREEN_WIDTH_MAG, 824.f * SCREEN_HEIGHT_MAG))));
 
 		_buttonServer->AddButton(
 			NEW Button(
@@ -214,7 +214,7 @@ void ModeClear::SetButton() {
 						// モードの削除
 						ModeServer::GetInstance()->Del(this);
 						// 次のモードを登録
-						ModeServer::GetInstance()->Add(NEW ModeGame(_resultData->_nextStageName), 1, "game");
+						ModeServer::GetInstance()->Add(NEW ModeGame(_clearData->_nextStageName), 1, "game");
 					};
 					// 次のモードを登録
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);
@@ -282,7 +282,7 @@ void ModeClear::SetButton() {
 						// モードの削除
 						ModeServer::GetInstance()->Del(this);
 						// 次のモードを登録
-						ModeServer::GetInstance()->Add(NEW ModeGame(_resultData->_stageName), 1, "game");
+						ModeServer::GetInstance()->Add(NEW ModeGame(_clearData->_stageName), 1, "game");
 					};
 					// 次のモードを登録
 					ModeBase* mode = NEW ModeColorOut(NEW ModeColorIn(60, true), func, 60);

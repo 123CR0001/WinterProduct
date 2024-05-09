@@ -14,7 +14,7 @@ public:
 	int maxCombo;
 
 	//ƒNƒŠƒAƒ^ƒCƒ€
-	float clearSecondTime;
+	int clearSecondTime;
 
 	//Å‚ŒŸ’m“x
 	float maxDetectionLevel;
@@ -30,13 +30,13 @@ public:
 	const char* GetRank() {
 		int point = 0;
 		//ŠÔ
-		if (clearSecondTime < 60.f * 1.f) {			//•]‰¿S
+		if (clearSecondTime < 60 * 1) {			//•]‰¿S
 			point += 3;
 		}
-		else if (clearSecondTime < 60.f * 2.f) {	//•]‰¿A
+		else if (clearSecondTime < 60 * 2) {	//•]‰¿A
 			point += 2;
 		}
-		else if (clearSecondTime < 60.f * 3.f) {	//•]‰¿B
+		else if (clearSecondTime < 60 * 3) {	//•]‰¿B
 			point += 1;
 		}
 		else {										//•]‰¿C

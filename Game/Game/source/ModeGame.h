@@ -30,7 +30,7 @@ public:
 
 	class TimeLine* GetTimeLine()const { return _timeLine; }
 
-	class UIScreen* GetUIServer()const { return _UIScreen; }
+	class UIScreen* GetUIServer()const { return _uiScreen; }
 
 	void SetIsUseLightsOut(bool isUseLightsOut) { _isUsingLightsOut = isUseLightsOut; }
 	bool IsUsingLightsOut()const { return _isUsingLightsOut; }
@@ -56,7 +56,7 @@ protected:
 	class TimeLine* _timeLine;
 
 	//UI
-	class UIScreen* _UIScreen;
+	class UIScreen* _uiScreen;
 
 	//_enemyCount‚ð•\Ž¦‚·‚éUI
 	class SpriteText* _enemyCountBg;

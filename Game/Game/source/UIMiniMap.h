@@ -32,7 +32,7 @@ private:
 	float _x, _y;
 
 	//_mapScreenに描画するミニマップの大きさ
-	float  _w, _h;
+	int  _w, _h;
 
 	//画面に描画する円形上のマップの半径
 	float _radius;

@@ -90,9 +90,7 @@ bool Player::Initialize() {
 	_anim->ChangeAnimation("Idle");
 
 	//カメラと同じ方向を向く
-	Vector3 vec(_pos - _cameraCom->GetPos());
-	vec.Normalized();
-	_eulerAngle.y = atan2f(vec.x, vec.z);
+	_eulerAngle.y = _cameraCom->GetAngle().y + PI;
 
 	//デコイの残り使用回数のUI
 	_decoyTimesText->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);

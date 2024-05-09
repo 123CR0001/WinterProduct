@@ -54,7 +54,7 @@ ModeGame::ModeGame(std::string stageNum)
 	, _energyCount(0)
 	, _resultData(std::make_shared<ClearData>())
 	, _timeLine(NEW TimeLine())
-	, _UIScreen(NEW UIScreen())
+	, _uiScreen(NEW UIScreen())
 	, _enemyCount(0)
 	, _enemyCountText(NEW SpriteNumber(_enemyCount, 2))
 	, _isUsingLightsOut(false)
@@ -68,7 +68,7 @@ ModeGame::ModeGame(std::string stageNum)
 
 ModeGame::~ModeGame() {
 	delete _objServer;
-	delete _UIScreen;
+	delete _uiScreen;
 	delete _timeLine;
 }
 
@@ -82,7 +82,7 @@ bool ModeGame::Initialize() {
 	_handleShadowMap = MakeShadowMap(2048, 2048);
 
 	//”wŒi
-	_bg = ResourceServer::LoadGraph("res/gamemain_bg.png");
+	_bg = ResourceServer::LoadGraph("res/UI/Game/gamemain_bg.png");
 
 	//Žc‚è‚Ì“G‚Ì”‚ð•`‰æ‚ÅŽg—p‚·‚é‰æ‘œ‚ÌÝ’è
 	_enemyCountText->LoadDivNumber("res/UI/Result/ui_timer_01.png", 5, 2, 46, 70);
@@ -98,14 +98,14 @@ bool ModeGame::Initialize() {
 			Vector2(160.f * SCREEN_WIDTH_MAG, 120.f * SCREEN_HEIGHT_MAG)
 		);
 		_enemyCountBg->SetAlpha(0.f);
-		_UIScreen->AddUI(NEW UISpriteText(_enemyCountBg,100));
+		_uiScreen->AddUI(NEW UISpriteText(_enemyCountBg,100));
 	}
 
 	//UI‚Ì’Ç‰Á
-	_UIScreen->AddUI(NEW UISpriteText(_enemyCountText, 50));
-	_UIScreen->AddUI(NEW UIDetectionLevel(_objServer,100));
-	_UIScreen->AddUI(NEW UIVision(_objServer,1000));
-	_UIScreen->AddUI(NEW UIMiniMap(this,100));
+	_uiScreen->AddUI(NEW UISpriteText(_enemyCountText, 50));
+	_uiScreen->AddUI(NEW UIDetectionLevel(_objServer,100));
+	_uiScreen->AddUI(NEW UIVision(_objServer,1000));
+	_uiScreen->AddUI(NEW UIMiniMap(this,100));
 
 
 	gGlobal._sndServer.Play("BGM_03");
@@ -133,7 +133,7 @@ bool ModeGame::Process() {
 
 	//XV
 	_timeLine->Process();
-	_UIScreen->Process();
+	_uiScreen->Process();
 
 	if (!_objServer->Process()) { return false; }
 
@@ -206,7 +206,7 @@ bool ModeGame::Render() {
 	SetUseShadowMap(0, -1);
 
 	//UI‚Ì•`‰æ
-	_UIScreen->Draw();
+	_uiScreen->Draw();
 
 	return true;
 }

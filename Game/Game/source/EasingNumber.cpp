@@ -17,7 +17,7 @@ bool EasingNumber::Process() {
 	Animation::Process();
 
 	//イージングで描画する数値を決める
-	float num = _func(_frameCnt, 0, _number, _frame);
+	float num = _func(static_cast<float>(_frameCnt), 0.f, static_cast<float>(_number), static_cast<float>(_frame));
 
 	_spriteNumber->SetNumber(static_cast<int>(num));
 

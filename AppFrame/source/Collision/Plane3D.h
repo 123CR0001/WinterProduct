@@ -3,7 +3,13 @@
 
 class Plane3D {
 public:
-	Plane3D(){}
+	Plane3D()
+		:a(0.f)
+		,b(0.f)
+		,c(0.f)
+		,d(0.f)
+	{
+	}
 	Plane3D(float a, float b, float c, float d){
 		this->a = a;
 		this->b = b;

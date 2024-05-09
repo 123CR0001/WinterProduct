@@ -103,17 +103,17 @@
     <Filter Include="ヘッダー ファイル\SpriteText\Animation">
       <UniqueIdentifier>{5d5ec8af-c66b-4988-bd16-7eb2b8c063c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\MYUI">
-      <UniqueIdentifier>{d050621b-32bb-4d4b-a134-95d9984d6b49}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\MYUI">
-      <UniqueIdentifier>{637f2d21-6669-40c7-9584-03ab5ef53c47}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Object\EventBox">
       <UniqueIdentifier>{01ce9c46-788b-4bc3-a812-f4c26dee8967}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\Object\EventBox">
       <UniqueIdentifier>{d8ab590b-17db-4850-970b-8e5c935d0907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\CR0001_UI">
+      <UniqueIdentifier>{637f2d21-6669-40c7-9584-03ab5ef53c47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\CR0001_UI">
+      <UniqueIdentifier>{d050621b-32bb-4d4b-a134-95d9984d6b49}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -340,34 +340,34 @@
       <Filter>ソース ファイル\SpriteText</Filter>
     </ClCompile>
     <ClCompile Include="source\UIHrsMinSec.cpp">
-      <Filter>ソース ファイル\MYUI</Filter>
+      <Filter>ソース ファイル\CR0001_UI</Filter>
     </ClCompile>
     <ClCompile Include="source\TimeLine.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="source\UIScreen.cpp">
-      <Filter>ソース ファイル\MYUI</Filter>
+      <Filter>ソース ファイル\CR0001_UI</Filter>
     </ClCompile>
     <ClCompile Include="source\EasingNumber.cpp">
       <Filter>ソース ファイル\SpriteText\Animation</Filter>
     </ClCompile>
     <ClCompile Include="source\UISpriteText.cpp">
-      <Filter>ソース ファイル\MYUI</Filter>
+      <Filter>ソース ファイル\CR0001_UI</Filter>
     </ClCompile>
     <ClCompile Include="source\UIDetectionLevvel.cpp">
-      <Filter>ソース ファイル\MYUI</Filter>
+      <Filter>ソース ファイル\CR0001_UI</Filter>
     </ClCompile>
     <ClCompile Include="source\CameraZoomComponent.cpp">
       <Filter>ソース ファイル\Component\Camera</Filter>
     </ClCompile>
     <ClCompile Include="source\UIVision.cpp">
-      <Filter>ソース ファイル\MYUI</Filter>
+      <Filter>ソース ファイル\CR0001_UI</Filter>
     </ClCompile>
     <ClCompile Include="source\UIMiniMap.cpp">
-      <Filter>ソース ファイル\MYUI</Filter>
+      <Filter>ソース ファイル\CR0001_UI</Filter>
     </ClCompile>
     <ClCompile Include="source\UISecMiliSec.cpp">
-      <Filter>ソース ファイル\MYUI</Filter>
+      <Filter>ソース ファイル\CR0001_UI</Filter>
     </ClCompile>
     <ClCompile Include="source\AIDiscovery.cpp">
       <Filter>ソース ファイル\Component\AI</Filter>
@@ -639,13 +639,13 @@
       <Filter>ヘッダー ファイル\SpriteText</Filter>
     </ClInclude>
     <ClInclude Include="source\UI.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIHrsMinSec.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIScreen.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\TimeLine.h">
       <Filter>ヘッダー ファイル</Filter>
@@ -654,22 +654,22 @@
       <Filter>ヘッダー ファイル\SpriteText\Animation</Filter>
     </ClInclude>
     <ClInclude Include="source\UISpriteText.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIDetectionLevel.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\CameraZoomComponent.h">
       <Filter>ヘッダー ファイル\Component\Camera</Filter>
     </ClInclude>
     <ClInclude Include="source\UIVision.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UIMiniMap.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\UISecMiliSec.h">
-      <Filter>ヘッダー ファイル\MYUI</Filter>
+      <Filter>ヘッダー ファイル\CR0001_UI</Filter>
     </ClInclude>
     <ClInclude Include="source\AIDiscovery.h">
       <Filter>ヘッダー ファイル\Component\AI</Filter>

@@ -12,7 +12,7 @@ CountClearTimeComponent::CountClearTimeComponent(ObjectBase* owner)
 
 CountClearTimeComponent::~CountClearTimeComponent() {
 	//ApplicationGlobal ResultData‚ÌclearTime‚É‘ã“ü
-	GetOwner()->GetObjectServer()->GetGame()->GetClearData()->clearSecondTime = static_cast<float>(_frameCnt / 60); //’PˆÊ:•b
+	GetOwner()->GetObjectServer()->GetGame()->GetClearData()->clearSecondTime = _frameCnt / 60; //’PˆÊ:•b
 }
 
 bool CountClearTimeComponent::Process() {

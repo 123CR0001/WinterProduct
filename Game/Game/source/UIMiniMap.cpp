@@ -14,6 +14,12 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 	, _maxPos(Vector3(-9999999.f, 0.f, -9999999.f))
 	, _minPos(Vector3(9999999.f, 0.f, 9999999.f))
 	,_zoom(1.f)
+	,_x(0.f)
+	,_y(0.f)
+	,_mag(1.f)
+	,_mapScreen(0)
+	,_mixScreen(0)
+	,_clipScreen(0)
 {
 
 	std::string stage = _game->GetStage().substr(0, 1);
@@ -59,8 +65,8 @@ UIMiniMap::UIMiniMap(ModeGame* game, int drawOrder)
 	_mag = 0.2f;
 
 	//画像の描画サイズを拡大縮小率に合わせる
-	_w = fabsf(_maxPos.x - _minPos.x) * _mag;
-	_h = fabsf(_maxPos.z - _minPos.z) * _mag;
+	_w = static_cast<int>(fabsf(_maxPos.x - _minPos.x) * _mag);
+	_h = static_cast<int>(fabsf(_maxPos.z - _minPos.z) * _mag);
 
 	// 同期読み込み設定
 	_mapScreen = MakeScreen(_w, _h, TRUE);
@@ -109,11 +115,8 @@ bool UIMiniMap::Process() {
 	SetDrawScreen(_mapScreen);
 	ClearDrawScreen();
 
-
-
-
 	//ベース生地
-	DrawBox(-10 , -10  ,  _w + 10, _h + 10, GetColor(125, 125, 125), TRUE);
+	DrawBox(0 , 0 ,  _w , _h, GetColor(125, 125, 125), TRUE);
 
 	//ミニマップを描画
 	DrawExtendGraph(0, 0, _w, _h , _mapTextHandle, TRUE);
@@ -164,7 +167,6 @@ bool UIMiniMap::Draw() {
 	//画面に合成した画像を描画する
 
 	const float angle = _game->GetObjectServer()->GetPlayer()->GetCamera()->GetAngle().y;
-
 
 	//プレイヤーが中心に来るように、画像を描画
 	VECTOR pos[4] = {
